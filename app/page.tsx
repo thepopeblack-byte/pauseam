@@ -1,0 +1,12 @@
+"use client";
+import { useState } from "react";
+import { JourneyPanel } from "@/components/journey";
+import type { Journey } from "@/lib/safety";
+import { ShieldCheck, Mic, ArrowUpRight, LockKeyhole, BookOpen, CircleHelp, ArrowRight } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+export default function Home() {
+ const [journey,setJourney]=useState("before");
+ return <div className="site"><header><a className="brand" href="/"><ShieldCheck/><span>Before You Pay<span className="brand-note">A little pause. A safer payment.</span></span></a><nav><a href="#workspace">Safety check</a><a href="/evaluation">Evaluation <ArrowUpRight size={15}/></a></nav><span className="project-tag">NCAIR INNOVATION CHALLENGE</span></header><main><div className="intro"><span className="eyebrow">PAYMENT SAFETY, IN YOUR OWN WORDS</span><h1>Pause. Ask.<br/><span>Pay with care.</span></h1><p>Something about a payment doesn’t feel right?<br/>Talk it through before you take the next step.</p></div><div className="workspace" id="workspace"><section className="main-card"><Tabs value={journey} onValueChange={setJourney}><TabsList className="journey-tabs"><TabsTrigger value="before">Before I pay</TabsTrigger><TabsTrigger value="after">I’ve already paid</TabsTrigger><TabsTrigger value="learn">Help me learn</TabsTrigger></TabsList>{["before","after","learn"].map(j=><TabsContent key={j} value={j}><JourneyPanel journey={j as Journey}/></TabsContent>)}</Tabs></section><aside><div className="trust-card"><div className="icon-label"><ShieldCheck size={21}/> A safer place to start</div><h3>You don’t have to <br/>figure it out alone.</h3><p>Simple guidance, grounded in Nigerian payment-safety sources.</p><ul><li><LockKeyhole/>Your banking secrets stay with you</li><li><BookOpen/>See the source behind each answer</li><li><CircleHelp/>No guesses when we don’t know</li></ul><div className="trust-foot">A safety guide. Not a bank or a fraud verdict.</div></div><div className="urgent-card"><span className="eyebrow">ALREADY SENT MONEY?</span><h3>Act quickly. Contact your bank.</h3><p>Use your bank’s official app or a contact you independently trust.</p><button onClick={()=>setJourney("after")}>See what to do next <ArrowUpRight size={16}/></button></div></aside></div><footer><span><ShieldCheck size={16}/> Designed for Nigerian voices</span><a href="/about">Sources, model & privacy</a><span>Research MVP · No payment processing</span></footer></main></div>;
+}
+
+
