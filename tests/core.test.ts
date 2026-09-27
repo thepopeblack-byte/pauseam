@@ -26,3 +26,4 @@ test("mock contract preserves actual returned text (NOT a model validation)",asy
 test("wrong model, empty, malformed and sensitive responses fail",async()=>{for(const data of [{text:"test",model:"another-model",revision:REVISION},{text:"",model:MODEL,revision:REVISION},{text:"my PIN is 1234",model:MODEL,revision:REVISION}])await assert.rejects(()=>transcribe(wav(),config,async()=>Response.json(data)));await assert.rejects(()=>transcribe(wav(),config,async()=>new Response("not json")));});
 test("upstream denial fails with no substitute transcript",async()=>{await assert.rejects(()=>transcribe(wav(),config,async()=>new Response("",{status:403})));});
 
+test("learning banking-codes suggestion retrieves its source",()=>{const a=retrieve("How do I protect my banking codes?","learn",{now});assert.equal(a.status,"ok");assert.equal(a.cards[0].id,"secrets");});
