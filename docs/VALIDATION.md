@@ -14,3 +14,13 @@
 
 This file reports only observed checks. It is not a financial-safety certification or model benchmark.
 
+
+## 2026-10-01 finishing pass
+
+- Inference responses are bounded while streaming; malformed endpoints are rejected before credentials are forwarded.
+- Leaving a journey or cancelling a voice request discards late results. Decoded audio buffers are cleared after upload/inference forwarding.
+- Optional measurements require testing consent at request start and completion. Quiz attempts use measured elapsed time and prevent duplicate clicks.
+- Python WAV decoding now rejects truncated payloads and has dependency-free tests.
+- Render deployment guide, provider PORT support, readiness route and a secret-safe health-check command are included. No hosting purchase or live model run is claimed.
+- The live Site configuration was inspected and contained no environment entries. The user clarified they need instructions to obtain the inference URL. Live ASR remains unconfigured pending actual service deployment.
+- Finishing-pass checks: 27 application tests and six Python WAV-validation tests passed; TypeScript passed; all 12 local HTTP checks passed. These are software checks, not live model or participant validation.

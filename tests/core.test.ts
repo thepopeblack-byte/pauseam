@@ -27,3 +27,7 @@ test("wrong model, empty, malformed and sensitive responses fail",async()=>{for(
 test("upstream denial fails with no substitute transcript",async()=>{await assert.rejects(()=>transcribe(wav(),config,async()=>new Response("",{status:403})));});
 
 test("learning banking-codes suggestion retrieves its source",()=>{const a=retrieve("How do I protect my banking codes?","learn",{now});assert.equal(a.status,"ok");assert.equal(a.cards[0].id,"secrets");});
+
+test("upstream oversized stream is cancelled before full buffering",async()=>{let cancelled=false;const body=new ReadableStream<Uint8Array>({start(c){c.enqueue(new Uint8Array(9000));},cancel(){cancelled=true;}});await assert.rejects(()=>transcribe(wav(),config,async()=>new Response(body)));assert.equal(cancelled,true);});
+test("cancelled request signal reaches inference transport",async()=>{const controller=new AbortController();controller.abort();await assert.rejects(()=>transcribe(wav(),config,async(_url,init)=>{assert.equal(init?.signal?.aborted,true);throw new Error("cancelled");},controller.signal));});
+test("endpoint credentials and query strings are rejected before forwarding",async()=>{for(const endpoint of ["https://name:secret@example.invalid/transcribe","https://example.invalid/transcribe?token=private","not-a-url"]){let called=false;await assert.rejects(()=>transcribe(wav(),{...config,ASR_ENDPOINT:endpoint},async()=>{called=true;return Response.json({});}));assert.equal(called,false);}});

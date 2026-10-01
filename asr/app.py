@@ -6,6 +6,10 @@ import os
 import re
 import time
 import wave
+try:
+    from .audio_validation import validate_pcm
+except ImportError:
+    from audio_validation import validate_pcm
 from collections import deque
 from contextlib import asynccontextmanager
 
@@ -56,6 +60,11 @@ def authenticate(request):
         raise HTTPException(401, "Unauthorized")
 
 
+@app.get("/ready")
+async def ready():
+    return JSONResponse({"ready": asr is not None}, status_code=200 if asr is not None else 503,
+                        headers={"Cache-Control": "no-store"})
+
 @app.get("/health")
 async def health(request: Request):
     authenticate(request)
@@ -65,12 +74,7 @@ async def health(request: Request):
 
 def infer(raw):
     try:
-        with wave.open(io.BytesIO(raw), "rb") as wav:
-            if wav.getnchannels() != 1 or wav.getframerate() != 16000 or wav.getsampwidth() != 2:
-                raise ValueError()
-            if not 8000 <= wav.getnframes() <= 480000 or wav.getcomptype() != "NONE":
-                raise ValueError()
-            samples = np.frombuffer(wav.readframes(wav.getnframes()), dtype="<i2").astype(np.float32) / 32768
+        samples = np.frombuffer(validate_pcm(raw), dtype="<i2").astype(np.float32) / 32768
         if np.sqrt(np.mean(samples ** 2)) < .004:
             raise ValueError()
     except Exception:
@@ -122,4 +126,5 @@ async def transcribe(request: Request):
             raise HTTPException(408, "Upload timed out")
         finally:
             raw[:] = b"\x00" * len(raw)
+
 

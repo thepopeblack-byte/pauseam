@@ -97,3 +97,9 @@ The dashboard is a small-device testing tool, not a central research repository.
 - lib/evaluation.ts, app/evaluation/: local anonymous measurements
 - app/about/: source, privacy, model and hosting disclosures
 
+
+## Need an endpoint URL?
+
+Follow [the speech-service hosting guide](asr/README.md). Deploy the supplied Docker service on a host such as Render; the host supplies the HTTPS address. Add /transcribe to that address. Model download approval alone does not create an API endpoint. The guide names the exact files, runtime variables and health check. No hosting plan has been purchased.
+
+After secure configuration, run `node scripts/check-asr.mjs` to verify the real authenticated model identity without sending audio. Then run the consented voice demo. Run the dependency-free Python audio tests with `python -m unittest discover -s tests -p 'test_*.py'`.

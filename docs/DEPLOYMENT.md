@@ -6,7 +6,7 @@ The registered private Site is recorded in .openai/hosting.json. Keep its projec
 
 1. Run npm ci, npm test, npm run typecheck and npm run build.
 2. The Worker is dist/server/index.js; static assets are dist/client. It must export a default fetch handler. Preserve the Sites Vite build plugin.
-3. Using the Sites plugin, open the existing project, run its source workflow to push this exact source, package only .openai/hosting.json plus dist/server and dist/client (exclude .dev.vars and any env/secrets), save and deploy the matching version privately.
+3. Using the Sites plugin, open the existing project, run its source workflow to push this exact source, package the staged dist folder containing .openai/hosting.json, server and client (exclude .dev.vars and any env/secrets), save and deploy the matching version privately.
 4. Check terminal deployment status before claiming a live URL. Registration's expected_url is not proof of deployment.
 5. Set ASR_ENABLED=false initially, KB_ENABLED=true. With the authenticated Python host ready, configure ASR_ENDPOINT and secret ASR_SERVICE_TOKEN through Sites environment management, then set ASR_ENABLED=true and redeploy.
 6. Keep the Site private for review. Public field testing requires explicit sharing decisions, host rate limits and the real source/content review described in REVIEW.md.
@@ -35,3 +35,5 @@ Disable body logging, diagnostic payload capture and audio retention at every la
 
 The npm lockfile fixes the web dependency graph. Python top-level versions are pinned in asr/requirements.txt; transitive Python resolution and the Docker base tag are not immutable. For a formally reproducible research deployment, freeze a platform-specific pip lock with hashes and an approved container digest after testing on the actual inference host. No such tested container digest or live model benchmark is invented here.
 
+
+For step-by-step instructions to obtain your endpoint URL, see [the speech-service guide](../asr/README.md). Use /ready for host health checks and scripts/check-asr.mjs for an authenticated model identity check. Neither check validates transcription accuracy.
