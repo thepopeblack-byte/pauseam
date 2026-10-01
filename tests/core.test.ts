@@ -1,9 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {CARDS,MODEL,REVISION,retrieve,containsSensitive,wordErrors} from "../lib/safety.ts";
+import {CARDS,MODEL,REVISION,retrieve,containsSensitive,wordErrors,currentSourceCards} from "../lib/safety.ts";
 import {validWav,transcribe} from "../lib/asr.ts";
 import {cleanTrial,summary} from "../lib/evaluation.ts";
 const now=new Date("2026-10-01T12:00:00Z");
+test("source eligibility rejects future reviews and missing review dates for both engines",()=>{
+ assert.deepEqual(currentSourceCards([{...CARDS[0],checked:"2030-01-01",expires:"2031-01-01"},{...CARDS[0],checked:""}],now),[]);
+ assert.equal(currentSourceCards([CARDS[0]],now).length,1);
+});
 test("before-payment guidance has real CBN sources and honest provenance",()=>{const a=retrieve("A seller wants payment for delivery","before",{now});assert.equal(a.status,"ok");assert.equal(a.cards[0].id,"shopping");assert.equal(a.model,null);assert.match(a.cards[0].review,/human review pending/);});
 test("after-payment gives urgent reporting even without keyword",()=>assert.equal(retrieve("Please help","after",{now}).cards[0].id,"report"));
 test("urgent text overrides wrong journey",()=>assert.equal(retrieve("I already paid a seller","before",{now}).cards[0].id,"report"));

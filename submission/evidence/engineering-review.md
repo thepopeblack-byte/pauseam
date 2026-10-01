@@ -3,7 +3,7 @@
 These checks were performed by Codex on the Windows development host. They are
 engineering evidence, not field validation, fluent-language review or model proof.
 
-- 35 Node safety, retrieval, privacy, model-contract and audio-boundary tests passed.
+- 36 Node safety, retrieval, privacy, model-contract and audio-boundary tests passed.
 - 6 Python WAV-validation tests passed.
 - TypeScript checking and Python syntax compilation passed.
 - 15 live local HTTP checks passed, including unavailable inference, origin/consent
@@ -29,3 +29,5 @@ was produced by these checks. Production checks are recorded separately.
 Final live release check caught and repaired Unicode punctuation encoding and a rapid first-use click before controls were ready. Corrected source 741796df32aeede3d9180a7cf0123fc219ad60bf was rebuilt, deployed and checked. The selected question then persisted, a visible loading state appeared and real source guidance returned. See production-review.json for measured failures and limits.
 
 Evaluation schema 2 now keeps per-language ASR provenance and rejects wrong language/model pairings. Two additional engineering tests passed; none are participant records. A clean public clone of commit 741796df32aeede3d9180a7cf0123fc219ad60bf installed 671 locked packages and passed TypeScript checking. New npm reported six pending build-install scripts; only their exact official dependency versions were approved. Fresh clone dependency rebuild and production build also passed; model deployment remains unverified.
+
+Shared source eligibility now rejects missing review dates and future-dated reviews in both deterministic retrieval and the text-model adapter. The additional boundary test passed; no inference or participant record was created.

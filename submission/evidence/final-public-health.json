@@ -1,0 +1,55 @@
+{
+  "checkedUtc": "2026-10-01T22:18:16.3979300Z",
+  "commit": "795bfd6a742167eb88e74b884a24752d06b4fef4",
+  "deployment": "appgdep_6abedb374e308191b67a74a574a2cc39",
+  "anonymousHTTPChecksPassed": 15,
+  "status": {
+    "model": "NCAIR1/NigerianAccentedEnglish",
+    "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+    "kbVersion": "2026-10-01.1",
+    "asrConfigured": false,
+    "languages": {
+      "en": {
+        "label": "Nigerian-accented English",
+        "tag": "en-NG",
+        "model": "NCAIR1/NigerianAccentedEnglish",
+        "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+        "configured": false,
+        "validated": false
+      },
+      "yo": {
+        "label": "Yoruba",
+        "tag": "yo",
+        "model": "NCAIR1/Yoruba-ASR",
+        "revision": "d1ae7b8b79c2ccd547d8761effe5057433f3fc7f",
+        "configured": false,
+        "validated": false
+      },
+      "ha": {
+        "label": "Hausa",
+        "tag": "ha",
+        "model": "NCAIR1/Hausa-ASR",
+        "revision": "e635b9eda29060c6114c8f4d8b2d903f5c83a44a",
+        "configured": false,
+        "validated": false
+      },
+      "ig": {
+        "label": "Igbo",
+        "tag": "ig",
+        "model": "NCAIR1/Igbo-ASR",
+        "revision": "180732299d5cba3dc8b289260ac84b7838bb3954",
+        "configured": false,
+        "validated": false
+      }
+    },
+    "textModel": {
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273"
+    },
+    "textConfigured": false,
+    "officialAPI": "unverified",
+    "fineTuning": "not performed",
+    "kbEnabled": true,
+    "note": "Configuration is not proof of availability. Live language validation and fluent review are pending."
+  }
+}

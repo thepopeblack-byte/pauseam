@@ -29,7 +29,7 @@ export function retrieve(question:string,journey:Journey,options:{disabled?:bool
  if(containsSensitive(question))return {...base,status:"sensitive",cards:[],message:"Remove all numbers and private details. Describe only the situation."};
  if(options.disabled)return {...base,status:"unavailable",cards:[],message:"The safety library is unavailable. I cannot assess this request. Pause the payment and contact your bank through a trusted channel."};
  const now=options.now||new Date();
- const cards=(options.cards||CARDS).filter(c=>c.checked&&Date.parse(c.checked+"T00:00:00Z")<=now.getTime()&&Date.parse(c.expires+"T23:59:59Z")>=now.getTime()&&c.source.startsWith("https://www.cbn.gov.ng/"));
+ const cards=currentSourceCards(options.cards||CARDS,now);
  if(!cards.length)return {...base,status:"unavailable",cards:[],message:"No current source-checked guidance is available. Pause and ask your bank through an independently trusted channel."};
  const text=question.toLowerCase();
  const urgent=journey==="after"||/\b(already paid|already sent|been scammed|was scammed|account hacked|money stolen|unauthori[sz]ed)\b/.test(text);
@@ -39,6 +39,9 @@ export function retrieve(question:string,journey:Journey,options:{disabled?:bool
  return {...base,status:"ok",cards:scored.slice(0,1).map(x=>x.c),message:"These are safety steps, not a verdict on a person or payment."};
 }
 export const TEST_PROMPTS = ["Someone sent me a link and asked for my banking code.","I already paid a seller and I think it is a scam.","An investment promises to double my money."];
+export function currentSourceCards(cards:Card[]=CARDS,now:Date=new Date()){
+ return cards.filter(c=>c.checked&&Date.parse(c.checked+"T00:00:00Z")<=now.getTime()&&Date.parse(c.expires+"T23:59:59Z")>=now.getTime()&&c.source.startsWith("https://www.cbn.gov.ng/"));
+}
 export function wordErrors(reference:string,hypothesis:string){
  const words=(s:string)=>s.normalize("NFC").toLowerCase().replace(/[^\p{L}\p{M}\s]/gu,"").trim().split(/\s+/).filter(Boolean);
  const a=words(reference),b=words(hypothesis);let row=b.map((_,i)=>i+1);row.unshift(0);
