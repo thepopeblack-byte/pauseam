@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-01",
+  "commit": "52e51367c428fa1f3b34a4d13a968e0b16917fea",
+  "deployment": "appgdep_6abecedc3d2c81919a21905579a30699",
+  "url": "https://pauseam.thepopeblack.chatgpt.site",
+  "publicAccess": "Sites access mode public, revision 2",
+  "anonymousHTTP": {
+    "checksPassed": 15,
+    "modelInferencePerformed": false,
+    "evaluationRecordsCreated": false
+  },
+  "browserChecks": [
+    "Supplier-change checklist and source/review detail",
+    "Immediate after-payment bank-contact advice",
+    "Learning choice completed by Enter; both choices disabled afterward",
+    "No horizontal overflow at desktop and 390-pixel viewport"
+  ],
+  "conditions": {
+    "host": "Windows development computer, 8 logical CPUs, approximately 31.8 GiB RAM",
+    "browser": "Codex in-app Chromium browser",
+    "network": "Connection type and throughput not measured; no artificial network or CPU throttling applied",
+    "cache": "Not cleared; fresh tabs and one reload; not a cold-cache experiment",
+    "device": "Windows desktop; viewport resizing is not a physical Android test"
+  },
+  "measurements": [
+    {
+      "run": "desktop-1",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "contentWidth": 1265
+      },
+      "lcpMs": 4604,
+      "inpMs": 248,
+      "cls": 0.075,
+      "actions": "Supplier-change request; source detail; performance panel"
+    },
+    {
+      "run": "desktop-2",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "contentWidth": 1265
+      },
+      "lcpMs": 3436,
+      "inpMs": 352,
+      "cls": 0.09,
+      "actions": "After-payment and learning navigation; keyboard choice; performance panel",
+      "note": "A requested viewport override had not applied to this new tab; DOM size showed it was desktop. It is not mobile evidence."
+    },
+    {
+      "run": "mobile-viewport-before-fix",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "contentWidth": 375
+      },
+      "lcpMs": 3704,
+      "inpMs": 96,
+      "cls": 0.321,
+      "actions": "Reload at confirmed viewport; supplier-change request; performance panel",
+      "note": "LCP and CLS miss target; delayed result insertion investigated."
+    }
+  ],
+  "targets": {
+    "lcpMs": 2500,
+    "inpMs": 200,
+    "cls": 0.1
+  },
+  "limitations": [
+    "Only one run per scenario; no field percentiles",
+    "No low-end physical Android, constrained-network or screen-reader session",
+    "No live model inference or model latency measurements",
+    "Values are snapshots and can change until page leave"
+  ]
+}

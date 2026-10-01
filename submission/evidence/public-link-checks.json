@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://github.com/thepopeblack-byte/pauseam",
+    "status": 200,
+    "bytes": 319368,
+    "checkedUtc": "2026-10-01T21:26:48.0127280Z"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/thepopeblack-byte/pauseam/main/README.md",
+    "status": 200,
+    "bytes": 2338,
+    "checkedUtc": "2026-10-01T21:26:49.7229848Z"
+  },
+  {
+    "url": "https://www.cbn.gov.ng/supervision/cpdfraudandscam.html",
+    "status": 200,
+    "bytes": 12658,
+    "checkedUtc": "2026-10-01T21:26:53.0694326Z"
+  },
+  {
+    "url": "https://www.cbn.gov.ng/FinInc/FinLit/BillOfRights.html",
+    "status": 200,
+    "bytes": 15871,
+    "checkedUtc": "2026-10-01T21:26:54.2118184Z"
+  },
+  {
+    "url": "https://www.cbn.gov.ng/FinInc/FinLit/LodgeComplaint.html",
+    "status": 200,
+    "bytes": 10663,
+    "checkedUtc": "2026-10-01T21:26:56.5300820Z"
+  }
+]

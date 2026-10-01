@@ -21,3 +21,7 @@ details{margin:14px 0}summary{cursor:pointer;min-height:44px;padding:8px 0;font-
 @media print{header,nav,.journey-picker,.voice-button,button,textarea,.consent,aside{display:none}main{padding:0}.workspace{display:block}.main-card{border:0}}
 
 .performance-panel{max-width:1056px;margin:0 auto 28px;padding:0 24px;font-size:.875rem;color:#49636e}.performance-panel dl{display:grid;grid-template-columns:4rem 1fr;gap:8px}.performance-panel dt{font-weight:700}.performance-panel dd{margin:0}
+
+/* Reserve the response area at request start so late guidance does not push content. */
+.response-slot{min-height:32rem}.response-loading{min-height:30rem}.loading-line{height:3.5rem;border-radius:8px;background:#eef3f5;margin:18px 0;max-width:100%}.loading-line:last-child{width:75%}
+@media(max-width:760px){.response-slot{min-height:43rem}.response-loading{min-height:40rem}}

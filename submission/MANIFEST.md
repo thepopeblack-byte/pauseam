@@ -6,7 +6,7 @@ Deadline: 12 October 2026, 11:59 p.m. West Africa Time.
 
 | Item | Status | Review artefact and evidence | Exact remaining action |
 |---|---|---|---|
-| 01 Working Artefact | blocked | [Setup](01-artefact/README.md), [source](https://github.com/thepopeblack-byte/pauseam), [app](https://pauseam.thepopeblack.chatgpt.site) | Verify public release and complete genuine four-language PS2 voice flows |
+| 01 Working Artefact | blocked | [Setup](01-artefact/README.md), [public source](https://github.com/thepopeblack-byte/pauseam), [public app](https://pauseam.thepopeblack.chatgpt.site), [production checks](evidence/production-review.json) | Public UI/text release verified; complete genuine four-language PS2 voice flows |
 | 02 Integration Evidence | blocked | [Source](02-integration/integration-evidence.md), [access register](02-integration/access-and-models.md), [review PDF](../output/pdf/02-natlas-integration.pdf) | Actual model traces/screenshots; organiser service answer; official API proof if claimed; fine-tuning evidence if claimed |
 | 03 Real-World Validation | blocked | [Protocol](03-validation/discovery-pack.md), [report](03-validation/validation-report.md), [empty log schema](03-validation/interactions-template.csv), [review PDF](../output/pdf/03-validation-status.pdf) | Discovery, fluent reviews and at least 50 completed documented PS2 interactions; reconcile counts |
 | 04 Technical Documentation | blocked | [Source](04-technical/technical-documentation.md), [hosting](04-technical/model-hosting.md), [review PDF](../output/pdf/04-technical-documentation.pdf) | Reproduce actual model deployment and update measured results, costs and limitations |
@@ -22,6 +22,12 @@ are **0**, as reconciled in [actual totals](evidence/validation-totals.json).
 See the [full release gate](RELEASE-GATE.md), [six-criteria matrix](evidence-matrix.md),
 [ONDI drafts](portal-and-form-drafts.md), [engineering review](evidence/engineering-review.md)
 and [organiser query](organiser-query.md). No application was submitted.
+
+Public production endpoints passed 15 anonymous HTTP checks. All three payment
+safety source URLs returned HTTP 200. [Actual performance](evidence/performance-report.md)
+includes failed targets and test conditions; viewport checks are not real Android
+or field validation. [PDF page and hash review](evidence/pdf-review.json) covers
+all five rendered review documents.
 
 Public PDFs and source files contain no tokens, recordings or ID documents.
 Research logs and identity evidence belong outside Git under the ignored private
