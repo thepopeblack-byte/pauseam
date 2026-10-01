@@ -24,4 +24,5 @@ details{margin:14px 0}summary{cursor:pointer;min-height:44px;padding:8px 0;font-
 
 /* Reserve the response area at request start so late guidance does not push content. */
 .response-slot{min-height:32rem}.response-loading{min-height:30rem}.loading-line{height:3.5rem;border-radius:8px;background:#eef3f5;margin:18px 0;max-width:100%}.loading-line:last-child{width:75%}
+.primary{min-height:4.25rem}
 @media(max-width:760px){.response-slot{min-height:43rem}.response-loading{min-height:40rem}}
