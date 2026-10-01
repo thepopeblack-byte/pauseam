@@ -1,0 +1,39 @@
+{
+  "checkedUtc": "2026-10-01 23:01:46 UTC",
+  "appCommit": "45a9f255d7b2dd9c3b39d4ad1a88034c35002baf",
+  "deployment": {
+    "id": "appgdep_6abee5c5a5d8819195ce98731d7bdfa2",
+    "project_id": "appgprj_6ab826bba8f48191ad36895acae09407",
+    "title": "PauseAm — Ask before you pay.",
+    "version_id": "appgprj_6ab826bba8f48191ad36895acae09407~appgver_97740aa8a55c8191a4f07d4ca996eb11",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://pauseam.thepopeblack.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ab826bba8f48191ad36895acae09407",
+    "failure_message": null,
+    "env_set_revision": 1,
+    "updated_at": "2026-10-01T22:59:32.675194+00:00"
+  },
+  "nodeTestsPassed": 36,
+  "pythonTestsPassed": 6,
+  "typecheckPassed": true,
+  "buildPassed": true,
+  "anonymousHTTPChecksPassed": 15,
+  "documentedPS2Interactions": 0,
+  "successfulModelInferences": 0,
+  "browserChecks": [
+    "Public home rendered",
+    "Fresh browser load noticeably slow before controls became enabled; uninstrumented observation, performance gate remains failed",
+    "Supplier-change typed checklist returned with source provenance, model none and typed input"
+  ],
+  "limitations": [
+    "No genuine four-language inference",
+    "No human safety or fluent-language signoff",
+    "No physical Android/network/screen-reader validation",
+    "No MP4",
+    "No ONDI application submitted"
+  ],
+  "publicRepositoryCommitVerified": "45a9f255d7b2dd9c3b39d4ad1a88034c35002baf"
+}
