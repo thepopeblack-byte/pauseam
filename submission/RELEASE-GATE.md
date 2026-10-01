@@ -16,7 +16,7 @@ As of 1 October 2026. Overall: BLOCKED. Do not submit ONDI.
 | Discovery / feature demand | blocked | 03-validation/discovery-pack.md | Kayode arranges 6–8 sessions; record findings and revise |
 | Minimum 50 PS2 interactions | blocked | 03-validation/validation-report.md | Complete genuine sessions with trace and observer evidence |
 | Low-end Android / network / assistive validation | blocked | evidence/ | Run representative device, network and screen-reader sessions |
-| Initial measured performance targets | failed | evidence/production-review.json; evidence/performance-report.md | Record loading-state fix retest; investigate remaining LCP/INP and validate real devices |
+| Initial measured performance targets | failed | evidence/production-review.json; evidence/performance-report.md | Loading fix retest: CLS 0.023, INP 120 ms; LCP 5,852 ms fails. Investigate load time and validate real devices |
 | Real demo MP4, 3–5 minutes | blocked | 05-video/capture-plan.md | Capture functioning live model flows, caption, watch and verify |
 | Two complete team bios | blocked | 06-team/team-profile.md | Full Suleiman details and both members' confirmation |
 | Private CAC / valid government ID | blocked | 07-registration/private-checklist.md | Select correct applicant evidence and review privately |

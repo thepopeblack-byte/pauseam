@@ -4,7 +4,7 @@ Checked 1 October 2026. No application submitted.
 
 | Criterion | Existing evidence | Gap / next action |
 |---|---|---|
-| Working Artefact & Technical Rigour | App, source adapters, privacy guards, unit/audio/HTTP checks, setup docs | Finish fresh public deployment and mobile/assistive checks; live voice remains blocked |
+| Working Artefact & Technical Rigour | App, source adapters, privacy guards, unit/audio/HTTP checks, setup docs | Public deployment, anonymous HTTP and fresh-clone install/build verified; physical mobile/assistive and live voice remain blocked |
 | N-ATLaS Integration | Pinned official IDs, actual repository metadata, code, strict contracts | Approved access, real hosts/traces, organiser ASR ruling, official API contract; fine-tuning not performed |
 | Real-World Validation | Consent, discovery pack, empty log schema, aggregation tool and predeclared criteria | Run discovery and at least 50 real documented PS2 interactions |
 | Impact Potential | Clearly scoped payment-decision hypothesis | Observe demand, comprehension and return use; future impact remains a projection |

@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-01",
+  "publicCloneCommit": "741796df32aeede3d9180a7cf0123fc219ad60bf",
+  "npmCi": {
+    "passed": true,
+    "packagesInstalled": 671,
+    "reportedDuration": "7 minutes"
+  },
+  "typecheck": {
+    "passed": true
+  },
+  "build": {
+    "passed": true,
+    "commit": "741796df32aeede3d9180a7cf0123fc219ad60bf",
+    "scope": "Fresh clone after exact pinned dependency install-script approval/rebuild. Model weights were not loaded."
+  },
+  "modelDeploymentReproduced": false,
+  "notes": "Fresh clone; cached package downloads are allowed by npm integrity checking. Six pinned official esbuild/workerd/unrs-resolver install scripts reviewed, not blanket approval."
+}

@@ -25,12 +25,12 @@ export function VoiceInput({onTranscript,testing=false,reference="",journey="bef
  }
  async function send(){
   if(!audio||!consent||busy)return;setBusy(true);setMessage("");const started=performance.now(),id=++operation.current,saveMeasurement=testingRef.current;cancel.current=new AbortController();const controller=cancel.current;
-  const trial:Trial={kind:"asr",journey,outcome:"failed",latencyMs:0};
+  const trial:Trial={kind:"asr",journey,language,outcome:"failed",latencyMs:0};
   try{const bytes=await toWav(audio);if(!alive.current||operation.current!==id||controller.signal.aborted){bytes.fill(0);return;}const timeout=setTimeout(()=>controller.abort(),50000);let response:Response;
    try{response=await fetch("/api/asr",{method:"POST",headers:{"Content-Type":"audio/wav","X-Audio-Consent":"yes","X-Language":language},body:bytes as BodyInit,signal:controller.signal});}finally{clearTimeout(timeout);bytes.fill(0);}
    const data=await response.json() as {error?:string;text:string;model:string;revision:string};if(!response.ok)throw new Error(data.error||"Speech recognition is unavailable.");
    if(data.model!==identity.model||data.revision!==identity.revision||typeof data.text!=="string")throw new Error("The model identity could not be verified.");
-   trial.outcome="ok";if(reference)Object.assign(trial,wordErrors(reference,data.text));if(alive.current&&operation.current===id&&!controller.signal.aborted)onTranscript(data.text,data.model);
+   trial.outcome="ok";trial.model=data.model;trial.modelRevision=data.revision;if(reference)Object.assign(trial,wordErrors(reference,data.text));if(alive.current&&operation.current===id&&!controller.signal.aborted)onTranscript(data.text,data.model);
   }catch(e){if(alive.current&&operation.current===id)setMessage(e instanceof Error?e.message:"No transcript was available. Type instead.");}
   finally{trial.latencyMs=Math.min(120000,Math.round(performance.now()-started));if(saveMeasurement&&testingRef.current&&alive.current&&operation.current===id&&!saveTrial(trial))setMessage("Test result could not be saved on this device.");if(alive.current&&operation.current===id){setBusy(false);setAudio(null);}}
  }

@@ -60,6 +60,21 @@
       "cls": 0.321,
       "actions": "Reload at confirmed viewport; supplier-change request; performance panel",
       "note": "LCP and CLS miss target; delayed result insertion investigated."
+    },
+    {
+      "run": "mobile-viewport-after-fix",
+      "commit": "741796df32aeede3d9180a7cf0123fc219ad60bf",
+      "deployment": "appgdep_6abed41769788191a72450bec0f8500c",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "contentWidth": 375
+      },
+      "lcpMs": 5852,
+      "inpMs": 120,
+      "cls": 0.023,
+      "actions": "Reload; supplier-change request; visible loading region; performance panel",
+      "note": "CLS and INP meet targets in this single viewport run; LCP fails. Fresh-clone verification had been launched concurrently; completion state was not checked before measurement. This is not a controlled benchmark."
     }
   ],
   "targets": {
@@ -72,5 +87,13 @@
     "No low-end physical Android, constrained-network or screen-reader session",
     "No live model inference or model latency measurements",
     "Values are snapshots and can change until page leave"
+  ],
+  "currentAppCommit": "741796df32aeede3d9180a7cf0123fc219ad60bf",
+  "currentDeployment": "appgdep_6abed41769788191a72450bec0f8500c",
+  "fixVerification": [
+    "Unicode punctuation renders correctly",
+    "First useful action preserves selected question after readiness gating",
+    "Visible reserved loading region precedes checklist",
+    "No horizontal overflow at mobile viewport"
   ]
 }

@@ -58,3 +58,17 @@ test("supplier, school and receipt journeys have source-grounded limitations",()
  for(const [question,id] of [["supplier changed invoice","supplier"],["school tuition","school"],["receipt proof","receipt"]])assert.equal(retrieve(question,"before",{now}).cards[0].id,id);
 });
 test("Unicode WER preserves Yoruba marks",()=>assert.deepEqual(wordErrors("Ẹ káàrọ̀","Ẹ káàrọ̀"),{errors:0,words:2}));
+
+import {languageSummary} from "../lib/evaluation.ts";
+test("language reporting does not attribute legacy or other-language records",()=>{
+ const rows:import("../lib/evaluation.ts").Trial[]=[{kind:"asr",journey:"before",outcome:"ok",latencyMs:1},{kind:"asr",journey:"before",language:"yo",outcome:"ok",latencyMs:2,errors:1,words:4}];
+ assert.deepEqual(languageSummary(rows,"en"),{trials:0,attempts:0,successes:0,wer:null,samples:0});
+ assert.equal(languageSummary(rows,"yo").wer,.25);
+});
+test("evaluation provenance rejects a language/model mismatch and private model strings",()=>{
+ assert.equal(cleanTrial({kind:"asr",journey:"before",outcome:"ok",latencyMs:1,language:"yo",model:MODEL,modelRevision:REVISION}),null);
+ assert.equal(cleanTrial({kind:"asr",journey:"before",outcome:"ok",latencyMs:1,language:"private account details"}),null);
+ const m=LANGUAGES.yo;
+ const row=cleanTrial({kind:"asr",journey:"before",outcome:"ok",latencyMs:1,language:"yo",model:m.model,modelRevision:m.revision,transcript:"must be stripped"});
+ assert.equal(row?.model,m.model);assert.ok(!("transcript" in row!));
+});

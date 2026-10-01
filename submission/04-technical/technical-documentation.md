@@ -43,7 +43,7 @@ Run npm test, npm run typecheck, python -m unittest tests.test_audio -v,
 npm run build, and npm run test:http against the running server.
 For production preview run npm run start after building.
 
-The JavaScript lockfile is committed. The Windows npm.cmd shim may need the installed
+The JavaScript lockfile is committed. New npm install-script policy allows only six pinned esbuild, workerd and unrs-resolver build dependencies; no blanket script permission is enabled. Temporary verification clones are excluded from TypeScript scanning. The Windows npm.cmd shim may need the installed
 npm-cli.js invoked through node. Python direct dependencies are pinned; transitive
 Python resolution and Docker base-image digests are not yet frozen. A fresh
 authenticated container build is needed before claiming reproducible model deployment.
@@ -71,6 +71,8 @@ Wrong identity, unknown IDs, malformed or oversized responses fail closed.
 Model-host /ready reports readiness; authenticated /health returns model/revision.
 ASR /transcribe accepts WAV. Text /guide accepts the corrected situation and
 server-supplied source context. These are team-host contracts, not official API proof.
+
+Evaluation JSON schema 2 labels its four-model catalog as targets, not inference evidence. Consented successful ASR trials retain only verified model ID/revision, selected language and anonymous counts/latency. Language rows do not assign old records without a target to English. No text, audio or participant identifier is retained. Local records can be modified by the browser owner and are not audited field validation.
 
 ## Source management
 lib/safety.ts is the versioned registry: URL, section, checked date, expiry and
@@ -162,4 +164,4 @@ availability does not grant rights to third-party model weights.
 Actual model credentials/hosts and traces, official service/API clarification,
 fluent review, human safety review, 50 documented interactions, representative
 mobile/assistive testing, real video, full second-member details and private ID/CAC
-are pending. ONDI form limits are behind sign-in. Nothing has been submitted.
+are pending. ONDI pages 1–2 were inspected and local drafts fit verified limits; Programme Fit and remaining constraints are pending. Section navigation auto-saved the pre-existing draft without field edits. The session subsequently returned to sign-in. Nothing has been submitted.

@@ -1,49 +1,35 @@
 {
-  "visualReview": "All nine rendered pages inspected on 1 October 2026. No clipping observed.",
+  "visualReview": "Final ready contact sheets inspected, including repaired title pagination. No clipping. Review copies, not completed model or validation evidence.",
   "documents": [
     {
       "path": "output/pdf/02-natlas-integration.pdf",
       "pages": 3,
-      "sha256": "fbc8a3ac832ae1d8ddda9a23e249690bd6197687795c62e176f8aafd3568c1f7",
-      "textReadable": true,
-      "links": [
-        "https://huggingface.co/NCAIR1/Hausa-ASR",
-        "https://huggingface.co/NCAIR1/Igbo-ASR",
-        "https://huggingface.co/NCAIR1/N-ATLaS",
-        "https://huggingface.co/NCAIR1/NigerianAccentedEnglish",
-        "https://huggingface.co/NCAIR1/Yoruba-ASR",
-        "https://ncair.nitda.gov.ng/naic/"
-      ]
+      "sha256": "d950d65dee0f0ea0d0ec3925a20ee7060ed18e126a0fe37bbcd50f33f5f7ceb3",
+      "textReadable": true
     },
     {
       "path": "output/pdf/03-validation-status.pdf",
       "pages": 1,
-      "sha256": "8be90d8f8ec229bc5edbd91e3de96f1880894779b28fa1780d0f13875e83686c",
-      "textReadable": true,
-      "links": []
+      "sha256": "d5391401a605f3883c86680b50e61898c33d4172d6fa666a8196dc85672d7afe",
+      "textReadable": true
     },
     {
       "path": "output/pdf/04-technical-documentation.pdf",
       "pages": 3,
-      "sha256": "79e9f8496637a86154e46218201994dc5eaca5aad4177dde3f75791bb3a7eee7",
-      "textReadable": true,
-      "links": []
+      "sha256": "f9a85d92b0f081d93e83b5d89c96f555eb9458b609bfe2d9328c37c70d56a828",
+      "textReadable": true
     },
     {
       "path": "output/pdf/06-team-profile-review.pdf",
       "pages": 1,
-      "sha256": "9801e171b816e36d131851dde0706a1c0291ab155f838353dfdf74d5f8591632",
-      "textReadable": true,
-      "links": []
+      "sha256": "f889e12217f06b0d58d2ab7bf91044673e4b59d2f2e281ed695ff2fd67e5aa7c",
+      "textReadable": true
     },
     {
       "path": "output/pdf/07-registration-checklist.pdf",
       "pages": 1,
-      "sha256": "b5fba666a7166ca7a947849cb3f42c20f273ac0cf6bc7cc7a9eb3cc40deb733c",
-      "textReadable": true,
-      "links": [
-        "https://ondi.innox.africa/apply/naic/naic-innovation-enterprise"
-      ]
+      "sha256": "a9e19762b3141775284974edbdaf1c31a5938dddf687bd42bfe28a8dd272bdf8",
+      "textReadable": true
     }
   ]
 }
