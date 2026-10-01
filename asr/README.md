@@ -1,7 +1,13 @@
-# Get your Before You Pay transcription URL
+# Get your PauseAm transcription URL
 
 This folder is a standalone Docker service that runs the real, pinned
 NCAIR1/NigerianAccentedEnglish model. There are no placeholder transcripts.
+
+This service also selects the official Yoruba, Hausa or Igbo model with
+MODEL_LANGUAGE=yo, ha or ig and that model's exact MODEL_REVISION. Use a separate
+instance per language. See [the four-language hosting guide](../submission/04-technical/model-hosting.md)
+for the model map and configuration. These instructions are not evidence of a
+successful deployment or qualification as the official N-ATLaS ASR service.
 
 ## Deploy on Render
 

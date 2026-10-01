@@ -1,0 +1,91 @@
+{
+  "scope": "Actual page 1 and page 2 fields inspected 1 October 2026; local drafts only. Programme Fit and remaining evidence fields pending inspection. No live capability checkbox is supported by current evidence.",
+  "drafts": [
+    {
+      "field": "Team/Project Name",
+      "verifiedLimit": 150,
+      "characters": 7,
+      "answer": "PauseAm",
+      "withinLimit": true
+    },
+    {
+      "field": "Team Name",
+      "verifiedLimit": null,
+      "characters": 7,
+      "answer": "PauseAm",
+      "withinLimit": true
+    },
+    {
+      "field": "Team Member Details",
+      "verifiedLimit": 1500,
+      "characters": 412,
+      "answer": "Kayode Popoola leads product, payment-safety content, partnerships and research. His supplied experience includes sales and business development at Secret Network Foundation, blockchain intelligence and financial-crime analysis, and IAFCI membership. Suleiman is technical lead for implementation, model integration, deployment and testing. His full biography and both members' final confirmation remain pending.",
+      "withinLimit": true
+    },
+    {
+      "field": "One-line summary of your build",
+      "verifiedLimit": 100,
+      "characters": 84,
+      "answer": "PauseAm: Ask before you pay. A voice-first payment decision companion for Nigerians.",
+      "withinLimit": true
+    },
+    {
+      "field": "Why did you choose this problem statement?",
+      "verifiedLimit": 500,
+      "characters": 416,
+      "answer": "Payment requests in chats can leave students, everyday users and small businesses uncertain about what to verify. PauseAm tests whether short, practical actions are more useful than a general fraud chatbot. PS2 offers a route to help through Nigerian speech on ordinary phones. This need remains a hypothesis: 200+ people are willing to test, but discovery and documented user validation have not yet been completed.",
+      "withinLimit": true
+    },
+    {
+      "field": "Describe the artefact you are building (or have built)",
+      "verifiedLimit": 1000,
+      "characters": 837,
+      "answer": "PauseAm is a mobile web payment decision companion with three implemented journeys: Check before I pay, I may have paid a scammer, and Learn a warning sign. Its current English text path returns short CBN-linked checklists, source dates and limitations. After-payment advice appears immediately; selected incident events stay in memory and can be downloaded without private credentials. A warning-sign lesson explains a choice. Four pinned official NCAIR ASR adapters and an N-ATLaS text card-selection service are implemented, but live inference, fluent reviews and official service qualification remain unverified. The app never declares a payment safe, authenticates an account or promises recovery. Secrets stay server-side; audio is not retained by default. Integration evidence, real PS2 validation and the video remain incomplete.",
+      "withinLimit": true
+    },
+    {
+      "field": "Technology stack / key tools used",
+      "verifiedLimit": 150,
+      "characters": 131,
+      "answer": "React 19, TypeScript, Vinext/Vite, Cloudflare Workers; Python/FastAPI, PyTorch, Transformers; official pinned NCAIR model adapters.",
+      "withinLimit": true
+    },
+    {
+      "field": "Link to public repository, live demo, or deployed application",
+      "verifiedLimit": 500,
+      "characters": 44,
+      "answer": "https://github.com/thepopeblack-byte/pauseam",
+      "withinLimit": true
+    },
+    {
+      "field": "PS2: Describe the end-to-end user journey, from voice input to service delivered",
+      "verifiedLimit": 1500,
+      "characters": 1108,
+      "answer": "Implemented voice pipeline: choose language and journey; consent to recording; record a short question; listen or discard; separately consent to upload; convert to bounded mono 16 kHz WAV; send to the configured server-side official-model adapter; display the returned transcript for correction and explicit confirmation; retrieve current allowlisted source cards; optionally use the pinned N-ATLaS text model to select one grounded card; show a heading, short actions, reasons and source dates. Model identity and provenance must match configuration. This pipeline has not completed live inference here: no approved model host is configured. It fails visibly and offers text input; English source retrieval works. Unconfigured Yoruba, Hausa and Igbo guidance fails safely. After suspected fraud, independently verified bank-contact advice is immediate, with an optional private incident checklist. The app does not retain raw audio by default or accept PINs, OTPs, passwords or full account credentials. Real four-language traces and fluent reviews are required before claiming the corresponding capability.",
+      "withinLimit": true
+    },
+    {
+      "field": "PS2: User-acquisition plan for reaching 1,000 users within 3 months of award",
+      "verifiedLimit": 1500,
+      "characters": 891,
+      "answer": "Our initial pool comprises 200+ prospective willing testers, not current users. With their consent and Kayode's authorized outreach, first conduct discovery and document at least 50 real PS2 interactions across the four languages. If evidence supports the companion, month 1 after award targets 200 completed users from that pool; month 2 targets 300 additional users through student and small-business networks; month 3 targets 500 more through practical educational examples and voluntary sharing. These are projections, not traction. Count unique users only after a completed useful journey; track consent, acquisition and drop-off without question text or financial credentials. Monitor the published model licence cap of 1,000 active end users in any rolling 30 days and obtain separate licensing before exceeding it. Maintain content reviews and measure compute costs before expansion.",
+      "withinLimit": true
+    },
+    {
+      "field": "Working artefact evidence (repository / deployed app link / model / API / dataset)",
+      "verifiedLimit": 500,
+      "characters": 44,
+      "answer": "https://github.com/thepopeblack-byte/pauseam",
+      "withinLimit": true
+    }
+  ],
+  "selections": {
+    "problem": "PS2: Voice-First Access",
+    "deliveryChannel": "Low-bandwidth mobile app",
+    "need": "Financial literacy",
+    "completedInteractions": 0,
+    "capabilities": [],
+    "languagesProvenByLiveVoice": [],
+    "buildStatus": "Working prototype describes current UI/text only; not proof of functioning PS2 voice."
+  }
+}

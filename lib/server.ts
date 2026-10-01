@@ -1,4 +1,5 @@
-export type Settings={ASR_ENDPOINT?:string;ASR_SERVICE_TOKEN?:string;ASR_ENABLED?:string;KB_ENABLED?:string};
+import type {ASRConfig} from "./asr.ts";
+export type Settings=ASRConfig & {KB_ENABLED?:string;TEXT_ENDPOINT?:string;TEXT_SERVICE_TOKEN?:string;TEXT_ENABLED?:string};
 export async function settings():Promise<Settings>{
  try {const {env}=await import("cloudflare:workers");return env as Settings;} catch {return process.env as Settings;}
 }

@@ -1,0 +1,56 @@
+# Secure model hosting — PauseAm
+
+No inference URL exists until a service is actually deployed. Do not use the
+Hugging Face model-card URL as an inference endpoint.
+
+## Account action and access
+Sign in yourself to Hugging Face. Read and accept the publisher's conditions for
+all five NCAIR1 repositories linked in access-and-models.md. Use a least-privilege
+read token restricted to the approved repositories. Enter it only in your model
+host's secret settings as HF_TOKEN. Never send tokens, passwords or OTPs in chat.
+The current workspace has no token and an unauthenticated config request returned 401.
+
+## ASR deployment
+The asr folder is a Docker build context. Use an HTTPS container host that can run
+Python/PyTorch, with memory and startup timeout sufficient for the official model.
+Choose and review pricing yourself before provisioning paid resources.
+
+Deploy one service for each language. Set MODEL_LANGUAGE to en, yo, ha or ig and
+MODEL_REVISION to the exact matching SHA in lib/models.ts. Set HF_TOKEN privately
+and generate a random ASR_SERVICE_TOKEN with at least 32 characters in a password
+manager. Use the same service token only across these team-controlled ASR services;
+rotate it in all relevant host secret settings after exposure. PORT defaults to 8000.
+
+The host provides an actual HTTPS origin when deployment succeeds. Use /ready as
+its health check; use authenticated /health to verify the exact loaded identity.
+The actual origin plus /transcribe is the web adapter's endpoint URL.
+Put those URLs into ASR_ENDPOINT (English), ASR_YO_ENDPOINT, ASR_HA_ENDPOINT and
+ASR_IG_ENDPOINT on the web host, with ASR_SERVICE_TOKEN as a secret. Keep
+ASR_ENABLED=false until tests, retention settings and licence controls are ready.
+
+The original Render guide in asr/README.md is one hosting option, not an active
+deployment or a purchase recommendation. No third-party account was created.
+
+## Text deployment
+Use text_service as the Docker context on suitable memory/compute.
+Set MODEL_REVISION=e294476928aca9030e924ca27bb8e085e8581273, HF_TOKEN and a separate
+TEXT_SERVICE_TOKEN of at least 32 random characters. Check /ready and authenticated
+/health. Set the real HTTPS /guide URL as TEXT_ENDPOINT and the matching secret
+on the web host. Keep TEXT_ENABLED=false until real held-out tests pass.
+
+This service follows the documented NCAIR text-model loading and chat template,
+but has not loaded gated weights here. Failure must stay visible, never replaced
+with generic model output. Four-language source wording still needs fluent review.
+
+## Operation
+Use persistent, access-controlled weight caches. Disable access/request-body/model
+output logging, verify platform retention, set TLS and a shared edge request cap,
+bound compute spending and alert on error rates without recording content.
+No automatic audio retry is implemented; users retry deliberately.
+Before public inference, verify a controlled pilot roster/licence accounting under
+1,000 active end users across any rolling 30 days. Obtain separate licensing before
+growth beyond that. A per-process rate limit is not licence enforcement.
+
+Record actual container digest, package lock, model SHA, health response, real
+request trace and measured latency after successful setup. A self-hosted endpoint
+does not establish official API use or organiser acceptance for PS2.

@@ -1,0 +1,26 @@
+{
+  "scope": "Observer-supplied logs; script checks consistency, not authenticity",
+  "recorded": 0,
+  "completedVoice": 0,
+  "distinctCompletedParticipants": 0,
+  "byLanguage": {
+    "en": 0,
+    "yo": 0,
+    "ha": 0,
+    "ig": 0
+  },
+  "unassistedCompletion": null,
+  "comprehension": null,
+  "sourceFound": null,
+  "asrMs": {
+    "n": 0,
+    "median": null,
+    "p95": null
+  },
+  "answerMs": {
+    "n": 0,
+    "median": null,
+    "p95": null
+  },
+  "minimum50Met": false
+}

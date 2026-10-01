@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import {PerformancePanel} from "@/components/performance-panel";
 
 export const metadata: Metadata = {
-  title: "Before You Pay — Nigerian payment safety",
+  title: "PauseAm — Ask before you pay.",
   description: "Voice-first, source-linked payment-safety guidance for Nigeria. Research MVP.",
   other: {
     "codex-preview": "development",
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">{children}<PerformancePanel/></body>
     </html>
   );
 }

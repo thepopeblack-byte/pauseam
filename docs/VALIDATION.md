@@ -1,26 +1,3 @@
-# Observed validation — 2026-09-26
+# PauseAm
 
-- Core software tests: 24 passed; these include deliberately mocked upstream contracts and synthetic negative inputs, not model output or participant data.
-- TypeScript: passed.
-- Production Worker build: passed.
-- Live local HTTP checks: 12 passed (routes, cited typed answer, unknown question, sensitive-input rejection, urgent route, origin enforcement, size limits and consent/content-type failures). They do not write evaluation records.
-- Python inference service: syntax parsed successfully. Python dependencies/model loading/inference were NOT run in this environment.
-- Browser: typed seller question returned source-linked guidance with review caveat and no answer model; after-payment tab showed immediate bank-contact guidance. Agent question staging was verified with valid input and empty-input rejection.
-- Responsive browser check: a requested 390px viewport override rendered the mobile layout without horizontal content overflow; the embedded browser reported innerWidth 433 and document width 416, so exact physical-pixel dimensions were not assumed.
-- Live NCAIR inference: NOT validated. User confirms approved access and an inference host; endpoint URL/contract and securely configured token still required.
-- Independent human source review: pending.
-- Browser evaluation dashboard: verified zero records and unmeasured WER before real testing.
-- Participant/field trials: none claimed. Dashboard contains no seeded validation data.
-
-This file reports only observed checks. It is not a financial-safety certification or model benchmark.
-
-
-## 2026-10-01 finishing pass
-
-- Inference responses are bounded while streaming; malformed endpoints are rejected before credentials are forwarded.
-- Leaving a journey or cancelling a voice request discards late results. Decoded audio buffers are cleared after upload/inference forwarding.
-- Optional measurements require testing consent at request start and completion. Quiz attempts use measured elapsed time and prevent duplicate clicks.
-- Python WAV decoding now rejects truncated payloads and has dependency-free tests.
-- Render deployment guide, provider PORT support, readiness route and a secret-safe health-check command are included. No hosting purchase or live model run is claimed.
-- The live Site configuration was inspected and contained no environment entries. The user clarified they need instructions to obtain the inference URL. Live ASR remains unconfigured pending actual service deployment.
-- Finishing-pass checks: 27 application tests and six Python WAV-validation tests passed; TypeScript passed; all 12 local HTTP checks passed. These are software checks, not live model or participant validation.
+The current document is [submission/03-validation/validation-report.md](../submission/03-validation/validation-report.md).

@@ -52,3 +52,9 @@ __pycache__/
 *.pyc
 *.tar.gz
 *.tsbuildinfo
+
+/private/
+/tmp/
+*.wav
+*.webm
+*.mp4

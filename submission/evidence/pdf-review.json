@@ -1,0 +1,49 @@
+{
+  "visualReview": "All nine rendered pages inspected on 1 October 2026. No clipping observed.",
+  "documents": [
+    {
+      "path": "output/pdf/02-natlas-integration.pdf",
+      "pages": 3,
+      "sha256": "fbc8a3ac832ae1d8ddda9a23e249690bd6197687795c62e176f8aafd3568c1f7",
+      "textReadable": true,
+      "links": [
+        "https://huggingface.co/NCAIR1/Hausa-ASR",
+        "https://huggingface.co/NCAIR1/Igbo-ASR",
+        "https://huggingface.co/NCAIR1/N-ATLaS",
+        "https://huggingface.co/NCAIR1/NigerianAccentedEnglish",
+        "https://huggingface.co/NCAIR1/Yoruba-ASR",
+        "https://ncair.nitda.gov.ng/naic/"
+      ]
+    },
+    {
+      "path": "output/pdf/03-validation-status.pdf",
+      "pages": 1,
+      "sha256": "8be90d8f8ec229bc5edbd91e3de96f1880894779b28fa1780d0f13875e83686c",
+      "textReadable": true,
+      "links": []
+    },
+    {
+      "path": "output/pdf/04-technical-documentation.pdf",
+      "pages": 3,
+      "sha256": "79e9f8496637a86154e46218201994dc5eaca5aad4177dde3f75791bb3a7eee7",
+      "textReadable": true,
+      "links": []
+    },
+    {
+      "path": "output/pdf/06-team-profile-review.pdf",
+      "pages": 1,
+      "sha256": "9801e171b816e36d131851dde0706a1c0291ab155f838353dfdf74d5f8591632",
+      "textReadable": true,
+      "links": []
+    },
+    {
+      "path": "output/pdf/07-registration-checklist.pdf",
+      "pages": 1,
+      "sha256": "b5fba666a7166ca7a947849cb3f42c20f273ac0cf6bc7cc7a9eb3cc40deb733c",
+      "textReadable": true,
+      "links": [
+        "https://ondi.innox.africa/apply/naic/naic-innovation-enterprise"
+      ]
+    }
+  ]
+}

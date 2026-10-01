@@ -20,8 +20,14 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 from transformers import pipeline
 
-MODEL = "NCAIR1/NigerianAccentedEnglish"
-REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff"
+MODELS = {
+    "en": ("NCAIR1/NigerianAccentedEnglish", "3c52c6e6c9ec508014a7b9db6a42b503b8930dff"),
+    "yo": ("NCAIR1/Yoruba-ASR", "d1ae7b8b79c2ccd547d8761effe5057433f3fc7f"),
+    "ha": ("NCAIR1/Hausa-ASR", "e635b9eda29060c6114c8f4d8b2d903f5c83a44a"),
+    "ig": ("NCAIR1/Igbo-ASR", "180732299d5cba3dc8b289260ac84b7838bb3954"),
+}
+LANGUAGE = os.environ.get("MODEL_LANGUAGE", "en")
+MODEL, REVISION = MODELS[LANGUAGE]
 MAX_BYTES = 960044
 asr = None
 slots = asyncio.Semaphore(1)
@@ -42,7 +48,7 @@ async def lifespan(app):
     asr = pipeline(
         "automatic-speech-recognition", model=MODEL, revision=REVISION,
         token=os.environ["HF_TOKEN"], trust_remote_code=False,
-        model_kwargs={"use_safetensors": True},
+        model_kwargs={"use_safetensors": False, "weights_only": True},
         device=0 if torch.cuda.is_available() else -1,
     )
     if getattr(asr.model.config, "_commit_hash", None) != REVISION:
@@ -68,7 +74,7 @@ async def ready():
 @app.get("/health")
 async def health(request: Request):
     authenticate(request)
-    return JSONResponse({"ready": asr is not None, "model": MODEL, "revision": REVISION},
+    return JSONResponse({"ready": asr is not None, "model": MODEL, "revision": REVISION, "language": LANGUAGE},
                         headers={"Cache-Control": "no-store"})
 
 
@@ -82,7 +88,7 @@ def infer(raw):
     try:
         with torch.inference_mode():
             result = asr({"raw": samples, "sampling_rate": 16000},
-                         generate_kwargs={"language": "english", "task": "transcribe", "max_new_tokens": 128})
+                         generate_kwargs={"task": "transcribe", "max_new_tokens": 128})
         text = result.get("text", "").strip()
         if not text or len(text) > 1000:
             raise HTTPException(422, "No usable transcript")
@@ -90,7 +96,7 @@ def infer(raw):
             r"\b(?:my|the)\s+(?:pin|otp|password|passcode|credential|account number)\s*(?:is|:|=)\s*\S+", text, re.I
         ) or re.search(r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine)(?:[\s,-]+(?:zero|one|two|three|four|five|six|seven|eight|nine)){2,}\b", text, re.I):
             raise HTTPException(422, "Possible private details: transcript discarded")
-        return {"text": text, "model": MODEL, "revision": REVISION}
+        return {"text": text, "model": MODEL, "revision": REVISION, "language": LANGUAGE}
     except HTTPException:
         raise
     except Exception:
