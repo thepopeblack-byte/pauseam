@@ -5,7 +5,7 @@ This release removes model IDs, API configuration, review-date notes, provenance
 ## Delivered behavior
 
 - Describe a payment concern in English by text or the existing consented voice/transcript-correction path.
-- Prepare a bank report or CBN escalation draft after explaining what happened. The draft preserves the user's description, adds no transaction facts, and is downloaded only on request. It is not sent by PauseAm.
+- Prepare a bank report or CBN escalation draft after explaining what happened. The draft preserves the user's description and adds no transaction facts. Users can review it, copy it or start a text download on request. It is not sent by PauseAm. The in-app browser showed the download confirmation, but the downloaded file could not be retrieved for verification; successful file saving is not claimed by that check.
 - Bank-first, waiting, missing acknowledgment/reference after three days, and overdue-resolution choices. These are user-reported stages, not an automated eligibility determination. Resolution timelines differ by complaint.
 - Mistaken transfers and potential account-security incidents receive specific source-backed next steps. No recovery promise, account authentication or malware verdict.
 - Learn: three dated ngCERT advisory summaries, protective steps, and a two-choice practice interaction. The notice dates are 27 August, 13 July and 15 June 2026. These are selected notices, not a claim to cover the latest incidents or a live news feed.

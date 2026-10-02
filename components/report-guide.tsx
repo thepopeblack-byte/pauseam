@@ -12,6 +12,19 @@ export function ReportGuide({ question }: { question: string }) {
   const [message, setMessage] = useState("");
   const plan = complaintPlan(stage);
   const draft = reportDraft(question, stage);
+  async function copy() {
+    if (!draft) return;
+    try {
+      await navigator.clipboard.writeText(draft);
+      setMessage(
+        "Report copied. Review it before sending through the verified reporting channel. Nothing has been sent.",
+      );
+    } catch {
+      setMessage(
+        "Copy did not work here. Open the report preview below, then select and copy the text.",
+      );
+    }
+  }
   function download() {
     if (!draft) {
       setMessage(
@@ -28,7 +41,7 @@ export function ReportGuide({ question }: { question: string }) {
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     setMessage(
-      "Draft downloaded. Review it and add transaction details only through the verified reporting channel. Nothing has been sent.",
+      "Download started. Check your downloads and review the draft before sending. Nothing has been sent.",
     );
   }
   return (
@@ -78,6 +91,15 @@ export function ReportGuide({ question }: { question: string }) {
         </p>
       )}
       <div className="chips">
+        {draft && (
+          <button
+            type="button"
+            className="secondary"
+            onClick={() => void copy()}
+          >
+            Copy my report
+          </button>
+        )}
         {draft && (
           <button type="button" className="secondary" onClick={download}>
             Download my report draft
