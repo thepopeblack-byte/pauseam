@@ -1,7 +1,7 @@
 export const MODEL = "NCAIR1/NigerianAccentedEnglish";
 export const REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff";
 export const MODEL_URL = "https://huggingface.co/" + MODEL;
-export const KB_VERSION = "2026-10-01.1";
+export const KB_VERSION = "2026-10-02.1";
 export type Journey = "before" | "after" | "learn";
 export type Card = {
   id: string;
@@ -28,7 +28,15 @@ export const CARDS: Card[] = [
   {
     id: "supplier",
     title: "Verify changed supplier details independently",
-    keywords: ["supplier", "changed", "invoice", "vendor"],
+    keywords: [
+      "supplier",
+      "changed",
+      "invoice",
+      "vendor",
+      "beneficiary",
+      "suppliers",
+      "invoices",
+    ],
     steps: [
       "Pause this payment.",
       "Call your supplier using a contact established before this request. Confirm the change separately.",
@@ -49,7 +57,16 @@ export const CARDS: Card[] = [
   {
     id: "school",
     title: "Check fee instructions with the school",
-    keywords: ["school", "tuition", "fees", "bursary", "admission"],
+    keywords: [
+      "school",
+      "tuition",
+      "fees",
+      "bursary",
+      "admission",
+      "college",
+      "university",
+      "campus",
+    ],
     steps: [
       "Pause payment on instructions received in a forwarded message.",
       "Reach the school through its independently located official office or portal.",
@@ -165,16 +182,7 @@ export const CARDS: Card[] = [
   {
     id: "report",
     title: "Contact your bank immediately",
-    keywords: [
-      "scam",
-      "fraud",
-      "stolen",
-      "sent",
-      "paid",
-      "lost",
-      "debited",
-      "hacked",
-    ],
+    keywords: ["scam", "fraud", "stolen", "hacked"],
     steps: [
       "Contact your bank through a trusted official channel now. Ask it to secure the affected account and investigate the transaction.",
       "If access was compromised, change passwords through the official service and enable two-factor authentication.",
@@ -211,7 +219,21 @@ export const CARDS: Card[] = [
   {
     id: "complaint",
     title: "Keep a record of your complaint",
-    keywords: ["complaint", "escalate", "unresolved", "refund", "reference"],
+    keywords: [
+      "complaint",
+      "escalate",
+      "unresolved",
+      "refund",
+      "reference",
+      "reversal",
+      "pending",
+      "failed",
+      "debited",
+      "charged",
+      "dispute",
+      "reversed",
+      "charges",
+    ],
     steps: [
       "Lodge your complaint with your bank first and ask for a tracking reference.",
       "If it remains unresolved, use the CBN complaint guidance to check the applicable escalation process. Do not wait to report suspected fraud.",
@@ -220,6 +242,40 @@ export const CARDS: Card[] = [
     sourceTitle: "CBN · How to Lodge a Complaint",
     section: "Contact your institution first; if your bank fails to resolve",
     ...review,
+  },
+  {
+    id: "payment",
+    title: "Check the request before sending money",
+    keywords: [
+      "pay",
+      "payment",
+      "payments",
+      "money",
+      "transfer",
+      "transfers",
+      "deposit",
+      "cash",
+      "send",
+      "sending",
+      "paying",
+    ],
+    steps: [
+      "Pause if you are unsure why the money is being requested.",
+      "Confirm who is asking through a contact you found independently, especially if they are rushing you.",
+      "Keep banking codes private. If you remain unsure, ask your bank through its official service before paying.",
+    ],
+    why: [
+      "A general checklist cannot authenticate the request.",
+      "A message or familiar name alone does not prove who sent it.",
+      "Your bank is the appropriate place to check questions about its transactions.",
+    ],
+    basis:
+      "General PauseAm checklist adapted from CBN advice on independent verification, social engineering and seeking help when uncertain. This does not resolve every payment issue.",
+    source: fraud,
+    sourceTitle: "CBN · Fraud and Scam Awareness",
+    section: "Phishing scams; social engineering; stay informed",
+    ...review,
+    checked: "2026-10-02",
   },
 ];
 export function containsSensitive(text: string): boolean {
@@ -279,10 +335,14 @@ export function retrieve(
       message:
         "No current source-checked guidance is available. Pause and ask your bank through an independently trusted channel.",
     };
-  const text = question.toLowerCase();
+  const text = question.toLowerCase().replace(/[\u2019\u2018]/g, "'");
   const urgent =
-    journey === "after" ||
+    (journey === "after" &&
+      !/\b(?:complaint|unresolved|escalate|reference)\b/.test(text)) ||
     /\b(already paid|already sent|been scammed|was scammed|account hacked|money stolen|unauthori[sz]ed)\b/.test(
+      text,
+    ) ||
+    /\b(?:sent|paid|transferred)\b.*\b(?:stopped replying|stopped responding|blocked me|not replying|not delivered|never arrived|never delivered|disappeared|scam|fraud)\b/.test(
       text,
     );
   const tokens = new Set(text.match(/[a-z]+/g) || []);
@@ -290,8 +350,20 @@ export function retrieve(
     .map((c) => ({
       c,
       score:
-        c.keywords.filter((k) => tokens.has(k)).length +
-        (urgent && c.id === "report" ? 100 : 0),
+        c.keywords.filter((k) => tokens.has(k)).length *
+          (c.id === "payment" ? 0.1 : 1) +
+        (urgent && c.id === "report" ? 100 : 0) +
+        (c.id === "complaint" &&
+        /\b(?:did not|didn't|has not|hasn't|not)\b.*\b(?:arrive|arrived|received|receive|gone through)\b/.test(
+          text,
+        ) &&
+        /\b(?:transfer|bank|money|transaction)\b/.test(text)
+          ? 5
+          : 0) +
+        (c.id === "supplier" &&
+        /\b(?:different|new|changed)\b.*\b(?:bank|account|details)\b/.test(text)
+          ? 5
+          : 0),
     }))
     .filter((x) => x.score > 0)
     .sort((a, b) => b.score - a.score);
@@ -301,7 +373,7 @@ export function retrieve(
       status: "no_match",
       cards: [],
       message:
-        "I don’t have a source-backed match for this situation. Try a safety topic below, or contact your bank directly. I cannot tell you that a payment is safe.",
+        "I don't have reviewed guidance for that question yet. Tell me what happened with a payment, seller, bank message or banking code. For other issues, use the official help sources or contact your bank independently. This pilot cannot answer general questions or confirm a payment is safe.",
     };
   return {
     ...base,

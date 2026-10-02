@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useRef, useSyncExternalStore } from "react";
-import { ArrowRight, Volume2 } from "lucide-react";
+import { Volume2, LockKeyhole, CheckCheck } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
 import { Incident } from "@/components/incident";
 import { ShareChecklist } from "@/components/share-checklist";
@@ -33,7 +33,7 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
     () => false,
   );
   const language = PILOT_LANGUAGE;
-  const [verification, setVerification] = useState("unknown");
+  const [voiceActive, setVoiceActive] = useState(false);
   const pending = useRef<AbortController | null>(null),
     active = useRef(true),
     quizStarted = useRef(0);
@@ -47,6 +47,10 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
     [trial, setTrial] = useState<Trial | null>(null),
     [saved, setSaved] = useState(false),
     [quiz, setQuiz] = useState<boolean | null>(null);
+  const resultRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (answer) resultRef.current?.focus();
+  }, [answer]);
   useEffect(() => {
     active.current = true;
     return () => {
@@ -126,7 +130,7 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
     setSaved(false);
     setQuiz(null);
     if (!question.trim()) {
-      setError("Describe a situation or choose a topic.");
+      setError("Tell us what happened, or try one of the examples.");
       return;
     }
     if (containsSensitive(question)) {
@@ -157,7 +161,10 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
         ]),
       });
       const data = (await response.json()) as Answer;
-      if (!data.status)
+      if (
+        !["ok", "unavailable", "no_match", "sensitive"].includes(data.status) ||
+        !Array.isArray(data.cards)
+      )
         throw new Error(
           "Guidance is unavailable. Pause and contact your bank through a trusted channel.",
         );
@@ -219,335 +226,390 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
   }
   return (
     <div className="card-body">
-      <span className="step-label">
-        01 /{" "}
-        {journey === "learn"
-          ? "LEARN A SAFER HABIT"
-          : "TELL US WHAT’S HAPPENING"}
-      </span>
-      <h2>
+      <h1>
         {journey === "after"
-          ? "Let’s take the next safe step."
+          ? "Let’s act quickly."
           : journey === "learn"
-            ? "Build your scam-spotting skills."
-            : "Let’s check before you send."}
-      </h2>
-      <p>
-        No names, account numbers, PINs, passwords or OTPs. Describe the
-        situation or paste only the non-sensitive wording.
+            ? "Spot the warning signs."
+            : "What’s happening?"}
+      </h1>
+      <p className="question-intro">
+        {journey === "after"
+          ? "Contact your bank first. Then get help with your next step."
+          : journey === "learn"
+            ? "Ask about a payment warning sign, or try an example below."
+            : "Ask about a payment, message or money concern. Use your own words."}
       </p>
       {journey === "after" && (
-        <div className="notice">
-          Suspect fraud? Contact your bank now using its official app, website
-          or a trusted contact. Do not wait for this tool.{" "}
-          <a
-            href="https://www.cbn.gov.ng/supervision/cpdfraudandscam.html"
-            target="_blank"
-            rel="noreferrer"
-          >
-            CBN guidance
-          </a>
-        </div>
-      )}
-      {journey === "after" && <Incident />}
-      <p className="microcopy">
-        <strong>Nigerian-accented English.</strong> This pilot supports English
-        voice and typed questions. Checklists come from reviewed sources.
-        Yoruba, Hausa and Igbo are paused.
-      </p>
-      <VoiceInput
-        key={language}
-        language={language}
-        journey={journey}
-        testing={testing}
-        onTranscript={(text, model) => {
-          edit(text);
-          setAsrModel(model);
-        }}
-      />
-      <div className="divider">
-        <span>or use your keyboard</span>
-      </div>
-      <label htmlFor={"question-" + journey}>
-        {asrModel
-          ? "Check and correct what we heard"
-          : "What would you like to check?"}
-      </label>
-      <textarea
-        id={"question-" + journey}
-        value={question}
-        maxLength={600}
-        autoComplete="off"
-        spellCheck={false}
-        disabled={!ready || busy}
-        onChange={(e) => edit(e.target.value)}
-        placeholder="For example: A caller asks for my banking code."
-      />
-      {asrModel && (
-        <>
+        <section className="urgent-help" aria-label="First actions">
+          <h2>Contact your bank now</h2>
+          <ol>
+            <li>
+              Use your bank’s official app, website or a contact you already
+              trust. Ask it to secure the account and investigate.
+            </li>
+            <li>
+              Keep your payment confirmation and messages privately. Ask the
+              bank for a complaint reference.
+            </li>
+          </ol>
           <p className="microcopy">
-            Transcribed by{" "}
-            <a href={"https://huggingface.co/" + asrModel}>{asrModel}</a> ·{" "}
-            {LANGUAGES[language].revision.slice(0, 8)}. Corrections are yours.
-            Confidence is not supplied by this model.
+            Recovery is not guaranteed.{" "}
+            <a
+              href="https://www.cbn.gov.ng/supervision/cpdfraudandscam.html"
+              target="_blank"
+              rel="noreferrer"
+            >
+              CBN guidance
+            </a>{" "}
+            · checked 1 October 2026.
           </p>
-          <label className="consent">
-            <Checkbox
-              checked={confirmed}
-              onCheckedChange={(v) => setConfirmed(v === true)}
+        </section>
+      )}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          void ask();
+        }}
+      >
+        <label
+          className={asrModel ? "" : "visually-hidden"}
+          htmlFor={"question-" + journey}
+        >
+          {asrModel
+            ? "Check and correct what we heard"
+            : "Your payment question"}
+        </label>
+        <div className="composer">
+          <textarea
+            id={"question-" + journey}
+            value={question}
+            maxLength={600}
+            autoComplete="off"
+            disabled={!ready || busy || voiceActive}
+            onChange={(e) => edit(e.target.value)}
+            placeholder={
+              journey === "after"
+                ? "What happened after you paid?"
+                : "For example: I sent money, but the seller has stopped replying. What should I do?"
+            }
+            aria-describedby="question-privacy"
+          />
+          <div className="composer-actions">
+            <VoiceInput
+              language={language}
+              journey={journey}
+              testing={testing}
+              disabled={busy}
+              onActivityChange={setVoiceActive}
+              onTranscript={(text, model) => {
+                edit(text);
+                setAsrModel(model);
+                requestAnimationFrame(() =>
+                  document.getElementById("question-" + journey)?.focus(),
+                );
+              }}
             />
-            I checked the transcript. It describes my situation and has no
-            private details.
-          </label>
+            <button
+              type="submit"
+              className="primary"
+              disabled={
+                !ready || busy || voiceActive || (!!asrModel && !confirmed)
+              }
+            >
+              {!ready ? "Loading…" : busy ? "Checking…" : "Get next steps"}
+            </button>
+          </div>
+        </div>
+        <p className="privacy-note" id="question-privacy">
+          <LockKeyhole size={15} aria-hidden="true" />
+          Leave out names, numbers, PINs, OTPs and passwords.
+        </p>
+        {asrModel && (
+          <div className="transcript-review">
+            <label className="consent">
+              <Checkbox
+                checked={confirmed}
+                onCheckedChange={(v) => setConfirmed(v === true)}
+              />
+              I’ve checked this transcript and removed private details.
+            </label>
+            <details>
+              <summary>Voice model details</summary>
+              <p className="microcopy">
+                Transcribed by{" "}
+                <a href={"https://huggingface.co/" + asrModel}>{asrModel}</a> ·{" "}
+                {LANGUAGES[language].revision.slice(0, 8)}. The model supplies
+                no confidence score. Your corrections are used.
+              </p>
+            </details>
+          </div>
+        )}
+      </form>
+      {!answer && !busy && (
+        <>
+          <p className="example-label">Or start with one of these</p>
+          <div className="chips examples" aria-label="Example questions">
+            {topics[journey].map((t, i) => (
+              <button
+                type="button"
+                disabled={!ready}
+                key={t}
+                onClick={() => {
+                  edit(t);
+                  setAsrModel("");
+                  document.getElementById("question-" + journey)?.focus();
+                }}
+              >
+                {
+                  (journey === "after"
+                    ? ["Suspected scam", "Bank not responding"]
+                    : journey === "learn"
+                      ? ["Banking codes", "Investment offers", "Online sellers"]
+                      : [
+                          "Someone asks for a code",
+                          "New supplier bank details",
+                          "School fee message",
+                          "A buyer sent a receipt",
+                        ])[i]
+                }
+              </button>
+            ))}
+          </div>
         </>
       )}
-      {journey === "before" && (
-        <details className="context-questions">
-          <summary>Two checks to think through first</summary>
-          <p>
-            Has the organisation confirmed this request through a contact you
-            found independently?
-          </p>
-          <select
-            aria-label="Independent confirmation"
-            value={verification}
-            onChange={(e) => setVerification(e.target.value)}
-          >
-            <option value="unknown">Not sure</option>
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
-          <p>
-            Are they asking you to rush, keep this secret, or share a banking
-            code?
-          </p>
-          <p className="microcopy">
-            {verification === "yes"
-              ? "Independent confirmation helps, but PauseAm cannot authenticate a transaction."
-              : "Pause the payment until you can verify the request independently."}{" "}
-            Keep any banking code private.
-          </p>
-        </details>
-      )}
-      <button
-        className="primary"
-        disabled={!ready || busy || (!!asrModel && !confirmed)}
-        onClick={ask}
-      >
-        {!ready
-          ? "Loading controls…"
-          : busy
-            ? "Checking source-backed guidance…"
-            : "Check my next step"}
-        <ArrowRight size={18} />
-      </button>
-      <div className="chips" aria-label="Suggested safety questions">
-        {topics[journey].map((t, i) => (
-          <button
-            disabled={!ready || busy}
-            key={t}
-            onClick={() => {
-              edit(t);
-              setAsrModel("");
-            }}
-          >
-            {
-              [
-                "Try: " +
-                  (journey === "after"
-                    ? "Suspected fraud"
-                    : journey === "learn"
-                      ? "Banking codes"
-                      : "Suspicious link"),
-                journey === "after"
-                  ? "Unresolved complaint"
-                  : journey === "learn"
-                    ? "Investment warning"
-                    : "Supplier change",
-                journey === "learn" ? "Online seller" : "School fees",
-                "Receipt claim",
-              ][i]
-            }
-          </button>
-        ))}
-      </div>
-      <label className="consent">
-        <Checkbox
-          checked={testing}
-          disabled={busy}
-          onCheckedChange={(v) => {
-            setTesting(v === true);
-            setTrial(null);
-          }}
-        />
-        Optional: save anonymous test measurements on this device only. No text
-        or audio. Turning this off stops new records.{" "}
-        <a href="/evaluation">View or delete records</a>.
-      </label>
       {error && (
         <div role="alert" className="notice">
           {error}
         </div>
       )}
       {(busy || answer) && (
-        <div className="response-slot" aria-busy={busy}>
+        <div aria-busy={busy}>
           {busy && (
             <div className="result response-loading" role="status">
-              <span className="step-label">
-                02 / CHECKING THE SOURCE LIBRARY
-              </span>
-              <h3>Finding your next step</h3>
-              <p>
-                Pause the payment while we check current guidance. You can retry
-                if the connection fails.
-              </p>
-              <div className="loading-line" aria-hidden="true" />
+              <h2>Finding your next step</h2>
+              <p>Checking the source library…</p>
               <div className="loading-line" aria-hidden="true" />
               <div className="loading-line" aria-hidden="true" />
             </div>
           )}
           {answer && (
-            <section className="result" aria-live="polite">
-              <span className="step-label">02 / YOUR NEXT SAFE STEP</span>
-              <p>{answer.message}</p>
+            <section
+              className="result"
+              tabIndex={-1}
+              ref={resultRef}
+              aria-label="Your next steps"
+              aria-live="polite"
+            >
+              {answer.cards.length > 0 ? (
+                <div className="result-heading">
+                  <CheckCheck size={19} aria-hidden="true" />
+                  Your next steps
+                </div>
+              ) : (
+                <h2>
+                  {answer.status === "no_match"
+                    ? "Tell us a little more"
+                    : "We couldn’t check this"}
+                </h2>
+              )}
               {answer.cards.map((c) => (
                 <article key={c.id}>
-                  <h3>{c.title}</h3>
+                  <h2>{c.title}</h2>
                   <ol>
-                    {c.steps.map((s, i) => (
-                      <li key={s}>
-                        {s}
+                    {c.steps.map((step, i) => (
+                      <li key={step}>
+                        <span className="step-number" aria-hidden="true">
+                          {i + 1}
+                        </span>
+                        {step}
                         {c.why?.[i] && (
-                          <small className="step-why">Why: {c.why[i]}</small>
+                          <small className="step-why">{c.why[i]}</small>
                         )}
                       </li>
                     ))}
                   </ol>
-                  <details className="provenance">
-                    <summary>Source and review details</summary>
-                    {c.basis && <p>{c.basis}</p>}
+                  <div className="source-line">
                     <a href={c.source} target="_blank" rel="noreferrer">
-                      {c.sourceTitle} ↗
+                      {c.sourceTitle}
                     </a>
-                    <br />
-                    {c.section}
-                    <br />
-                    Checked {c.checked} · Review due {c.expires}
-                    <br />
-                    {c.review}
+                    <small>Checked {c.checked}</small>
+                  </div>
+                  <details className="provenance">
+                    <summary>Why this guidance?</summary>
+                    {c.basis && <p>{c.basis}</p>}
+                    <p>
+                      {c.section} · review due {c.expires}. {c.review}
+                    </p>
                   </details>
                 </article>
               ))}
-              <p className="microcopy">
-                Answer engine: {answer.engine}. Answer model:{" "}
-                {answer.model || "none"}
-                {answer.modelRevision
-                  ? " · " + answer.modelRevision.slice(0, 8)
-                  : ""}
-                .<br />
-                Speech model used: {asrModel || "none — typed input"}. Library{" "}
-                {answer.kbVersion}.
-              </p>
+              <p className="microcopy">{answer.message}</p>
+              <details className="provenance">
+                <summary>How this answer was made</summary>
+                <p>
+                  Answer:{" "}
+                  {answer.model ? (
+                    <a href={"https://huggingface.co/" + answer.model}>
+                      {answer.model}
+                    </a>
+                  ) : (
+                    "Reviewed source checklist; no generative text model"
+                  )}
+                  {answer.modelRevision
+                    ? " · " + answer.modelRevision.slice(0, 8)
+                    : ""}
+                  . {answer.engine}.
+                </p>
+                <p>
+                  Speech: {asrModel || "Typed input; no speech model"}. Library{" "}
+                  {answer.kbVersion}.
+                </p>
+              </details>
               {answer.cards.length > 0 && (
-                <>
+                <div className="result-tools">
                   <ShareChecklist answer={answer} />
                   <button
+                    type="button"
                     className="secondary"
                     onClick={listen}
                     disabled={!ready || !("speechSynthesis" in window)}
                   >
-                    <Volume2 size={16} /> Read guidance aloud
+                    <Volume2 size={16} aria-hidden="true" />
+                    Listen
                   </button>
-                  <p className="microcopy">
-                    Playback uses your browser’s voice service, not N-ATLaS.
-                    Only public guidance is spoken.
-                  </p>
-                </>
+                </div>
+              )}
+              {answer.cards.length > 0 && (
+                <p className="microcopy">
+                  Listen uses your browser’s voice service. Sharing includes
+                  only the checklist and sources.
+                </p>
+              )}
+              {answer.status === "no_match" && (
+                <div className="chips">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      edit("My bank complaint remains unresolved.");
+                      setAsrModel("");
+                    }}
+                  >
+                    Help with a bank complaint
+                  </button>
+                  <a className="secondary" href="/about">
+                    Official help sources
+                  </a>
+                </div>
               )}
               {testing && trial && !saved && answer.status === "ok" && (
                 <div className="content-panel">
-                  <p>Was this guidance useful? Save this test:</p>
+                  <p>Was this useful?</p>
                   <div className="chips">
-                    <button onClick={() => rate(true)}>Yes</button>
-                    <button onClick={() => rate(false)}>No</button>
-                    <button onClick={() => rate()}>Save without rating</button>
+                    <button type="button" onClick={() => rate(true)}>
+                      Yes
+                    </button>
+                    <button type="button" onClick={() => rate(false)}>
+                      No
+                    </button>
+                    <button type="button" onClick={() => rate()}>
+                      Save without rating
+                    </button>
                   </div>
                 </div>
               )}
               {saved && (
                 <p role="status" className="microcopy">
-                  Measurement saved on this device. No question or transcript
-                  saved.
+                  Test measurement saved on this device. No question or
+                  transcript saved.
                 </p>
               )}
               {journey === "learn" && answer.cards.length > 0 && (
-                <div className="content-panel">
-                  <h3>One quick practice</h3>
+                <details>
+                  <summary>Try a quick practice</summary>
                   <p>
                     A caller says your account will be blocked unless you share
-                    a code. What is the safer next step?
+                    a code. What would you do?
                   </p>
-                  <div className="chips">
-                    <button
-                      disabled={quiz !== null}
-                      onClick={() => {
-                        setQuiz(true);
-                        if (testing)
-                          saveTrial({
-                            kind: "quiz",
-                            journey,
-                            language,
-                            outcome: "ok",
-                            latencyMs: Math.min(
-                              120000,
-                              Math.round(
-                                performance.now() - quizStarted.current,
+                  <div className="quiz-options">
+                    {[true, false].map((safer) => (
+                      <button
+                        type="button"
+                        className="secondary"
+                        key={String(safer)}
+                        disabled={quiz !== null}
+                        onClick={() => {
+                          setQuiz(safer);
+                          if (testing)
+                            saveTrial({
+                              kind: "quiz",
+                              journey,
+                              language,
+                              outcome: safer ? "ok" : "failed",
+                              latencyMs: Math.min(
+                                120000,
+                                Math.round(
+                                  performance.now() - quizStarted.current,
+                                ),
                               ),
-                            ),
-                          });
-                      }}
-                    >
-                      End the call and contact my bank independently
-                    </button>
-                    <button
-                      disabled={quiz !== null}
-                      onClick={() => {
-                        setQuiz(false);
-                        if (testing)
-                          saveTrial({
-                            kind: "quiz",
-                            journey,
-                            language,
-                            outcome: "failed",
-                            latencyMs: Math.min(
-                              120000,
-                              Math.round(
-                                performance.now() - quizStarted.current,
-                              ),
-                            ),
-                          });
-                      }}
-                    >
-                      Share the code to avoid the block
-                    </button>
+                            });
+                        }}
+                      >
+                        {safer
+                          ? "End the call and contact my bank independently"
+                          : "Share the code to avoid the block"}
+                      </button>
+                    ))}
                   </div>
                   {quiz !== null && (
                     <p role="status">
-                      {quiz
-                        ? "Yes. Keep the code private and independently verify the caller."
-                        : "Keep the code private. Contact the bank independently instead."}{" "}
+                      Keep the code private and contact your bank independently.{" "}
                       <a href="https://www.cbn.gov.ng/FinInc/FinLit/BillOfRights.html">
                         CBN source
                       </a>
-                      . Static practice feedback; no model used.
+                      . Practice feedback; no model used.
                     </p>
                   )}
-                </div>
+                </details>
               )}
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => {
+                  edit("");
+                  setAsrModel("");
+                  document.getElementById("question-" + journey)?.focus();
+                }}
+              >
+                Ask another question
+              </button>
             </section>
           )}
         </div>
       )}
+      {journey === "after" && (
+        <details>
+          <summary>Prepare notes for your bank</summary>
+          <Incident />
+        </details>
+      )}
+      <details className="research-options">
+        <summary>Optional: help us test PauseAm</summary>
+        <label className="consent">
+          <Checkbox
+            checked={testing}
+            disabled={busy}
+            onCheckedChange={(v) => {
+              setTesting(v === true);
+              setTrial(null);
+              setSaved(false);
+            }}
+          />
+          Save anonymous timing and feedback on this device. No question,
+          transcript or audio is saved. Turning this off stops new measurements.
+        </label>
+        <a href="/evaluation">View or delete test measurements</a>
+      </details>
     </div>
   );
 }

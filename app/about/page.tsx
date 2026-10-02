@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Pause } from "lucide-react";
 import { CARDS, KB_VERSION } from "@/lib/safety";
 import {
   LANGUAGES,
@@ -11,154 +12,188 @@ export default function About() {
     <>
       <header>
         <Link className="brand" href="/">
-          PauseAm
+          <span className="brand-mark">
+            <Pause aria-hidden="true" />
+          </span>
+          <span>
+            PauseAm<span className="brand-note">Ask before you pay.</span>
+          </span>
         </Link>
         <nav>
-          <Link href="/">Back to guidance</Link>
-          <Link href="/evaluation">Evaluation</Link>
+          <Link href="/">Back to questions</Link>
         </nav>
       </header>
-      <main>
-        <span className="eyebrow">SOURCES, MODELS & PRIVACY</span>
-        <h1>Know what you’re using.</h1>
+      <main className="readable-page">
+        <h1>A little help before your next step.</h1>
+        <p>
+          Describe a payment concern in English, by voice or text. PauseAm finds
+          a short checklist from reviewed Nigerian sources.
+        </p>
         <section className="content-panel">
-          <h2>What this build can establish</h2>
+          <h2>What you can ask</h2>
           <p>
-            PauseAm provides general payment checklists. It does not
-            authenticate a person, account, invoice or receipt, move money or
-            promise recovery. Source checking by Codex is complete for the
-            listed pages; independent human safety review is pending.
+            Ask in your own words about payment requests, sellers, changed bank
+            details, school fees, receipts, banking codes, suspected scams or
+            bank complaints.
           </p>
           <p>
-            This pilot supports English voice and typed questions. A real
-            English recording returned a transcript on 2 October 2026; accuracy
-            and comprehension validation are still pending. Guidance uses
-            reviewed source checklists, without a generative text model. N-ATLaS
-            text inference is disabled because it exceeded the time budget on
-            the current host. Yoruba, Hausa and Igbo are paused.{" "}
-            <a href="/api/status">Read current configuration status</a>.
-            Configured does not mean tested.
+            This pilot retrieves checklists. It has no working generative text
+            model, so it cannot hold a general conversation or answer every
+            question. It will say when it has no reviewed guidance.
+          </p>
+          <p>
+            PauseAm cannot verify an account, identify a scammer, authenticate a
+            receipt, move money or guarantee recovery.
           </p>
         </section>
         <section className="content-panel">
-          <h2>Official sources and reporting routes</h2>
+          <h2>Your information</h2>
           <p>
-            If you suspect fraud, contact your bank immediately through its
-            official app, website or an independently trusted channel. PauseAm
-            does not maintain bank phone numbers. Do not use a contact supplied
-            only in the suspicious message.
+            No account needed. Leave out names, numbers, PINs, OTPs and
+            passwords. Filtering cannot catch every private detail.
           </p>
           <p>
-            <a
-              href="https://www.cbn.gov.ng/FinInc/FinLit/LodgeComplaint.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              CBN: how to lodge and escalate a complaint
-            </a>
-            . Complain to the institution first and retain evidence. Check the
-            current process and applicable timelines at the source; do not delay
-            an urgent fraud report. Review: 1 October 2026.
+            Voice is optional and needs your consent. Listen before sending,
+            then check and correct the transcript. Audio, questions and
+            transcripts are processed in memory; this app does not save them.
           </p>
-          <p>
-            Library {KB_VERSION}. Entries expire 1 November 2026. Missing or
-            expired sources stop personalised retrieval. Scenario adaptations
-            are labelled separately from the source facts.
-          </p>
-          {CARDS.map((c) => (
-            <details key={c.id}>
-              <summary>{c.title}</summary>
-              <p>
-                <a href={c.source} target="_blank" rel="noreferrer">
-                  {c.sourceTitle}
-                </a>{" "}
-                — {c.section}
-              </p>
-              {c.basis && <p>{c.basis}</p>}
-              <p className="microcopy">
-                {c.review}. Checked {c.checked}; review due {c.expires}.
-              </p>
-            </details>
-          ))}
+          <details>
+            <summary>More about privacy</summary>
+            <p>
+              Audio passes through the website and team-configured model host.
+              Operators must keep request-body and model-output logging off.
+              Hosting providers can process network metadata such as IP
+              addresses.
+            </p>
+            <p>
+              Incident notes stay in page memory until you leave or clear them.
+              Downloads stay wherever your browser saves files. Shared
+              checklists exclude your question, transcript and notes.
+            </p>
+            <p>
+              Optional testing saves categories, counts and timings on this
+              device, up to 500 records. No text, audio or participant
+              identifier is saved. Consent starts off.{" "}
+              <Link href="/evaluation">
+                View, export or delete your test measurements
+              </Link>
+              .
+            </p>
+            <p>
+              Read-aloud uses your browser’s voice service and speaks public
+              guidance only. Performance measurements appear on the testing
+              page, stay in memory and are not sent or saved. Screenshot uploads
+              are unavailable.
+            </p>
+          </details>
         </section>
         <section className="content-panel">
-          <h2>Model identity and hosting</h2>
+          <h2>Official help & sources</h2>
           <p>
-            Official model targets are listed below. None is replaced by a
-            browser or generic model. An authenticated HTTPS inference service
-            must return the expected pinned identity; failure produces no usable
-            transcript.
+            Suspect fraud? Contact your bank immediately through its official
+            app, website or a contact you already trust. Avoid contact details
+            supplied only in the suspicious message.
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://www.cbn.gov.ng/supervision/cpdfraudandscam.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CBN: fraud and scam awareness
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.cbn.gov.ng/FinInc/FinLit/LodgeComplaint.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CBN: lodging and escalating a bank complaint
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.cbn.gov.ng/FinInc/FinLit/BillOfRights.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CBN: bank customers’ rights and duties
+              </a>
+            </li>
+          </ul>
+          <p className="microcopy">
+            Sources checked automatically; independent human safety review is
+            pending. Checklists are general information, not a verdict.
+          </p>
+          <details>
+            <summary>Checklist review dates</summary>
+            <p>
+              Library {KB_VERSION}. Missing or expired entries are excluded from
+              answers.
+            </p>
+            {CARDS.map((c) => (
+              <details key={c.id}>
+                <summary>{c.title}</summary>
+                <p>
+                  <a href={c.source}>{c.sourceTitle}</a> · {c.section}
+                </p>
+                {c.basis && <p>{c.basis}</p>}
+                <p className="microcopy">
+                  {c.review}. Checked {c.checked}; review due {c.expires}.
+                </p>
+              </details>
+            ))}
+          </details>
+        </section>
+        <details className="content-panel">
+          <summary>Models, hosting & pilot limitations</summary>
+          <p>
+            English speech uses the official NCAIR model below. A real recording
+            produced a transcript on 2 October 2026; representative accuracy and
+            comprehension validation remain pending. Guidance is source
+            retrieval, without a generative text model.
           </p>
           {Object.entries(LANGUAGES).map(([code, l]) => (
-            <p key={l.model}>
-              <strong>{l.label}</strong>:{" "}
+            <p key={code}>
+              <strong>{l.label}</strong> ·{" "}
+              {isPilotLanguage(code)
+                ? "English pilot; accuracy review pending"
+                : "Paused"}
+              <br />
               <a href={"https://huggingface.co/" + l.model}>{l.model}</a>
               <br />
-              <code>{l.revision}</code> ·{" "}
-              {isPilotLanguage(code)
-                ? "English pilot; accuracy review pending."
-                : "Paused; no current language capability claimed."}
+              <code>{l.revision}</code>
             </p>
           ))}
           <p>
-            Text model:{" "}
+            Text model{" "}
             <a href={"https://huggingface.co/" + TEXT_MODEL.model}>
               {TEXT_MODEL.model}
             </a>
-            <br />
-            <code>{TEXT_MODEL.revision}</code>. When configured, it selects from
-            source-checked cards. Free-form model prose and invented links never
-            become advice. Current checklist wording remains English.
+            , revision <code>{TEXT_MODEL.revision}</code>, is paused because of
+            capacity and latency limits. No generic model replaces it.
           </p>
           <p>
-            The web app runs on Sites / Cloudflare Workers. Model services are
-            separate, team-configured hosts. This is not proof of official
-            N-ATLaS API use. Organiser confirmation of the official ASR-service
-            requirement is pending. No fine-tuning has been performed.
+            Sites hosts the website; a team-operated SecretVM hosts English ASR.
+            This is not evidence of official N-ATLaS API use. Organiser
+            confirmation of the official ASR-service requirement is pending. No
+            fine-tuning has been performed.{" "}
+            <a href="/api/status">Current configuration status</a> is not proof
+            of accuracy.
           </p>
           <p>{ATTRIBUTION}</p>
           <p>
-            The published model terms cap use at 1,000 active end users within a
-            rolling 30-day period. Separate licensing is needed before exceeding
-            this. Public inference must remain off until the operator has
-            verified access, capacity and licence accounting.
+            Published model terms limit use to 1,000 active end users in a
+            rolling 30-day period. Separate licensing is required before
+            exceeding that limit. This pilot preserves a shared conservative
+            usage ledger.
           </p>
-        </section>
-        <section className="content-panel">
-          <h2>Your choices and data</h2>
-          <p>
-            No account is required. Never enter names, PINs, OTPs, passwords,
-            account numbers or full credentials. Filtering cannot identify every
-            private detail. Screenshot uploads are disabled pending reliable
-            redaction and privacy review.
-          </p>
-          <p>
-            Recording requires separate consent. Listen and discard any private
-            content before upload. Submitted audio is processed in memory
-            through the app and configured model host; this code does not save
-            raw audio, questions or transcripts. Hosting operators must also
-            disable request-body and model-output logging.
-          </p>
-          <p>
-            The incident timeline contains only selected event types and times.
-            It stays in page memory until you leave or clear it. A downloaded
-            summary is stored wherever your browser saves downloads. Shared
-            checklists include only general public guidance and source links.
-          </p>
-          <p>
-            Optional evaluation records store categories, counts and timings in
-            this browser, up to 500 records. No participant identifier, audio or
-            text is saved. Consent starts off; export and deletion are your
-            choice. This is not independent research validation.
-            Page-performance metrics stay in memory and are not transmitted.
-          </p>
-          <p>
-            Hosting providers can process operational metadata such as IP
-            addresses. Browser read-aloud may use a device or browser-provider
-            service; it receives public guidance only. No claim of anonymity is
-            made for ordinary network transport.
-          </p>
-        </section>
+        </details>
+        <Link className="back-link" href="/">
+          Back to my question
+        </Link>
       </main>
     </>
   );

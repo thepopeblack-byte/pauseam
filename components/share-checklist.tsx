@@ -28,7 +28,7 @@ export function ShareChecklist({ answer }: { answer: Answer }) {
   return (
     <div>
       <button className="secondary" onClick={share}>
-        Share a redacted checklist
+        Share checklist
       </button>
       <p className="microcopy">
         Only these general steps and sources are shared. Your question,

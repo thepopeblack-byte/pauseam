@@ -1,5 +1,11 @@
 "use client";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Mic, Square, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
 import { recordingCallbacks } from "@/lib/recording";
@@ -13,19 +19,27 @@ export function VoiceInput({
   reference = "",
   journey = "before",
   language = "en",
+  disabled = false,
+  onActivityChange,
 }: {
   onTranscript: (text: string, model: string) => void;
   testing?: boolean;
   reference?: string;
   journey?: "before" | "after" | "learn";
   language?: Language;
+  disabled?: boolean;
+  onActivityChange?: (active: boolean) => void;
 }) {
+  const [open, setOpen] = useState(false);
   const [consent, setConsent] = useState(false),
     [configured, setConfigured] = useState<boolean | null>(null),
     [recording, setRecording] = useState(false),
     [busy, setBusy] = useState(false),
     [audio, setAudio] = useState<Blob | null>(null),
     [message, setMessage] = useState("");
+  useEffect(() => {
+    onActivityChange?.(busy || recording);
+  }, [busy, recording, onActivityChange]);
   const identity = LANGUAGES[language];
   const operation = useRef(0);
   const testingRef = useRef(testing);
@@ -202,8 +216,10 @@ export function VoiceInput({
         alive.current &&
         operation.current === id &&
         !controller.signal.aborted
-      )
+      ) {
         onTranscript(data.text, data.model);
+        setOpen(false);
+      }
     } catch (e) {
       if (alive.current && operation.current === id)
         setMessage(
@@ -231,95 +247,135 @@ export function VoiceInput({
     }
   }
   return (
-    <div>
-      <label className="consent">
-        <Checkbox
-          checked={consent}
-          disabled={busy || recording}
-          onCheckedChange={(v) => {
-            setConsent(v === true);
-            setAudio(null);
-          }}
-        />
-        I agree to send this recording to the configured N-ATLaS service for
-        transcription. It is processed in memory, not saved by this app. I will
-        not speak private details.
-      </label>
+    <div className="voice-input">
       <button
-        className="voice-button"
-        disabled={!consent || busy || configured !== true}
-        onClick={recording ? stop : record}
+        type="button"
+        className="voice-toggle"
+        aria-expanded={open}
+        aria-controls={"voice-" + journey}
+        disabled={disabled || busy || recording}
+        onClick={() => {
+          setOpen(!open);
+          setAudio(null);
+          setMessage("");
+        }}
       >
-        {recording ? <Square /> : <Mic />}
-        <span>
-          {recording
-            ? "Stop recording"
-            : busy
-              ? "Processing…"
-              : "Speak your question"}
-          <small>
-            {configured === null
-              ? "Checking voice availability…"
-              : configured
-                ? identity.label + " · up to 28 seconds"
-                : "Voice unavailable · typed questions still work"}
-          </small>
-        </span>
+        <Mic size={18} aria-hidden="true" />
+        {open ? "Close voice" : "Speak instead"}
       </button>
-      {audio && (
-        <div className="content-panel">
-          <p>
-            Listen first. If you spoke a secret, discard this recording. Never
-            submit it.
-          </p>
-          <audio controls ref={audioElement} style={{ width: "100%" }} />
-          <div className="chips">
-            <button disabled={busy} onClick={send}>
-              Transcribe this recording
-            </button>
-            <button disabled={busy} onClick={() => setAudio(null)}>
-              <Trash2 size={14} /> Discard
-            </button>
-          </div>
+      {open && (
+        <div className="voice-panel" id={"voice-" + journey}>
+          <label className="consent">
+            <Checkbox
+              checked={consent}
+              disabled={disabled || busy || recording}
+              onCheckedChange={(v) => {
+                setConsent(v === true);
+                setAudio(null);
+              }}
+            />
+            I agree to send audio to N-ATLaS for transcription. This app
+            processes it in memory without saving it. I won't speak private
+            details.
+          </label>
+          <button
+            type="button"
+            className="voice-button"
+            disabled={disabled || !consent || busy || configured !== true}
+            onClick={recording ? stop : record}
+          >
+            {recording ? (
+              <Square aria-hidden="true" />
+            ) : (
+              <Mic aria-hidden="true" />
+            )}
+            <span>
+              {recording
+                ? "Stop recording"
+                : busy
+                  ? "Transcribing..."
+                  : "Start recording"}
+              <small>
+                {configured === null
+                  ? "Checking voice availability..."
+                  : configured
+                    ? "English  /  up to 28 seconds"
+                    : "Voice unavailable. Please type instead."}
+              </small>
+            </span>
+          </button>
+          {recording && (
+            <p role="status" className="microcopy">
+              Recording. Press stop when you've finished.
+            </p>
+          )}
+          {audio && (
+            <div className="voice-preview">
+              <p className="microcopy">
+                Listen first. Discard the recording if it includes private
+                details.
+              </p>
+              <audio controls ref={audioElement} />
+              <div className="chips">
+                <button type="button" disabled={busy} onClick={send}>
+                  Transcribe this recording
+                </button>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => setAudio(null)}
+                >
+                  <Trash2 size={14} aria-hidden="true" />
+                  Discard
+                </button>
+              </div>
+            </div>
+          )}
+          {busy && (
+            <>
+              <p role="status" className="microcopy">
+                Please wait. You'll review the transcript before getting
+                guidance.
+              </p>
+              <button
+                type="button"
+                className="secondary"
+                onClick={() => {
+                  operation.current++;
+                  cancel.current?.abort();
+                  stop();
+                  setBusy(false);
+                  setAudio(null);
+                  setMessage("Cancelled. No transcript will be used.");
+                }}
+              >
+                Cancel voice request
+              </button>
+            </>
+          )}
+          {message && (
+            <p role="alert" className="notice">
+              {message}
+            </p>
+          )}
+          <details className="provenance">
+            <summary>Voice & privacy details</summary>
+            <p>
+              Transcription:{" "}
+              <a
+                href={"https://huggingface.co/" + identity.model}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {identity.model}
+              </a>{" "}
+              / {identity.revision.slice(0, 8)}. Recognition accuracy is still
+              being reviewed. Check and correct your transcript.{" "}
+              <a href="/about">More about your data</a>.
+            </p>
+          </details>
         </div>
       )}
-      {busy && (
-        <button
-          className="secondary"
-          onClick={() => {
-            operation.current++;
-            cancel.current?.abort();
-            stop();
-            setBusy(false);
-            setAudio(null);
-            setMessage("Cancelled. No transcript will be used.");
-          }}
-        >
-          Cancel voice request
-        </button>
-      )}
-      {message && (
-        <p role="alert" className="notice">
-          {message}
-        </p>
-      )}
-      {configured && (
-        <p className="microcopy">
-          Pilot voice connection. Recognition accuracy is still being checked.
-          Review and correct every transcript before using it.
-        </p>
-      )}
-      <p className="microcopy">
-        Target ASR:{" "}
-        <a
-          href={"https://huggingface.co/" + identity.model}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {identity.model}
-        </a>
-        . No substitute model. <a href="/about">Data & model details</a>
-      </p>
     </div>
   );
 }

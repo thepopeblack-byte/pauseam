@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { PerformancePanel } from "@/components/performance-panel";
 import { useEffect, useState } from "react";
 import { ShieldCheck, Download, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
@@ -252,6 +253,7 @@ export default function Evaluation() {
             <Link href="/about">Full configuration and review details</Link>.
           </p>
         </div>
+        <PerformancePanel />
       </main>
     </>
   );

@@ -520,3 +520,46 @@ test("weak or malformed service credentials never reach either model", async () 
     assert.equal(called, false);
   }
 });
+
+test("everyday payment phrasing routes to relevant reviewed guidance without broad fraud accusations", () => {
+  const current = new Date("2026-10-03T12:00:00Z");
+  for (const [question, id] of [
+    ["Should I send money to someone I met?", "payment"],
+    ["I sent money but the seller stopped replying", "report"],
+    ["My transfer has not arrived in the recipient bank", "complaint"],
+    ["The transfer is pending and my account was debited", "complaint"],
+    ["They want me to use different bank details", "supplier"],
+    ["I lost my receipt", "receipt"],
+    ["Is paying cash okay?", "payment"],
+    ["My university has sent tuition instructions", "school"],
+    ["The buyer sent a screenshot as proof", "receipt"],
+  ]) {
+    const answer = retrieve(question, "before", { now: current });
+    assert.equal(answer.status, "ok", question);
+    assert.equal(answer.cards[0].id, id, question);
+    assert.equal(answer.model, null);
+    assert.ok(CARDS.includes(answer.cards[0]));
+  }
+  const unrelated = retrieve("Who will win the football match?", "before", {
+    now: current,
+  });
+  assert.equal(unrelated.status, "no_match");
+  assert.deepEqual(unrelated.cards, []);
+  assert.equal(
+    retrieve("Pay money", "before", { now: new Date("2027-01-01") }).status,
+    "unavailable",
+  );
+});
+
+test("an unresolved complaint gets escalation guidance while new fraud still gets immediate actions", () => {
+  assert.equal(
+    retrieve("My bank complaint remains unresolved", "after", { now }).cards[0]
+      .id,
+    "complaint",
+  );
+  assert.equal(
+    retrieve("I already paid and need a complaint", "after", { now }).cards[0]
+      .id,
+    "report",
+  );
+});

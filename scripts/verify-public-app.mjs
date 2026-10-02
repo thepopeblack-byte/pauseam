@@ -51,6 +51,14 @@ r=await post('A supplier changed the bank details on an invoice.');
 const supplier=grounded(r.data)&&r.data.cards[0].id==='supplier';
 record('Supplier-change guidance has expected source and steps',r,r.status===200&&supplier&&r.noStore,{engine:r.data?.engine||null,model:r.data?.model||null});
 report.models.textInferencePassed=supplier&&modelIdentity(r.data);
+for(const [question,id] of [
+ ['My transfer has not arrived in the recipient bank','complaint'],
+ ['They want me to use different bank details','supplier'],
+ ['I sent money but the seller stopped replying','report'],
+ ['Should I send money to someone I met?','payment'],
+]){const a=await post(question);record('Everyday phrasing: '+id,a,a.status===200&&grounded(a.data)&&a.data.cards[0].id===id);}
+r=await post('Who will win the football match?');
+record('Unrelated question gets an honest limit',r,r.status===200&&r.data?.status==='no_match'&&r.data.cards.length===0&&r.data.model===null);
 r=await post('I may have paid a scammer.','after');
 record('Immediate bank-contact checklist bypasses inference',r,r.status===200&&grounded(r.data)&&r.data.cards[0].id==='report'&&r.data.model===null);
 r=await post('Someone asks for my banking code.','learn');

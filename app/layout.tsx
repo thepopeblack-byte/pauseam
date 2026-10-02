@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { PerformancePanel } from "@/components/performance-panel";
 
 export const metadata: Metadata = {
   title: "PauseAm — Ask before you pay.",
@@ -22,10 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
-        {children}
-        <PerformancePanel />
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
