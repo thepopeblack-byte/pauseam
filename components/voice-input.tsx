@@ -303,6 +303,12 @@ export function VoiceInput({
           {message}
         </p>
       )}
+      {configured && (
+        <p className="microcopy">
+          Pilot voice connection. Recognition accuracy is still being checked.
+          Review and correct every transcript before using it.
+        </p>
+      )}
       <p className="microcopy">
         Target ASR:{" "}
         <a

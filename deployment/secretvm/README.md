@@ -106,7 +106,12 @@ Never count fixtures or generated speech as completed human validation.
 
 ## 4. Connect Sites after the checks pass
 
-Keep ASR_ENABLED=false and TEXT_ENABLED=false until corresponding tests pass.
+Keep TEXT_ENABLED=false until genuine text requests complete within the app's
+time budget. ASR_ENABLED may be enabled after authenticated identity and privacy
+boundary checks for an initial consented owner speech test. The UI labels this
+connection as a pilot and does not claim validated recognition. Do not recruit
+testers or call any language working until real recordings, transcript correction
+and the complete journey have passed. Disable ASR again if the owner test fails.
 Set the following server-side, with full HTTPS URLs and matching private tokens:
 
 | Sites setting | Value |
