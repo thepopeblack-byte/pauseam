@@ -1,6 +1,6 @@
 """Protected real-model proxy. No output generation, audio storage or substitution."""
 import asyncio
-import hmac
+from http_safety import valid_bearer, append_bounded
 import json
 import os
 import urllib.error
@@ -78,7 +78,7 @@ async def index():
 async def proxy(path:str,request:Request):
     target,operation=route_target(path,request.method)
     token=service_token(target)
-    if operation!='ready' and not hmac.compare_digest(request.headers.get('authorization',''),'Bearer '+token):
+    if operation!='ready' and not valid_bearer(request.headers.get('authorization',''), token):
         raise HTTPException(401,'Unauthorized')
     if request.url.query: raise HTTPException(400,'Query parameters are unsupported')
     content_type='application/json' if target=='text' else 'audio/wav'

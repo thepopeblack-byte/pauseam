@@ -1,6 +1,6 @@
 """Official N-ATLaS weights. No mock output or replacement model."""
 import asyncio
-import hmac
+from http_safety import valid_bearer, append_bounded
 import json
 import os
 import re
@@ -72,7 +72,7 @@ async def lifespan(app):
 app = FastAPI(lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
 
 def auth(request):
-    if not TOKEN or not hmac.compare_digest(request.headers.get("authorization", ""), "Bearer "+TOKEN):
+    if not valid_bearer(request.headers.get("authorization", ""), TOKEN):
         raise HTTPException(401, "Unauthorized")
 
 @app.get("/ready")
@@ -128,8 +128,7 @@ async def guide(request: Request):
         try:
             async with asyncio.timeout(10):
                 async for chunk in request.stream():
-                    raw.extend(chunk)
-                    if len(raw)>20000: raise HTTPException(413, "Too large")
+                    if not append_bounded(raw, chunk, 20000): raise HTTPException(413, "Too large")
             data = json.loads(raw)
             q = data.get("question")
             if not isinstance(q,str) or not 1<=len(q)<=600 or re.search(r"\d|[\w.+-]+@[\w.-]+",q):

@@ -2,12 +2,14 @@
 import importlib.util
 import json
 import os
+import sys
 from pathlib import Path
 import unittest
 from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 path=Path(__file__).resolve().parents[1]/'deployment/huggingface-space/gateway.py'
+sys.path.insert(0,str(path.parents[2]/'model_service'))
 spec=importlib.util.spec_from_file_location('hf_gateway',path)
 gateway=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gateway)

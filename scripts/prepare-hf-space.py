@@ -9,6 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 FILES={
  'Dockerfile':'deployment/huggingface-space/Dockerfile',
  'README.md':'deployment/huggingface-space/SPACE_README.md',
+ 'http_safety.py':'model_service/http_safety.py',
  'gateway.py':'deployment/huggingface-space/gateway.py',
  'launcher.py':'deployment/huggingface-space/launcher.py',
  'approved-sources.json':'deployment/models/approved-sources.json',

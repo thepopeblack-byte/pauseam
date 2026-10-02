@@ -1,6 +1,6 @@
 """Real NCAIR inference service. No synthetic responses or audio persistence."""
 import asyncio
-import hmac
+from http_safety import valid_bearer, append_bounded
 import io
 import os
 import re
@@ -87,7 +87,7 @@ app = FastAPI(lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None
 
 def authenticate(request):
     supplied = request.headers.get("authorization", "")
-    if not TOKEN or not hmac.compare_digest(supplied, "Bearer " + TOKEN):
+    if not valid_bearer(supplied, TOKEN):
         raise HTTPException(401, "Unauthorized")
 
 
@@ -149,8 +149,7 @@ async def transcribe(request: Request):
         try:
             async with asyncio.timeout(10):
                 async for chunk in request.stream():
-                    raw.extend(chunk)
-                    if len(raw) > MAX_BYTES:
+                    if not append_bounded(raw, chunk, MAX_BYTES):
                         raise HTTPException(413, "Audio too large")
             if not await run_in_threadpool(reserve_model_use, os.environ["LICENSE_DB"]):
                 raise HTTPException(429, "Pilot licence quota reached; contact the team")
