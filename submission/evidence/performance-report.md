@@ -25,3 +25,7 @@ This is responsive engineering evidence, not low-end Android or constrained-netw
 validation. Physical devices, characterised networks, repeated performance samples,
 assistive technology and real model latency are still required. No ASR or text model
 latency was measured because no approved model host is configured.
+
+## 2 October 2026 WAT — asset reduction and warm reload
+
+Release 007a56ce4a58ba76540fa87ae101177d19acc066 reduced CSS from 129,019 to 15,924 bytes and shared voice/consent JavaScript from 55,055 to 12,041 bytes. TypeScript, production build, consent/guidance checks and 15 public HTTP checks passed. A single 390 × 844 Windows/in-app Chromium warm reload measured LCP 332 ms, INP 56 ms and CLS 0.000; document/scroll width 375 px. Caches were not cleared, CPU/network not throttled, throughput unmeasured. This is not field or physical Android validation and does not erase earlier failures. Evidence: bundle-improvement-2026-10-02.json and production-performance-2026-10-02.jpg.

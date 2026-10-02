@@ -22,3 +22,7 @@ As of 1 October 2026. Overall: BLOCKED. Do not submit ONDI.
 | Private CAC / valid government ID | blocked | 07-registration/private-checklist.md | Select correct applicant evidence and review privately |
 | Actual ONDI character limits | blocked | portal-and-form-drafts.md; ondi-answer-drafts.json | Pages 1–2 inspected and local drafts fit; inspect Programme Fit, remaining evidence and declarations |
 | Final all-seven submission approval | blocked | This gate | All qualifying evidence must exist; Kayode reviews; agent never submits |
+
+## Technical update — 2 October 2026 WAT
+
+Loading-payload optimisation passed: CSS 129,019 → 15,924 bytes; shared voice/consent JavaScript 55,055 → 12,041 bytes. TypeScript/build and 15 public HTTP checks passed. One warm mobile-viewport reload recorded LCP 332 ms, INP 56 ms, CLS 0.000; physical-device/cold-network validation remains pending. Evidence: evidence/bundle-improvement-2026-10-02.json. Model endpoint and credentials are still unconfigured; overall submission gate remains blocked.

@@ -2,13 +2,38 @@
   "checkedDateWAT": "2026-10-02",
   "baselineAppCommit": "45a9f255d7b2dd9c3b39d4ad1a88034c35002baf",
   "method": "Production build file lengths; Python gzip.compress for gzip comparison. Not transferred network bytes or field Web Vitals.",
-  "css": {"beforeBytes": 129019, "afterBytes": 15924, "afterGzipBytes": 4396},
-  "sharedVoiceConsentChunk": {"beforeBytes": 55055, "afterBytes": 12041, "beforeGzipBytes": 19078, "afterGzipBytes": 5245},
+  "css": {
+    "beforeBytes": 129019,
+    "afterBytes": 15924,
+    "afterGzipBytes": 4396
+  },
+  "sharedVoiceConsentChunk": {
+    "beforeBytes": 55055,
+    "afterBytes": 12041,
+    "beforeGzipBytes": 19078,
+    "afterGzipBytes": 5245
+  },
   "change": "Keep CSS preflight and product styles; remove unused utility/animation/library CSS generation. Use native consent checkboxes instead of Radix runtime.",
   "typecheck": "passed",
   "productionBuild": "passed",
-  "localBrowserChecks": ["Supplier-change checklist with source provenance", "Audio consent checked then unchecked without recording or upload", "Immediate after-payment bank advice"],
-  "pagePerformance": "Production Web Vitals retest pending; previous LCP failure remains recorded.",
+  "localBrowserChecks": [
+    "Supplier-change checklist with source provenance",
+    "Audio consent checked then unchecked without recording or upload",
+    "Immediate after-payment bank advice"
+  ],
+  "pagePerformance": {
+    "LCPms": 332,
+    "INPms": 56,
+    "CLS": 0.0,
+    "viewportWidth": 390,
+    "viewportHeight": 844,
+    "documentWidth": 375,
+    "scrollWidth": 375,
+    "conditions": "Windows host, in-app Chromium, warm reload after initial load. Caches not cleared; no CPU/network throttling; throughput unmeasured. Single snapshot after typed supplier guidance. No physical Android or model-latency validation. Earlier failures retained."
+  },
   "modelInferences": 0,
-  "participantInteractions": 0
+  "participantInteractions": 0,
+  "appCommit": "007a56ce4a58ba76540fa87ae101177d19acc066",
+  "deployment": "appgdep_6abf04af1ba48191b300d1f8272209ae",
+  "anonymousHTTPChecksPassed": 15
 }
