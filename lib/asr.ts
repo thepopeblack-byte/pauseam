@@ -80,7 +80,8 @@ export async function transcribe(
     },
     body: bytes as BodyInit,
     signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
-    redirect: "error",
+    // Workers rejects redirect="error". Never follow a redirect with audio/secrets.
+    redirect: "manual",
   });
   if (!response.ok) {
     await response.body?.cancel();

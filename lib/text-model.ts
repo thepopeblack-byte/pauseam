@@ -75,7 +75,8 @@ export async function modelGuidance(
     throw new Error("unavailable");
   const response = await fetcher(url, {
     method: "POST",
-    redirect: "error",
+    // Reject 3xx below without forwarding the question or service credential.
+    redirect: "manual",
     signal: signal
       ? AbortSignal.any([signal, AbortSignal.timeout(45000)])
       : AbortSignal.timeout(45000),

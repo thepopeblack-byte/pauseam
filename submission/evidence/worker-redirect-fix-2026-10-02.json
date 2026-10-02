@@ -1,0 +1,33 @@
+{
+  "recordedAt": "2026-10-02T10:25:22.681Z",
+  "kind": "Engineering defect investigation, not participant validation",
+  "observedFailure": {
+    "route": "/api/asr",
+    "timestamp": "2026-10-02T10:15:54.812Z",
+    "httpStatus": 503,
+    "wallTimeMs": 11,
+    "requestId": "eb0b7f2f49b8fce492815e997fcce9e5",
+    "rawAudioRetained": false
+  },
+  "runtimeReproduction": {
+    "runtime": "Miniflare / Workers",
+    "redirectError": "Rejected by Request constructor before network access",
+    "redirectManual": "Accepted"
+  },
+  "fix": {
+    "files": [
+      "lib/asr.ts",
+      "lib/text-model.ts"
+    ],
+    "policy": "manual; reject all non-success statuses without following redirects or forwarding credentials"
+  },
+  "checks": {
+    "workerRegressionPassed": true,
+    "nodeTestsPassed": 44,
+    "lintPassed": true,
+    "typecheckPassed": true
+  },
+  "speechRecognitionValidated": false,
+  "textInferencePassed": false,
+  "participantRecordsCreated": 0
+}
