@@ -37,6 +37,20 @@ export function configuredEndpoint(
   }
 }
 export const MAX_AUDIO = 960044;
+export function asrFailure(error: unknown) {
+  const code = error instanceof Error && ["TimeoutError", "AbortError"].includes(error.name)
+    ? "timeout" : error instanceof Error ? error.message : "inference";
+  const failures: Record<string, { status: number; error: string }> = {
+    sensitive: { status: 422, error: "Private details were detected and the transcript was discarded. Describe the situation without account details or secret codes." },
+    audio: { status: 422, error: "That recording could not be read. Record clearly for up to 28 seconds, or type your question." },
+    no_speech: { status: 422, error: "No clear speech was recognised. Try again closer to the microphone, or type your question." },
+    busy: { status: 429, error: "Voice is busy with another recording. Wait a moment and try again." },
+    quota: { status: 429, error: "The pilot voice limit has been reached. Please contact the PauseAm team." },
+    timeout: { status: 504, error: "Transcription took too long. Try a shorter recording, or type your question." },
+    large: { status: 413, error: "That recording is too large. Record for up to 28 seconds." },
+  };
+  return Object.hasOwn(failures, code) ? failures[code] : { status: 503, error: "Speech recognition is temporarily unavailable. Please try again or type your question." };
+}
 export function validWav(bytes: Uint8Array) {
   if (bytes.length < 44 || bytes.length > MAX_AUDIO) return false;
   const d = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength),
@@ -84,7 +98,20 @@ export async function transcribe(
     redirect: "manual",
   });
   if (!response.ok) {
+    // Only classify the host's known error codes. Never display raw upstream
+    // bodies, model text, proxy HTML or credential-containing error details.
+    if (response.status === 422 || response.status === 429) {
+      let detail: unknown;
+      try {
+        detail = JSON.parse(new TextDecoder().decode(await readLimited(response.body, 4096))).detail;
+      } catch { /* Unknown bounded error body still fails closed. */ }
+      if (response.status === 422)
+        throw new Error(detail === "Possible private details: transcript discarded" ? "sensitive" : detail === "No usable transcript" ? "no_speech" : "audio");
+      throw new Error(detail === "Pilot licence quota reached; contact the team" ? "quota" : "busy");
+    }
     await response.body?.cancel();
+    if (response.status === 408 || response.status === 504) throw new Error("timeout");
+    if (response.status === 413 || response.status === 415) throw new Error("audio");
     throw new Error("inference");
   }
   const raw = new TextDecoder().decode(await readLimited(response.body, 8192));
@@ -95,7 +122,8 @@ export async function transcribe(
     data.revision !== identity.revision ||
     typeof data.text !== "string" ||
     !data.text.trim() ||
-    data.text.length > 1000
+    data.text.length > 1000 ||
+    (data.redacted !== undefined && typeof data.redacted !== "boolean")
   )
     throw new Error("provenance");
   if (containsSensitive(data.text)) throw new Error("sensitive");
@@ -105,5 +133,6 @@ export async function transcribe(
     revision: identity.revision,
     language,
     confidence: null,
+    ...(data.redacted === true ? { redacted: true } : {}),
   };
 }

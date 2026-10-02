@@ -22,7 +22,7 @@ export function VoiceInput({
   disabled = false,
   onActivityChange,
 }: {
-  onTranscript: (text: string, model: string) => void;
+  onTranscript: (text: string, model: string, redacted?: boolean) => void;
   testing?: boolean;
   reference?: string;
   journey?: "before" | "after" | "learn";
@@ -199,6 +199,7 @@ export function VoiceInput({
         revision: string;
         language: Language;
         traceId?: string;
+        redacted?: boolean;
       };
       if (!response.ok)
         throw new Error(data.error || "Speech recognition is unavailable.");
@@ -219,7 +220,7 @@ export function VoiceInput({
         operation.current === id &&
         !controller.signal.aborted
       ) {
-        onTranscript(data.text, data.model);
+        onTranscript(data.text, data.model, data.redacted === true);
         setOpen(false);
       }
     } catch (e) {
@@ -300,7 +301,7 @@ export function VoiceInput({
                 {configured === null
                   ? "Checking voice availability..."
                   : configured
-                    ? "English  /  up to 28 seconds"
+                    ? "Your own words · English · up to 28 seconds"
                     : "Voice unavailable. Please type instead."}
               </small>
             </span>

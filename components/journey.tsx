@@ -50,6 +50,7 @@ export function JourneyPanel({
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [asrModel, setAsrModel] = useState(""),
+    [transcriptRedacted, setTranscriptRedacted] = useState(false),
     [confirmed, setConfirmed] = useState(false),
     [testing, setTesting] = useState(false),
     [trial, setTrial] = useState<Trial | null>(null),
@@ -304,9 +305,10 @@ export function JourneyPanel({
               testing={testing}
               disabled={busy}
               onActivityChange={setVoiceActive}
-              onTranscript={(text, model) => {
+              onTranscript={(text, model, redacted) => {
                 edit(text);
                 setAsrModel(model);
+                setTranscriptRedacted(redacted === true);
                 requestAnimationFrame(() =>
                   document.getElementById("question-" + journey)?.focus(),
                 );
@@ -329,6 +331,7 @@ export function JourneyPanel({
         </p>
         {asrModel && (
           <div className="transcript-review">
+            {transcriptRedacted && <p className="microcopy">Numbers were hidden for privacy. Check that the transcript describes what happened.</p>}
             <label className="consent">
               <Checkbox
                 checked={confirmed}

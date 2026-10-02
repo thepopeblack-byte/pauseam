@@ -1,5 +1,5 @@
 import { settings, json, sameOrigin, boundedBody } from "@/lib/server";
-import { transcribe, MAX_AUDIO } from "@/lib/asr";
+import { transcribe, MAX_AUDIO, asrFailure } from "@/lib/asr";
 import { isLanguage, isPilotLanguage } from "@/lib/models";
 import { allowRequest } from "@/lib/rate-limit";
 export async function POST(request: Request) {
@@ -39,14 +39,7 @@ export async function POST(request: Request) {
       bytes.fill(0);
     }
   } catch (error) {
-    const sensitive = error instanceof Error && error.message === "sensitive";
-    return json(
-      {
-        error: sensitive
-          ? "Private details may have been spoken. The transcript was discarded. Try again without numbers or secrets."
-          : "Speech recognition is unavailable or the audio could not be processed. No transcript was created for use. Please type your question.",
-      },
-      sensitive ? 422 : 503,
-    );
+    const failure = asrFailure(error);
+    return json({ error: failure.error }, failure.status);
   }
 }

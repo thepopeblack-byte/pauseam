@@ -10,7 +10,7 @@ import {
   wordErrors,
   currentSourceCards,
 } from "../lib/safety.ts";
-import { validWav, transcribe } from "../lib/asr.ts";
+import { validWav, transcribe, asrFailure } from "../lib/asr.ts";
 import { cleanTrial, summary } from "../lib/evaluation.ts";
 const now = new Date("2026-10-01T12:00:00Z");
 test("CPU text runtime provenance cannot be invented", () => {
@@ -251,6 +251,30 @@ test("upstream denial fails with no substitute transcript", async () => {
   await assert.rejects(() =>
     transcribe(wav(), config, async () => new Response("", { status: 403 })),
   );
+});
+
+test("ASR host rejection categories stay distinct without exposing upstream details", async () => {
+  for (const [status, detail, expected, publicStatus] of [
+    [422, "Possible private details: transcript discarded", "sensitive", 422],
+    [422, "No usable transcript", "no_speech", 422],
+    [422, "Invalid, silent or unsupported audio", "audio", 422],
+    [429, "Inference capacity reached; try later", "busy", 429],
+    [429, "Pilot licence quota reached; contact the team", "quota", 429],
+    [504, "proxy fixture", "timeout", 504],
+  ] as const) {
+    await assert.rejects(() => transcribe(wav(), config, async () => Response.json({detail}, {status})), {message: expected});
+    assert.equal(asrFailure(new Error(expected)).status, publicStatus);
+  }
+  await assert.rejects(() => transcribe(wav(), config, async () => Response.json({detail:"untrusted private error fixture"}, {status:422})), {message:"audio"});
+  assert.equal(asrFailure(new Error("untrusted private error fixture")).error.includes("fixture"), false);
+});
+
+test("redacted free-form ASR transcript keeps provenance and still rejects leaked numeric details", async () => {
+  const data={text:"I paid [number removed] naira but the seller disappeared.",model:MODEL,revision:REVISION,language:"en",redacted:true};
+  const result=await transcribe(wav(),config,async()=>Response.json(data));
+  assert.equal(result.text,data.text);
+  assert.equal(result.redacted,true);
+  await assert.rejects(()=>transcribe(wav(),config,async()=>Response.json({...data,text:"I paid 25000 naira.",redacted:true})), {message:"sensitive"});
 });
 
 test("learning banking-codes suggestion retrieves its source", () => {

@@ -3,13 +3,14 @@ import asyncio
 from http_safety import valid_bearer, append_bounded
 import io
 import os
-import re
 import time
 import wave
 try:
     from .audio_validation import validate_pcm
+    from .transcript_privacy import public_transcript, PRIVACY_POLICY
 except ImportError:
     from audio_validation import validate_pcm
+    from transcript_privacy import public_transcript, PRIVACY_POLICY
 try:
     from model_service.license_quota import reserve_model_use
     from model_service.verified_weights import load_verified_bucket
@@ -100,7 +101,7 @@ async def ready():
 async def health(request: Request):
     authenticate(request)
     return JSONResponse({"ready": asr is not None, "model": MODEL, "revision": REVISION, "language": LANGUAGE,
-                         "weightsProvenance": provenance},
+                         "weightsProvenance": provenance, "privacyPolicy": PRIVACY_POLICY},
                         headers={"Cache-Control": "no-store"})
 
 
@@ -116,13 +117,11 @@ def infer(raw):
             result = asr({"raw": samples, "sampling_rate": 16000},
                          generate_kwargs={"task": "transcribe", "max_new_tokens": 128})
         text = result.get("text", "").strip()
-        if not text or len(text) > 1000:
-            raise HTTPException(422, "No usable transcript")
-        if re.search(r"\d|[\w.+-]+@[\w.-]+\.[a-z]{2,}", text, re.I) or re.search(
-            r"\b(?:my|the)\s+(?:pin|otp|password|passcode|credential|account number)\s*(?:is|:|=)\s*\S+", text, re.I
-        ) or re.search(r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine)(?:[\s,-]+(?:zero|one|two|three|four|five|six|seven|eight|nine)){2,}\b", text, re.I):
-            raise HTTPException(422, "Possible private details: transcript discarded")
-        return {"text": text, "model": MODEL, "revision": REVISION, "language": LANGUAGE}
+        try:
+            text, redacted = public_transcript(text)
+        except ValueError as error:
+            raise HTTPException(422, str(error)) from None
+        return {"text": text, "redacted": redacted, "model": MODEL, "revision": REVISION, "language": LANGUAGE}
     except HTTPException:
         raise
     except Exception:
