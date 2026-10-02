@@ -1,0 +1,225 @@
+{
+  "recordedAt": "2026-10-02T10:16:28.543Z",
+  "kind": "Engineering deployment and boundary checks, not participant validation",
+  "deployment": {
+    "projectId": "appgprj_6ab826bba8f48191ad36895acae09407",
+    "versionNumber": 10,
+    "deploymentId": "appgdep_6abf83c90bf881919c7b48404f3a8cc3",
+    "sourceCommit": "6680315774d07eec1fb69eb5d3a06f216ea794a0",
+    "environmentRevision": 2,
+    "status": "succeeded"
+  },
+  "configuration": {
+    "websiteStatus": 200,
+    "asrConfigured": true,
+    "textConfigured": false,
+    "languages": {
+      "en": {
+        "configured": true,
+        "validated": false
+      },
+      "yo": {
+        "configured": true,
+        "validated": false
+      },
+      "ha": {
+        "configured": true,
+        "validated": false
+      },
+      "ig": {
+        "configured": true,
+        "validated": false
+      }
+    },
+    "kbEnabled": true
+  },
+  "baseline": {
+    "recordedAt": "2026-10-02T10:14:31.503Z",
+    "origin": "https://pauseam.theblockcapitol.com",
+    "kind": "Engineering checks, not user validation",
+    "checks": [
+      {
+        "name": "Pinned targets and private status response",
+        "status": 200,
+        "elapsedMs": 3825,
+        "passed": true
+      },
+      {
+        "name": "Unauthenticated licence reservation fails closed",
+        "status": 503,
+        "elapsedMs": 440,
+        "passed": true
+      },
+      {
+        "name": "Page /",
+        "status": 200,
+        "elapsedMs": 690,
+        "passed": true
+      },
+      {
+        "name": "Page /about",
+        "status": 200,
+        "elapsedMs": 376,
+        "passed": true
+      },
+      {
+        "name": "Page /evaluation",
+        "status": 200,
+        "elapsedMs": 421,
+        "passed": true
+      },
+      {
+        "name": "Supplier-change guidance has expected source and steps",
+        "status": 200,
+        "elapsedMs": 332,
+        "passed": true,
+        "engine": "Source-checked keyword retrieval (no generative answer model)",
+        "model": null
+      },
+      {
+        "name": "Immediate bank-contact checklist bypasses inference",
+        "status": 200,
+        "elapsedMs": 220,
+        "passed": true
+      },
+      {
+        "name": "Learning guidance remains source-grounded",
+        "status": 200,
+        "elapsedMs": 264,
+        "passed": true
+      },
+      {
+        "name": "Private-detail rejection",
+        "status": 422,
+        "elapsedMs": 278,
+        "passed": true
+      },
+      {
+        "name": "Unrelated origin rejected",
+        "status": 403,
+        "elapsedMs": 206,
+        "passed": true
+      },
+      {
+        "name": "Oversized input rejected",
+        "status": 400,
+        "elapsedMs": 326,
+        "passed": true
+      },
+      {
+        "name": "Audio consent required",
+        "status": 400,
+        "elapsedMs": 319,
+        "passed": true
+      },
+      {
+        "name": "Unsupported audio rejected",
+        "status": 415,
+        "elapsedMs": 264,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured yo guidance fails safely",
+        "status": 503,
+        "elapsedMs": 530,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ha guidance fails safely",
+        "status": 503,
+        "elapsedMs": 272,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ig guidance fails safely",
+        "status": 503,
+        "elapsedMs": 318,
+        "passed": true
+      }
+    ],
+    "models": {
+      "configured": false,
+      "textInferencePassed": false,
+      "speech": [],
+      "fourLanguageJourneyPassed": false
+    },
+    "transcriptsStored": false,
+    "participantRecordsCreated": 0,
+    "baselinePassed": true,
+    "modelReleaseGatePassed": false,
+    "remaining": [
+      "Fluent critical wording review",
+      "Observed transcript correction and comprehension",
+      "Representative mobile/network testing",
+      "Genuine participant validation"
+    ]
+  },
+  "asrBoundaries": {
+    "checkedAt": "2026-10-02T10:02:06.911Z",
+    "host": "https://amaranth-nightingale.vm.scrtlabs.com",
+    "kind": "Engineering boundary requests without audio or participant data",
+    "checks": [
+      {
+        "language": "en",
+        "kind": "unauthorized",
+        "status": 401,
+        "expected": 401,
+        "passed": true
+      },
+      {
+        "language": "en",
+        "kind": "unsupported-format",
+        "status": 415,
+        "expected": 415,
+        "passed": true
+      },
+      {
+        "language": "yo",
+        "kind": "unauthorized",
+        "status": 401,
+        "expected": 401,
+        "passed": true
+      },
+      {
+        "language": "yo",
+        "kind": "unsupported-format",
+        "status": 415,
+        "expected": 415,
+        "passed": true
+      },
+      {
+        "language": "ha",
+        "kind": "unauthorized",
+        "status": 401,
+        "expected": 401,
+        "passed": true
+      },
+      {
+        "language": "ha",
+        "kind": "unsupported-format",
+        "status": 415,
+        "expected": 415,
+        "passed": true
+      },
+      {
+        "language": "ig",
+        "kind": "unauthorized",
+        "status": 401,
+        "expected": 401,
+        "passed": true
+      },
+      {
+        "language": "ig",
+        "kind": "unsupported-format",
+        "status": 415,
+        "expected": 415,
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "speechRecognitionTested": false
+  },
+  "speechRecognitionTested": false,
+  "participantRecordsCreated": 0,
+  "fullModelReleasePassed": false
+}

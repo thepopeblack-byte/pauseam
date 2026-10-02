@@ -72,3 +72,27 @@ after testing within the agreed total budget.
 
 No ONDI application, completed human validation, official API request, fine-tuning,
 representative mobile measurements or demo video is claimed by this review.
+
+## Later same-day publishing recovery and owner voice pilot
+
+The Sites workflow became available again. The reviewed app was built and
+published as version 10 from commit 6680315774d07eec1fb69eb5d3a06f216ea794a0,
+deployment appgdep_6abf83c90bf881919c7b48404f3a8cc3, environment revision 2.
+The Windows build used an ignored checkout-local npm launcher, installed Git Bash
+and TAR_OPTIONS=--force-local with the bundled workflow; no replacement packager
+was created. The archive was accepted by Sites and publication succeeded.
+
+All four ASR URLs and the matching private service secret are configured for
+an initial consented owner test. Authentication and format boundaries passed
+eight real requests without audio. The UI labels recognition accuracy as still
+under review. No genuine speech test or validated language claim is recorded.
+TEXT_ENABLED remains false: the actual text request again exceeded 45 seconds.
+English source-based guidance is explicitly labelled without a generative model;
+other-language guidance remains unavailable. The full model release gate fails.
+
+All 16 public baseline checks passed on the custom domain. Detailed results and
+configuration are in voice-pilot-deployment-2026-10-02.json and the latest text
+failure in secretvm-amaranth-recheck-2026-10-02.json. These are engineering checks,
+not completed participant interactions. The first real owner recording, host
+resource diagnostics, complete multilingual journeys and human reviews remain
+pending. No additional SecretVM purchase or workload deployment was performed.
