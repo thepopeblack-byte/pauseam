@@ -35,6 +35,24 @@ References checked 2 October 2026:
 - https://learn.chatgpt.com/docs/sites
 - https://www.namecheap.com/support/knowledgebase/article.aspx/9646/2237/how-to-create-a-cname-record-for-your-domain/
 
+## Windows publish reproducibility
+
+Use the Sites plugin's native source workflow and save/deploy calls. This
+checkout's build passed, but the standard Windows npm launcher resolved the
+wrong CLI path inside that workflow. A checkout-local ignored npm.cmd wrapper
+invoking the installed C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js
+resolved it. No global npm installation or configuration was changed.
+
+The system bash executable invokes WSL and could not read Windows paths. For
+this publish only, PATH selected installed C:/Program Files/Git/bin first.
+TAR_OPTIONS=--force-local prevented GNU tar treating a C: archive path as a
+remote host; the archive argument used forward slashes. Use those process-only
+settings on this machine, never change a system-wide PATH or Git safe-directory
+policy to solve it. The bundled workflow still owned source push, packaging and
+archive validation. Publication succeeded for version 9 from commit
+503d084f20661af2e6d74456f56d360e77aa058d. Later commits add review evidence and
+verification instructions without changing deployed application runtime code.
+
 ## Where the models run
 
 The application and its server-side API proxy already run on Sites. This build
