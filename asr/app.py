@@ -44,6 +44,10 @@ async def lifespan(app):
         raise RuntimeError("Set HF_TOKEN after approval for the gated NCAIR model.")
     if os.environ.get("MODEL_REVISION") != REVISION:
         raise RuntimeError("MODEL_REVISION must match the pinned revision.")
+    threads = int(os.environ.get("MODEL_THREADS", "1"))
+    if not 1 <= threads <= 8:
+        raise RuntimeError("MODEL_THREADS must be between one and eight")
+    torch.set_num_threads(threads)
     # Failure to load is fatal: never fall back to Whisper base or another model.
     asr = pipeline(
         "automatic-speech-recognition", model=MODEL, revision=REVISION,

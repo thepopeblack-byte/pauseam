@@ -54,3 +54,29 @@ growth beyond that. A per-process rate limit is not licence enforcement.
 Record actual container digest, package lock, model SHA, health response, real
 request trace and measured latency after successful setup. A self-hosted endpoint
 does not establish official API use or organiser acceptance for PS2.
+
+## Reproducible CPU pilot preparation (2 October 2026)
+
+The SecretVM portal lists a Google Cloud xlarge with eight vCPUs and 32 GB RAM,
+at $0.52/hour, with stopped storage billed at $0.052/hour. This is a quoted
+configuration, not evidence of a running deployment. Secret Cloud's 16 GB option
+does not provide sufficient headroom for these five services together.
+
+The model-container workflow builds two Linux amd64 images from the exact Git
+commit and reports their actual registry digests. It does not download weights or
+receive Hugging Face credentials. Official build actions are pinned to commits.
+Dockerfiles default to the official PyTorch CPU wheel index. A GPU deployment
+must explicitly select its compatible official PyTorch wheel index and be tested.
+
+On the CPU pilot, TEXT_DTYPE=bfloat16 reduces text-weight memory; MODEL_THREADS=4
+limits text threads, and each ASR uses MODEL_THREADS=1. This setting is not yet
+validated on the provisioned machine. Throughput, peak memory, startup and
+inference latency must be measured before enabling the app's inference switches.
+
+An optional MODEL_BUCKET_ID uses text_service/verified_weights.py. It downloads
+only the files in model-manifest.json and checks actual SHA-256 hashes for large
+files and Git blob SHA-1 hashes for small files against metadata from the official
+revision. It verifies all cached files again on every startup. It rejects changed,
+incomplete or unexpected files; a bucket URL or Xet hash alone is insufficient.
+The bucket ID is private deployment configuration, not an official API endpoint.
+No successful full-weight verification or inference is claimed by unit tests.

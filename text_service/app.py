@@ -10,27 +10,54 @@ from fastapi import FastAPI, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from fastapi.responses import JSONResponse
+try:
+    from .verified_weights import load_verified_bucket
+except ImportError:
+    from verified_weights import load_verified_bucket
+from pathlib import Path
 
 MODEL = "NCAIR1/N-ATLaS"
 REVISION = "e294476928aca9030e924ca27bb8e085e8581273"
 TOKEN = os.environ.get("TEXT_SERVICE_TOKEN", "")
 model = tokenizer = None
+provenance = "unloaded"
 slot = asyncio.Semaphore(1)
 
 @asynccontextmanager
 async def lifespan(app):
-    global model, tokenizer
-    if len(TOKEN) < 32 or not os.environ.get("HF_TOKEN"):
-        raise RuntimeError("Set private service and approved Hugging Face credentials.")
+    global model, tokenizer, provenance
+    if len(TOKEN) < 32:
+        raise RuntimeError("Set a private service credential of at least 32 characters.")
     if os.environ.get("MODEL_REVISION") != REVISION:
         raise RuntimeError("Explicit pinned model revision required.")
-    tokenizer = AutoTokenizer.from_pretrained(MODEL, revision=REVISION, token=os.environ["HF_TOKEN"], trust_remote_code=False)
+    bucket = os.environ.get("MODEL_BUCKET_ID", "")
+    if bucket:
+        location = load_verified_bucket(bucket, os.environ.get("VERIFIED_MODEL_CACHE", "/tmp/verified-model"),
+            Path(__file__).with_name("model-manifest.json"), MODEL, REVISION)
+        loading = {"local_files_only": True}
+        provenance = "bucket-bytes-verified-against-official-revision"
+    else:
+        if not os.environ.get("HF_TOKEN"):
+            raise RuntimeError("Set approved Hugging Face credentials or an explicit verified bucket.")
+        location = MODEL
+        loading = {"revision": REVISION, "token": os.environ["HF_TOKEN"]}
+        provenance = "official-repository-pinned-revision"
+    dtype_name = os.environ.get("TEXT_DTYPE", "auto")
+    dtypes = {"float32": torch.float32, "float16": torch.float16, "bfloat16": torch.bfloat16}
+    if dtype_name != "auto" and dtype_name not in dtypes:
+        raise RuntimeError("Unsupported explicit model dtype")
+    dtype = dtypes.get(dtype_name, torch.float16 if torch.cuda.is_available() else torch.float32)
+    threads = int(os.environ.get("MODEL_THREADS", "4"))
+    if not 1 <= threads <= 8:
+        raise RuntimeError("MODEL_THREADS must be between one and eight")
+    torch.set_num_threads(threads)
+    tokenizer = AutoTokenizer.from_pretrained(location, **loading, trust_remote_code=False)
     model = AutoModelForCausalLM.from_pretrained(
-        MODEL, revision=REVISION, token=os.environ["HF_TOKEN"], trust_remote_code=False,
-        use_safetensors=True, torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+        location, **loading, trust_remote_code=False,
+        use_safetensors=True, torch_dtype=dtype, low_cpu_mem_usage=True,
         device_map="auto",
     )
-    if getattr(model.config, "_commit_hash", None) != REVISION:
+    if not bucket and getattr(model.config, "_commit_hash", None) != REVISION:
         raise RuntimeError("Loaded revision not verified.")
     model.eval()
     yield
@@ -49,7 +76,8 @@ async def ready():
 @app.get("/health")
 async def health(request: Request):
     auth(request)
-    return {"ready": model is not None, "model": MODEL, "revision": REVISION}
+    return {"ready": model is not None, "model": MODEL, "revision": REVISION,
+            "weightsProvenance": provenance, "dtype": str(model.dtype) if model is not None else None}
 
 def infer(data):
     cards = data["cards"]

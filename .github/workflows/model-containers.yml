@@ -1,0 +1,50 @@
+name: Build pinned model-service containers
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['asr/**', 'text_service/**', '.github/workflows/model-containers.yml']
+permissions:
+  contents: read
+concurrency:
+  group: model-containers-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [asr, text_service]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Integrity and audio unit tests (not model validation)
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish application code only; no model weights or tokens
+        id: image
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8
+        with:
+          context: ./${{ matrix.service }}
+          push: true
+          platforms: linux/amd64
+          tags: ghcr.io/thepopeblack-byte/pauseam-${{ matrix.service }}:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/thepopeblack-byte/pauseam
+            org.opencontainers.image.revision=${{ github.sha }}
+          provenance: true
+          sbom: true
+      - name: Record the actual built digest
+        env:
+          IMAGE_DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          printf 'Built %s at %s\n' '${{ matrix.service }}' "$IMAGE_DIGEST" >> "$GITHUB_STEP_SUMMARY"
