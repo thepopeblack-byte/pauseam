@@ -275,7 +275,7 @@ export function VoiceInput({
               }}
             />
             I agree to send audio to N-ATLaS for transcription. This app
-            processes it in memory without saving it. I won't speak private
+            processes it in memory without saving it. I won&apos;t speak private
             details.
           </label>
           <button
@@ -306,7 +306,7 @@ export function VoiceInput({
           </button>
           {recording && (
             <p role="status" className="microcopy">
-              Recording. Press stop when you've finished.
+              Recording. Press stop when you&apos;ve finished.
             </p>
           )}
           {audio && (
@@ -334,7 +334,7 @@ export function VoiceInput({
           {busy && (
             <>
               <p role="status" className="microcopy">
-                Please wait. You'll review the transcript before getting
+                Please wait. You&apos;ll review the transcript before getting
                 guidance.
               </p>
               <button
