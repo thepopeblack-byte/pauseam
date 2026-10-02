@@ -59,7 +59,7 @@ services:
       retries: 5
       start_period: 60m
   asr-en:
-    image: ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b
+    image: ghcr.io/thepopeblack-byte/pauseam-asr@sha256:02ffaaf976274ae1d65fc13b4fc62a4ac6b2f161f6c0bc331613e698ce650f1d
     restart: "on-failure:3"
     mem_limit: 3g
     read_only: true
