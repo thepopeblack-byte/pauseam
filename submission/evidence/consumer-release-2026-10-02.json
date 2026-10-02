@@ -1,0 +1,48 @@
+{
+  "release": "Consumer reporting and learning",
+  "publishedAt": "2026-10-02T16:09:13.533865+00:00",
+  "projectId": "appgprj_6ab826bba8f48191ad36895acae09407",
+  "version": 15,
+  "sourceCommit": "4078b893d4a2e7f69fcafc704a6626f858c1f735",
+  "deploymentId": "appgdep_6abfd71867cc8191b4a16d757a1033bb",
+  "deploymentStatus": "succeeded",
+  "publicUrl": "https://pauseam.theblockcapitol.com",
+  "build": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "regressionTests": {
+      "passed": 53,
+      "failed": 0,
+      "note": "Full suite passed on the same backend; final report-copy UI change also passed lint, typecheck and build."
+    }
+  },
+  "browserChecks": {
+    "home": "public release verified",
+    "viewports": [
+      {
+        "requestedWidth": 320,
+        "contentWidth": 305,
+        "horizontalOverflow": false
+      },
+      {
+        "requestedWidth": 390,
+        "contentWidth": 390,
+        "horizontalOverflow": false
+      }
+    ],
+    "reportStages": "bank-first and CBN escalation displayed with authored examples",
+    "learning": "dated notice and practice feedback displayed",
+    "recording": "public English availability and consent-off recording gate verified; no new audio inference",
+    "copy": "UI reported success; in-app clipboard bridge returned empty, owner browser check pending",
+    "download": "UI reported initiation; saved file could not be retrieved, owner browser check pending"
+  },
+  "screenshot": "outputs/pauseam-consumer-release-live-2026-10-02.png",
+  "limitations": [
+    "Selected manually maintained official notices, not a live news feed",
+    "Direct source retrieval returned 403; official search-index provenance recorded",
+    "Human safety review and participant validation remain pending",
+    "Generative N-ATLaS text model remains disabled; guidance uses source checklists",
+    "No ONDI submission or automatic report sending"
+  ]
+}

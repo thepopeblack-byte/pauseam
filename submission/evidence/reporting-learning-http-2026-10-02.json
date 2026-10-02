@@ -1,0 +1,230 @@
+{
+  "baseline": {
+    "recordedAt": "2026-10-02T16:10:41.262Z",
+    "origin": "https://pauseam.theblockcapitol.com",
+    "kind": "Engineering checks, not user validation",
+    "checks": [
+      {
+        "name": "Pinned targets and private status response",
+        "status": 200,
+        "elapsedMs": 3527,
+        "passed": true
+      },
+      {
+        "name": "Unauthenticated licence reservation fails closed",
+        "status": 503,
+        "elapsedMs": 516,
+        "passed": true
+      },
+      {
+        "name": "Page /",
+        "status": 200,
+        "elapsedMs": 1424,
+        "passed": true
+      },
+      {
+        "name": "Page /about",
+        "status": 200,
+        "elapsedMs": 502,
+        "passed": true
+      },
+      {
+        "name": "Page /evaluation",
+        "status": 200,
+        "elapsedMs": 728,
+        "passed": true
+      },
+      {
+        "name": "Supplier-change guidance has expected source and steps",
+        "status": 200,
+        "elapsedMs": 611,
+        "passed": true,
+        "engine": "Source-checked keyword retrieval (no generative answer model)",
+        "model": null
+      },
+      {
+        "name": "Everyday phrasing: complaint",
+        "status": 200,
+        "elapsedMs": 1397,
+        "passed": true
+      },
+      {
+        "name": "Everyday phrasing: supplier",
+        "status": 200,
+        "elapsedMs": 935,
+        "passed": true
+      },
+      {
+        "name": "Everyday phrasing: report",
+        "status": 200,
+        "elapsedMs": 205,
+        "passed": true
+      },
+      {
+        "name": "Everyday phrasing: payment",
+        "status": 200,
+        "elapsedMs": 226,
+        "passed": true
+      },
+      {
+        "name": "Unrelated question gets an honest limit",
+        "status": 200,
+        "elapsedMs": 271,
+        "passed": true
+      },
+      {
+        "name": "Immediate bank-contact checklist bypasses inference",
+        "status": 200,
+        "elapsedMs": 190,
+        "passed": true
+      },
+      {
+        "name": "Learning guidance remains source-grounded",
+        "status": 200,
+        "elapsedMs": 244,
+        "passed": true
+      },
+      {
+        "name": "Private-detail rejection",
+        "status": 422,
+        "elapsedMs": 268,
+        "passed": true
+      },
+      {
+        "name": "Unrelated origin rejected",
+        "status": 403,
+        "elapsedMs": 712,
+        "passed": true
+      },
+      {
+        "name": "Oversized input rejected",
+        "status": 400,
+        "elapsedMs": 396,
+        "passed": true
+      },
+      {
+        "name": "Audio consent required",
+        "status": 400,
+        "elapsedMs": 290,
+        "passed": true
+      },
+      {
+        "name": "Unsupported audio rejected",
+        "status": 415,
+        "elapsedMs": 364,
+        "passed": true
+      },
+      {
+        "name": "Paused yo voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 280,
+        "passed": true
+      },
+      {
+        "name": "Paused ha voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 270,
+        "passed": true
+      },
+      {
+        "name": "Paused ig voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 282,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured yo guidance fails safely",
+        "status": 503,
+        "elapsedMs": 267,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ha guidance fails safely",
+        "status": 503,
+        "elapsedMs": 399,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ig guidance fails safely",
+        "status": 503,
+        "elapsedMs": 322,
+        "passed": true
+      }
+    ],
+    "models": {
+      "configured": false,
+      "textInferencePassed": false,
+      "speech": [],
+      "fourLanguageJourneyPassed": false,
+      "englishPilotJourneyPassed": false
+    },
+    "transcriptsStored": false,
+    "participantRecordsCreated": 0,
+    "baselinePassed": true,
+    "modelReleaseGatePassed": false,
+    "remaining": [
+      "Fluent critical wording review",
+      "Observed transcript correction and comprehension",
+      "Representative mobile/network testing",
+      "Genuine participant validation"
+    ]
+  },
+  "newFeatures": {
+    "recordedAt": "2026-10-02T16:11:03.956Z",
+    "origin": "https://pauseam.theblockcapitol.com",
+    "kind": "Authored engineering examples, not participant validation",
+    "checks": [
+      {
+        "name": "Concern route: mistaken",
+        "authoredQuestion": "I sent money to the wrong person",
+        "httpStatus": 200,
+        "card": "mistaken",
+        "model": null,
+        "elapsedMs": 1256,
+        "passed": true
+      },
+      {
+        "name": "Concern route: account-security",
+        "authoredQuestion": "I clicked a phishing link",
+        "httpStatus": 200,
+        "card": "account-security",
+        "model": null,
+        "elapsedMs": 250,
+        "passed": true
+      },
+      {
+        "name": "Concern route: complaint",
+        "authoredQuestion": "My bank deducted money twice",
+        "httpStatus": 200,
+        "card": "complaint",
+        "model": null,
+        "elapsedMs": 242,
+        "passed": true
+      },
+      {
+        "name": "Concern route: complaint",
+        "authoredQuestion": "My bank debited me but the transfer failed",
+        "httpStatus": 200,
+        "card": "complaint",
+        "model": null,
+        "elapsedMs": 235,
+        "passed": true
+      },
+      {
+        "name": "Dated learning catalog",
+        "httpStatus": 200,
+        "count": 3,
+        "published": [
+          "2026-08-27",
+          "2026-07-13",
+          "2026-06-15"
+        ],
+        "elapsedMs": 250,
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "audioInferenceRun": false,
+    "participantRecordsCreated": 0
+  }
+}
