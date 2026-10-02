@@ -1,0 +1,14 @@
+**
+!asr/
+!asr/**
+!text_service/
+!text_service/**
+!model_service/
+!model_service/**
+**/__pycache__
+**/*.pyc
+**/.env*
+**/*.wav
+**/*.webm
+**/*.bin
+**/*.safetensors

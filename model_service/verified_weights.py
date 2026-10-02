@@ -43,9 +43,11 @@ def validate_manifest(manifest, model, revision):
     return files
 
 
-def load_verified_bucket(bucket_id, cache_root, manifest_path, model, revision):
+def load_verified_bucket(bucket_id, cache_root, manifest_path, model, revision, prefix=""):
     if not re.fullmatch(r"[A-Za-z0-9_-]+/[A-Za-z0-9_.-]+", bucket_id):
         raise RuntimeError("Invalid bucket ID")
+    if prefix and any(not re.fullmatch(r"[A-Za-z0-9_.-]+", segment) or segment in (".", "..") for segment in prefix.split("/")):
+        raise RuntimeError("Invalid bucket prefix")
     manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     files = validate_manifest(manifest, model, revision)
     target = Path(cache_root) / revision
@@ -61,7 +63,8 @@ def load_verified_bucket(bucket_id, cache_root, manifest_path, model, revision):
             continue
         temporary = target / (entry["path"] + ".download")
         # Never print URLs: bucket redirects may carry short-lived credentials.
-        url = "https://huggingface.co/buckets/" + bucket_id + "/resolve/" + urllib.parse.quote(entry["path"])
+        relative = (prefix + "/" if prefix else "") + entry["path"]
+        url = "https://huggingface.co/buckets/" + bucket_id + "/resolve/" + urllib.parse.quote(relative)
         success = False
         for attempt in range(3):
             try:

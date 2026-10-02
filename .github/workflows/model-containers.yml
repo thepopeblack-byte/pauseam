@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['asr/**', 'text_service/**', '.github/workflows/model-containers.yml']
+    paths: ['asr/**', 'text_service/**', 'model_service/**', '.dockerignore', '.github/workflows/model-containers.yml']
 permissions:
   contents: read
 concurrency:
@@ -34,7 +34,8 @@ jobs:
         id: image
         uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8
         with:
-          context: ./${{ matrix.service }}
+          context: .
+          file: ./${{ matrix.service }}/Dockerfile
           push: true
           platforms: linux/amd64
           tags: ghcr.io/thepopeblack-byte/pauseam-${{ matrix.service }}:${{ github.sha }}

@@ -10,6 +10,13 @@ try:
     from .audio_validation import validate_pcm
 except ImportError:
     from audio_validation import validate_pcm
+try:
+    from model_service.license_quota import reserve_model_use
+    from model_service.verified_weights import load_verified_bucket
+except ImportError:
+    from license_quota import reserve_model_use
+    from verified_weights import load_verified_bucket
+from pathlib import Path
 from collections import deque
 from contextlib import asynccontextmanager
 
@@ -30,6 +37,7 @@ LANGUAGE = os.environ.get("MODEL_LANGUAGE", "en")
 MODEL, REVISION = MODELS[LANGUAGE]
 MAX_BYTES = 960044
 asr = None
+provenance = "unloaded"
 slots = asyncio.Semaphore(1)
 attempts = deque()
 TOKEN = os.environ.get("ASR_SERVICE_TOKEN", "")
@@ -37,25 +45,38 @@ TOKEN = os.environ.get("ASR_SERVICE_TOKEN", "")
 
 @asynccontextmanager
 async def lifespan(app):
-    global asr
+    global asr, provenance
     if len(TOKEN) < 32:
         raise RuntimeError("Set a random ASR_SERVICE_TOKEN of at least 32 characters.")
-    if not os.environ.get("HF_TOKEN"):
-        raise RuntimeError("Set HF_TOKEN after approval for the gated NCAIR model.")
+    if not os.environ.get("LICENSE_DB"):
+        raise RuntimeError("Set the shared conservative licence quota database.")
     if os.environ.get("MODEL_REVISION") != REVISION:
         raise RuntimeError("MODEL_REVISION must match the pinned revision.")
     threads = int(os.environ.get("MODEL_THREADS", "1"))
     if not 1 <= threads <= 8:
         raise RuntimeError("MODEL_THREADS must be between one and eight")
     torch.set_num_threads(threads)
+    bucket = os.environ.get("MODEL_BUCKET_ID", "")
+    if bucket:
+        location = load_verified_bucket(bucket, os.environ.get("VERIFIED_MODEL_CACHE", "/tmp/verified-model"),
+            Path(__file__).with_name("manifests") / (LANGUAGE + ".json"), MODEL, REVISION,
+            os.environ.get("MODEL_BUCKET_PREFIX", ""))
+        loading = {"model_kwargs": {"use_safetensors": False, "weights_only": True, "low_cpu_mem_usage": True,
+                                    "local_files_only": True}}
+        provenance = "bucket-bytes-verified-against-official-revision"
+    else:
+        if not os.environ.get("HF_TOKEN"):
+            raise RuntimeError("Set approved Hugging Face credentials or an explicit verified bucket.")
+        location = MODEL
+        loading = {"revision": REVISION, "token": os.environ["HF_TOKEN"],
+                   "model_kwargs": {"use_safetensors": False, "weights_only": True, "low_cpu_mem_usage": True}}
+        provenance = "official-repository-pinned-revision"
     # Failure to load is fatal: never fall back to Whisper base or another model.
     asr = pipeline(
-        "automatic-speech-recognition", model=MODEL, revision=REVISION,
-        token=os.environ["HF_TOKEN"], trust_remote_code=False,
-        model_kwargs={"use_safetensors": False, "weights_only": True},
+        "automatic-speech-recognition", model=location, **loading, trust_remote_code=False,
         device=0 if torch.cuda.is_available() else -1,
     )
-    if getattr(asr.model.config, "_commit_hash", None) != REVISION:
+    if not bucket and getattr(asr.model.config, "_commit_hash", None) != REVISION:
         raise RuntimeError("Loaded model revision could not be verified.")
     yield
     asr = None
@@ -78,7 +99,8 @@ async def ready():
 @app.get("/health")
 async def health(request: Request):
     authenticate(request)
-    return JSONResponse({"ready": asr is not None, "model": MODEL, "revision": REVISION, "language": LANGUAGE},
+    return JSONResponse({"ready": asr is not None, "model": MODEL, "revision": REVISION, "language": LANGUAGE,
+                         "weightsProvenance": provenance},
                         headers={"Cache-Control": "no-store"})
 
 
@@ -130,6 +152,8 @@ async def transcribe(request: Request):
                     raw.extend(chunk)
                     if len(raw) > MAX_BYTES:
                         raise HTTPException(413, "Audio too large")
+            if not await run_in_threadpool(reserve_model_use, os.environ["LICENSE_DB"]):
+                raise HTTPException(429, "Pilot licence quota reached; contact the team")
             result = await run_in_threadpool(infer, raw)
             return JSONResponse(result, headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
         except TimeoutError:

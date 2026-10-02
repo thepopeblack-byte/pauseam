@@ -45,8 +45,9 @@ For production preview run npm run start after building.
 
 The JavaScript lockfile is committed. New npm install-script policy allows only six pinned esbuild, workerd and unrs-resolver build dependencies; no blanket script permission is enabled. Temporary verification clones are excluded from TypeScript scanning. The Windows npm.cmd shim may need the installed
 npm-cli.js invoked through node. Python direct dependencies are pinned; transitive
-Python resolution and Docker base-image digests are not yet frozen. A fresh
-authenticated container build is needed before claiming reproducible model deployment.
+Python resolution is not yet fully frozen. Docker base images and build actions are
+pinned to digests/commits; actual model-service image digests are recorded by CI.
+A fresh authenticated weight load and inference are needed before claiming model deployment.
 
 Keep tokens in server-side host secret settings. Never put them in a NEXT_PUBLIC
 variable, source, screenshot or chat. Use .env.example for key names and safe defaults.

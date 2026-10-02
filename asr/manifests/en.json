@@ -1,0 +1,85 @@
+{
+  "model": "NCAIR1/NigerianAccentedEnglish",
+  "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+  "metadataSource": "https://huggingface.co/api/models/NCAIR1/NigerianAccentedEnglish/revision/3c52c6e6c9ec508014a7b9db6a42b503b8930dff?blobs=true",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 1519,
+      "algorithm": "git-sha1",
+      "digest": "a6344aac8c09253b3b630fb776ae94478aa0275b"
+    },
+    {
+      "path": "README.md",
+      "size": 13371,
+      "algorithm": "git-sha1",
+      "digest": "0d67fe6df23075f6d2bf89dfa07e56af0c275a64"
+    },
+    {
+      "path": "added_tokens.json",
+      "size": 34604,
+      "algorithm": "git-sha1",
+      "digest": "e3d256c988462aa153dcabe2aa38b8e9b436c06f"
+    },
+    {
+      "path": "config.json",
+      "size": 2227,
+      "algorithm": "git-sha1",
+      "digest": "f6df12264242b20ac46d78a16386906b3e25826d"
+    },
+    {
+      "path": "generation_config.json",
+      "size": 3863,
+      "algorithm": "git-sha1",
+      "digest": "bee9778db54943cd9fcb74b6b33df220c660ea2e"
+    },
+    {
+      "path": "merges.txt",
+      "size": 493869,
+      "algorithm": "git-sha1",
+      "digest": "6038932a2a1f09a66991b1c2adae0d14066fa29e"
+    },
+    {
+      "path": "normalizer.json",
+      "size": 52666,
+      "algorithm": "git-sha1",
+      "digest": "dd6ae819ad738ac1a546e9f9282ef325c33b9ea0"
+    },
+    {
+      "path": "preprocessor_config.json",
+      "size": 339,
+      "algorithm": "git-sha1",
+      "digest": "91876762a536a746d268353c5cba57286e76b058"
+    },
+    {
+      "path": "pytorch_model.bin",
+      "size": 967103046,
+      "algorithm": "sha256",
+      "digest": "ed60cc95ba09966fd7b8cb44363494bbc4553d4a405322ce9e8b8811d2f98f1c"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "size": 2194,
+      "algorithm": "git-sha1",
+      "digest": "bf69932dca4b3719b59fdd8f6cc1978109509f6c"
+    },
+    {
+      "path": "tokenizer.json",
+      "size": 2481202,
+      "algorithm": "git-sha1",
+      "digest": "af623ba2a32acbec11b3d9cb34473cd600219f12"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size": 282683,
+      "algorithm": "git-sha1",
+      "digest": "d13b786c04765fb1a06492b53587752cd67665ea"
+    },
+    {
+      "path": "vocab.json",
+      "size": 835550,
+      "algorithm": "git-sha1",
+      "digest": "d7016e21da8776c8a9d577d0f559600f09a240eb"
+    }
+  ]
+}

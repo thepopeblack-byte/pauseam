@@ -1,6 +1,6 @@
 # Get your PauseAm transcription URL
 
-This folder is a standalone Docker service that runs the real, pinned
+This folder defines a Docker service that runs the real, pinned
 NCAIR1/NigerianAccentedEnglish model. There are no placeholder transcripts.
 
 This service also selects the official Yoruba, Hausa or Igbo model with
@@ -11,11 +11,10 @@ successful deployment or qualification as the official N-ATLaS ASR service.
 
 ## Deploy on Render
 
-1. Create a private GitHub repository and upload this folder's contents to the repository root:
-   Dockerfile, requirements.txt, app.py, audio_validation.py, start.py and this README.
+1. Use the PauseAm repository root, including model_service, as the Docker build context.
    Do not upload tokens or recordings.
 2. In Render choose **New → Web Service**, connect that repository and select Docker.
-   Use the repository root as the build context and ./Dockerfile as the Dockerfile.
+   Use the repository root as the build context and ./asr/Dockerfile as the Dockerfile.
 3. Choose compute with sufficient RAM for PyTorch plus a 244M-parameter model.
    Around 4 GB is a conservative starting estimate, not a measured requirement.
    Review the host's displayed price before creating a paid service.
@@ -25,6 +24,9 @@ successful deployment or qualification as the official N-ATLaS ASR service.
    - ASR_SERVICE_TOKEN: a new random secret of at least 32 characters.
    - MODEL_REVISION: 3c52c6e6c9ec508014a7b9db6a42b503b8930dff
    - PORT: 10000 (or use Render's supplied PORT).
+   - LICENSE_DB: an access-controlled persistent SQLite path shared by all five model services.
+     A single SecretVM with a shared volume provides this arrangement; independent hosts need
+     a genuine shared quota service before inference is enabled.
    Never put these tokens in Git, chat, screenshots, build arguments or URLs.
 5. Set the health-check path to /ready and deploy. The service must load the actual model.
    Missing approval, insufficient RAM or an incompatible model download causes deployment to fail;

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from text_service.verified_weights import file_matches, validate_manifest, load_verified_bucket
+from model_service.verified_weights import file_matches, validate_manifest, load_verified_bucket
 
 
 class VerifiedWeights(unittest.TestCase):
@@ -46,6 +46,9 @@ class VerifiedWeights(unittest.TestCase):
         for bucket in ("https://example.invalid", "../private", "a/b?token=private", "a/b/c"):
             with self.assertRaises(RuntimeError):
                 load_verified_bucket(bucket, ".", "unused", "official", "pin")
+        for prefix in ("../en", "en//weights", "/en", "en?token=private"):
+            with self.assertRaises(RuntimeError):
+                load_verified_bucket("test/bucket", ".", "unused", "official", "pin", prefix)
 
 
 if __name__ == "__main__":

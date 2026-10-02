@@ -11,7 +11,8 @@ host's secret settings as HF_TOKEN. Never send tokens, passwords or OTPs in chat
 The current workspace has no token and an unauthenticated config request returned 401.
 
 ## ASR deployment
-The asr folder is a Docker build context. Use an HTTPS container host that can run
+Build from the repository root with `docker build -f asr/Dockerfile .`.
+Use an HTTPS container host that can run
 Python/PyTorch, with memory and startup timeout sufficient for the official model.
 Choose and review pricing yourself before provisioning paid resources.
 
@@ -32,7 +33,8 @@ The original Render guide in asr/README.md is one hosting option, not an active
 deployment or a purchase recommendation. No third-party account was created.
 
 ## Text deployment
-Use text_service as the Docker context on suitable memory/compute.
+Build from the repository root with `docker build -f text_service/Dockerfile .`
+on suitable memory/compute.
 Set MODEL_REVISION=e294476928aca9030e924ca27bb8e085e8581273, HF_TOKEN and a separate
 TEXT_SERVICE_TOKEN of at least 32 random characters. Check /ready and authenticated
 /health. Set the real HTTPS /guide URL as TEXT_ENDPOINT and the matching secret
@@ -73,10 +75,18 @@ limits text threads, and each ASR uses MODEL_THREADS=1. This setting is not yet
 validated on the provisioned machine. Throughput, peak memory, startup and
 inference latency must be measured before enabling the app's inference switches.
 
-An optional MODEL_BUCKET_ID uses text_service/verified_weights.py. It downloads
+An optional MODEL_BUCKET_ID uses model_service/verified_weights.py. It downloads
 only the files in model-manifest.json and checks actual SHA-256 hashes for large
 files and Git blob SHA-1 hashes for small files against metadata from the official
 revision. It verifies all cached files again on every startup. It rejects changed,
 incomplete or unexpected files; a bucket URL or Xet hash alone is insufficient.
 The bucket ID is private deployment configuration, not an official API endpoint.
 No successful full-weight verification or inference is claimed by unit tests.
+
+Every model container requires LICENSE_DB pointing to the same persistent SQLite
+file on a shared volume. model_service/license_quota.py atomically reserves each
+inference and limits the deployment to 950 reservations per rolling 30 days.
+Failures also consume reservations. This conservative ceiling bounds distinct
+direct recipients below 1,000 without storing user IDs, questions or audio. It is
+stricter than active-user accounting and may exhaust during testing. Do not reset
+or fork the database to bypass the cap; separate licensing is required for growth.

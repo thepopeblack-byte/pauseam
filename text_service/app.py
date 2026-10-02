@@ -11,9 +11,11 @@ from starlette.concurrency import run_in_threadpool
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from fastapi.responses import JSONResponse
 try:
-    from .verified_weights import load_verified_bucket
+    from model_service.verified_weights import load_verified_bucket
+    from model_service.license_quota import reserve_model_use
 except ImportError:
     from verified_weights import load_verified_bucket
+    from license_quota import reserve_model_use
 from pathlib import Path
 
 MODEL = "NCAIR1/N-ATLaS"
@@ -28,12 +30,15 @@ async def lifespan(app):
     global model, tokenizer, provenance
     if len(TOKEN) < 32:
         raise RuntimeError("Set a private service credential of at least 32 characters.")
+    if not os.environ.get("LICENSE_DB"):
+        raise RuntimeError("Set the shared conservative licence quota database.")
     if os.environ.get("MODEL_REVISION") != REVISION:
         raise RuntimeError("Explicit pinned model revision required.")
     bucket = os.environ.get("MODEL_BUCKET_ID", "")
     if bucket:
         location = load_verified_bucket(bucket, os.environ.get("VERIFIED_MODEL_CACHE", "/tmp/verified-model"),
-            Path(__file__).with_name("model-manifest.json"), MODEL, REVISION)
+            Path(__file__).with_name("model-manifest.json"), MODEL, REVISION,
+            os.environ.get("MODEL_BUCKET_PREFIX", ""))
         loading = {"local_files_only": True}
         provenance = "bucket-bytes-verified-against-official-revision"
     else:
@@ -129,6 +134,8 @@ async def guide(request: Request):
             cards = data.get("cards")
             if not isinstance(cards,list) or not 1<=len(cards)<=20 or any(not isinstance(c,dict) or not isinstance(c.get("id"),str) for c in cards):
                 raise HTTPException(422, "Invalid source context")
+            if not await run_in_threadpool(reserve_model_use, os.environ["LICENSE_DB"]):
+                raise HTTPException(429, "Pilot licence quota reached; contact the team")
             result = await run_in_threadpool(infer,data)
             return JSONResponse(result,headers={"Cache-Control":"no-store"})
         except HTTPException: raise
