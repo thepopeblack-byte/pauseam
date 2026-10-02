@@ -6,7 +6,7 @@ Review package: 2 October 2026. Owner targets Monday 5 October; official deadlin
 
 Current scope is English only. Real English owner transcription is evidenced;
 typed reviewed source guidance works. N-ATLaS text remains disabled pending the
-new CPU service's actual conversion/inference and existing-VM deployment.
+final CPU service's existing-VM deployment and live inference verification.
 Six genuine local CPU relevance requests and two pre-inference guard checks
 passed, recorded in [local evidence](evidence/cpu-local-relevance-check-2026-10-02.json).
 Their latency is 15.9–23.3 seconds on the local Windows CPU; this is not VM or
@@ -37,6 +37,7 @@ the final frozen commit and live build.
 
 - [English owner transcript and request fix](evidence/worker-redirect-fix-2026-10-02.json)
 - [Consumer release](evidence/consumer-release-2026-10-02.json)
+- [Final browser release checks](evidence/english-pretest-release-2026-10-02.json): standard navigation, clipboard and learning checked; report download confirmed by owner. These are not participant interactions.
 - [Final CPU image digest, offline imports and anonymous pull](evidence/cpu-final-container-2026-10-02.json)
 - [Actual validation totals](evidence/validation-totals.json)
 

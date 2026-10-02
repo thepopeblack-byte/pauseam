@@ -1,0 +1,75 @@
+{
+  "recordedAt": "2026-10-02 21:56:06 UTC",
+  "kind": "Engineering and owner smoke checks; not participant validation",
+  "publicUrl": "https://pauseam.theblockcapitol.com",
+  "sourceCommit": "ff8cf4c676ada940c066b40b5497b64f21b018d3",
+  "siteVersion": 19,
+  "deployment": {
+    "id": "appgdep_6ac027d9f5148191ac6c13425fdca26e",
+    "project_id": "appgprj_6ab826bba8f48191ad36895acae09407",
+    "title": "PauseAm — Ask before you pay.",
+    "version_id": "appgprj_6ab826bba8f48191ad36895acae09407~appgver_d4e540f4de548191b0c8f9e2bdd02a56",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://pauseam.thepopeblack.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ab826bba8f48191ad36895acae09407",
+    "failure_message": null,
+    "env_set_revision": 3,
+    "updated_at": "2026-10-02T21:53:45.994026+00:00"
+  },
+  "checks": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "baseline": {
+      "passed": 24,
+      "failed": 0,
+      "report": "public-baseline-release-2026-10-02.json",
+      "note": "Checked version 18; version 19 changes native page links only."
+    },
+    "reportingLearning": {
+      "passed": 5,
+      "failed": 0,
+      "report": "public-reporting-learning-release-2026-10-02.json"
+    },
+    "browser": {
+      "home": "passed",
+      "navigation": "Actual /about and back-to-home navigation passed on version 19",
+      "freshConsoleErrors": 0,
+      "mobileViewport": {
+        "actualWidth": 433,
+        "contentWidth": 433,
+        "horizontalOverflow": false,
+        "physicalDevice": false
+      },
+      "reportCopy": "Actual clipboard contents matched the authored sample",
+      "reportPreview": "Actual authored draft displayed",
+      "reportDownload": {
+        "agentFileRetrieved": false,
+        "ownerReported": "It saves and opens",
+        "participantValidation": false
+      },
+      "learning": "Dated official notice and safer-choice explanation displayed",
+      "screenshot": "submission/evidence/consumer-home-2026-10-02.jpg"
+    }
+  },
+  "modelHost": {
+    "englishAsrHealth": "passed",
+    "finalCpuTextRuntimeHealth": "failed",
+    "checkedAt": "2026-10-02T21:43:28.353Z",
+    "note": "Text health still reports the old service without CPU contract/runtime metadata; Sites text remains disabled."
+  },
+  "completedResearchInteractions": 0,
+  "submissionReady": false,
+  "remaining": [
+    "Owner applies final CPU Compose file; verify actual hosted N-ATLaS text inference before enabling Sites",
+    "Final live consented English voice-to-guidance check",
+    "Genuine discovery, critical English safety review and at least 50 completed PS2 user interactions",
+    "Representative Android/network/accessibility performance measurements",
+    "Actual 3–5 minute demo MP4",
+    "Organiser ruling on official ASR service and API; no fine-tuning claim",
+    "Owner review of team, private CAC/ID and remaining portal fields"
+  ]
+}
