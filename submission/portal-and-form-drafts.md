@@ -18,7 +18,8 @@ Some team-detail inputs and upload constraints had no explicit DOM limit.
 
 The existing draft retained the old project title, selected all four N-ATLaS
 capabilities and four languages, and entered 50 completed interactions. Current
-evidence supports none of those live capability claims and contains zero documented
+evidence includes an English owner ASR transcript but does not support all four
+capabilities/languages. It contains zero documented
 PS2 interactions. No field was corrected by the agent. These claims must be
 reconciled with final genuine evidence before Kayode submits.
 

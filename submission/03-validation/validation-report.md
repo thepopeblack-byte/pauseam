@@ -1,6 +1,6 @@
 # 03 — Real-world validation report
 
-PauseAm | Status: BLOCKED | 1 October 2026.
+PauseAm | Status: BLOCKED | 2 October 2026. Intended review/submission: Monday, 5 October.
 
 ## Actual totals
 Prospective pool: 200+ willing people reported by Kayode.
@@ -21,10 +21,14 @@ Kayode agreed to arrange sessions and reports reviewers are available.
 Availability is not completion. Record findings and revise the product before
 locking features. A separate business mode and screenshots remain deferred.
 
-Final-round criteria were declared before results: at least 50 real PS2 voice
-interactions; target 10 per language; 80% unassisted task completion; 90% correct
-action comprehension; 80% unassisted source finding; zero critical harmful advice
-or secret exposure. These are targets, not findings. Report all failures.
+The current English final-round protocol is WEEKEND-TESTING.md, declared before
+new participant data. Targets: at least 50 genuine completed English voice
+interactions, 80% unassisted voice-to-guidance completion, 90% correct action
+comprehension, 80% unassisted bank-first report-path finding, and zero critical
+harmful advice or secret exposure. These are targets, not findings. The earlier
+four-language/source-finding targets remain historical planning: three languages
+were deferred and consumer source controls removed at Kayode's request. Report
+all failures, changes and retests.
 
 ## Evidence controls
 Use interactions-template.csv. Completed records go in private/research/, outside

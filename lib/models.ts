@@ -41,5 +41,10 @@ export const TEXT_MODEL = {
   model: "NCAIR1/N-ATLaS",
   revision: "e294476928aca9030e924ca27bb8e085e8581273",
 } as const;
+export const CPU_TEXT_RUNTIME = {
+  runtime: "llama.cpp",
+  revision: "631109b34da437a3c4a5ebd75091d677671392e3",
+  quantization: "Q4_K_M",
+} as const;
 export const ATTRIBUTION =
   "N-ATLaS is an initiative of the Federal Ministry of Communications, Innovation and Digital Economy, and powered by Awarri Technologies.";

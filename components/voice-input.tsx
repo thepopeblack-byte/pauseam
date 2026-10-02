@@ -198,6 +198,7 @@ export function VoiceInput({
         model: string;
         revision: string;
         language: Language;
+        traceId?: string;
       };
       if (!response.ok)
         throw new Error(data.error || "Speech recognition is unavailable.");
@@ -211,6 +212,7 @@ export function VoiceInput({
       trial.outcome = "ok";
       trial.model = data.model;
       trial.modelRevision = data.revision;
+      if (data.traceId) trial.traceId = data.traceId;
       if (reference) Object.assign(trial, wordErrors(reference, data.text));
       if (
         alive.current &&

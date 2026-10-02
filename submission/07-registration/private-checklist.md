@@ -1,6 +1,8 @@
 # 07 — Endorsement / registration checklist
 
-Status: BLOCKED. This checklist is not the required CAC certificate or ID.
+Status: PRIVATE OWNER REVIEW PENDING. Kayode reports having a CAC certificate and
+valid ID. Neither has been inspected or uploaded by the build agent. This
+checklist is not the required document and must not be submitted in its place.
 
 Exact portal inspected 1 October 2026:
 https://ondi.innox.africa/apply/naic/naic-innovation-enterprise

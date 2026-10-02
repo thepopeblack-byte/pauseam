@@ -1,17 +1,19 @@
 # 05 — Video demonstration: incomplete
 
-No submission MP4 exists. FFmpeg is installed, but the required live multilingual
-behaviour cannot yet be captured. A slideshow or fake transcript is not evidence.
+No submission MP4 exists. Current scope is English only. Capture after actual
+live voice and CPU text checks pass. A slideshow or fake transcript is not evidence.
 
 ## Four-minute capture script
 0:00–0:20: PauseAm / Ask before you pay; PS2, team and actual build.
 0:20–1:30: real English voice question about supplier change; listen, upload, correct
-the actual transcript, confirm, receive checklist, open source/date/model details.
+the actual transcript, confirm, receive checklist. Show model/source metadata
+from the actual response in a separate developer evidence view, outside the
+consumer journey. Do not invent an in-product source-detail control.
 1:30–2:05: urgent bank-contact action, private timeline and redacted summary.
 2:05–2:25: warning-sign interaction.
-2:25–3:25: actual Yoruba, Hausa and Igbo voice-to-guidance excerpts with reviewed
-captions and identities.
-3:25–3:50: genuine traces/health and validation totals; show official API and fine-tuning
+2:25–3:25: actual English typed question and grounded guidance; show the genuine
+CPU request trace and identity. State that Yoruba, Hausa and Igbo are paused.
+3:25–3:50: genuine traces and validation totals; show official API and fine-tuning
 only if successful. Otherwise explicitly state unverified/not performed.
 3:50–4:00: limitations and evidence links.
 

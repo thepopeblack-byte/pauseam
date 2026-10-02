@@ -1,5 +1,9 @@
 # 02 — N-ATLaS integration evidence
 
+Historical checkpoint. Current review source: integration-current.md. Earlier
+configuration/access failures below are preserved as history and must not be
+presented as current production settings.
+
 PauseAm | Ask before you pay.
 Status: BLOCKED for qualifying PS2 submission. Actual code and metadata are
 documented here. Actual text loading succeeded, but no guidance inference has

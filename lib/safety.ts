@@ -345,6 +345,10 @@ export type Answer = {
   model: string | null;
   modelRevision?: string;
   kbVersion: string;
+  traceId?: string;
+  modelRuntime?: string;
+  modelRuntimeRevision?: string;
+  modelQuantization?: string;
 };
 export function retrieve(
   question: string,

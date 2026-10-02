@@ -1,5 +1,5 @@
 {
-  "scope": "Actual page 1 and page 2 fields inspected 1 October 2026; local drafts only. Programme Fit and remaining evidence fields pending inspection. No live capability checkbox is supported by current evidence.",
+  "scope": "Local current English-scope drafts, 2 October 2026. Actual page 1–2 limits only; unknown limits remain null. No ONDI fields edited or submitted. Reconcile after final model/human evidence.",
   "drafts": [
     {
       "field": "Team/Project Name",
@@ -13,13 +13,13 @@
       "verifiedLimit": null,
       "characters": 7,
       "answer": "PauseAm",
-      "withinLimit": true
+      "withinLimit": null
     },
     {
       "field": "Team Member Details",
       "verifiedLimit": 1500,
-      "characters": 412,
-      "answer": "Kayode Popoola leads product, payment-safety content, partnerships and research. His supplied experience includes sales and business development at Secret Network Foundation, blockchain intelligence and financial-crime analysis, and IAFCI membership. Suleiman is technical lead for implementation, model integration, deployment and testing. His full biography and both members' final confirmation remain pending.",
+      "characters": 404,
+      "answer": "Kayode Popoola leads product, payment-safety content, partnerships and research. His supplied background includes Head of Sales and Business Development at Secret Network Foundation, blockchain intelligence and financial-crime analysis, and IAFCI membership. Suleiman is Technical lead, responsible for implementation, model integration, deployment and testing. These facts await the team's final review.",
       "withinLimit": true
     },
     {
@@ -39,43 +39,43 @@
     {
       "field": "Describe the artefact you are building (or have built)",
       "verifiedLimit": 1000,
-      "characters": 837,
-      "answer": "PauseAm is a mobile web payment decision companion with three implemented journeys: Check before I pay, I may have paid a scammer, and Learn a warning sign. Its current English text path returns short CBN-linked checklists, source dates and limitations. After-payment advice appears immediately; selected incident events stay in memory and can be downloaded without private credentials. A warning-sign lesson explains a choice. Four pinned official NCAIR ASR adapters and an N-ATLaS text card-selection service are implemented, but live inference, fluent reviews and official service qualification remain unverified. The app never declares a payment safe, authenticates an account or promises recovery. Secrets stay server-side; audio is not retained by default. Integration evidence, real PS2 validation and the video remain incomplete.",
+      "characters": 888,
+      "answer": "PauseAm is a mobile web companion for payment questions, bank-first fraud-report guidance and practical scam lessons. Current scope is English. A real owner recording produced a transcript through the official Nigerian-accented-English weights on our SecretVM; participant accuracy testing remains pending. Typed guidance uses reviewed source checklists. Users review report drafts and send them themselves; PauseAm never moves money, authenticates accounts or promises recovery. A pinned N-ATLaS CPU card-selection service is built but live text inference is not yet proven or enabled. Yoruba, Hausa and Igbo are paused. Source facts and model selections are separate; secrets stay server-side and raw audio is not retained by default. The public app and repository exist; final live integration evidence, 50 genuine documented interactions and the demonstration video remain incomplete.",
       "withinLimit": true
     },
     {
       "field": "Technology stack / key tools used",
       "verifiedLimit": 150,
       "characters": 131,
-      "answer": "React 19, TypeScript, Vinext/Vite, Cloudflare Workers; Python/FastAPI, PyTorch, Transformers; official pinned NCAIR model adapters.",
+      "answer": "React/TypeScript, Vinext/Vite, Workers/D1; Python/FastAPI, Transformers/PyTorch ASR; pinned N-ATLaS/llama.cpp Q4_K_M CPU candidate.",
       "withinLimit": true
     },
     {
       "field": "Link to public repository, live demo, or deployed application",
       "verifiedLimit": 500,
-      "characters": 44,
-      "answer": "https://github.com/thepopeblack-byte/pauseam",
+      "characters": 82,
+      "answer": "https://github.com/thepopeblack-byte/pauseam | https://pauseam.theblockcapitol.com",
       "withinLimit": true
     },
     {
       "field": "PS2: Describe the end-to-end user journey, from voice input to service delivered",
       "verifiedLimit": 1500,
-      "characters": 1108,
-      "answer": "Implemented voice pipeline: choose language and journey; consent to recording; record a short question; listen or discard; separately consent to upload; convert to bounded mono 16 kHz WAV; send to the configured server-side official-model adapter; display the returned transcript for correction and explicit confirmation; retrieve current allowlisted source cards; optionally use the pinned N-ATLaS text model to select one grounded card; show a heading, short actions, reasons and source dates. Model identity and provenance must match configuration. This pipeline has not completed live inference here: no approved model host is configured. It fails visibly and offers text input; English source retrieval works. Unconfigured Yoruba, Hausa and Igbo guidance fails safely. After suspected fraud, independently verified bank-contact advice is immediate, with an optional private incident checklist. The app does not retain raw audio by default or accept PINs, OTPs, passwords or full account credentials. Real four-language traces and fluent reviews are required before claiming the corresponding capability.",
+      "characters": 1215,
+      "answer": "Current English flow: choose a payment question; consent to microphone use; record, listen or discard; separately consent to processing; convert to bounded mono 16 kHz WAV; send server-side to the authenticated official-model host; verify exact model identity and privacy; show the transcript for correction and confirmation; return a short reviewed action checklist. A genuine owner transcript is evidenced; this is not participant validation. Typed source guidance works. The N-ATLaS text service is being converted and checked for CPU use; it remains disabled until genuine host relevance and latency checks pass. It selects only an allowed reviewed card, never model-written contacts or arbitrary safety prose. Failures offer an honest retry/text route, without simulated output. Bank-first report guidance appears immediately; a redacted draft stays in the browser for user review and sending. Learning uses dated, manually maintained official notices. No raw audio retention, PINs, OTPs, passwords, full credentials, safe verdicts or recovery promises. Yoruba, Hausa and Igbo are paused. Organiser acceptance of self-hosted official ASR weights remains unresolved; official API and fine-tuning are unverified.",
       "withinLimit": true
     },
     {
       "field": "PS2: User-acquisition plan for reaching 1,000 users within 3 months of award",
       "verifiedLimit": 1500,
-      "characters": 891,
-      "answer": "Our initial pool comprises 200+ prospective willing testers, not current users. With their consent and Kayode's authorized outreach, first conduct discovery and document at least 50 real PS2 interactions across the four languages. If evidence supports the companion, month 1 after award targets 200 completed users from that pool; month 2 targets 300 additional users through student and small-business networks; month 3 targets 500 more through practical educational examples and voluntary sharing. These are projections, not traction. Count unique users only after a completed useful journey; track consent, acquisition and drop-off without question text or financial credentials. Monitor the published model licence cap of 1,000 active end users in any rolling 30 days and obtain separate licensing before exceeding it. Maintain content reviews and measure compute costs before expansion.",
+      "characters": 959,
+      "answer": "The reported 200+ people are prospective willing testers, not existing users. The owner will coordinate discovery and at least 50 consented, observed English voice interactions after the live build passes. If results support the companion, projected post-award acquisition is 200 completed users in month one, 300 additional users in month two and 500 more in month three through student/small-business partners and voluntary educational sharing. These figures are targets, not traction. Measure completion, comprehension, failures and return use without saving private questions or credentials. Expansion to paused languages requires compute and fluent review. Preserve the conservative shared rolling licence guard and obtain separate licensing before exceeding 1,000 active users in a rolling 30 days. Proposed sustainability is sponsored/B2B distribution and support, with the first consumer action free; willingness-to-pay and pricing remain unvalidated.",
       "withinLimit": true
     },
     {
       "field": "Working artefact evidence (repository / deployed app link / model / API / dataset)",
       "verifiedLimit": 500,
-      "characters": 44,
-      "answer": "https://github.com/thepopeblack-byte/pauseam",
+      "characters": 82,
+      "answer": "https://github.com/thepopeblack-byte/pauseam | https://pauseam.theblockcapitol.com",
       "withinLimit": true
     }
   ],
@@ -85,7 +85,9 @@
     "need": "Financial literacy",
     "completedInteractions": 0,
     "capabilities": [],
-    "languagesProvenByLiveVoice": [],
-    "buildStatus": "Working prototype describes current UI/text only; not proof of functioning PS2 voice."
+    "languagesProvenByLiveVoice": [
+      "Nigerian-accented English (owner engineering smoke only; participant review pending)"
+    ],
+    "buildStatus": "Working English source guidance and owner ASR smoke; CPU text candidate not yet live-proven. No submission capability selection is authorized from these local drafts."
   }
 }

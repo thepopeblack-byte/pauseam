@@ -5,7 +5,7 @@ import {TEXT_MODEL,LANGUAGES as ASR_MODELS} from '../lib/models.ts';
 import {modelGuidance} from '../lib/text-model.ts';
 import {readLimited} from '../lib/stream.ts';
 const values=new Map();
-if(process.argv.includes('--help')){console.log('node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://YOUR_ACTUAL_HOST --output private/host-check.json [--scope english|all] [--mode health|inference] [--audio-directory private/consented-audio]\nDefaults: scope all, mode inference. English scope checks only ASR; typed source guidance is checked by verify-public-app. Health mode performs no inference.');process.exit(0);}
+if(process.argv.includes('--help')){console.log('node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://YOUR_ACTUAL_HOST --output private/host-check.json [--scope english|english-complete|all] [--mode health|inference] [--audio-directory private/consented-audio]\nDefaults: scope all, mode inference. English checks ASR only; english-complete checks text and English ASR. Health performs no inference. Without consented audio, speech remains untested.');process.exit(0);}
 for(let i=2;i<process.argv.length;i+=2){if(!process.argv[i+1])throw Error('Each option needs a value');values.set(process.argv[i],process.argv[i+1]);}
 if([...values.keys()].some(key=>!['--host','--output','--mode','--scope','--audio-directory'].includes(key)))throw Error('Unknown option; use --help');
 const mode=values.get('--mode')||'inference';

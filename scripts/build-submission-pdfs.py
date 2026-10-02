@@ -35,9 +35,9 @@ def inline(s):
  s=re.sub(r"\*\*(.*?)\*\*",r"<b>\1</b>",s)
  return s.replace(chr(96),"")
 jobs=[
-("submission/02-integration/integration-evidence.md","02-natlas-integration.pdf",["submission/02-integration/access-and-models.md"]),
+("submission/02-integration/integration-current.md","02-natlas-integration.pdf",[]),
 ("submission/03-validation/validation-report.md","03-validation-status.pdf",[]),
-("submission/04-technical/technical-documentation.md","04-technical-documentation.pdf",[]),
+("submission/04-technical/technical-current.md","04-technical-documentation.pdf",[]),
 ("submission/06-team/team-profile.md","06-team-profile-review.pdf",[]),
 ("submission/07-registration/private-checklist.md","07-registration-checklist.pdf",[])]
 for src,name,extras in jobs:

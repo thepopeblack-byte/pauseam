@@ -12,6 +12,8 @@
   "unassistedCompletion": null,
   "comprehension": null,
   "sourceFound": null,
+  "bankFirstFound": null,
+  "bankFirstMeasured": 0,
   "asrMs": {
     "n": 0,
     "median": null,

@@ -1,0 +1,18 @@
+{
+  "scope": "Container preparation only; not model inference or participant validation",
+  "date": "2026-10-02",
+  "sourceCommit": "7e4280550bc25a05d316d2db0a11cdccc1c2f52f",
+  "runUrl": "https://github.com/thepopeblack-byte/pauseam/actions/runs/37055859513",
+  "cpuJobId": 111000282762,
+  "build": "passed",
+  "offlineImportsAndBinaryDependencies": "passed",
+  "image": "ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:4cdfbda3c039b8f9c55fffa680a697924f82f36365d82adc787d00215b1f327d",
+  "anonymousManifestPull": {"status": 200, "digestMatched": true},
+  "model": "NCAIR1/N-ATLaS",
+  "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+  "runtime": "llama.cpp",
+  "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+  "quantization": "Q4_K_M",
+  "fineTuningPerformed": false,
+  "liveSecretVMInference": "pending owner update and testing"
+}

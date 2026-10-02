@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { CPU_TEXT_RUNTIME } from "../lib/models.ts";
 import {
   CARDS,
   MODEL,
@@ -12,6 +13,46 @@ import {
 import { validWav, transcribe } from "../lib/asr.ts";
 import { cleanTrial, summary } from "../lib/evaluation.ts";
 const now = new Date("2026-10-01T12:00:00Z");
+test("CPU text runtime provenance cannot be invented", () => {
+  const data = {
+    model: TEXT_MODEL.model,
+    revision: TEXT_MODEL.revision,
+    cardIds: ["supplier"],
+    runtime: CPU_TEXT_RUNTIME.runtime,
+    runtimeRevision: CPU_TEXT_RUNTIME.revision,
+    quantization: CPU_TEXT_RUNTIME.quantization,
+  };
+  assert.deepEqual(validateSelection(data, ["supplier"]), ["supplier"]);
+  for (const change of [
+    { runtime: "other" },
+    { runtimeRevision: "wrong" },
+    { quantization: "unknown" },
+  ])
+    assert.throws(() =>
+      validateSelection({ ...data, ...change }, ["supplier"]),
+    );
+});
+test("research metadata accepts only real model identities and bounded anonymous references", () => {
+  const data = {
+    kind: "answer",
+    journey: "before",
+    outcome: "ok",
+    latencyMs: 30,
+    language: "en",
+    model: TEXT_MODEL.model,
+    modelRevision: TEXT_MODEL.revision,
+    traceId: "a1234567-1234-4234-8234-123456789abc",
+    recordedAt: "2026-10-02T12:00:00.000Z",
+    question: "do not store this",
+  };
+  const clean = cleanTrial(data);
+  assert.equal(clean?.model, TEXT_MODEL.model);
+  assert.equal(clean?.traceId, data.traceId);
+  assert.ok(!Object.hasOwn(clean!, "question"));
+  assert.equal(cleanTrial({ ...data, traceId: "private-bank-account" }), null);
+  assert.equal(cleanTrial({ ...data, model: "other" }), null);
+  assert.equal(cleanTrial({ ...data, recordedAt: "yesterday" }), null);
+});
 test("source eligibility rejects future reviews and missing review dates for both engines", () => {
   assert.deepEqual(
     currentSourceCards(

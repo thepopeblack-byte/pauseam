@@ -190,6 +190,10 @@ export function JourneyPanel({
               ? "no_match"
               : "failed",
         latencyMs: Math.round(performance.now() - start),
+        ...(data.traceId ? { traceId: data.traceId } : {}),
+        ...(data.status === "ok" && data.model && data.modelRevision
+          ? { model: data.model, modelRevision: data.modelRevision }
+          : {}),
       };
       setTrial(t);
       if (testing && data.status !== "ok") {

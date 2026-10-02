@@ -1,4 +1,4 @@
-import { LANGUAGES, isLanguage, type Language } from "./models.ts";
+import { LANGUAGES, TEXT_MODEL, isLanguage, type Language } from "./models.ts";
 export const EVAL_KEY = "pauseam-evaluation-v1";
 const LEGACY_KEY = "before-you-pay-evaluation-v1";
 export type Trial = {
@@ -12,6 +12,8 @@ export type Trial = {
   language?: Language;
   model?: string;
   modelRevision?: string;
+  traceId?: string;
+  recordedAt?: string;
 };
 export function cleanTrial(input: unknown): Trial | null {
   if (!input || typeof input !== "object") return null;
@@ -37,15 +39,38 @@ export function cleanTrial(input: unknown): Trial | null {
   }
   if (t.model !== undefined || t.modelRevision !== undefined) {
     if (
-      t.kind !== "asr" ||
       t.outcome !== "ok" ||
       !r.language ||
-      t.model !== LANGUAGES[r.language].model ||
-      t.modelRevision !== LANGUAGES[r.language].revision
+      !["asr", "answer"].includes(t.kind) ||
+      t.model !==
+        (t.kind === "asr" ? LANGUAGES[r.language].model : TEXT_MODEL.model) ||
+      t.modelRevision !==
+        (t.kind === "asr"
+          ? LANGUAGES[r.language].revision
+          : TEXT_MODEL.revision)
     )
       return null;
     r.model = t.model;
     r.modelRevision = t.modelRevision;
+  }
+  if (t.traceId !== undefined) {
+    if (
+      typeof t.traceId !== "string" ||
+      !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(
+        t.traceId,
+      )
+    )
+      return null;
+    r.traceId = t.traceId;
+  }
+  if (t.recordedAt !== undefined) {
+    if (
+      typeof t.recordedAt !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(t.recordedAt) ||
+      !Number.isFinite(Date.parse(t.recordedAt))
+    )
+      return null;
+    r.recordedAt = t.recordedAt;
   }
   if (typeof t.helpful === "boolean") r.helpful = t.helpful;
   if (
@@ -81,7 +106,7 @@ export function readTrials(): Trial[] {
   }
 }
 export function saveTrial(trial: Trial) {
-  const t = cleanTrial(trial);
+  const t = cleanTrial({ ...trial, recordedAt: new Date().toISOString() });
   if (!t) return false;
   try {
     localStorage.setItem(

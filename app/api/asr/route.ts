@@ -32,6 +32,7 @@ export async function POST(request: Request) {
       );
       return json({
         ...result,
+        traceId: crypto.randomUUID(),
         latencyMs: Math.round(performance.now() - start),
       });
     } finally {

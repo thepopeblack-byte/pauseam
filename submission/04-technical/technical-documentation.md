@@ -1,5 +1,8 @@
 # 04 — Technical documentation
 
+Historical checkpoint. Current release documentation: technical-current.md.
+Do not present the older source/interface/hosting statements below as current.
+
 PauseAm — Ask before you pay.
 Innovation & Enterprise / PS2. Review build, 2 October 2026.
 

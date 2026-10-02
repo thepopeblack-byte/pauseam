@@ -14,7 +14,7 @@ Site: https://pauseam.theblockcapitol.com
 Custom domain: pauseam.theblockcapitol.com (DNS and HTTPS active, verified 2 October).
 See [Sites and Namecheap setup](deployment/sites/README.md). The app runs on
 Sites; the Python/PyTorch models still require a separate inference host.
-Use the [SecretVM self-deployment guide](deployment/secretvm/README.md) for inference.
+Use the [current English CPU deployment guide](deployment/secretvm/ENGLISH-COMPLETE.md) for inference.
 The current pilot is English only. A real English recording produced a transcript
 through the public app on 2 October (15.8 seconds server duration); accuracy review
 and completed research validation remain pending. The team-operated host has
@@ -28,6 +28,8 @@ adapters are preserved but paused in the UI and API. Typed questions and correct
 transcripts use reviewed English source checklists. The N-ATLaS 8B text adapter
 remains implemented but disabled: real requests exceeded 45 and 180 seconds and
 its roughly 16 GB bfloat16 weights leave insufficient RAM for runtime plus ASR.
+The new pinned same-model Q4_K_M CPU container is built and anonymously pullable;
+actual conversion, relevance and live-VM latency must pass before it is enabled.
 No generic model is substituted. Official API access and fine-tuning are unverified.
 
 No account is needed for text guidance. Never enter names, account numbers, PINs,

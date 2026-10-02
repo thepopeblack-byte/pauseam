@@ -50,8 +50,10 @@ export async function POST(request: Request) {
       data.journey !== "after" &&
       answer.cards[0]?.id !== "report"
     ) {
-      if (textEndpoint(s)) {
+      if (s.TEXT_ENABLED === "true") {
         try {
+          if (!textEndpoint(s))
+            throw new Error("Model configuration unavailable");
           answer = await modelGuidance(
             data.question,
             data.journey,
@@ -71,7 +73,7 @@ export async function POST(request: Request) {
       }
     }
     return json(
-      answer,
+      { ...answer, traceId: crypto.randomUUID() },
       answer.status === "unavailable"
         ? 503
         : answer.status === "sensitive"

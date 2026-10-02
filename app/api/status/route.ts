@@ -34,6 +34,6 @@ export async function GET() {
     officialAPI: "unverified",
     fineTuning: "not performed",
     kbEnabled: s.KB_ENABLED !== "false",
-    note: "English-only pilot. Configuration is not proof of recognition accuracy. Other languages are paused; text model inference is pending sufficient capacity and successful tests.",
+    note: "English scope. Configuration is not proof of successful inference, recognition accuracy or completed user validation. Other languages are paused.",
   });
 }

@@ -1,4 +1,4 @@
-import { TEXT_MODEL, type Language } from "./models.ts";
+import { TEXT_MODEL, CPU_TEXT_RUNTIME, type Language } from "./models.ts";
 import { readLimited } from "./stream.ts";
 import {
   currentSourceCards,
@@ -34,7 +34,14 @@ export function textEndpoint(config: Config) {
   }
 }
 export function validateSelection(data: unknown, allowed: string[]): string[] {
-  const d = data as { model?: unknown; revision?: unknown; cardIds?: unknown };
+  const d = data as {
+    model?: unknown;
+    revision?: unknown;
+    cardIds?: unknown;
+    runtime?: unknown;
+    runtimeRevision?: unknown;
+    quantization?: unknown;
+  };
   if (
     !d ||
     d.model !== TEXT_MODEL.model ||
@@ -45,6 +52,15 @@ export function validateSelection(data: unknown, allowed: string[]): string[] {
     new Set(d.cardIds).size !== d.cardIds.length
   )
     throw new Error("provenance");
+  if (
+    (d.runtime !== undefined ||
+      d.runtimeRevision !== undefined ||
+      d.quantization !== undefined) &&
+    (d.runtime !== CPU_TEXT_RUNTIME.runtime ||
+      d.runtimeRevision !== CPU_TEXT_RUNTIME.revision ||
+      d.quantization !== CPU_TEXT_RUNTIME.quantization)
+  )
+    throw new Error("runtime provenance");
   return d.cardIds as string[];
 }
 // Model output selects reviewed cards; free prose, contacts and URLs never render.
@@ -65,6 +81,8 @@ export async function modelGuidance(
   if (containsSensitive(question))
     return {
       ...base,
+      model: null,
+      engine: "Privacy guard; no inference performed",
       status: "sensitive",
       cards: [],
       message: "Remove private details before trying again.",
@@ -95,14 +113,22 @@ export async function modelGuidance(
     await response.body?.cancel();
     throw new Error("inference");
   }
+  const data = JSON.parse(
+    new TextDecoder().decode(await readLimited(response.body, 4096)),
+  );
   const ids = validateSelection(
-    JSON.parse(
-      new TextDecoder().decode(await readLimited(response.body, 4096)),
-    ),
+    data,
     cards.map((c) => c.id),
   );
   return {
     ...base,
+    ...(data.runtime
+      ? {
+          modelRuntime: data.runtime,
+          modelRuntimeRevision: data.runtimeRevision,
+          modelQuantization: data.quantization,
+        }
+      : {}),
     status: ids.length ? "ok" : "no_match",
     cards: ids.map((id) => cards.find((c) => c.id === id)!),
     message: ids.length
