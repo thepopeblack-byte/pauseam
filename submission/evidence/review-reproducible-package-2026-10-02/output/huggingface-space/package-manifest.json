@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "Dockerfile",
+      "bytes": 686,
+      "sha256": "e9b4d7c96cb0583baec7c2444f4a358955202bf78754a3651ad02a801fcd83ce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 857,
+      "sha256": "57e03e6b68cb0bdb4563a822d01a5202e977d2ac34d1b4a393318e2d3e81ac5f"
+    },
+    {
+      "path": "approved-sources.json",
+      "bytes": 921,
+      "sha256": "8c55ceca5ddfbf30912094d9e35e4e46f2435f8fa95e638af1969430753c8bb4"
+    },
+    {
+      "path": "gateway.py",
+      "bytes": 5311,
+      "sha256": "b4a44bc02040a4154df04df87e1f1757a5aae9ea37bc54f8b2072645653473d1"
+    },
+    {
+      "path": "http_safety.py",
+      "bytes": 597,
+      "sha256": "e2912484a24bff5274522aee58c00ff3e6a9a5af56c2eb0d4585543c6945cf25"
+    },
+    {
+      "path": "launcher.py",
+      "bytes": 3658,
+      "sha256": "cb7316514e8cb985b080dd91b73939c84543ee51e264c44d97dd8da7d42eab46"
+    }
+  ],
+  "archiveSha256": "999fa1e0bcb27a2b5c23536c19e042a7a4958d2b42a238dc8cb4a7859292f3f5",
+  "weightsIncluded": false,
+  "credentialsIncluded": false,
+  "hostCreated": false,
+  "inferencePerformed": false
+}

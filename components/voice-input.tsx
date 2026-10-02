@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Mic, Square, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
 import { recordingCallbacks } from "@/lib/recording";
@@ -29,7 +29,7 @@ export function VoiceInput({
   const identity = LANGUAGES[language];
   const operation = useRef(0);
   const testingRef = useRef(testing);
-  useEffect(() => {
+  useLayoutEffect(() => {
     testingRef.current = testing;
   }, [testing]);
   const recorder = useRef<MediaRecorder | null>(null),

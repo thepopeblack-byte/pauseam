@@ -202,3 +202,17 @@ Four ASR weight loads, successful guidance traces, official service/API clarific
 fluent review, human safety review, 50 documented interactions, representative
 mobile/assistive testing, real video, review of the provided team facts and private ID/CAC
 are pending. ONDI pages 1–2 were inspected and local drafts fit verified limits; Programme Fit and remaining constraints are pending. Section navigation auto-saved the pre-existing draft without field edits. The session subsequently returned to sign-in. Nothing has been submitted.
+
+
+## 2 October code-review update
+
+The selected next inference deployment is user-operated SecretVM; use
+deployment/secretvm/README.md. The prepared HF CPU package remains an inactive
+alternative. Actual updated container build/import and package parity evidence
+is indexed in submission/evidence/code-review-2026-10-02.md. The new review
+passes 74 unit/boundary checks, full lint, typecheck, build, both Compose
+configurations and 15 local HTTP checks. Public baseline checks are 16, on the
+prior published build. The reviewed fixes are on PC/GitHub but Sites publishing
+is blocked by its missing local workflow bundle. No live model chain is claimed.
+Earlier PDF exports predate this review; use current Markdown and the SecretVM
+guide for deployment, and refresh the PDFs after final integration evidence.
