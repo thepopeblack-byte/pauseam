@@ -5,12 +5,16 @@ import {TEXT_MODEL,LANGUAGES as ASR_MODELS} from '../lib/models.ts';
 import {modelGuidance} from '../lib/text-model.ts';
 import {readLimited} from '../lib/stream.ts';
 const values=new Map();
-if(process.argv.includes('--help')){console.log('node --experimental-strip-types --env-file=private/secretvm/pilot.env scripts/verify-model-host.mjs --host https://YOUR_ACTUAL_HOST --output private/host-check.json [--audio-directory private/consented-audio]');process.exit(0);}
+if(process.argv.includes('--help')){console.log('node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://YOUR_ACTUAL_HOST --output private/host-check.json [--mode health|inference] [--audio-directory private/consented-audio]\nDefault mode is inference. Health mode performs no text or speech inference and does not prove recognition or guidance.');process.exit(0);}
 for(let i=2;i<process.argv.length;i+=2){if(!process.argv[i+1])throw Error('Each option needs a value');values.set(process.argv[i],process.argv[i+1]);}
+if([...values.keys()].some(key=>!['--host','--output','--mode','--audio-directory'].includes(key)))throw Error('Unknown option; use --help');
+const mode=values.get('--mode')||'inference';
+if(!['health','inference'].includes(mode))throw Error('Mode must be health or inference');
+if(mode==='health'&&values.has('--audio-directory'))throw Error('Health mode does not upload audio; use inference mode for consented recordings');
 const url=new URL(values.get('--host')||'');
 if(url.protocol!=='https:'||url.username||url.password||url.search||url.hash||url.pathname!=='/')throw Error('Use an HTTPS model host origin without private details');
 if(!process.env.TEXT_SERVICE_TOKEN||!process.env.ASR_SERVICE_TOKEN)throw Error('Load both service credentials privately with Node --env-file; never put them in arguments');
-const report={recordedAt:new Date().toISOString(),kind:'Engineering requests, not participant validation',host:url.origin,health:[],text:[],speech:[],officialApiVerified:false,fineTuningPerformed:false};
+const report={recordedAt:new Date().toISOString(),kind:'Engineering requests, not participant validation',host:url.origin,mode,health:[],text:[],speech:[],officialApiVerified:false,fineTuningPerformed:false};
 async function request(route,token,options={}){
  const start=performance.now();
  let status=null;
@@ -28,7 +32,7 @@ await Promise.all(targets.map(async([target,model,token])=>{
  const valid=r.status===200&&r.data?.ready===true&&r.data.model===model.model&&r.data.revision===model.revision&&(target==='text'||r.data.language===target);
  report.health.push({target,status:r.status,elapsedMs:r.elapsedMs,passed:valid,model:valid?r.data.model:null,revision:valid?r.data.revision:null});
 }));
-if(report.health.find(r=>r.target==='text')?.passed){
+if(mode==='inference'&&report.health.find(r=>r.target==='text')?.passed){
  const start=performance.now();
  try{
   const result=await modelGuidance('A supplier has emailed new bank details and wants payment today. What should I check?','before','en',{TEXT_ENABLED:'true',KB_ENABLED:'true',TEXT_ENDPOINT:url.origin+'/text/guide',TEXT_SERVICE_TOKEN:process.env.TEXT_SERVICE_TOKEN});
@@ -57,4 +61,4 @@ report.fourLanguageInferencePassed=report.speech.length===4&&report.speech.every
 const output=values.get('--output');
 if(output){await fs.mkdir(path.dirname(output),{recursive:true});await fs.writeFile(output,JSON.stringify(report,null,2));}
 console.log(JSON.stringify(report,null,2));
-if(!report.allHealthPassed||!report.textGuidancePassed||(audioDirectory&&!report.fourLanguageInferencePassed))process.exitCode=1;
+if(!report.allHealthPassed||(mode==='inference'&&!report.textGuidancePassed)||(audioDirectory&&!report.fourLanguageInferencePassed))process.exitCode=1;

@@ -76,6 +76,21 @@ This checks all five identities and performs a labelled engineering text request
 Ready routes are /text/ready and /asr/{en,yo,ha,ig}/ready. The report retains status
 and latency, not transcript/question text. It does not prove speech recognition.
 
+During startup, use a health-only check to avoid starting more inference work:
+
+```powershell
+node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://YOUR_VM_HOSTNAME --mode health --output private/secretvm/readiness-check.json
+```
+
+A successful health-only check verifies loaded model identity, not a functioning
+voice or text journey. On 2 October, the amaranth-nightingale host passed all five
+authenticated identity checks, but a full text request exceeded both the app's
+45-second limit and a separate 180-second diagnostic limit. Speech recognition
+has not yet been tested with consented recordings. Do not enable public model
+switches based on readiness alone. Inspect CPU, memory, restarts and container
+errors before choosing an inference optimisation or larger compute. A client
+timeout may leave server-side generation running; avoid repeated requests.
+
 For speech, get recording consent, listen first and prepare non-sensitive mono
 16 kHz PCM16 WAV files en.wav, yo.wav, ha.wav and ig.wav in the ignored
 private/consented-audio folder. Each must be 0.5–30 seconds and ≤960,044 bytes:
