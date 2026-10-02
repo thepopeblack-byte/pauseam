@@ -17,6 +17,7 @@ except ImportError:
     from verified_weights import load_verified_bucket
     from license_quota import reserve_model_use
 from pathlib import Path
+from selection import parse_selection
 
 MODEL = "NCAIR1/N-ATLaS"
 REVISION = "e294476928aca9030e924ca27bb8e085e8581273"
@@ -101,12 +102,10 @@ def infer(data):
         output = model.generate(**tokens, max_new_tokens=96, do_sample=False, use_cache=True, repetition_penalty=1.12)
     generated = tokenizer.decode(output[0,tokens["input_ids"].shape[-1]:], skip_special_tokens=True).strip()
     try:
-        result = json.loads(generated)
-        ids = result["cardIds"]
-        if set(result) != {"cardIds"} or not isinstance(ids,list) or len(ids)>1 or len(set(ids))!=len(ids) or any(i not in allowed for i in ids):
-            raise ValueError()
-    except Exception:
-        raise HTTPException(422, "Model output failed the constrained contract")
+        ids = parse_selection(generated, allowed)
+    except ValueError as error:
+        # Return a reason, never the generated prose or the private question.
+        raise HTTPException(422, "Model output failed the constrained contract: " + str(error))
     return {"model":MODEL,"revision":REVISION,"cardIds":ids}
 
 @app.post("/guide")
