@@ -1,11 +1,14 @@
+<!-- Alternative hosting route; SecretVM is the selected self-deployment path. -->
 # PauseAm — Hugging Face CPU pilot
 
 Prepared 2 October 2026. No Space has been created, no paid hardware selected,
 and no inference has been performed by this package. The public app is
 https://pauseam.theblockcapitol.com. Model endpoint settings remain disabled.
 
-The combined container build and offline imports passed in actual GitHub CI
-run 36967883845. All five upload file hashes match the CI package. Sites version
+The earlier combined container build/import check passed in CI run 36967883845.
+Updated model images and six-file package imports passed in run 36983160753.
+Windows/Linux package byte differences found during review are corrected by LF
+normalisation and explicit ZIP platform metadata; final parity is checked separately. Sites version
 9 has deployed the quota route and created its D1 table; its private credential
 is still pending. Sixteen real public baseline checks passed. These checks do
 not prove loaded models, transcription, latency or user comprehension.
@@ -34,8 +37,8 @@ From the repository root, Python 3.11 or newer:
 python scripts/prepare-hf-space.py
 ```
 
-Upload the five files in output/huggingface-space at the root of a Docker Space:
-Dockerfile, README.md, gateway.py, launcher.py, approved-sources.json. The ZIP
+Upload the six files in output/huggingface-space at the root of a Docker Space:
+Dockerfile, README.md, gateway.py, launcher.py, http_safety.py, approved-sources.json. The ZIP
 contains precisely those files; extract it before using the web uploader.
 package-manifest.json records hashes and is not required by the Space.
 Do not upload the repository, private directory, .env, audio or identity files.

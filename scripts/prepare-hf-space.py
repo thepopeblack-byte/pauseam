@@ -22,9 +22,11 @@ def package(output):
     records=[]
     with zipfile.ZipFile(output/'pauseam-hf-cpu-space.zip','w',compression=zipfile.ZIP_DEFLATED) as archive:
         for name,relative in sorted(FILES.items()):
-            raw=(ROOT/relative).read_bytes()
+            # All upload inputs are text; use identical LF bytes on Windows/Linux.
+            raw=(ROOT/relative).read_bytes().replace(b'\r\n',b'\n')
             (output/name).write_bytes(raw)
             info=zipfile.ZipInfo(name,date_time=(2026,10,2,0,0,0))
+            info.create_system=3
             info.compress_type=zipfile.ZIP_DEFLATED
             info.external_attr=0o100644<<16
             archive.writestr(info,raw)
