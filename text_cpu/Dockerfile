@@ -1,12 +1,12 @@
 FROM python:3.11-slim@sha256:9f6ef439f51f4b36dc5c6bb265c2d3dd810bde94c5bbec77ae86b6650c488cf9 AS engine
-RUN apt-get update && apt-get install -y --no-install-recommends git cmake g++ make ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends git curl ca-certificates && rm -rf /var/lib/apt/lists/*
 RUN git init /opt/llama-src && cd /opt/llama-src && git remote add origin https://github.com/ggml-org/llama.cpp.git && git fetch --depth 1 origin 631109b34da437a3c4a5ebd75091d677671392e3 && git checkout FETCH_HEAD && test "$(git rev-parse HEAD)" = 631109b34da437a3c4a5ebd75091d677671392e3
-RUN cmake -S /opt/llama-src -B /opt/llama-src/build -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=OFF -DGGML_CPU_ALL_VARIANTS=ON -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_APP=OFF -DLLAMA_BUILD_UI=OFF -DLLAMA_OPENSSL=OFF && cmake --build /opt/llama-src/build --target llama-server llama-quantize -j 2
+RUN curl -fsSL https://github.com/ggml-org/llama.cpp/releases/download/b11351/llama-b11351-bin-ubuntu-x64.tar.gz -o /tmp/llama.tar.gz && echo 'c800a3402548d57f408adcebe4e53b939141e34e09b7e4701c785435572d1fee  /tmp/llama.tar.gz' | sha256sum -c - && mkdir -p /opt/llama/bin && tar -xzf /tmp/llama.tar.gz -C /opt/llama/bin --strip-components=1 && rm /tmp/llama.tar.gz
 
 FROM python:3.11-slim@sha256:9f6ef439f51f4b36dc5c6bb265c2d3dd810bde94c5bbec77ae86b6650c488cf9
 WORKDIR /app
-RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 ca-certificates && rm -rf /var/lib/apt/lists/* && useradd --uid 10001 --create-home app
-COPY --from=engine /opt/llama-src/build/bin /opt/llama/bin
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 libcurl4t64 libssl3t64 ca-certificates && rm -rf /var/lib/apt/lists/* && useradd --uid 10001 --create-home app
+COPY --from=engine /opt/llama/bin /opt/llama/bin
 COPY --from=engine /opt/llama-src/convert_hf_to_gguf.py /opt/llama-src/convert_hf_to_gguf.py
 COPY --from=engine /opt/llama-src/conversion /opt/llama-src/conversion
 COPY --from=engine /opt/llama-src/gguf-py /opt/llama-src/gguf-py

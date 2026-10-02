@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import urllib.error
 import urllib.request
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
@@ -91,8 +92,15 @@ async def guide(request:Request):
             # child to avoid admitting overlapping work or returning stale output.
             try:
                 result=await run_in_threadpool(internal,'/v1/chat/completions',payload)
+            except urllib.error.HTTPError as error:
+                if error.code in (400,413,422):
+                    raise HTTPException(422,'Model context or contract rejected') from None
+                if child and child.poll() is None: child.terminate()
+                asyncio.get_running_loop().call_later(0.5,os._exit,1)
+                raise HTTPException(503,'Model unavailable') from None
             except Exception:
                 if child and child.poll() is None: child.terminate()
+                asyncio.get_running_loop().call_later(0.5,os._exit,1)
                 raise HTTPException(503,'Model unavailable') from None
             response=selection_result(result,[c['id'] for c in data['cards']])
             return JSONResponse(response,headers={'Cache-Control':'no-store'})

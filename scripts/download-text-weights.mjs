@@ -28,8 +28,9 @@ async function download(entry){
   let status=null;
   try{
    const offset=await fs.stat(partial).then(s=>s.size).catch(()=>0);
-   const response=await fetch(`https://huggingface.co/${manifest.model}/resolve/${manifest.revision}/${entry.path}`,{
-    headers:{Authorization:'Bearer '+process.env.HF_TOKEN,...(offset?{Range:`bytes=${offset}-`}:{})},signal:AbortSignal.timeout(1800000)});
+   const end=Math.min(offset+64*1024*1024,entry.size)-1;
+   const response=await fetch(`https://huggingface.co/${manifest.model}/resolve/${manifest.revision}/${entry.path}?download=true`,{
+    headers:{Authorization:'Bearer '+process.env.HF_TOKEN,Range:`bytes=${offset}-${end}`},signal:AbortSignal.timeout(120000)});
    status=response.status;
    if(![200,206].includes(response.status)){
     await response.body?.cancel();
@@ -42,6 +43,7 @@ async function download(entry){
    file=await fs.open(partial,response.status===206?'a':'w');
    for await(const chunk of response.body){count+=chunk.length;if(count>entry.size)throw Error('Oversized model file.');await file.write(chunk);}
    await file.close();file=null;
+   if(count<entry.size){attempt=-1;continue;}
    if(!await matches(partial,entry)){await fs.unlink(partial);throw Error('Pinned file checksum failed.');}
    await fs.rename(partial,final);console.log('Downloaded and verified: '+entry.path);return;
   }catch(error){

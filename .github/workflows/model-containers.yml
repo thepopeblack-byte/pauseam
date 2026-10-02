@@ -44,6 +44,8 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
           provenance: true
           sbom: true
+          cache-from: type=gha,scope=${{ matrix.service }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.service }}
       - name: Record the actual built digest
         env:
           IMAGE_DIGEST: ${{ steps.image.outputs.digest }}
