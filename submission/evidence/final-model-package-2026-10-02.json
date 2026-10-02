@@ -1,0 +1,21 @@
+{
+  "kind": "Engineering package verification; not participant validation",
+  "modelSourceCommit": "836fe48cfc826ff8c8afa5f9abde41e5b2300776",
+  "imageBuildRun": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36959714636",
+  "offlineRuntimeRun": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36961146823",
+  "pythonTestsPassed": 18,
+  "dockerComposeStructurePassed": true,
+  "preparedPowerShellSyntaxErrors": 0,
+  "anonymousImageDigestsVerified": true,
+  "offlineContainerImportsPassed": ["asr", "text_service"],
+  "runtimeDependencyRecords": "model-container-runtime-final-2026-10-02",
+  "bucketAudit": "bucket-audit-2026-10-02.json",
+  "completeRootModelFileMatches": ["NCAIR1/Igbo-ASR"],
+  "finalImageLiveInferenceVerified": false,
+  "realSpeechLanguagesVerified": [],
+  "completedParticipantInteractions": 0,
+  "officialApiVerified": false,
+  "fineTuningPerformed": false,
+  "deploymentOwner": "Human user",
+  "applicationSubmitted": false
+}

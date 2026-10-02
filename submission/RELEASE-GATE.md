@@ -56,3 +56,7 @@ The current bucket root fully matches Igbo's 13 required hashes, including its
 weight, but the other ASR weights do not match and text configurations were
 overwritten. Separate text/en/yo/ha/ig copies are required. No final-image model
 inference, four-language voice journey or participant completion is claimed.
+The final images also passed actual offline import verification in run 36961146823.
+Resolved dependencies and model identity records are in
+evidence/model-container-runtime-final-2026-10-02. This imports application code;
+it does not load weights or prove inference. Summary: evidence/final-model-package-2026-10-02.json.
