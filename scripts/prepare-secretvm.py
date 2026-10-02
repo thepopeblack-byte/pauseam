@@ -30,9 +30,9 @@ def compose(text_image, asr_image=None):
         '    security_opt: [no-new-privileges:true]', '    tmpfs: [/tmp]',
         '    ports: ["80:80", "443:443"]', '    volumes: ["caddy-data:/data", "caddy-config:/config"]',
         '    entrypoint: ["/bin/sh", "-c"]',
-        '    command: [\'printf "%s" "$$CADDY_CONFIG" > /tmp/Caddyfile; exec caddy run --config /tmp/Caddyfile --adapter caddyfile\']',
-        '    environment:', '      CADDY_CONFIG: |']
+        '    command:', '      - |', "        cat > /tmp/Caddyfile <<'CADDYFILE'"]
     lines.extend('        '+line for line in proxy)
+    lines.extend(['        CADDYFILE', '        exec caddy run --config /tmp/Caddyfile --adapter caddyfile'])
     lines.extend(['  text:', f'    image: {text_image}', '    restart: "on-failure:3"',
         '    mem_limit: 20g', '    read_only: true', '    cap_drop: [ALL]',
         '    security_opt: [no-new-privileges:true]', '    tmpfs: ["/tmp:size=512m"]',

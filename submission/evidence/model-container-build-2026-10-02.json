@@ -1,0 +1,10 @@
+{
+  "commit": "56b8aed2f56ce1c7c756db63bdece6165887db39",
+  "buildRun": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36953301322",
+  "images": {
+    "pauseam-asr": "ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7e54d7799424d04db64daf7b6ba84725d06608b80cab668f483acb303bd681c5",
+    "pauseam-text_service": "ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:b17cd953b5e1e48c3fc07453f3a3a9db9ecf5d41904f7c91c621c9cd1816a217"
+  },
+  "anonymousPullVerified": true,
+  "modelInferenceVerified": false
+}
