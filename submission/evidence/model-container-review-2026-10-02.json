@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-02",
+  "sourceCommit": "6d1f5124107e73d4868844547fe849147e1728cd",
+  "buildRun": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36981264230",
+  "conclusion": "success",
+  "images": {
+    "pauseam-asr": "ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b",
+    "pauseam-text_service": "ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:0ed72b3d5db05966fef9b99cfbb02d5009fb23d519abbf895772e1b320830e69"
+  },
+  "inferencePerformed": false,
+  "note": "Actual CI digests; build proves code packaging, not model readiness or inference."
+}

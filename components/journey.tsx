@@ -1,55 +1,568 @@
 "use client";
-import {useEffect,useState,useRef} from "react";
-import {ArrowRight,Volume2} from "lucide-react";
-import {Checkbox} from "@/components/consent-checkbox";
-import {Incident} from "@/components/incident";
-import {ShareChecklist} from "@/components/share-checklist";
-import {LANGUAGES,type Language} from "@/lib/models";
-import {VoiceInput} from "@/components/voice-input";
-import {containsSensitive,MODEL_URL,REVISION,type Journey,type Answer} from "@/lib/safety";
-import {saveTrial,type Trial} from "@/lib/evaluation";
-const topics={before:["Someone sent a link asking for my banking code.","A supplier changed the bank details on an invoice.","I received school fee instructions in a message.","A buyer sent a receipt as proof of payment."],after:["I already paid and suspect a scam.","My bank complaint remains unresolved."],learn:["How do I protect my banking codes?","How can I recognise an investment scam?","How do I check an online seller?"]};
-export function JourneyPanel({journey}:{journey:Journey}){
- const [ready,setReady]=useState(false);
- const [language,setLanguage]=useState<Language>("en");
- const [verification,setVerification]=useState("unknown");
- const pending=useRef<AbortController|null>(null),active=useRef(true),quizStarted=useRef(0);
- const [question,setQuestion]=useState(""),[answer,setAnswer]=useState<Answer|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(""),[asrModel,setAsrModel]=useState(""),[confirmed,setConfirmed]=useState(false),[testing,setTesting]=useState(false),[trial,setTrial]=useState<Trial|null>(null),[saved,setSaved]=useState(false),[quiz,setQuiz]=useState<boolean|null>(null),[canSpeak,setCanSpeak]=useState(false);
- useEffect(()=>{active.current=true;setReady(true);setCanSpeak("speechSynthesis" in window);return()=>{active.current=false;pending.current?.abort();window.speechSynthesis?.cancel();};},[]);
- useEffect(()=>{const context=(document as Document&{modelContext?:{registerTool:(tool:unknown,options:unknown)=>void}}).modelContext;if(!context)return;const controller=new AbortController();
- try{context.registerTool({name:"stage_safety_question",description:"Stage a non-sensitive safety question in the visible form for the user to review. Does not submit or record data.",inputSchema:{type:"object",properties:{question:{type:"string",maxLength:600}},required:["question"],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute:async(input:unknown)=>{const q=(input as {question?:unknown})?.question;if(typeof q!=="string"||!q.trim()||q.length>600||containsSensitive(q))throw new Error("Use a short situation without private details.");setQuestion(q);setAnswer(null);setAsrModel("");setConfirmed(false);setQuiz(null);setTrial(null);setSaved(false);setError("");pending.current?.abort();setBusy(false);await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return {staged:true,submitted:false};}},{signal:controller.signal});}catch{}return()=>controller.abort();},[]);
- function edit(value:string){pending.current?.abort();setBusy(false);setQuiz(null);setError("");setQuestion(value);setAnswer(null);setTrial(null);setSaved(false);setConfirmed(false);}
- async function ask(){
-  setError("");setAnswer(null);setTrial(null);setSaved(false);setQuiz(null);
-  if(!question.trim()){setError("Describe a situation or choose a topic.");return;}
-  if(containsSensitive(question)){setQuestion("");setAsrModel("");setError("Private details or numbers were detected and cleared. Please describe only the situation.");return;}
-  if(asrModel&&!confirmed){setError("Please check and confirm the transcript first.");return;}
-  setBusy(true);const start=performance.now();const controller=new AbortController();pending.current?.abort();pending.current=controller;
-  try{const response=await fetch("/api/answer",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question,journey,language}),signal:AbortSignal.any([controller.signal,AbortSignal.timeout(50000)])});const data=await response.json() as Answer;if(!data.status)throw new Error("Guidance is unavailable. Pause and contact your bank through a trusted channel.");if(!active.current||controller.signal.aborted)return;setAnswer(data);quizStarted.current=performance.now();const t:Trial={kind:"answer",journey,language,outcome:data.status==="ok"?"ok":data.status==="no_match"?"no_match":"failed",latencyMs:Math.round(performance.now()-start)};setTrial(t);if(testing&&data.status!=="ok"){if(saveTrial(t))setSaved(true);else setError("The local test result could not be saved.");}}
-  catch{if(!active.current||controller.signal.aborted)return;setError("Guidance is unavailable. Pause and contact your bank through a trusted channel.");if(testing)saveTrial({kind:"answer",journey,language,outcome:"failed",latencyMs:Math.min(120000,Math.round(performance.now()-start))});}
-  finally{if(active.current&&pending.current===controller)setBusy(false);}
- }
- function rate(helpful?:boolean){if(!testing||!trial||saved)return;const ok=saveTrial({...trial,...(helpful===undefined?{}:{helpful})});setSaved(ok);if(!ok)setError("The local test result could not be saved.");}
- function listen(){if(!answer)return;window.speechSynthesis.cancel();const speech=new SpeechSynthesisUtterance(answer.cards.flatMap(c=>[c.title,...c.steps]).join(". "));speech.lang="en-NG";speech.rate=.9;window.speechSynthesis.speak(speech);}
- return <div className="card-body"><span className="step-label">01 / {journey==="learn"?"LEARN A SAFER HABIT":"TELL US WHAT’S HAPPENING"}</span><h2>{journey==="after"?"Let’s take the next safe step.":journey==="learn"?"Build your scam-spotting skills.":"Let’s check before you send."}</h2><p>No names, account numbers, PINs, passwords or OTPs. Describe the situation or paste only the non-sensitive wording.</p>
- {journey==="after"&&<div className="notice">Suspect fraud? Contact your bank now using its official app, website or a trusted contact. Do not wait for this tool. <a href="https://www.cbn.gov.ng/supervision/cpdfraudandscam.html" target="_blank" rel="noreferrer">CBN guidance</a></div>}
- {journey==="after"&&<Incident/>}
- <label htmlFor={"language-"+journey}>Voice language</label><select id={"language-"+journey} value={language} onChange={e=>{setLanguage(e.target.value as Language);edit("");setAsrModel("");}}>{Object.entries(LANGUAGES).map(([key,l])=><option key={key} value={key}>{l.label}</option>)}</select>
- <p className="microcopy">English checklists are available. All four voice integrations await live validation. Yoruba, Hausa and Igbo safety wording awaits fluent review.</p>
- <VoiceInput key={language} language={language} journey={journey} testing={testing} onTranscript={(text,model)=>{edit(text);setAsrModel(model);}}/>
- <div className="divider"><span>or use your keyboard</span></div><label htmlFor={"question-"+journey}>{asrModel?"Check and correct what we heard":"What would you like to check?"}</label><textarea id={"question-"+journey} value={question} maxLength={600} autoComplete="off" spellCheck={false} disabled={!ready||busy} onChange={e=>edit(e.target.value)} placeholder="For example: A caller asks for my banking code."/>
- {asrModel&&<><p className="microcopy">Transcribed by <a href={"https://huggingface.co/"+asrModel}>{asrModel}</a> · {LANGUAGES[language].revision.slice(0,8)}. Corrections are yours. Confidence is not supplied by this model.</p><label className="consent"><Checkbox checked={confirmed} onCheckedChange={v=>setConfirmed(v===true)}/>I checked the transcript. It describes my situation and has no private details.</label></>}
- {journey==="before"&&<details className="context-questions"><summary>Two checks to think through first</summary><p>Has the organisation confirmed this request through a contact you found independently?</p><select aria-label="Independent confirmation" value={verification} onChange={e=>setVerification(e.target.value)}><option value="unknown">Not sure</option><option value="no">No</option><option value="yes">Yes</option></select><p>Are they asking you to rush, keep this secret, or share a banking code?</p><p className="microcopy">{verification==="yes"?"Independent confirmation helps, but PauseAm cannot authenticate a transaction.":"Pause the payment until you can verify the request independently."} Keep any banking code private.</p></details>}
- <button className="primary" disabled={!ready||busy||!!asrModel&&!confirmed} onClick={ask}>{!ready?"Loading controls…":busy?"Checking source-backed guidance…":"Check my next step"}<ArrowRight size={18}/></button>
- <div className="chips" aria-label="Suggested safety questions">{topics[journey].map((t,i)=><button disabled={!ready||busy} key={t} onClick={()=>{edit(t);setAsrModel("");}}>{["Try: "+(journey==="after"?"Suspected fraud":journey==="learn"?"Banking codes":"Suspicious link"),journey==="after"?"Unresolved complaint":journey==="learn"?"Investment warning":"Supplier change",journey==="learn"?"Online seller":"School fees","Receipt claim"][i]}</button>)}</div>
- <label className="consent"><Checkbox checked={testing} disabled={busy} onCheckedChange={v=>{setTesting(v===true);setTrial(null);}}/>Optional: save anonymous test measurements on this device only. No text or audio. Turning this off stops new records. <a href="/evaluation">View or delete records</a>.</label>
- {error&&<div role="alert" className="notice">{error}</div>}
- {(busy||answer)&&<div className="response-slot" aria-busy={busy}>{busy&&<div className="result response-loading" role="status"><span className="step-label">02 / CHECKING THE SOURCE LIBRARY</span><h3>Finding your next step</h3><p>Pause the payment while we check current guidance. You can retry if the connection fails.</p><div className="loading-line" aria-hidden="true"/><div className="loading-line" aria-hidden="true"/><div className="loading-line" aria-hidden="true"/></div>}{answer&&<section className="result" aria-live="polite"><span className="step-label">02 / YOUR NEXT SAFE STEP</span><p>{answer.message}</p>{answer.cards.map(c=><article key={c.id}><h3>{c.title}</h3><ol>{c.steps.map((s,i)=><li key={s}>{s}{c.why?.[i]&&<small className="step-why">Why: {c.why[i]}</small>}</li>)}</ol><details className="provenance"><summary>Source and review details</summary>{c.basis&&<p>{c.basis}</p>}<a href={c.source} target="_blank" rel="noreferrer">{c.sourceTitle} ↗</a><br/>{c.section}<br/>Checked {c.checked} · Review due {c.expires}<br/>{c.review}</details></article>)}<p className="microcopy">Answer engine: {answer.engine}. Answer model: {answer.model||"none"}{answer.modelRevision?" · "+answer.modelRevision.slice(0,8):""}.<br/>Speech model used: {asrModel||"none — typed input"}. Library {answer.kbVersion}.</p>{answer.cards.length>0&&<><ShareChecklist answer={answer}/><button className="secondary" onClick={listen} disabled={!canSpeak}><Volume2 size={16}/> Read guidance aloud</button><p className="microcopy">Playback uses your browser’s voice service, not N-ATLaS. Only public guidance is spoken.</p></>}
- {testing&&trial&&!saved&&answer.status==="ok"&&<div className="content-panel"><p>Was this guidance useful? Save this test:</p><div className="chips"><button onClick={()=>rate(true)}>Yes</button><button onClick={()=>rate(false)}>No</button><button onClick={()=>rate()}>Save without rating</button></div></div>}{saved&&<p role="status" className="microcopy">Measurement saved on this device. No question or transcript saved.</p>}
- {journey==="learn"&&answer.cards.length>0&&<div className="content-panel"><h3>One quick practice</h3><p>A caller says your account will be blocked unless you share a code. What is the safer next step?</p><div className="chips"><button disabled={quiz!==null} onClick={()=>{setQuiz(true);if(testing)saveTrial({kind:"quiz",journey,language,outcome:"ok",latencyMs:Math.min(120000,Math.round(performance.now()-quizStarted.current))});}}>End the call and contact my bank independently</button><button disabled={quiz!==null} onClick={()=>{setQuiz(false);if(testing)saveTrial({kind:"quiz",journey,language,outcome:"failed",latencyMs:Math.min(120000,Math.round(performance.now()-quizStarted.current))});}}>Share the code to avoid the block</button></div>{quiz!==null&&<p role="status">{quiz?"Yes. Keep the code private and independently verify the caller.":"Keep the code private. Contact the bank independently instead."} <a href="https://www.cbn.gov.ng/FinInc/FinLit/BillOfRights.html">CBN source</a>. Static practice feedback; no model used.</p>}</div>}</section>}</div>}
- </div>;
+import { useEffect, useState, useRef, useSyncExternalStore } from "react";
+import { ArrowRight, Volume2 } from "lucide-react";
+import { Checkbox } from "@/components/consent-checkbox";
+import { Incident } from "@/components/incident";
+import { ShareChecklist } from "@/components/share-checklist";
+import { LANGUAGES, type Language } from "@/lib/models";
+import { VoiceInput } from "@/components/voice-input";
+import { containsSensitive, type Journey, type Answer } from "@/lib/safety";
+import { saveTrial, type Trial } from "@/lib/evaluation";
+const subscribeReady = () => () => {};
+const topics = {
+  before: [
+    "Someone sent a link asking for my banking code.",
+    "A supplier changed the bank details on an invoice.",
+    "I received school fee instructions in a message.",
+    "A buyer sent a receipt as proof of payment.",
+  ],
+  after: [
+    "I already paid and suspect a scam.",
+    "My bank complaint remains unresolved.",
+  ],
+  learn: [
+    "How do I protect my banking codes?",
+    "How can I recognise an investment scam?",
+    "How do I check an online seller?",
+  ],
+};
+export function JourneyPanel({ journey }: { journey: Journey }) {
+  const ready = useSyncExternalStore(
+    subscribeReady,
+    () => true,
+    () => false,
+  );
+  const [language, setLanguage] = useState<Language>("en");
+  const [verification, setVerification] = useState("unknown");
+  const pending = useRef<AbortController | null>(null),
+    active = useRef(true),
+    quizStarted = useRef(0);
+  const [question, setQuestion] = useState(""),
+    [answer, setAnswer] = useState<Answer | null>(null),
+    [busy, setBusy] = useState(false),
+    [error, setError] = useState(""),
+    [asrModel, setAsrModel] = useState(""),
+    [confirmed, setConfirmed] = useState(false),
+    [testing, setTesting] = useState(false),
+    [trial, setTrial] = useState<Trial | null>(null),
+    [saved, setSaved] = useState(false),
+    [quiz, setQuiz] = useState<boolean | null>(null);
+  useEffect(() => {
+    active.current = true;
+    return () => {
+      active.current = false;
+      pending.current?.abort();
+      window.speechSynthesis?.cancel();
+    };
+  }, []);
+  useEffect(() => {
+    const context = (
+      document as Document & {
+        modelContext?: {
+          registerTool: (tool: unknown, options: unknown) => void;
+        };
+      }
+    ).modelContext;
+    if (!context) return;
+    const controller = new AbortController();
+    try {
+      context.registerTool(
+        {
+          name: "stage_safety_question",
+          description:
+            "Stage a non-sensitive safety question in the visible form for the user to review. Does not submit or record data.",
+          inputSchema: {
+            type: "object",
+            properties: { question: { type: "string", maxLength: 600 } },
+            required: ["question"],
+            additionalProperties: false,
+          },
+          annotations: { readOnlyHint: false, untrustedContentHint: true },
+          execute: async (input: unknown) => {
+            const q = (input as { question?: unknown })?.question;
+            if (
+              typeof q !== "string" ||
+              !q.trim() ||
+              q.length > 600 ||
+              containsSensitive(q)
+            )
+              throw new Error("Use a short situation without private details.");
+            setQuestion(q);
+            setAnswer(null);
+            setAsrModel("");
+            setConfirmed(false);
+            setQuiz(null);
+            setTrial(null);
+            setSaved(false);
+            setError("");
+            pending.current?.abort();
+            setBusy(false);
+            await new Promise((r) =>
+              requestAnimationFrame(() => requestAnimationFrame(r)),
+            );
+            return { staged: true, submitted: false };
+          },
+        },
+        { signal: controller.signal },
+      );
+    } catch {}
+    return () => controller.abort();
+  }, []);
+  function edit(value: string) {
+    pending.current?.abort();
+    setBusy(false);
+    setQuiz(null);
+    setError("");
+    setQuestion(value);
+    setAnswer(null);
+    setTrial(null);
+    setSaved(false);
+    setConfirmed(false);
+  }
+  async function ask() {
+    setError("");
+    setAnswer(null);
+    setTrial(null);
+    setSaved(false);
+    setQuiz(null);
+    if (!question.trim()) {
+      setError("Describe a situation or choose a topic.");
+      return;
+    }
+    if (containsSensitive(question)) {
+      setQuestion("");
+      setAsrModel("");
+      setError(
+        "Private details or numbers were detected and cleared. Please describe only the situation.",
+      );
+      return;
+    }
+    if (asrModel && !confirmed) {
+      setError("Please check and confirm the transcript first.");
+      return;
+    }
+    setBusy(true);
+    const start = performance.now();
+    const controller = new AbortController();
+    pending.current?.abort();
+    pending.current = controller;
+    try {
+      const response = await fetch("/api/answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, journey, language }),
+        signal: AbortSignal.any([
+          controller.signal,
+          AbortSignal.timeout(50000),
+        ]),
+      });
+      const data = (await response.json()) as Answer;
+      if (!data.status)
+        throw new Error(
+          "Guidance is unavailable. Pause and contact your bank through a trusted channel.",
+        );
+      if (!active.current || controller.signal.aborted) return;
+      setAnswer(data);
+      quizStarted.current = performance.now();
+      const t: Trial = {
+        kind: "answer",
+        journey,
+        language,
+        outcome:
+          data.status === "ok"
+            ? "ok"
+            : data.status === "no_match"
+              ? "no_match"
+              : "failed",
+        latencyMs: Math.round(performance.now() - start),
+      };
+      setTrial(t);
+      if (testing && data.status !== "ok") {
+        if (saveTrial(t)) setSaved(true);
+        else setError("The local test result could not be saved.");
+      }
+    } catch {
+      if (!active.current || controller.signal.aborted) return;
+      setError(
+        "Guidance is unavailable. Pause and contact your bank through a trusted channel.",
+      );
+      if (testing)
+        saveTrial({
+          kind: "answer",
+          journey,
+          language,
+          outcome: "failed",
+          latencyMs: Math.min(120000, Math.round(performance.now() - start)),
+        });
+    } finally {
+      if (active.current && pending.current === controller) setBusy(false);
+    }
+  }
+  function rate(helpful?: boolean) {
+    if (!testing || !trial || saved) return;
+    const ok = saveTrial({
+      ...trial,
+      ...(helpful === undefined ? {} : { helpful }),
+    });
+    setSaved(ok);
+    if (!ok) setError("The local test result could not be saved.");
+  }
+  function listen() {
+    if (!answer) return;
+    window.speechSynthesis.cancel();
+    const speech = new SpeechSynthesisUtterance(
+      answer.cards.flatMap((c) => [c.title, ...c.steps]).join(". "),
+    );
+    speech.lang = "en-NG";
+    speech.rate = 0.9;
+    window.speechSynthesis.speak(speech);
+  }
+  return (
+    <div className="card-body">
+      <span className="step-label">
+        01 /{" "}
+        {journey === "learn"
+          ? "LEARN A SAFER HABIT"
+          : "TELL US WHAT’S HAPPENING"}
+      </span>
+      <h2>
+        {journey === "after"
+          ? "Let’s take the next safe step."
+          : journey === "learn"
+            ? "Build your scam-spotting skills."
+            : "Let’s check before you send."}
+      </h2>
+      <p>
+        No names, account numbers, PINs, passwords or OTPs. Describe the
+        situation or paste only the non-sensitive wording.
+      </p>
+      {journey === "after" && (
+        <div className="notice">
+          Suspect fraud? Contact your bank now using its official app, website
+          or a trusted contact. Do not wait for this tool.{" "}
+          <a
+            href="https://www.cbn.gov.ng/supervision/cpdfraudandscam.html"
+            target="_blank"
+            rel="noreferrer"
+          >
+            CBN guidance
+          </a>
+        </div>
+      )}
+      {journey === "after" && <Incident />}
+      <label htmlFor={"language-" + journey}>Voice language</label>
+      <select
+        id={"language-" + journey}
+        value={language}
+        onChange={(e) => {
+          setLanguage(e.target.value as Language);
+          edit("");
+          setAsrModel("");
+        }}
+      >
+        {Object.entries(LANGUAGES).map(([key, l]) => (
+          <option key={key} value={key}>
+            {l.label}
+          </option>
+        ))}
+      </select>
+      <p className="microcopy">
+        English checklists are available. All four voice integrations await live
+        validation. Yoruba, Hausa and Igbo safety wording awaits fluent review.
+      </p>
+      <VoiceInput
+        key={language}
+        language={language}
+        journey={journey}
+        testing={testing}
+        onTranscript={(text, model) => {
+          edit(text);
+          setAsrModel(model);
+        }}
+      />
+      <div className="divider">
+        <span>or use your keyboard</span>
+      </div>
+      <label htmlFor={"question-" + journey}>
+        {asrModel
+          ? "Check and correct what we heard"
+          : "What would you like to check?"}
+      </label>
+      <textarea
+        id={"question-" + journey}
+        value={question}
+        maxLength={600}
+        autoComplete="off"
+        spellCheck={false}
+        disabled={!ready || busy}
+        onChange={(e) => edit(e.target.value)}
+        placeholder="For example: A caller asks for my banking code."
+      />
+      {asrModel && (
+        <>
+          <p className="microcopy">
+            Transcribed by{" "}
+            <a href={"https://huggingface.co/" + asrModel}>{asrModel}</a> ·{" "}
+            {LANGUAGES[language].revision.slice(0, 8)}. Corrections are yours.
+            Confidence is not supplied by this model.
+          </p>
+          <label className="consent">
+            <Checkbox
+              checked={confirmed}
+              onCheckedChange={(v) => setConfirmed(v === true)}
+            />
+            I checked the transcript. It describes my situation and has no
+            private details.
+          </label>
+        </>
+      )}
+      {journey === "before" && (
+        <details className="context-questions">
+          <summary>Two checks to think through first</summary>
+          <p>
+            Has the organisation confirmed this request through a contact you
+            found independently?
+          </p>
+          <select
+            aria-label="Independent confirmation"
+            value={verification}
+            onChange={(e) => setVerification(e.target.value)}
+          >
+            <option value="unknown">Not sure</option>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+          <p>
+            Are they asking you to rush, keep this secret, or share a banking
+            code?
+          </p>
+          <p className="microcopy">
+            {verification === "yes"
+              ? "Independent confirmation helps, but PauseAm cannot authenticate a transaction."
+              : "Pause the payment until you can verify the request independently."}{" "}
+            Keep any banking code private.
+          </p>
+        </details>
+      )}
+      <button
+        className="primary"
+        disabled={!ready || busy || (!!asrModel && !confirmed)}
+        onClick={ask}
+      >
+        {!ready
+          ? "Loading controls…"
+          : busy
+            ? "Checking source-backed guidance…"
+            : "Check my next step"}
+        <ArrowRight size={18} />
+      </button>
+      <div className="chips" aria-label="Suggested safety questions">
+        {topics[journey].map((t, i) => (
+          <button
+            disabled={!ready || busy}
+            key={t}
+            onClick={() => {
+              edit(t);
+              setAsrModel("");
+            }}
+          >
+            {
+              [
+                "Try: " +
+                  (journey === "after"
+                    ? "Suspected fraud"
+                    : journey === "learn"
+                      ? "Banking codes"
+                      : "Suspicious link"),
+                journey === "after"
+                  ? "Unresolved complaint"
+                  : journey === "learn"
+                    ? "Investment warning"
+                    : "Supplier change",
+                journey === "learn" ? "Online seller" : "School fees",
+                "Receipt claim",
+              ][i]
+            }
+          </button>
+        ))}
+      </div>
+      <label className="consent">
+        <Checkbox
+          checked={testing}
+          disabled={busy}
+          onCheckedChange={(v) => {
+            setTesting(v === true);
+            setTrial(null);
+          }}
+        />
+        Optional: save anonymous test measurements on this device only. No text
+        or audio. Turning this off stops new records.{" "}
+        <a href="/evaluation">View or delete records</a>.
+      </label>
+      {error && (
+        <div role="alert" className="notice">
+          {error}
+        </div>
+      )}
+      {(busy || answer) && (
+        <div className="response-slot" aria-busy={busy}>
+          {busy && (
+            <div className="result response-loading" role="status">
+              <span className="step-label">
+                02 / CHECKING THE SOURCE LIBRARY
+              </span>
+              <h3>Finding your next step</h3>
+              <p>
+                Pause the payment while we check current guidance. You can retry
+                if the connection fails.
+              </p>
+              <div className="loading-line" aria-hidden="true" />
+              <div className="loading-line" aria-hidden="true" />
+              <div className="loading-line" aria-hidden="true" />
+            </div>
+          )}
+          {answer && (
+            <section className="result" aria-live="polite">
+              <span className="step-label">02 / YOUR NEXT SAFE STEP</span>
+              <p>{answer.message}</p>
+              {answer.cards.map((c) => (
+                <article key={c.id}>
+                  <h3>{c.title}</h3>
+                  <ol>
+                    {c.steps.map((s, i) => (
+                      <li key={s}>
+                        {s}
+                        {c.why?.[i] && (
+                          <small className="step-why">Why: {c.why[i]}</small>
+                        )}
+                      </li>
+                    ))}
+                  </ol>
+                  <details className="provenance">
+                    <summary>Source and review details</summary>
+                    {c.basis && <p>{c.basis}</p>}
+                    <a href={c.source} target="_blank" rel="noreferrer">
+                      {c.sourceTitle} ↗
+                    </a>
+                    <br />
+                    {c.section}
+                    <br />
+                    Checked {c.checked} · Review due {c.expires}
+                    <br />
+                    {c.review}
+                  </details>
+                </article>
+              ))}
+              <p className="microcopy">
+                Answer engine: {answer.engine}. Answer model:{" "}
+                {answer.model || "none"}
+                {answer.modelRevision
+                  ? " · " + answer.modelRevision.slice(0, 8)
+                  : ""}
+                .<br />
+                Speech model used: {asrModel || "none — typed input"}. Library{" "}
+                {answer.kbVersion}.
+              </p>
+              {answer.cards.length > 0 && (
+                <>
+                  <ShareChecklist answer={answer} />
+                  <button
+                    className="secondary"
+                    onClick={listen}
+                    disabled={!ready || !("speechSynthesis" in window)}
+                  >
+                    <Volume2 size={16} /> Read guidance aloud
+                  </button>
+                  <p className="microcopy">
+                    Playback uses your browser’s voice service, not N-ATLaS.
+                    Only public guidance is spoken.
+                  </p>
+                </>
+              )}
+              {testing && trial && !saved && answer.status === "ok" && (
+                <div className="content-panel">
+                  <p>Was this guidance useful? Save this test:</p>
+                  <div className="chips">
+                    <button onClick={() => rate(true)}>Yes</button>
+                    <button onClick={() => rate(false)}>No</button>
+                    <button onClick={() => rate()}>Save without rating</button>
+                  </div>
+                </div>
+              )}
+              {saved && (
+                <p role="status" className="microcopy">
+                  Measurement saved on this device. No question or transcript
+                  saved.
+                </p>
+              )}
+              {journey === "learn" && answer.cards.length > 0 && (
+                <div className="content-panel">
+                  <h3>One quick practice</h3>
+                  <p>
+                    A caller says your account will be blocked unless you share
+                    a code. What is the safer next step?
+                  </p>
+                  <div className="chips">
+                    <button
+                      disabled={quiz !== null}
+                      onClick={() => {
+                        setQuiz(true);
+                        if (testing)
+                          saveTrial({
+                            kind: "quiz",
+                            journey,
+                            language,
+                            outcome: "ok",
+                            latencyMs: Math.min(
+                              120000,
+                              Math.round(
+                                performance.now() - quizStarted.current,
+                              ),
+                            ),
+                          });
+                      }}
+                    >
+                      End the call and contact my bank independently
+                    </button>
+                    <button
+                      disabled={quiz !== null}
+                      onClick={() => {
+                        setQuiz(false);
+                        if (testing)
+                          saveTrial({
+                            kind: "quiz",
+                            journey,
+                            language,
+                            outcome: "failed",
+                            latencyMs: Math.min(
+                              120000,
+                              Math.round(
+                                performance.now() - quizStarted.current,
+                              ),
+                            ),
+                          });
+                      }}
+                    >
+                      Share the code to avoid the block
+                    </button>
+                  </div>
+                  {quiz !== null && (
+                    <p role="status">
+                      {quiz
+                        ? "Yes. Keep the code private and independently verify the caller."
+                        : "Keep the code private. Contact the bank independently instead."}{" "}
+                      <a href="https://www.cbn.gov.ng/FinInc/FinLit/BillOfRights.html">
+                        CBN source
+                      </a>
+                      . Static practice feedback; no model used.
+                    </p>
+                  )}
+                </div>
+              )}
+            </section>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
-
-
-
-

@@ -2,8 +2,8 @@
   "files": [
     {
       "path": "Dockerfile",
-      "bytes": 671,
-      "sha256": "de5c2377269d5130e21126f311f66d47a0921a2054f88a0d4de53c34ef9eac5e"
+      "bytes": 698,
+      "sha256": "5f57375212decdd3d399f97723c07f21c8f1d3a0303055e16ee4b3c25d33aa13"
     },
     {
       "path": "README.md",
@@ -17,8 +17,13 @@
     },
     {
       "path": "gateway.py",
-      "bytes": 5286,
-      "sha256": "f162f1c932939a9c6f25618812eb9f3b86786b802741cf5a202e1e61371c1823"
+      "bytes": 5413,
+      "sha256": "69466747991d342781207174da3ac3823d8dff02912735ca5703aff0d3e0f9cd"
+    },
+    {
+      "path": "http_safety.py",
+      "bytes": 597,
+      "sha256": "e2912484a24bff5274522aee58c00ff3e6a9a5af56c2eb0d4585543c6945cf25"
     },
     {
       "path": "launcher.py",
@@ -26,7 +31,7 @@
       "sha256": "cb7316514e8cb985b080dd91b73939c84543ee51e264c44d97dd8da7d42eab46"
     }
   ],
-  "archiveSha256": "64894fad8d07993b529a0f0bf3ff84b1f52a368ceb75d9b4b3861719f0e96f57",
+  "archiveSha256": "234c63840945364e29457de0656f89db3ad7ea128a6f3e190ae7fd474f2f68bf",
   "weightsIncluded": false,
   "credentialsIncluded": false,
   "hostCreated": false,

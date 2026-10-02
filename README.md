@@ -10,8 +10,9 @@ Site: https://pauseam.theblockcapitol.com
 Custom domain: pauseam.theblockcapitol.com (DNS and HTTPS active, verified 2 October).
 See [Sites and Namecheap setup](deployment/sites/README.md). The app runs on
 Sites; the Python/PyTorch models still require a separate inference host.
-The [Hugging Face CPU package](deployment/huggingface-space/README.md) is prepared;
-no Space has been launched and live model inference remains unverified.
+Use the [SecretVM self-deployment guide](deployment/secretvm/README.md) for inference.
+The Hugging Face CPU package is an inactive alternative. Live model inference
+remains unverified; no new host was launched during this review.
 
 Implemented: mobile-first English source checklists, three journeys, private incident
 timeline/export, general-checklist sharing, consent-based local evaluation, real
@@ -37,7 +38,7 @@ python -m unittest tests.test_audio -v
 With the server running:
 npm run test:http
 
-See submission/04-technical/technical-documentation.md and model-hosting.md for API,
+See submission/04-technical/technical-documentation.md and submission/04-technical/model-hosting.md for API,
 configuration, deployment, privacy, source review and model limitations.
 The current shell may require invoking npm-cli.js through node instead of npm.cmd.
 

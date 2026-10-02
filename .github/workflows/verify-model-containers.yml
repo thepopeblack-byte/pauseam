@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['.github/workflows/verify-model-containers.yml', 'submission/evidence/model-container-build-2026-10-02.json']
+    paths: ['.github/workflows/verify-model-containers.yml', 'submission/evidence/model-container-review-2026-10-02.json']
 permissions:
   contents: read
 jobs:
@@ -16,7 +16,7 @@ jobs:
         run: |
           mkdir runtime-evidence
           for service in asr text_service; do
-            image=$(jq -r --arg name "pauseam-$service" '.images[$name]' submission/evidence/model-container-build-2026-10-02.json)
+            image=$(jq -r --arg name "pauseam-$service" '.images[$name]' submission/evidence/model-container-review-2026-10-02.json)
             docker pull "$image"
             docker run --rm --network none --read-only --tmpfs /tmp:size=128m --entrypoint python "$image" -c 'import app, torch, transformers, json; print(json.dumps({"model": app.MODEL, "revision": app.REVISION, "torch": torch.__version__, "transformers": transformers.__version__, "cudaAvailable": torch.cuda.is_available(), "inferencePerformed": False}))' | tee "runtime-evidence/$service-import.json"
             docker run --rm --network none --read-only --entrypoint python "$image" -m pip freeze > "runtime-evidence/$service-requirements.lock.txt"

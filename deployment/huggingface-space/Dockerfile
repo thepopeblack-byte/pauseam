@@ -1,5 +1,5 @@
-FROM ghcr.io/thepopeblack-byte/pauseam-asr@sha256:79b35cce2f5685928d56ebf09750c4c805ce3f61b95f09f6cb176c13cd952859 AS asr
-FROM ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:e12c25884c4bd1ce1de5767a57839366612d5c1e4c16bbccdc37c21c32e9774a
+FROM ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b AS asr
+FROM ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:0ed72b3d5db05966fef9b99cfbb02d5009fb23d519abbf895772e1b320830e69
 USER root
 COPY --from=asr /service /app/asr
 COPY --chown=1000:1000 gateway.py launcher.py http_safety.py /gateway/

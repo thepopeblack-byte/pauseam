@@ -29,14 +29,14 @@ Docker Linux daemon is unavailable; no local model serving is claimed.
 Generate the configuration reproducibly from repository root:
 
 ```powershell
-python scripts/prepare-model-host.py --text-image ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:e12c25884c4bd1ce1de5767a57839366612d5c1e4c16bbccdc37c21c32e9774a --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:79b35cce2f5685928d56ebf09750c4c805ce3f61b95f09f6cb176c13cd952859 --output deployment/models/model-compose.yml
+python scripts/prepare-model-host.py --text-image ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:0ed72b3d5db05966fef9b99cfbb02d5009fb23d519abbf895772e1b320830e69 --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b --output deployment/models/model-compose.yml
 ```
 
 On the selected host, supply MODEL_HOSTNAME, HF_TOKEN, TEXT_SERVICE_TOKEN and
 ASR_SERVICE_TOKEN privately. The two service credentials must be at least 32
 random characters. Keep MODEL_BUCKET_ID empty for text until a complete text
-bucket is verified. Root-level ASR copies use an empty prefix by default. The
-ASR_*_BUCKET_ID and ASR_*_BUCKET_PREFIX settings allow explicit verified changes.
+bucket is verified. Root-level ASR copies use an empty prefix by default. Source changes require updating approved-sources.json and regenerating both
+Compose files after a complete byte audit.
 Never expose container ports 8000 directly or reset/fork the rolling licence
 quota to regain capacity. Do not print expanded Compose configuration containing
 secrets; use `docker compose --env-file PRIVATE_FILE -f deployment/models/model-compose.yml config --quiet`.

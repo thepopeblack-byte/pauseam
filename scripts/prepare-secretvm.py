@@ -1,10 +1,10 @@
 """Generate deployable Compose from actual registry digests, without secrets.
 
-No VM is launched. Text-only is the default until ASR access is available.
-Supply MODEL_BUCKET_ID / HF_TOKEN and service tokens through encrypted host
-settings. Never paste a token into a command or include it in this file.
+No VM is launched. Use the verified separate ASR buckets and official text repo.
+Supply HF_TOKEN and service tokens through encrypted host settings. Never paste a token into a command or include it in this file.
 """
 import argparse
+import json
 from pathlib import Path
 import re
 
@@ -15,7 +15,9 @@ def image(value):
     return value
 
 
-def compose(text_image, asr_image=None, bucket_id=None):
+def compose(text_image, asr_image=None):
+    root = Path(__file__).resolve().parent.parent
+    sources = json.loads((root / "deployment/models/approved-sources.json").read_text())
     proxy = ['  $DOMAIN_NAME {', '    request_body {', '      max_size 1MB', '    }',
              '    header Cache-Control "no-store"', '    handle_path /text/* {',
              '      reverse_proxy text:8000', '    }']
@@ -41,14 +43,12 @@ def compose(text_image, asr_image=None, bucket_id=None):
         '      TEXT_DTYPE: bfloat16', '      MODEL_THREADS: "4"',
         '      HF_HOME: /home/app/models/hf', '      VERIFIED_MODEL_CACHE: /home/app/models/verified',
         '      LICENSE_DB: /home/app/license/usage.sqlite',
-        '      MODEL_BUCKET_ID: ${MODEL_BUCKET_ID:-'+(bucket_id or '')+'}',
-        '      MODEL_BUCKET_PREFIX: ${MODEL_BUCKET_PREFIX:-'+('text' if bucket_id else '')+'}',
+        '      MODEL_BUCKET_ID: ""',
+        '      MODEL_BUCKET_PREFIX: ""',
         '      HF_TOKEN: ${HF_TOKEN:-}', '      TEXT_SERVICE_TOKEN: ${TEXT_SERVICE_TOKEN:?Set privately}',
         '    healthcheck:', '      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen(\'http://127.0.0.1:8000/ready\', timeout=5)"]',
         '      interval: 30s', '      timeout: 10s', '      retries: 5', '      start_period: 60m'])
     if asr_image:
-        import json
-        root = Path(__file__).resolve().parent.parent
         for lang in ("en", "yo", "ha", "ig"):
             revision = json.loads((root/'asr'/'manifests'/(lang+'.json')).read_text(encoding='utf-8'))['revision']
             lines.extend([f'  asr-{lang}:', f'    image: {asr_image}', '    restart: "on-failure:3"',
@@ -59,8 +59,8 @@ def compose(text_image, asr_image=None, bucket_id=None):
                 '      MODEL_THREADS: "1"', '      HF_HOME: /home/inference/models/hf',
                 '      VERIFIED_MODEL_CACHE: /home/inference/models/verified',
                 '      LICENSE_DB: /home/inference/license/usage.sqlite', '      HF_TOKEN: ${HF_TOKEN:-}',
-                f'      MODEL_BUCKET_ID: ${{ASR_{lang.upper()}_BUCKET_ID:-{bucket_id or ""}}}',
-                f'      MODEL_BUCKET_PREFIX: ${{ASR_{lang.upper()}_BUCKET_PREFIX:-{lang if bucket_id else ""}}}',
+                f'      MODEL_BUCKET_ID: {sources[lang]["bucket"]}',
+                '      MODEL_BUCKET_PREFIX: ""',
                 '      ASR_SERVICE_TOKEN: ${ASR_SERVICE_TOKEN:?Set privately}',
                 '    healthcheck:', '      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen(\'http://127.0.0.1:8000/ready\', timeout=5)"]',
                 '      interval: 30s', '      timeout: 10s', '      retries: 5', '      start_period: 60m'])
@@ -74,10 +74,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--text-image', required=True, type=image)
     parser.add_argument('--asr-image', type=image)
-    parser.add_argument('--bucket-id', help='Optional public bucket with separate text/en/yo/ha/ig folders; folders must be verified before deployment')
     parser.add_argument('--output', required=True, type=Path)
     args = parser.parse_args()
-    if args.bucket_id and not re.fullmatch(r'[A-Za-z0-9_-]+/[A-Za-z0-9_.-]+', args.bucket_id): parser.error('Invalid bucket ID')
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(compose(args.text_image, args.asr_image,args.bucket_id), encoding='utf-8')
+    args.output.write_text(compose(args.text_image, args.asr_image), encoding='utf-8')
     print('Compose written; no credentials or VM purchase performed.')

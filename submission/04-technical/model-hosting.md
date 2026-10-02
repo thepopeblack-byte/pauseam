@@ -103,3 +103,15 @@ Failures also consume reservations. This conservative ceiling bounds distinct
 direct recipients below 1,000 without storing user IDs, questions or audio. It is
 stricter than active-user accounting and may exhaust during testing. Do not reset
 or fork the database to bypass the cap; separate licensing is required for growth.
+
+
+## Current SecretVM handoff — 2 October review
+
+Use deployment/secretvm/README.md and pauseam-compose.yml for the selected
+self-operated deployment. It supersedes earlier mixed-bucket copy instructions.
+The four ASR buckets are fully verified; text uses the official pinned repository.
+New actual images contain malformed-header and bounded-body fixes; see
+submission/evidence/model-container-review-2026-10-02.json.
+The app remains on Sites, and inference remains disabled pending real host checks.
+The Hugging Face Space package is an inactive alternative. Never run independent
+licence ledgers simultaneously or discard the existing ledger on migration.
