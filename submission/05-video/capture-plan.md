@@ -1,7 +1,9 @@
 # 05 — Video demonstration: incomplete
 
 No submission MP4 exists. Current scope is English only. Capture after actual
-live voice and CPU text checks pass. A slideshow or fake transcript is not evidence.
+live voice and CPU text checks pass. Those engineering/owner smoke checks now
+pass, with one documented ambiguous-question abstention. A slideshow or fake
+transcript is not evidence; reproduce the actual model behaviour during capture.
 
 ## Four-minute capture script
 0:00–0:20: PauseAm / Ask before you pay; PS2, team and actual build.
@@ -9,7 +11,7 @@ live voice and CPU text checks pass. A slideshow or fake transcript is not evide
 the actual transcript, confirm, receive checklist. Show model/source metadata
 from the actual response in a separate developer evidence view, outside the
 consumer journey. Do not invent an in-product source-detail control.
-1:30–2:05: urgent bank-contact action, private timeline and redacted summary.
+1:30–2:05: Report a problem, urgent bank-contact action and redacted report draft.
 2:05–2:25: warning-sign interaction.
 2:25–3:25: actual English typed question and grounded guidance; show the genuine
 CPU request trace and identity. State that Yoruba, Hausa and Igbo are paused.

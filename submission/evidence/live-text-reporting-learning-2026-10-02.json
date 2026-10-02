@@ -1,0 +1,58 @@
+{
+  "recordedAt": "2026-10-02T22:40:53.858Z",
+  "origin": "https://pauseam.theblockcapitol.com",
+  "kind": "Authored engineering examples, not participant validation",
+  "checks": [
+    {
+      "name": "Concern route: mistaken",
+      "authoredQuestion": "I sent money to the wrong person",
+      "httpStatus": 200,
+      "card": "mistaken",
+      "model": "NCAIR1/N-ATLaS",
+      "elapsedMs": 8860,
+      "passed": true
+    },
+    {
+      "name": "Concern route: account-security",
+      "authoredQuestion": "I clicked a phishing link",
+      "httpStatus": 200,
+      "card": "account-security",
+      "model": "NCAIR1/N-ATLaS",
+      "elapsedMs": 6190,
+      "passed": true
+    },
+    {
+      "name": "Concern route: complaint",
+      "authoredQuestion": "My bank deducted money twice",
+      "httpStatus": 200,
+      "card": "complaint",
+      "model": "NCAIR1/N-ATLaS",
+      "elapsedMs": 5918,
+      "passed": true
+    },
+    {
+      "name": "Concern route: complaint",
+      "authoredQuestion": "My bank debited me but the transfer failed",
+      "httpStatus": 200,
+      "card": "complaint",
+      "model": "NCAIR1/N-ATLaS",
+      "elapsedMs": 6247,
+      "passed": true
+    },
+    {
+      "name": "Dated learning catalog",
+      "httpStatus": 200,
+      "count": 3,
+      "published": [
+        "2026-08-27",
+        "2026-07-13",
+        "2026-06-15"
+      ],
+      "elapsedMs": 267,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "audioInferenceRun": false,
+  "participantRecordsCreated": 0
+}

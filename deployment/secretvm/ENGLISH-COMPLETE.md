@@ -53,6 +53,14 @@ a gateway still serving an earlier workload. Do not delete volumes or create a
 second VM. Container startup logs and status are needed to distinguish a pending
 update, conversion failure, or routing problem; HTTP 200 is not enough.
 
+If the runtime logs say `required variable TEXT_SERVICE_TOKEN is missing a value`,
+the Compose update did not receive that encrypted environment variable. The old
+containers can remain available even though the new stack failed to start.
+Restore the existing complete private `private/secretvm/deployment.env` through
+Encrypted Secrets → Text yourself, preserving the service tokens that match
+Sites. Save/apply the update and close the panel; never paste the contents in
+chat. Missing credentials must not be worked around by disabling authentication.
+
 ```
 python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b --output deployment/secretvm/english-complete-compose.yml
 node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://amaranth-nightingale.vm.scrtlabs.com --scope english-complete --mode inference --output private/secretvm/english-complete-check.json

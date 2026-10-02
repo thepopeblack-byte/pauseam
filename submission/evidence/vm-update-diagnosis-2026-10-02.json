@@ -1,0 +1,49 @@
+{
+  "recordedAt": "2026-10-02 22:27:19 UTC",
+  "kind": "Owner-requested deployment verification; not user validation",
+  "host": "https://amaranth-nightingale.vm.scrtlabs.com",
+  "savedCpuImageVerified": true,
+  "savedThreeServiceConfigurationVerified": true,
+  "ownerReportedDigest": "ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed",
+  "runningTextRuntime": "Transformers, torch.bfloat16; CPU contract metadata absent",
+  "genuineTextRequest": {
+    "authoredCase": "supplier bank detail change",
+    "timeoutMs": 45000,
+    "elapsedMs": 45044,
+    "passed": false
+  },
+  "englishAsrHealthPassed": true,
+  "restart": {
+    "existingVm": true,
+    "persistence": "Enabled",
+    "upgradeable": true,
+    "performed": true,
+    "verifiedDashboardStatus": "running",
+    "newVmCreated": false,
+    "volumesDeleted": false
+  },
+  "verifiedRuntimeError": "required variable TEXT_SERVICE_TOKEN is missing a value",
+  "privateLocalConfig": {
+    "HF_TOKENPresent": true,
+    "TEXT_SERVICE_TOKENPresent": true,
+    "ASR_SERVICE_TOKENPresent": true,
+    "secretValuesIncluded": false
+  },
+  "pendingAction": "Owner restores existing encrypted deployment.env in the current VM; then rerun CPU health and real text checks before enabling Sites",
+  "siteTextEnabled": false,
+  "officialApiVerified": false,
+  "fineTuningPerformed": false,
+  "pausedLanguages": [
+    "yo",
+    "ha",
+    "ig"
+  ],
+  "rulesReview": {
+    "source": "https://ncair.nitda.gov.ng/naic/",
+    "ps2": "Official N-ATLaS ASR service for relevant language; 50 documented real user interactions",
+    "fineTuning": "Separate PS3 requirement; not demonstrated or claimed",
+    "officialApi": "Credentials listed as support for shortlisted teams; no public contract or successful official request verified"
+  },
+  "researchInteractionsAdded": 0,
+  "applicationSubmitted": false
+}

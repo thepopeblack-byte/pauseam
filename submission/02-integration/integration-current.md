@@ -4,7 +4,7 @@ PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 2 Octo
 
 ## Current capability boundary
 
-The agreed public language is Nigerian-accented English. The official English ASR returned a real owner transcript through the app; this is engineering evidence, not a completed participant-validation round. The new same-model CPU service completed six genuine local relevance requests in 15,909-23,293 ms, plus two source/input guard checks without inference. Its actual conversion output is 4,920,738,848 bytes. Public text inference remains disabled until the owner updates SecretVM and actual HTTPS requests pass. Local success is not VM success.
+The agreed public language is Nigerian-accented English. The official English ASR returned a real owner transcript through the app; this is engineering evidence, not a completed participant-validation round. After the owner restored missing encrypted configuration, the correct same-model CPU service became ready. Six genuine authenticated HTTPS relevance requests passed in 6,141-6,754 ms, plus two pre-inference guards. Sites version 19 was redeployed with TEXT_ENABLED=true at 22:36:47 UTC on 2 October. Public model-backed supplier guidance was verified in the actual browser. These are engineering checks, not human validation.
 
 Yoruba, Hausa and Igbo adapters and byte-verified model files remain available but are paused. Official API access and fine-tuning are not demonstrated. Quantization is a precision conversion, not fine-tuning. Do not select unsupported capabilities or languages on the portal.
 
@@ -26,7 +26,7 @@ English ASR: NCAIR1/NigerianAccentedEnglish at 3c52c6e6c9ec508014a7b9db6a42b503b
 
 Text: NCAIR1/N-ATLaS at e294476928aca9030e924ca27bb8e085e8581273. The new CPU path verifies original Safetensors/tokenizer bytes against text_service/model-manifest.json, converts with official llama.cpp revision 631109b34da437a3c4a5ebd75091d677671392e3 and quantizes to Q4_K_M. The embedded official chat template is used. The generated provenance receipt records original hashes, output hash/size and recipe. No alternative model is substituted.
 
-Runtime release b11351 is pinned. Linux archive SHA256: c800a3402548d57f408adcebe4e53b939141e34e09b7e4701c785435572d1fee. Windows archive SHA256: ced25d91ed2c0981420dcfc9e7823892156c13b5c8dc9f26d334d8e3e4c33a09. Conversion/quality/latency are not assumed from downloading these files.
+Runtime release b11351 is pinned. Linux archive SHA256: c800a3402548d57f408adcebe4e53b939141e34e09b7e4701c785435572d1fee. Downloading files alone proves neither inference nor quality.
 
 ## Code locations
 
@@ -38,17 +38,19 @@ scripts/prepare-secretvm.py generates digest-pinned profiles. scripts/verify-mod
 
 ## Redacted production settings
 
-ASR_ENABLED=true; ASR_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/asr/en/transcribe; KB_ENABLED=true; TEXT_ENABLED=false at this checkpoint; TEXT_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/text/guide. ASR_SERVICE_TOKEN and TEXT_SERVICE_TOKEN are server-side secrets, excluded here. HF_TOKEN is private to model hosting/preparation.
+ASR_ENABLED=true; ASR_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/asr/en/transcribe; KB_ENABLED=true; TEXT_ENABLED=true; TEXT_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/text/guide. ASR_SERVICE_TOKEN and TEXT_SERVICE_TOKEN are server-side secrets, excluded here. HF_TOKEN is private to model hosting/preparation. Deployment appgdep_6ac031f10d708191a2bb327e3af7dc14 applied environment revision 4.
 
 Text is enabled only after genuine host identity, relevance, adversarial and latency checks, followed by a Sites deployment. Missing settings or failed inference cannot be passed off as model guidance.
 
 ## Genuine evidence and gaps
 
-The English owner transcript and redirect investigation are documented in worker-redirect-fix-2026-10-02.json and english-pilot-2026-10-02.json. This turn's English authenticated health check returned HTTP 200 in 809 ms with the exact identity; no new audio was uploaded. New provenance/privacy/relevance changes passed 56 application tests and 27 Python checks. These are engineering checks, not participant interactions or ASR accuracy measurements.
+The earlier English owner transcript is documented in worker-redirect-fix-2026-10-02.json. The latest authenticated English health check returned HTTP 200 in 835 ms with the exact identity. Provenance/privacy/relevance changes passed 56 application tests and 27 Python checks. These are not participant interactions or speech-accuracy measurements.
 
-Actual local conversion: submission/evidence/cpu-conversion-2026-10-02.json. Actual final local outcomes: submission/evidence/cpu-local-relevance-check-2026-10-02.json. Earlier all-card and three-candidate failures remain in cpu-local-headings-first-check-2026-10-02.json and cpu-three-candidate-check-2026-10-02.json. A required runtime schema-wrapper bug was caught by output validation and fixed before enabling public inference. The final pipeline uses retrieval followed by a model relevance check; it does not assert that model-only classification of all cards passed.
+Local conversion and successful requests remain in cpu-conversion-2026-10-02.json and cpu-local-relevance-check-2026-10-02.json. Earlier all-card/three-candidate failures remain unchanged. A schema-wrapper defect was caught and fixed before enablement. Retrieval followed by relevance checking passed; model-only classification of all cards did not.
 
-Historical failures remain unchanged. Final container proof is cpu-final-container-2026-10-02.json; actual build: https://github.com/thepopeblack-byte/pauseam/actions/runs/37061753954. Its digest starts ed76b851 and readiness must identify reviewed-card-relevance-v1. A build/import check is not inference. Random response references are not signed proof of human participation: observed sessions require attestation. Final live requests and screenshots remain pending.
+Historical failures remain unchanged. Final container proof is cpu-final-container-2026-10-02.json; actual build: https://github.com/thepopeblack-byte/pauseam/actions/runs/37061753954. Its digest starts ed76b851; live readiness identifies llama.cpp and reviewed-card-relevance-v1. The VM-generated quantized SHA256 is 3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b; the separately generated Windows conversion has a different hash. Original source files are pinned in both recipes. Actual request trace: https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/live-text-inference-2026-10-02.json
+
+Public results: live-text-public-check-2026-10-02.json. Of 21 public checks, 20 passed. The vague question "They want me to use different bank details" returned a safe no-match; the explicit supplier question worked. This unresolved comprehension limitation is retained. Five additional reporting/learning checks passed. The owner reports that the fresh complete English recording, transcript review and supplier guidance journey works; this is owner confirmation, not independently observed participant validation. Random response references are not signed proof of human participation: observed sessions require attestation.
 
 ## Official service and API findings
 

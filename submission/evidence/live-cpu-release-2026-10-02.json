@@ -1,0 +1,71 @@
+{
+  "recordedAt": "2026-10-02T22:44:48.564Z",
+  "kind": "Genuine engineering and owner smoke checks, not participant validation",
+  "host": "https://amaranth-nightingale.vm.scrtlabs.com",
+  "app": "https://pauseam.theblockcapitol.com",
+  "model": "NCAIR1/N-ATLaS",
+  "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+  "runtime": "llama.cpp",
+  "quantizedSha256": "3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b",
+  "healthPassed": true,
+  "authoredModelRequestsPassed": 6,
+  "preInferenceGuardsPassed": 2,
+  "modelRequestLatencyMs": [
+    6754,
+    6467,
+    6727,
+    6658,
+    6141,
+    6721
+  ],
+  "publicChecks": {
+    "passed": 20,
+    "total": 21,
+    "allPassed": false,
+    "failedChecks": [
+      {
+        "name": "Everyday phrasing: supplier",
+        "status": 200,
+        "elapsedMs": 5586,
+        "passed": false
+      }
+    ]
+  },
+  "additionalReportingLearningChecksPassed": 5,
+  "deployment": {
+    "version": 19,
+    "sourceCommit": "ff8cf4c676ada940c066b40b5497b64f21b018d3",
+    "id": "appgdep_6ac031f10d708191a2bb327e3af7dc14",
+    "status": "succeeded",
+    "updatedAt": "2026-10-02T22:36:47.377275+00:00",
+    "envRevision": 4,
+    "textEnabled": true
+  },
+  "ownerVoiceConfirmation": {
+    "source": "Owner reply in this conversation",
+    "statement": "Yes, the full voice journey works",
+    "task": "Refresh; record supplier example; transcribe; review and confirm; show supplier checklist",
+    "independentlyObserved": false,
+    "audioStored": false,
+    "participantRecordCreated": false
+  },
+  "screenshot": "submission/evidence/live-natlas-text-2026-10-02.jpg",
+  "historicalDiagnosis": "submission/evidence/vm-update-diagnosis-2026-10-02.json",
+  "missingSecretResolvedByOwner": true,
+  "officialApiVerified": false,
+  "officialAsrServiceQualificationVerified": false,
+  "fineTuningPerformed": false,
+  "pausedLanguages": [
+    "yo",
+    "ha",
+    "ig"
+  ],
+  "researchInteractionsAdded": 0,
+  "applicationSubmitted": false,
+  "limits": [
+    "Ambiguous changed-bank-details question safely abstained",
+    "Physical mobile/network and assistive testing pending",
+    "Concurrency and peak memory unmeasured",
+    "50 genuine documented PS2 interactions and actual MP4 pending"
+  ]
+}

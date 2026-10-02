@@ -14,10 +14,16 @@ For production: npm run build, then npm run start. Wrangler prints the local URL
 Check /api/status and run npm run test:http with BASE_URL set to that origin.
 
 ## Stable demonstration
-Choose Supplier change, then Check my next step. Read the checklist and open its
-source details. Select I may have paid a scammer: bank-contact advice is immediate.
-Add an event to the private timeline and download it. Choose Learn a warning sign
-and practise the banking-code scenario. Evaluation records start genuinely empty.
+In Ask a question, type the supplier example and choose Get next steps.
+For voice, choose Speak instead; consent, record, listen, transcribe, correct and
+confirm. Model-backed supplier guidance was checked in the actual public browser;
+the owner confirms the complete voice journey works. Choose Report a problem
+for immediate bank-first instructions and a private report draft; preview, copy
+or download it yourself. Choose Learn and answer a warning-sign question.
+Technical provenance lives in /api/status, /evaluation and submission evidence;
+ordinary consumers do not need an invented source-detail control.
 
 Voice requires a genuine configured host. Do not narrate typed guidance as ASR.
-No successful live model inference or human-validation claim is currently supported.
+Genuine CPU model requests are recorded in ../evidence/live-text-inference-2026-10-02.json.
+Public checks passed 20/21; vague changed-details wording safely abstained.
+No completed participant-validation claim is supported. Evaluation starts empty.

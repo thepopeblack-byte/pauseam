@@ -9,22 +9,23 @@ Evidence files retain their original historical outcomes.
 |---|---|---|---|
 | Public repository, Sites and custom domain | passed | https://github.com/thepopeblack-byte/pauseam; https://pauseam.theblockcapitol.com; evidence/english-pretest-release-2026-10-02.json | Version 19 native navigation verified; repeat final candidate after model enablement |
 | English ASR engineering journey | passed | evidence/worker-redirect-fix-2026-10-02.json | Repeat on final build with consented speech; fluent accuracy and participant outcomes remain pending |
-| N-ATLaS CPU container preparation | passed | evidence/cpu-final-container-2026-10-02.json; ../deployment/secretvm/ENGLISH-COMPLETE.md | Owner applies the final ed76b851 image; preserve weights and ledger |
+| N-ATLaS CPU container preparation | passed | evidence/cpu-final-container-2026-10-02.json; evidence/live-text-inference-2026-10-02.json | Final ed76b851 image is running; preserve weights and ledger |
 | Local CPU conversion and relevance | passed | evidence/cpu-conversion-2026-10-02.json; evidence/cpu-local-relevance-check-2026-10-02.json | Six actual model requests and two guards passed; local Windows timing is not VM timing |
-| Live N-ATLaS text guidance | blocked | 02-integration/integration-current.md | Owner applies final CPU image; verify HTTPS quality/latency and enable Sites only after passing |
+| Live N-ATLaS text inference and Sites enablement | passed | evidence/live-text-inference-2026-10-02.json; evidence/live-cpu-release-2026-10-02.json | Six real host requests and two guards passed; Sites env revision 4 is deployed. Owner confirms full voice journey works |
+| Ambiguous bank-detail-change comprehension | failed | evidence/live-text-public-check-2026-10-02.json | 20/21 public checks passed; vague changed-details question safely abstains. Gather context and retest improvements without forcing unsupported model output |
 | Clean consumer journeys and reporting | passed | evidence/english-pretest-release-2026-10-02.json; tests/reporting.test.ts | Copy/preview and learning checked; owner confirms saved report opens. Representative physical-device usability remains pending |
 | Privacy, source/output boundaries and provenance | passed | tests/core.test.ts; tests/worker-model-transport.test.mjs; lib/text-model.ts | Human safety review remains required; tests are not a security certification |
 | Rolling licence limit enforcement | passed | lib/model-quota.ts; model_service/licence_quota.py; tests/model-quota.test.ts | Preserve shared state; reconcile consumption and obtain separate licensing before exceeding published cap |
 | Official ASR service qualification | blocked | organiser-query.md | Obtain documented organiser ruling; dispatch/reply not evidenced here |
-| Official API and fine-tuning | blocked | lib/official-api.ts; 02-integration/integration-current.md | No verified official requests or training exist; leave capability boxes unselected |
+| Official API and fine-tuning | blocked | lib/official-api.ts; 02-integration/integration-current.md | No verified requests or training; leave capability boxes unselected. These are not additional published PS2 requirements; fine-tuning belongs to PS3 |
 | Yoruba, Hausa, Igbo working journeys | blocked | asr/manifests/; evidence/bucket-audit-2026-10-02.json | Paused for current compute; no current language claims |
 | Discovery and critical English safety review | blocked | 03-validation/WEEKEND-TESTING.md | Owner coordinates varied discovery and competent review, record findings and fixes |
 | At least 50 documented PS2 interactions | blocked | evidence/validation-totals.json; 03-validation/validation-report.md | Complete genuine consented voice-to-guidance sessions and reconcile observer evidence; current total 0 |
 | Physical mobile, constrained network, assistive checks | blocked | evidence/production-review.json | Run representative Android and screen-reader sessions; measure LCP/INP/CLS separately from model latency |
-| 01 Working artefact final freeze | blocked | 01-artefact/README.md | Complete final model deployment and fresh-session release checks |
-| 02 Integration evidence final PDF | blocked | ../output/pdf/02-natlas-integration.pdf | Add actual final traces/screenshots and organiser answer |
+| 01 Working artefact final freeze | blocked | 01-artefact/README.md; evidence/live-cpu-release-2026-10-02.json | Live model works; complete representative device checks and address/document ambiguous phrasing before final freeze |
+| 02 Integration evidence final PDF | blocked | ../output/pdf/02-natlas-integration.pdf | Actual final traces/screenshot added; organiser service qualification remains pending |
 | 03 Validation final PDF | blocked | ../output/pdf/03-validation-status.pdf | Add genuine reviewed results and limitations |
-| 04 Technical documentation final PDF | blocked | ../output/pdf/04-technical-documentation.pdf | Reconcile final deployment and measurements |
+| 04 Technical documentation final PDF | blocked | ../output/pdf/04-technical-documentation.pdf | Live deployment/timing reconciled; add representative resource/mobile results and final human validation |
 | 05 Actual 3–5 minute MP4 | blocked | 05-video/capture-plan.md | Owner captures real product; verify duration, captions, audio and entire playback |
 | 06 Team profile | blocked | ../output/pdf/06-team-profile-review.pdf | Owner confirms supplied facts; Suleiman stays Technical lead as instructed |
 | 07 Private CAC/ID | blocked | 07-registration/private-checklist.md | Owner has documents; review correct portal requirement privately, do not publish |

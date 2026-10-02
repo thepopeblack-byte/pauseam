@@ -1,0 +1,5 @@
+# Preserve generated evidence bytes; these are not line-oriented source files.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary

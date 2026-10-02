@@ -39,15 +39,15 @@
     {
       "field": "Describe the artefact you are building (or have built)",
       "verifiedLimit": 1000,
-      "characters": 900,
-      "answer": "PauseAm is a mobile web companion for payment questions, bank-first fraud-report guidance and practical scam lessons. Current scope is English. A real owner recording produced a transcript through the official Nigerian-accented-English weights on our SecretVM; participant accuracy testing remains pending. Typed guidance uses reviewed source checklists. Users review report drafts and send them themselves; PauseAm never moves money, authenticates accounts or promises recovery. A pinned N-ATLaS CPU relevance service passed six local requests; live VM text inference is not yet proven or enabled. Yoruba, Hausa and Igbo are paused. Source facts and model selections are separate; secrets stay server-side and raw audio is not retained by default. The public app and repository exist; final live integration evidence, 50 genuine documented interactions and the demonstration video remain incomplete.",
+      "characters": 971,
+      "answer": "PauseAm is a mobile payment companion with English voice/text questions, bank-first reporting guidance and scam lessons. Official Nigerian-accented-English weights transcribe speech on our SecretVM; users correct and confirm the transcript. The live N-ATLaS CPU model checks retrieved card relevance; actions come from reviewed sources. Six genuine HTTPS model requests passed in 6.1-6.8 seconds. The owner confirms the full voice journey. Public checks passed 20/21; vague changed-bank-details wording safely abstained. These are engineering checks, not participant validation. Users review and send report drafts themselves. No funds are moved, accounts authenticated or recovery promised. Secrets stay server-side; raw audio is not retained by default. Yoruba, Hausa and Igbo are paused; official API and fine-tuning are unverified. The public app/repository exist. Official-ASR-service qualification, 50 documented interactions and the real demo video remain pending.",
       "withinLimit": true
     },
     {
       "field": "Technology stack / key tools used",
       "verifiedLimit": 150,
-      "characters": 131,
-      "answer": "React/TypeScript, Vinext/Vite, Workers/D1; Python/FastAPI, Transformers/PyTorch ASR; pinned N-ATLaS/llama.cpp Q4_K_M CPU candidate.",
+      "characters": 129,
+      "answer": "React/TypeScript, Vinext/Vite, Workers/D1; Python/FastAPI, Transformers/PyTorch ASR; pinned N-ATLaS/llama.cpp Q4_K_M CPU runtime.",
       "withinLimit": true
     },
     {
@@ -60,8 +60,8 @@
     {
       "field": "PS2: Describe the end-to-end user journey, from voice input to service delivered",
       "verifiedLimit": 1500,
-      "characters": 1209,
-      "answer": "Current English flow: choose a payment question; consent to microphone use; record, listen or discard; separately consent to processing; convert to bounded mono 16 kHz WAV; send server-side to the authenticated official-model host; verify exact model identity and privacy; show the transcript for correction and confirmation; return a short reviewed action checklist. A genuine owner transcript is evidenced; this is not participant validation. Typed source guidance works. The N-ATLaS CPU relevance service passed six local requests in 15.9-23.3 seconds; it remains disabled until genuine VM host checks pass. It selects only an allowed reviewed card, never model-written contacts or arbitrary safety prose. Failures offer an honest retry/text route, without simulated output. Bank-first report guidance appears immediately; a redacted draft stays in the browser for user review and sending. Learning uses dated, manually maintained official notices. No raw audio retention, PINs, OTPs, passwords, full credentials, safe verdicts or recovery promises. Yoruba, Hausa and Igbo are paused. Organiser acceptance of self-hosted official ASR weights remains unresolved; official API and fine-tuning are unverified.",
+      "characters": 1281,
+      "answer": "Current English flow: choose a payment question; consent to microphone use; record, listen or discard; separately consent to processing; convert to bounded mono 16 kHz WAV; send server-side to the authenticated official-model host; verify exact model identity and privacy; show the transcript for correction and confirmation; return a short reviewed action checklist. A genuine owner transcript is evidenced; this is not participant validation. Typed source guidance works. The live N-ATLaS CPU relevance service passed six genuine HTTPS requests in 6.1-6.8 seconds. The owner confirms the full English journey; 20/21 public checks passed, with safe abstention for a vague question. It selects only an allowed reviewed card, never model-written contacts or arbitrary safety prose. Failures offer an honest retry/text route, without simulated output. Bank-first report guidance appears immediately; a redacted draft stays in the browser for user review and sending. Learning uses dated, manually maintained official notices. No raw audio retention, PINs, OTPs, passwords, full credentials, safe verdicts or recovery promises. Yoruba, Hausa and Igbo are paused. Organiser acceptance of self-hosted official ASR weights remains unresolved; official API and fine-tuning are unverified.",
       "withinLimit": true
     },
     {
@@ -88,6 +88,6 @@
     "languagesProvenByLiveVoice": [
       "Nigerian-accented English (owner engineering smoke only; participant review pending)"
     ],
-    "buildStatus": "Working English source guidance and owner ASR smoke; CPU text candidate not yet live-proven. No submission capability selection is authorized from these local drafts."
+    "buildStatus": "Working English ASR and live N-ATLaS CPU relevance inference. Owner confirms full voice journey; known ambiguous-question abstention. Official-service qualification, participant validation and MP4 pending. No portal submission made."
   }
 }

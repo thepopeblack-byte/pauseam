@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-10-02T22:35:05.002Z",
+  "kind": "Engineering requests, not participant validation",
+  "host": "https://amaranth-nightingale.vm.scrtlabs.com",
+  "mode": "health",
+  "scope": "english-complete",
+  "health": [
+    {
+      "target": "en",
+      "status": 200,
+      "elapsedMs": 835,
+      "passed": true,
+      "identityMatched": true,
+      "model": "NCAIR1/NigerianAccentedEnglish",
+      "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff"
+    },
+    {
+      "target": "text",
+      "status": 200,
+      "elapsedMs": 940,
+      "passed": true,
+      "identityMatched": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "runtime": "llama.cpp",
+      "contractVersion": "reviewed-card-relevance-v1",
+      "quantizedSha256": "3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b"
+    }
+  ],
+  "text": [],
+  "speech": [],
+  "officialApiVerified": false,
+  "fineTuningPerformed": false,
+  "allHealthPassed": true,
+  "textGuidancePassed": false,
+  "fourLanguageInferencePassed": false,
+  "selectedSpeechInferencePassed": false
+}

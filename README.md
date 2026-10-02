@@ -25,13 +25,15 @@ Implemented: mobile-first English source checklists, three journeys, private inc
 timeline/export, general-checklist sharing, consent-based local evaluation, real
 page Web Vitals and official Nigerian-accented-English ASR. Yoruba, Hausa and Igbo
 adapters are preserved but paused in the UI and API. Typed questions and corrected
-transcripts use reviewed English source checklists. The N-ATLaS 8B text adapter
-remains implemented but disabled: real requests exceeded 45 and 180 seconds and
-its roughly 16 GB bfloat16 weights leave insufficient RAM for runtime plus ASR.
-The new pinned same-model Q4_K_M CPU container is built and anonymously pullable.
-Actual local conversion and six relevance requests passed; two source/input
-guards also passed without inference. Local model latency was 15.9–23.3 seconds.
-The final existing-VM update and HTTPS requests must pass before it is enabled.
+transcripts use reviewed English source checklists. The pinned N-ATLaS 8B
+Q4_K_M CPU relevance service is now live on the existing VM and enabled on Sites.
+Six genuine authenticated HTTPS model requests passed in 6.1–6.8 seconds, plus
+two pre-inference guards. Public checks passed 20 of 21: an ambiguous request
+about different bank details produced a safe abstention instead of the expected
+supplier card. Providing the supplier context worked in the actual browser.
+This is a known comprehension limitation, not a clean all-pass release.
+See [live text evidence](submission/evidence/live-text-inference-2026-10-02.json).
+Earlier full-precision timeouts and local outcomes remain historical evidence.
 No generic model is substituted. Official API access and fine-tuning are unverified.
 
 No account is needed for text guidance. Never enter names, account numbers, PINs,

@@ -5,18 +5,18 @@ Review package: 2 October 2026. Owner targets Monday 5 October; official deadlin
 12 October, 23:59 WAT. **Not submission-ready; no ONDI submission authorized.**
 
 Current scope is English only. Real English owner transcription is evidenced;
-typed reviewed source guidance works. N-ATLaS text remains disabled pending the
-final CPU service's existing-VM deployment and live inference verification.
-Six genuine local CPU relevance requests and two pre-inference guard checks
-passed, recorded in [local evidence](evidence/cpu-local-relevance-check-2026-10-02.json).
-Their latency is 15.9–23.3 seconds on the local Windows CPU; this is not VM or
-participant validation. Prepared containers and verified files alone are not inference evidence. Other
+N-ATLaS CPU text inference is now enabled on the public app. Six genuine HTTPS
+model requests took 6.1–6.8 seconds and two guards passed; the owner confirms
+the combined English voice-to-guidance journey works. Public checks passed
+20/21, with a safe abstention on a vague changed-bank-details question.
+See [live evidence](evidence/live-cpu-release-2026-10-02.json).
+These are engineering/owner checks, not participant validation. Other
 languages are paused; official API and fine-tuning are not demonstrated.
 
 | Genuine item | Status | Review artefact | Exact remaining action |
 |---|---|---|---|
-| 01 Working Artefact | blocked | [Public repository](https://github.com/thepopeblack-byte/pauseam), [app](https://pauseam.theblockcapitol.com), [setup](01-artefact/README.md), [CPU deployment](../deployment/secretvm/ENGLISH-COMPLETE.md) | Final live text/voice checks and representative devices |
-| 02 Integration Evidence | blocked | [Current source](02-integration/integration-current.md), [PDF](../output/pdf/02-natlas-integration.pdf), [final container](evidence/cpu-final-container-2026-10-02.json) | Actual final requests/screenshots and organiser service finding |
+| 01 Working Artefact | blocked | [Public repository](https://github.com/thepopeblack-byte/pauseam), [app](https://pauseam.theblockcapitol.com), [setup](01-artefact/README.md), [CPU deployment](../deployment/secretvm/ENGLISH-COMPLETE.md) | Representative devices and ambiguous-phrasing quality work before final freeze |
+| 02 Integration Evidence | blocked | [Current source](02-integration/integration-current.md), [PDF](../output/pdf/02-natlas-integration.pdf), [live traces](evidence/live-text-inference-2026-10-02.json) | Organiser service finding; actual requests/screenshot are added |
 | 03 Real-World Validation | blocked | [Weekend instructions](03-validation/WEEKEND-TESTING.md), [report](03-validation/validation-report.md), [PDF](../output/pdf/03-validation-status.pdf), [empty log](03-validation/interactions-template.csv) | At least 50 genuine completed documented voice interactions; currently 0 |
 | 04 Technical Documentation | blocked | [Current source](04-technical/technical-current.md), [PDF](../output/pdf/04-technical-documentation.pdf) | Reconcile final deployment and measured outcomes |
 | 05 Video Demonstration | blocked | [Exact capture procedure](05-video/capture-plan.md) | Capture actual 3–5 minute MP4, review playback/audio/captions; no MP4 exists |
@@ -39,6 +39,7 @@ the final frozen commit and live build.
 - [Consumer release](evidence/consumer-release-2026-10-02.json)
 - [Final browser release checks](evidence/english-pretest-release-2026-10-02.json): standard navigation, clipboard and learning checked; report download confirmed by owner. These are not participant interactions.
 - [Final CPU image digest, offline imports and anonymous pull](evidence/cpu-final-container-2026-10-02.json)
+- [Live CPU model, public checks and owner voice confirmation](evidence/live-cpu-release-2026-10-02.json)
 - [Actual validation totals](evidence/validation-totals.json)
 
 No engineering check is counted as a participant. Source-card facts are

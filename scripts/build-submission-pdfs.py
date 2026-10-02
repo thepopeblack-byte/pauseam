@@ -3,7 +3,8 @@ from pathlib import Path
 import argparse
 import re
 from xml.sax.saxutils import escape
-from reportlab.platypus import SimpleDocTemplate,Paragraph
+from reportlab.platypus import SimpleDocTemplate,Paragraph,PageBreak,Image
+from reportlab.lib.utils import ImageReader
 from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
 from reportlab.lib.colors import HexColor
 from reportlab.pdfbase import pdfmetrics
@@ -53,5 +54,13 @@ for src,name,extras in jobs:
    elif b.startswith("## "):style="HeadPA";b=b[3:]
    else:style="IntegrationBody" if name.startswith('02-') else "BodyPA"
    story.append(Paragraph(inline(b.replace("\n"," ")),styles[style]))
+ screenshot=ROOT/"submission/evidence/live-natlas-text-2026-10-02.jpg"
+ if name.startswith("02-") and screenshot.exists():
+  story.append(PageBreak())
+  story.append(Paragraph("Actual public text journey",styles["HeadPA"]))
+  story.append(Paragraph("2 October 2026. An authored supplier question returned the reviewed checklist through the public app after genuine N-ATLaS inference was enabled. This screenshot is operating-product evidence, not a participant result. The owner separately confirms the complete English voice journey works.",styles["IntegrationBody"]))
+  width,height=ImageReader(str(screenshot)).getSize()
+  factor=min(490/width,570/height)
+  story.append(Image(str(screenshot),width=width*factor,height=height*factor))
  SimpleDocTemplate(str(OUT/name),pagesize=(595.28,841.89),leftMargin=46,rightMargin=46,topMargin=64,bottomMargin=55,title="PauseAm — "+name,author="PauseAm team; status prepared with Codex").build(story,onFirstPage=page,onLaterPages=page)
  print(name)

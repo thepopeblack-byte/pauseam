@@ -1,0 +1,153 @@
+{
+  "recordedAt": "2026-10-02T22:37:06.118Z",
+  "origin": "https://pauseam.theblockcapitol.com",
+  "scope": "english-complete",
+  "kind": "Engineering checks, not user validation",
+  "checks": [
+    {
+      "name": "Pinned targets and private status response",
+      "status": 200,
+      "elapsedMs": 3989,
+      "passed": true
+    },
+    {
+      "name": "Unauthenticated licence reservation fails closed",
+      "status": 503,
+      "elapsedMs": 573,
+      "passed": true
+    },
+    {
+      "name": "Page /",
+      "status": 200,
+      "elapsedMs": 741,
+      "passed": true
+    },
+    {
+      "name": "Page /about",
+      "status": 200,
+      "elapsedMs": 1031,
+      "passed": true
+    },
+    {
+      "name": "Page /evaluation",
+      "status": 200,
+      "elapsedMs": 635,
+      "passed": true
+    },
+    {
+      "name": "Supplier-change guidance has expected source and steps",
+      "status": 200,
+      "elapsedMs": 7856,
+      "passed": true,
+      "engine": "N-ATLaS relevance check of retrieved card; wording from source library",
+      "model": "NCAIR1/N-ATLaS"
+    },
+    {
+      "name": "Everyday phrasing: complaint",
+      "status": 200,
+      "elapsedMs": 6177,
+      "passed": true
+    },
+    {
+      "name": "Everyday phrasing: supplier",
+      "status": 200,
+      "elapsedMs": 5586,
+      "passed": false
+    },
+    {
+      "name": "Everyday phrasing: report",
+      "status": 200,
+      "elapsedMs": 251,
+      "passed": true
+    },
+    {
+      "name": "Everyday phrasing: payment",
+      "status": 200,
+      "elapsedMs": 5910,
+      "passed": true
+    },
+    {
+      "name": "Unrelated question gets an honest limit",
+      "status": 200,
+      "elapsedMs": 318,
+      "passed": true
+    },
+    {
+      "name": "Immediate bank-contact checklist bypasses inference",
+      "status": 200,
+      "elapsedMs": 278,
+      "passed": true
+    },
+    {
+      "name": "Learning guidance remains source-grounded",
+      "status": 200,
+      "elapsedMs": 5973,
+      "passed": true
+    },
+    {
+      "name": "Private-detail rejection",
+      "status": 422,
+      "elapsedMs": 276,
+      "passed": true
+    },
+    {
+      "name": "Unrelated origin rejected",
+      "status": 403,
+      "elapsedMs": 528,
+      "passed": true
+    },
+    {
+      "name": "Oversized input rejected",
+      "status": 400,
+      "elapsedMs": 291,
+      "passed": true
+    },
+    {
+      "name": "Audio consent required",
+      "status": 400,
+      "elapsedMs": 256,
+      "passed": true
+    },
+    {
+      "name": "Unsupported audio rejected",
+      "status": 415,
+      "elapsedMs": 243,
+      "passed": true
+    },
+    {
+      "name": "Paused yo voice rejected before inference",
+      "status": 503,
+      "elapsedMs": 169,
+      "passed": true
+    },
+    {
+      "name": "Paused ha voice rejected before inference",
+      "status": 503,
+      "elapsedMs": 235,
+      "passed": true
+    },
+    {
+      "name": "Paused ig voice rejected before inference",
+      "status": 503,
+      "elapsedMs": 247,
+      "passed": true
+    }
+  ],
+  "models": {
+    "configured": true,
+    "textInferencePassed": true,
+    "speech": [],
+    "fourLanguageJourneyPassed": false,
+    "englishPilotJourneyPassed": false
+  },
+  "transcriptsStored": false,
+  "participantRecordsCreated": 0,
+  "baselinePassed": false,
+  "modelReleaseGatePassed": false,
+  "remaining": [
+    "Fluent critical wording review",
+    "Observed transcript correction and comprehension",
+    "Representative mobile/network testing",
+    "Genuine participant validation"
+  ]
+}

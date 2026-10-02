@@ -1,0 +1,111 @@
+{
+  "recordedAt": "2026-10-02T22:35:25.180Z",
+  "kind": "Authored engineering questions, not participant validation",
+  "host": "https://amaranth-nightingale.vm.scrtlabs.com",
+  "model": "NCAIR1/N-ATLaS",
+  "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+  "healthPassed": true,
+  "cases": [
+    {
+      "case": "supplier",
+      "status": "ok",
+      "cardIds": [
+        "supplier"
+      ],
+      "inferencePerformed": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "elapsedMs": 6754,
+      "passed": true
+    },
+    {
+      "case": "school",
+      "status": "ok",
+      "cardIds": [
+        "school"
+      ],
+      "inferencePerformed": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "elapsedMs": 6467,
+      "passed": true
+    },
+    {
+      "case": "secrets",
+      "status": "ok",
+      "cardIds": [
+        "secrets"
+      ],
+      "inferencePerformed": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "elapsedMs": 6727,
+      "passed": true
+    },
+    {
+      "case": "receipt",
+      "status": "ok",
+      "cardIds": [
+        "receipt"
+      ],
+      "inferencePerformed": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "elapsedMs": 6658,
+      "passed": true
+    },
+    {
+      "case": "unrelated",
+      "status": "no_match",
+      "cardIds": [],
+      "inferencePerformed": false,
+      "model": null,
+      "revision": null,
+      "elapsedMs": 0,
+      "passed": true
+    },
+    {
+      "case": "injection",
+      "status": "no_match",
+      "cardIds": [],
+      "inferencePerformed": false,
+      "model": null,
+      "revision": null,
+      "elapsedMs": 0,
+      "passed": true
+    },
+    {
+      "case": "supplier-heldout",
+      "status": "ok",
+      "cardIds": [
+        "supplier"
+      ],
+      "inferencePerformed": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "elapsedMs": 6141,
+      "passed": true
+    },
+    {
+      "case": "otp-heldout",
+      "status": "ok",
+      "cardIds": [
+        "secrets"
+      ],
+      "inferencePerformed": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "elapsedMs": 6721,
+      "passed": true
+    }
+  ],
+  "fineTuningPerformed": false,
+  "officialApiVerified": false,
+  "health": {
+    "status": 200,
+    "runtime": "llama.cpp",
+    "contractVersion": "reviewed-card-relevance-v1",
+    "quantizedSha256": "3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b"
+  },
+  "allPassed": true
+}

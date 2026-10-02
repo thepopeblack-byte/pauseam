@@ -1,0 +1,22 @@
+{
+  "kind": "Actual PDF render review, not user validation",
+  "documents": [
+    {
+      "file": "output\\pdf\\02-natlas-integration.pdf",
+      "pages": 3,
+      "allPagesRenderedAndVisuallyRead": true,
+      "layoutPassed": true,
+      "sha256": "48e2486143f6e9dce9b60edfa29e19fa65061fa00b329aac27eb35d66ac13137",
+      "hasLinks": true
+    },
+    {
+      "file": "output\\pdf\\04-technical-documentation.pdf",
+      "pages": 4,
+      "allPagesRenderedAndVisuallyRead": true,
+      "layoutPassed": true,
+      "sha256": "937c491642e396f0fd07b0d4b09842ecd377faae731b1cf4925e0616a2802e4b",
+      "hasLinks": true
+    }
+  ],
+  "visualFindings": "Seven final pages inspected: readable text, no overlap/clipping, actual operating-product screenshot in integration PDF."
+}
