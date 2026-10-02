@@ -30,3 +30,10 @@ This is engineering evidence, not completed model inference or human validation.
 At this checkpoint: no VM has launched, no complete model weights have loaded,
 no inference has succeeded, and the app's inference switches remain disabled.
 The official N-ATLaS API and organiser acceptance of self-hosted ASR are unverified.
+
+Offline runtime verification subsequently passed in run 36954468678. The actual
+digest-pinned ASR and text images imported successfully with no network and no
+credentials. Torch 2.6.0+cpu, Transformers 4.49.0 and cudaAvailable=false were
+reported by the running containers. Exact resolved dependencies and JSON output
+are in model-container-runtime-2026-10-02. Both records explicitly report
+inferencePerformed=false. This check is not weight-loading or ASR evidence.
