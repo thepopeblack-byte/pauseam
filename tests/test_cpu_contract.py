@@ -16,7 +16,9 @@ class CPUContract(unittest.TestCase):
         self.assertNotIn(data['question'],payload['messages'][0]['content'])
         self.assertIn(data['question'],payload['messages'][1]['content'])
         self.assertFalse(payload['cache_prompt'])
-        self.assertEqual(payload['response_format']['schema']['properties']['cardIds']['items']['enum'],['supplier'])
+        self.assertEqual(payload['response_format']['type'],'json_schema')
+        self.assertEqual(payload['response_format']['json_schema']['schema']['properties']['cardIds']['items']['enum'],['supplier'])
+        self.assertNotIn('schema',payload['response_format'])
     def test_output_rejects_unreviewed_content_and_truncation(self):
         def result(text,finish='stop'):return {'choices':[{'finish_reason':finish,'message':{'content':text}}]}
         self.assertEqual(selection_result(result('{"cardIds":["supplier"]}'),['supplier'])['cardIds'],['supplier'])
