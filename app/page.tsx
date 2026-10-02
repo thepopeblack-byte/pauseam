@@ -19,7 +19,7 @@ export default function Home() {
         Skip to your question
       </a>
       <header>
-        <Link className="brand" href="/" aria-label="PauseAm home">
+        <Link prefetch={false} className="brand" href="/" aria-label="PauseAm home">
           <span className="brand-mark">
             <Pause aria-hidden="true" />
           </span>
@@ -28,7 +28,7 @@ export default function Home() {
           </span>
         </Link>
         <nav aria-label="Main">
-          <Link href="/about">How it works</Link>
+          <Link prefetch={false} href="/about">How it works</Link>
         </nav>
       </header>
       <main className="consumer-main">
@@ -67,7 +67,7 @@ export default function Home() {
         <footer>
           <span>English · No account needed</span>
           <div>
-            <Link href="/about">Privacy</Link>
+            <Link prefetch={false} href="/about">Privacy</Link>
           </div>
         </footer>
       </main>

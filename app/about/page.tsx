@@ -4,7 +4,7 @@ export default function About() {
   return (
     <>
       <header>
-        <Link className="brand" href="/">
+        <Link prefetch={false} className="brand" href="/">
           <span className="brand-mark">
             <Pause aria-hidden="true" />
           </span>
@@ -13,7 +13,7 @@ export default function About() {
           </span>
         </Link>
         <nav>
-          <Link href="/">Back to questions</Link>
+          <Link prefetch={false} href="/">Back to questions</Link>
         </nav>
       </header>
       <main className="readable-page">
@@ -99,7 +99,7 @@ export default function About() {
             </li>
           </ul>
         </details>
-        <Link className="back-link" href="/">
+        <Link prefetch={false} className="back-link" href="/">
           Back to my question
         </Link>
       </main>

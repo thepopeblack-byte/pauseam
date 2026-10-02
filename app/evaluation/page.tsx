@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { PerformancePanel } from "@/components/performance-panel";
+import { downloadBlob } from "@/lib/browser-download";
 import { useEffect, useState } from "react";
 import { ShieldCheck, Download, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
@@ -64,23 +65,23 @@ export default function Evaluation() {
       ],
       { type: "application/json" },
     );
-    const url = URL.createObjectURL(b),
-      a = document.createElement("a");
-    a.href = url;
-    a.download = "pauseam-local-evaluation.json";
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    try {
+      downloadBlob(b, "pauseam-local-evaluation.json");
+      setMessage("Check your downloads for the device-local evaluation export.");
+    } catch {
+      setMessage("Your browser could not download the export. Try another browser on this device; the records remain on this device.");
+    }
   }
   return (
     <>
       <header>
-        <Link className="brand" href="/">
+        <Link prefetch={false} className="brand" href="/">
           <ShieldCheck />
           PauseAm
         </Link>
         <nav>
-          <Link href="/">Safety check</Link>
-          <Link href="/about">Model & sources</Link>
+          <Link prefetch={false} href="/">Safety check</Link>
+          <Link prefetch={false} href="/about">Model & sources</Link>
         </nav>
       </header>
       <main>

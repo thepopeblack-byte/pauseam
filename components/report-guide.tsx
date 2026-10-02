@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { downloadBlob } from "@/lib/browser-download";
 import {
   complaintPlan,
   COMPLAINT_SOURCE,
@@ -32,17 +33,19 @@ export function ReportGuide({ question }: { question: string }) {
       );
       return;
     }
-    const url = URL.createObjectURL(
-      new Blob([draft], { type: "text/plain;charset=utf-8" }),
-    );
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "pauseam-report-draft.txt";
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    setMessage(
-      "Download started. Check your downloads and review the draft before sending. Nothing has been sent.",
-    );
+    try {
+      downloadBlob(
+        new Blob([draft], { type: "text/plain;charset=utf-8" }),
+        "pauseam-report-draft.txt",
+      );
+      setMessage(
+        "Check your downloads for the draft. If it did not save, open the report preview below and copy it. Nothing has been sent.",
+      );
+    } catch {
+      setMessage(
+        "Download did not work here. Open the report preview below, then select and copy the text. Nothing has been sent.",
+      );
+    }
   }
   return (
     <section className="report-guide" aria-label="Reporting steps">
