@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { PerformancePanel } from "@/components/performance-panel";
 import { downloadBlob } from "@/lib/browser-download";
 import { useEffect, useState } from "react";
@@ -69,19 +68,21 @@ export default function Evaluation() {
       downloadBlob(b, "pauseam-local-evaluation.json");
       setMessage("Check your downloads for the device-local evaluation export.");
     } catch {
-      setMessage("Your browser could not download the export. Try another browser on this device; the records remain on this device.");
+      setMessage(
+        "Your browser could not download the export. Try another browser on this device; the records remain on this device.",
+      );
     }
   }
   return (
     <>
       <header>
-        <Link prefetch={false} className="brand" href="/">
+        <a className="brand" href="/">
           <ShieldCheck />
           PauseAm
-        </Link>
+        </a>
         <nav>
-          <Link prefetch={false} href="/">Safety check</Link>
-          <Link prefetch={false} href="/about">Model & sources</Link>
+          <a href="/">Safety check</a>
+          <a href="/about">Model & sources</a>
         </nav>
       </header>
       <main>

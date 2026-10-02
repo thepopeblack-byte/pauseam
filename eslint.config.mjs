@@ -21,6 +21,13 @@ const eslintConfig = defineConfig([
     "output/**",
   ]),
   {
+    files: ["app/page.tsx", "app/about/page.tsx", "app/evaluation/page.tsx"],
+    rules: {
+      // Native navigation avoids the deployed Vinext Link runtime failure.
+      "@next/next/no-html-link-for-pages": "off",
+    },
+  },
+  {
     files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
     rules: {
       // These files are vendored verbatim from shadcn@4.17.0. Keep the

@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useSyncExternalStore, useState } from "react";
 import { JourneyPanel } from "@/components/journey";
 import { Connectivity } from "@/components/connectivity";
@@ -19,16 +18,16 @@ export default function Home() {
         Skip to your question
       </a>
       <header>
-        <Link prefetch={false} className="brand" href="/" aria-label="PauseAm home">
+        <a className="brand" href="/" aria-label="PauseAm home">
           <span className="brand-mark">
             <Pause aria-hidden="true" />
           </span>
           <span>
             PauseAm<span className="brand-note">Ask before you pay.</span>
           </span>
-        </Link>
+        </a>
         <nav aria-label="Main">
-          <Link prefetch={false} href="/about">How it works</Link>
+          <a href="/about">How it works</a>
         </nav>
       </header>
       <main className="consumer-main">
@@ -67,7 +66,7 @@ export default function Home() {
         <footer>
           <span>English · No account needed</span>
           <div>
-            <Link prefetch={false} href="/about">Privacy</Link>
+            <a href="/about">Privacy</a>
           </div>
         </footer>
       </main>

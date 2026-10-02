@@ -1,19 +1,18 @@
-import Link from "next/link";
 import { Pause } from "lucide-react";
 export default function About() {
   return (
     <>
       <header>
-        <Link prefetch={false} className="brand" href="/">
+        <a className="brand" href="/">
           <span className="brand-mark">
             <Pause aria-hidden="true" />
           </span>
           <span>
             PauseAm<span className="brand-note">Ask before you pay.</span>
           </span>
-        </Link>
+        </a>
         <nav>
-          <Link prefetch={false} href="/">Back to questions</Link>
+          <a href="/">Back to questions</a>
         </nav>
       </header>
       <main className="readable-page">
@@ -99,9 +98,9 @@ export default function About() {
             </li>
           </ul>
         </details>
-        <Link prefetch={false} className="back-link" href="/">
+        <a className="back-link" href="/">
           Back to my question
-        </Link>
+        </a>
       </main>
     </>
   );
