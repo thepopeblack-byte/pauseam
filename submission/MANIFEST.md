@@ -11,6 +11,10 @@ historical scope and must not be presented as current four-language evidence.
 See [actual voice evidence](evidence/worker-redirect-fix-2026-10-02.json).
 The [English pilot release checks](evidence/english-pilot-2026-10-02.json)
 record Sites version 12, all 19 public baseline checks, and English ASR readiness.
+The later [consumer redesign release](evidence/consumer-redesign-2026-10-02.json)
+records version 13, 47 passing tests, 24 passing live checks, a simplified mobile
+question flow and broader everyday payment phrasing. Text generation remains
+paused. These engineering checks are not participant validation.
 Applying the smaller VM workload and observing a complete corrected-transcript
 journey remain pending. English typed guidance is source retrieval, not N-ATLaS
 text generation.

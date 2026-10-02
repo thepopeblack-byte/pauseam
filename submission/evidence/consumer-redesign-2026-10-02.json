@@ -1,0 +1,258 @@
+{
+  "recordedAt": "2026-10-02T12:13:00.066856+00:00",
+  "kind": "Engineering release and UI checks; not participant validation",
+  "deployment": {
+    "versionNumber": 13,
+    "sourceCommit": "e3cacaa76d19273d3ff465368938a0236afa23a5",
+    "deploymentId": "appgdep_6abf9ea25f848191b576ceb19f38ea98",
+    "status": "succeeded",
+    "environmentRevision": 3,
+    "customDomain": "https://pauseam.theblockcapitol.com"
+  },
+  "scope": "English voice plus reviewed English text checklists; generative text and other languages paused",
+  "changes": [
+    "Question-first consumer screen",
+    "Voice consent shown only after choosing voice",
+    "Immediate after-payment help; incident preparation collapsed",
+    "Sources visible beside each answer; model details expandable",
+    "Testing and performance information removed from normal question flow",
+    "Broader payment phrasing and honest unsupported-question message",
+    "Unresolved bank complaints reach complaint guidance"
+  ],
+  "checks": {
+    "nodeTestsPassed": 47,
+    "typecheckPassed": true,
+    "lintPassed": true,
+    "liveChecksPassed": 24
+  },
+  "publicChecks": {
+    "recordedAt": "2026-10-02T12:09:11.291Z",
+    "origin": "https://pauseam.theblockcapitol.com",
+    "kind": "Engineering checks, not user validation",
+    "checks": [
+      {
+        "name": "Pinned targets and private status response",
+        "status": 200,
+        "elapsedMs": 5272,
+        "passed": true
+      },
+      {
+        "name": "Unauthenticated licence reservation fails closed",
+        "status": 503,
+        "elapsedMs": 1919,
+        "passed": true
+      },
+      {
+        "name": "Page /",
+        "status": 200,
+        "elapsedMs": 910,
+        "passed": true
+      },
+      {
+        "name": "Page /about",
+        "status": 200,
+        "elapsedMs": 395,
+        "passed": true
+      },
+      {
+        "name": "Page /evaluation",
+        "status": 200,
+        "elapsedMs": 301,
+        "passed": true
+      },
+      {
+        "name": "Supplier-change guidance has expected source and steps",
+        "status": 200,
+        "elapsedMs": 358,
+        "passed": true,
+        "engine": "Source-checked keyword retrieval (no generative answer model)",
+        "model": null
+      },
+      {
+        "name": "Everyday phrasing: complaint",
+        "status": 200,
+        "elapsedMs": 275,
+        "passed": true
+      },
+      {
+        "name": "Everyday phrasing: supplier",
+        "status": 200,
+        "elapsedMs": 309,
+        "passed": true
+      },
+      {
+        "name": "Everyday phrasing: report",
+        "status": 200,
+        "elapsedMs": 270,
+        "passed": true
+      },
+      {
+        "name": "Everyday phrasing: payment",
+        "status": 200,
+        "elapsedMs": 450,
+        "passed": true
+      },
+      {
+        "name": "Unrelated question gets an honest limit",
+        "status": 200,
+        "elapsedMs": 318,
+        "passed": true
+      },
+      {
+        "name": "Immediate bank-contact checklist bypasses inference",
+        "status": 200,
+        "elapsedMs": 260,
+        "passed": true
+      },
+      {
+        "name": "Learning guidance remains source-grounded",
+        "status": 200,
+        "elapsedMs": 283,
+        "passed": true
+      },
+      {
+        "name": "Private-detail rejection",
+        "status": 422,
+        "elapsedMs": 291,
+        "passed": true
+      },
+      {
+        "name": "Unrelated origin rejected",
+        "status": 403,
+        "elapsedMs": 323,
+        "passed": true
+      },
+      {
+        "name": "Oversized input rejected",
+        "status": 400,
+        "elapsedMs": 405,
+        "passed": true
+      },
+      {
+        "name": "Audio consent required",
+        "status": 400,
+        "elapsedMs": 288,
+        "passed": true
+      },
+      {
+        "name": "Unsupported audio rejected",
+        "status": 415,
+        "elapsedMs": 287,
+        "passed": true
+      },
+      {
+        "name": "Paused yo voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 361,
+        "passed": true
+      },
+      {
+        "name": "Paused ha voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 333,
+        "passed": true
+      },
+      {
+        "name": "Paused ig voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 279,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured yo guidance fails safely",
+        "status": 503,
+        "elapsedMs": 378,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ha guidance fails safely",
+        "status": 503,
+        "elapsedMs": 284,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ig guidance fails safely",
+        "status": 503,
+        "elapsedMs": 326,
+        "passed": true
+      }
+    ],
+    "models": {
+      "configured": false,
+      "textInferencePassed": false,
+      "speech": [],
+      "fourLanguageJourneyPassed": false,
+      "englishPilotJourneyPassed": false
+    },
+    "transcriptsStored": false,
+    "participantRecordsCreated": 0,
+    "baselinePassed": true,
+    "modelReleaseGatePassed": false,
+    "remaining": [
+      "Fluent critical wording review",
+      "Observed transcript correction and comprehension",
+      "Representative mobile/network testing",
+      "Genuine participant validation"
+    ]
+  },
+  "englishASRReadiness": {
+    "recordedAt": "2026-10-02T12:09:21.242Z",
+    "kind": "Engineering requests, not participant validation",
+    "host": "https://amaranth-nightingale.vm.scrtlabs.com",
+    "mode": "health",
+    "scope": "english",
+    "health": [
+      {
+        "target": "en",
+        "status": 200,
+        "elapsedMs": 1951,
+        "passed": true,
+        "model": "NCAIR1/NigerianAccentedEnglish",
+        "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff"
+      }
+    ],
+    "text": [],
+    "speech": [],
+    "officialApiVerified": false,
+    "fineTuningPerformed": false,
+    "allHealthPassed": true,
+    "textGuidancePassed": false,
+    "fourLanguageInferencePassed": false,
+    "selectedSpeechInferencePassed": false
+  },
+  "uiReview": {
+    "tool": "Codex in-app browser; actual rendered product",
+    "desktopReviewed": true,
+    "phoneViewports": [
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 320,
+        "height": 740
+      }
+    ],
+    "realAndroidDeviceReviewed": false,
+    "naturalTransferQuestionReturnedComplaintChecklist": true,
+    "sourceLinkVisible": true,
+    "urgentActionsVisibleWithoutSubmission": true,
+    "askAnotherQuestionClearedInput": true,
+    "voiceConsentInitiallyUnchecked": true,
+    "localUnconfiguredVoiceOfferedTypedInput": true,
+    "deployedCustomDomainReloadReviewed": true,
+    "liveScreenshot": "outputs/pauseam-consumer-redesign-live-2026-10-02.png"
+  },
+  "privacy": {
+    "rawAudioRetained": false,
+    "participantRecordsCreated": 0,
+    "questionsInTests": "Authored non-sensitive engineering fixtures, not user evidence"
+  },
+  "limitations": [
+    "No generative text inference or general conversation",
+    "No new audio recording through the redesigned UI was performed in this review",
+    "ASR health readiness is not transcription accuracy evidence",
+    "Representative mobile-network performance and participant comprehension still need observation",
+    "Original full NAIC model and validation release gate remains incomplete"
+  ]
+}
