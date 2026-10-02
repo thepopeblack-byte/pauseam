@@ -11,6 +11,19 @@ spec.loader.exec_module(generator)
 
 
 class DeploymentConfiguration(unittest.TestCase):
+    def test_complete_english_profile_uses_pinned_cpu_text_and_preserves_state(self):
+        fixture = "ghcr.io/example/test@sha256:" + "a" * 64
+        config = generator.compose(fixture,fixture,profile='english-complete')
+        self.assertIn('  text:',config)
+        self.assertIn('  asr-en:',config)
+        self.assertIn('QUANTIZED_MODEL_CACHE: /home/app/models/quantized',config)
+        self.assertIn('text-models:/home/app/models',config)
+        self.assertIn('mem_limit: 10g',config)
+        self.assertEqual(config.count('licence:/home/'),2)
+        for paused in ('  asr-yo:','  asr-ha:','  asr-ig:','TEXT_DTYPE'):
+            self.assertNotIn(paused,config)
+        with self.assertRaises(ValueError):generator.compose(asr_image=fixture,profile='english-complete')
+
     def test_english_profile_keeps_ledger_and_excludes_paused_services(self):
         fixture = "ghcr.io/example/test@sha256:" + "a" * 64
         config = generator.compose(asr_image=fixture, profile="english-pilot")

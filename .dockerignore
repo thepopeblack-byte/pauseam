@@ -3,6 +3,8 @@
 !asr/**
 !text_service/
 !text_service/**
+!text_cpu/
+!text_cpu/**
 !model_service/
 !model_service/**
 **/__pycache__

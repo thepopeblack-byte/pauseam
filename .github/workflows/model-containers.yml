@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['asr/**', 'text_service/**', 'model_service/**', '.dockerignore', '.github/workflows/model-containers.yml']
+    paths: ['asr/**', 'text_service/**', 'text_cpu/**', 'model_service/**', '.dockerignore', '.github/workflows/model-containers.yml']
 permissions:
   contents: read
 concurrency:
@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [asr, text_service]
+        service: [asr, text_service, text_cpu]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Integrity and audio unit tests (not model validation)
