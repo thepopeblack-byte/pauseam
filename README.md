@@ -13,7 +13,7 @@ Site: https://pauseam.theblockcapitol.com
 
 Custom domain: pauseam.theblockcapitol.com (DNS and HTTPS active, verified 2 October).
 See [Sites and Namecheap setup](deployment/sites/README.md). The app runs on
-Sites; the Python/PyTorch models still require a separate inference host.
+Sites; the official speech and text models require a separate inference host.
 Use the [current English CPU deployment guide](deployment/secretvm/ENGLISH-COMPLETE.md) for inference.
 The current pilot is English only. A real English recording produced a transcript
 through the public app on 2 October (15.8 seconds server duration); accuracy review
@@ -52,8 +52,9 @@ python -m unittest tests.test_audio -v
 With the server running:
 npm run test:http
 
-See submission/04-technical/technical-documentation.md and submission/04-technical/model-hosting.md for API,
-configuration, deployment, privacy, source review and model limitations.
+See [current technical documentation](submission/04-technical/technical-current.md)
+and [the English deployment guide](deployment/secretvm/ENGLISH-COMPLETE.md) for
+API contracts, configuration, deployment, privacy, source review and limitations.
 The current shell may require invoking npm-cli.js through node instead of npm.cmd.
 
 ## Submission evidence

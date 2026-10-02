@@ -1,4 +1,8 @@
-# English pilot on the existing 16 GB SecretVM
+# Voice-only rollback on the existing 16 GB SecretVM
+
+For the current English voice **and N-ATLaS text** target, use
+[ENGLISH-COMPLETE.md](ENGLISH-COMPLETE.md). This file describes the fallback
+without a text model; it is not the complete submission deployment.
 
 Use `english-pilot-compose.yml` for amaranth-nightingale. This runs only Caddy
 and the pinned official Nigerian-accented-English ASR model. It allocates at most

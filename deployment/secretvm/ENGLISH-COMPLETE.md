@@ -45,6 +45,14 @@ without inference. This does not promise the same timing on SecretVM.
 
 ## Reproduce and verify (developer, private environment only)
 
+If the saved image is correct but the public health response still reports
+`torch.bfloat16` without CPU metadata, inspect the **actual running containers**,
+their image IDs and status in Docker App. The CPU image cannot return the
+historical Transformers health response. Check for retained old containers or
+a gateway still serving an earlier workload. Do not delete volumes or create a
+second VM. Container startup logs and status are needed to distinguish a pending
+update, conversion failure, or routing problem; HTTP 200 is not enough.
+
 ```
 python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b --output deployment/secretvm/english-complete-compose.yml
 node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://amaranth-nightingale.vm.scrtlabs.com --scope english-complete --mode inference --output private/secretvm/english-complete-check.json
