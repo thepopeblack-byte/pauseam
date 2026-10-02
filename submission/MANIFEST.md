@@ -25,9 +25,23 @@ guidance request failed its strict contract and was withheld. See the
 [image update](evidence/model-container-update-2026-10-02.json) and
 [authenticated ASR access failures](evidence/asr-authenticated-access-2026-10-02.json).
 No completed voice journey or official API request is inferred from this evidence.
+The current [Sites/domain setup](../deployment/sites/README.md) registers
+pauseam.theblockcapitol.com and records exact Namecheap DNS values. DNS/TLS are
+active; a genuine inference host remains pending. The latest [public-app release checks](evidence/custom-domain-public-app-2026-10-02.json)
+passed all 15 baseline checks and correctly failed the model release gate.
 The later [bucket byte audit](evidence/bucket-audit-2026-10-02.json) confirms the
 complete Igbo files, not speech inference. Deployment is user-operated using the
-[pinned package and instructions](../deployment/secretvm/README.md).
+[pinned package and instructions](../deployment/secretvm/README.md); this remains
+the historical provider guide, while the current preference is Sites plus a
+separate compatible model host.
+
+All four new ASR buckets now match all 51 required official files, including
+each full weight file. This is file provenance, not voice validation. A
+[Hugging Face CPU package](../deployment/huggingface-space/README.md) and
+[code-only upload ZIP](../output/huggingface-space/pauseam-hf-cpu-space.zip) are
+prepared. Text uses the pinned approved official repository because the mixed
+text bucket still fails its small-file audit. No Space or successful new
+inference is claimed. Historical failure reports remain unchanged.
 
 See the [full release gate](RELEASE-GATE.md), [six-criteria matrix](evidence-matrix.md),
 [ONDI drafts](portal-and-form-drafts.md), [engineering review](evidence/engineering-review.md)

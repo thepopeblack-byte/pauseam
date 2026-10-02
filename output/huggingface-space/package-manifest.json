@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "Dockerfile",
+      "bytes": 671,
+      "sha256": "de5c2377269d5130e21126f311f66d47a0921a2054f88a0d4de53c34ef9eac5e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 857,
+      "sha256": "57e03e6b68cb0bdb4563a822d01a5202e977d2ac34d1b4a393318e2d3e81ac5f"
+    },
+    {
+      "path": "approved-sources.json",
+      "bytes": 921,
+      "sha256": "8c55ceca5ddfbf30912094d9e35e4e46f2435f8fa95e638af1969430753c8bb4"
+    },
+    {
+      "path": "gateway.py",
+      "bytes": 5286,
+      "sha256": "f162f1c932939a9c6f25618812eb9f3b86786b802741cf5a202e1e61371c1823"
+    },
+    {
+      "path": "launcher.py",
+      "bytes": 3658,
+      "sha256": "cb7316514e8cb985b080dd91b73939c84543ee51e264c44d97dd8da7d42eab46"
+    }
+  ],
+  "archiveSha256": "64894fad8d07993b529a0f0bf3ff84b1f52a368ceb75d9b4b3861719f0e96f57",
+  "weightsIncluded": false,
+  "credentialsIncluded": false,
+  "hostCreated": false,
+  "inferencePerformed": false
+}

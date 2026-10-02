@@ -1,5 +1,12 @@
 # Secure model hosting — PauseAm
 
+Current selected preparation: Hugging Face CPU Upgrade. Follow
+../../deployment/huggingface-space/README.md for the five-model package,
+protected gateway, durable Sites quota, private configuration and billing gate.
+No new Space has been launched. Four separate ASR buckets now fully match
+official revision hashes; the mixed text root must not be loaded. Instructions
+below also describe earlier direct-container options and historical access checks.
+
 No inference URL exists until a service is actually deployed. Do not use the
 Hugging Face model-card URL as an inference endpoint.
 
@@ -8,7 +15,9 @@ Sign in yourself to Hugging Face. Read and accept the publisher's conditions for
 all five NCAIR1 repositories linked in access-and-models.md. Use a least-privilege
 read token restricted to the approved repositories. Enter it only in your model
 host's secret settings as HF_TOKEN. Never send tokens, passwords or OTPs in chat.
-The current workspace has no token and an unauthenticated config request returned 401.
+The initial unauthenticated request returned 401. Check current private access
+without exposing the token; that historical result does not invalidate the new
+approved ASR bucket copies.
 
 ## ASR deployment
 Build from the repository root with `docker build -f asr/Dockerfile .`.

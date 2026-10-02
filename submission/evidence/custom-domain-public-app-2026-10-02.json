@@ -1,0 +1,115 @@
+{
+  "recordedAt": "2026-10-02T04:26:02.878Z",
+  "origin": "https://pauseam.theblockcapitol.com",
+  "kind": "Engineering checks, not user validation",
+  "checks": [
+    {
+      "name": "Pinned targets and private status response",
+      "status": 200,
+      "elapsedMs": 611,
+      "passed": true
+    },
+    {
+      "name": "Page /",
+      "status": 200,
+      "elapsedMs": 120,
+      "passed": true
+    },
+    {
+      "name": "Page /about",
+      "status": 200,
+      "elapsedMs": 177,
+      "passed": true
+    },
+    {
+      "name": "Page /evaluation",
+      "status": 200,
+      "elapsedMs": 85,
+      "passed": true
+    },
+    {
+      "name": "Supplier-change guidance has expected source and steps",
+      "status": 200,
+      "elapsedMs": 109,
+      "passed": true,
+      "engine": "Source-checked keyword retrieval (no generative answer model)",
+      "model": null
+    },
+    {
+      "name": "Immediate bank-contact checklist bypasses inference",
+      "status": 200,
+      "elapsedMs": 256,
+      "passed": true
+    },
+    {
+      "name": "Learning guidance remains source-grounded",
+      "status": 200,
+      "elapsedMs": 100,
+      "passed": true
+    },
+    {
+      "name": "Private-detail rejection",
+      "status": 422,
+      "elapsedMs": 164,
+      "passed": true
+    },
+    {
+      "name": "Unrelated origin rejected",
+      "status": 403,
+      "elapsedMs": 193,
+      "passed": true
+    },
+    {
+      "name": "Oversized input rejected",
+      "status": 400,
+      "elapsedMs": 209,
+      "passed": true
+    },
+    {
+      "name": "Audio consent required",
+      "status": 400,
+      "elapsedMs": 163,
+      "passed": true
+    },
+    {
+      "name": "Unsupported audio rejected",
+      "status": 415,
+      "elapsedMs": 189,
+      "passed": true
+    },
+    {
+      "name": "Unconfigured yo guidance fails safely",
+      "status": 503,
+      "elapsedMs": 138,
+      "passed": true
+    },
+    {
+      "name": "Unconfigured ha guidance fails safely",
+      "status": 503,
+      "elapsedMs": 194,
+      "passed": true
+    },
+    {
+      "name": "Unconfigured ig guidance fails safely",
+      "status": 503,
+      "elapsedMs": 156,
+      "passed": true
+    }
+  ],
+  "models": {
+    "configured": false,
+    "textInferencePassed": false,
+    "speech": [],
+    "fourLanguageJourneyPassed": false
+  },
+  "transcriptsStored": false,
+  "participantRecordsCreated": 0,
+  "baselinePassed": true,
+  "modelReleaseGatePassed": false,
+  "remaining": [
+    "Fluent critical wording review",
+    "Observed transcript correction and comprehension",
+    "Representative mobile/network testing",
+    "Genuine participant validation"
+  ]
+}

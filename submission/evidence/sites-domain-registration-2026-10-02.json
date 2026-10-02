@@ -1,0 +1,34 @@
+{
+  "registeredAt": "2026-10-02T04:02:42.138467+00:00",
+  "hostname": "pauseam.theblockcapitol.com",
+  "projectId": "appgprj_6ab826bba8f48191ad36895acae09407",
+  "customDomainId": "appgdom_6abf2ce2235c8191acfaf5ad03fd51a6",
+  "statusAtRegistration": "pending",
+  "dnsProvider": "Namecheap (user reported)",
+  "records": [
+    {
+      "record_type": "CNAME",
+      "name": "pauseam.theblockcapitol.com",
+      "value": "custom-domains.chatgpt.site."
+    },
+    {
+      "record_type": "TXT",
+      "name": "_openai-site-verification.pauseam.theblockcapitol.com",
+      "value": "openai-site-verification=ELTsXQlkOPNykqHxYT4hHfRepwI7ZLIVjw9UP2enrWM"
+    },
+    {
+      "record_type": "TXT",
+      "name": "_cf-custom-hostname.pauseam.theblockcapitol.com",
+      "value": "d012fabf-5005-4cb4-a011-bec0974a3420"
+    }
+  ],
+  "dnsChangesPerformed": false,
+  "tlsVerified": false,
+  "inferenceHostSupplied": "Hugging Face storage bucket; not a running service",
+  "appRuntimeSettings": {
+    "KB_ENABLED": "true",
+    "ASR_ENABLED": "false",
+    "modelEndpointsConfigured": false
+  },
+  "paidHostLaunched": false
+}

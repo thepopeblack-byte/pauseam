@@ -1,0 +1,186 @@
+services:
+  gateway:
+    image: caddy:2@sha256:0c994536bddb66445885237f1a5dcc1916bccea922661c76b4e9fc24061f9b52
+    restart: unless-stopped
+    mem_limit: 256m
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+    ports: ["80:80", "443:443"]
+    volumes: ["caddy-data:/data", "caddy-config:/config"]
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        cat > /tmp/Caddyfile <<'CADDYFILE'
+          ${MODEL_HOSTNAME:?Set the real inference hostname} {
+            request_body {
+              max_size 1MB
+            }
+            header Cache-Control "no-store"
+            handle_path /text/* {
+              reverse_proxy text:8000
+            }
+            handle_path /asr/en/* {
+              reverse_proxy asr-en:8000
+            }
+            handle_path /asr/yo/* {
+              reverse_proxy asr-yo:8000
+            }
+            handle_path /asr/ha/* {
+              reverse_proxy asr-ha:8000
+            }
+            handle_path /asr/ig/* {
+              reverse_proxy asr-ig:8000
+            }
+            handle {
+              respond "PauseAm model gateway" 404
+            }
+          }
+        CADDYFILE
+        exec caddy run --config /tmp/Caddyfile --adapter caddyfile
+  text:
+    image: ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:e12c25884c4bd1ce1de5767a57839366612d5c1e4c16bbccdc37c21c32e9774a
+    restart: "on-failure:3"
+    mem_limit: 20g
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:size=512m"]
+    expose: ["8000"]
+    volumes: ["text-models:/home/app/models", "licence:/home/app/license"]
+    environment:
+      MODEL_REVISION: e294476928aca9030e924ca27bb8e085e8581273
+      TEXT_DTYPE: bfloat16
+      MODEL_THREADS: "4"
+      HF_HOME: /home/app/models/hf
+      VERIFIED_MODEL_CACHE: /home/app/models/verified
+      LICENSE_DB: /home/app/license/usage.sqlite
+      MODEL_BUCKET_ID: ${MODEL_BUCKET_ID:-}
+      MODEL_BUCKET_PREFIX: ${MODEL_BUCKET_PREFIX:-}
+      HF_TOKEN: ${HF_TOKEN:-}
+      TEXT_SERVICE_TOKEN: ${TEXT_SERVICE_TOKEN:?Set privately}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60m
+  asr-en:
+    image: ghcr.io/thepopeblack-byte/pauseam-asr@sha256:79b35cce2f5685928d56ebf09750c4c805ce3f61b95f09f6cb176c13cd952859
+    restart: "on-failure:3"
+    mem_limit: 2300m
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:size=128m"]
+    expose: ["8000"]
+    volumes: ["asr-en-models:/home/inference/models", "licence:/home/inference/license"]
+    environment:
+      MODEL_LANGUAGE: en
+      MODEL_REVISION: 3c52c6e6c9ec508014a7b9db6a42b503b8930dff
+      MODEL_THREADS: "1"
+      HF_HOME: /home/inference/models/hf
+      VERIFIED_MODEL_CACHE: /home/inference/models/verified
+      LICENSE_DB: /home/inference/license/usage.sqlite
+      HF_TOKEN: ${HF_TOKEN:-}
+      MODEL_BUCKET_ID: ${ASR_EN_BUCKET_ID:-Blockcapitol/NigerianAccentedEnglish-bucket}
+      MODEL_BUCKET_PREFIX: ${ASR_EN_BUCKET_PREFIX:-}
+      ASR_SERVICE_TOKEN: ${ASR_SERVICE_TOKEN:?Set privately}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60m
+  asr-yo:
+    image: ghcr.io/thepopeblack-byte/pauseam-asr@sha256:79b35cce2f5685928d56ebf09750c4c805ce3f61b95f09f6cb176c13cd952859
+    restart: "on-failure:3"
+    mem_limit: 2300m
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:size=128m"]
+    expose: ["8000"]
+    volumes: ["asr-yo-models:/home/inference/models", "licence:/home/inference/license"]
+    environment:
+      MODEL_LANGUAGE: yo
+      MODEL_REVISION: d1ae7b8b79c2ccd547d8761effe5057433f3fc7f
+      MODEL_THREADS: "1"
+      HF_HOME: /home/inference/models/hf
+      VERIFIED_MODEL_CACHE: /home/inference/models/verified
+      LICENSE_DB: /home/inference/license/usage.sqlite
+      HF_TOKEN: ${HF_TOKEN:-}
+      MODEL_BUCKET_ID: ${ASR_YO_BUCKET_ID:-Blockcapitol/Yoruba-ASR-bucket}
+      MODEL_BUCKET_PREFIX: ${ASR_YO_BUCKET_PREFIX:-}
+      ASR_SERVICE_TOKEN: ${ASR_SERVICE_TOKEN:?Set privately}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60m
+  asr-ha:
+    image: ghcr.io/thepopeblack-byte/pauseam-asr@sha256:79b35cce2f5685928d56ebf09750c4c805ce3f61b95f09f6cb176c13cd952859
+    restart: "on-failure:3"
+    mem_limit: 2300m
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:size=128m"]
+    expose: ["8000"]
+    volumes: ["asr-ha-models:/home/inference/models", "licence:/home/inference/license"]
+    environment:
+      MODEL_LANGUAGE: ha
+      MODEL_REVISION: e635b9eda29060c6114c8f4d8b2d903f5c83a44a
+      MODEL_THREADS: "1"
+      HF_HOME: /home/inference/models/hf
+      VERIFIED_MODEL_CACHE: /home/inference/models/verified
+      LICENSE_DB: /home/inference/license/usage.sqlite
+      HF_TOKEN: ${HF_TOKEN:-}
+      MODEL_BUCKET_ID: ${ASR_HA_BUCKET_ID:-Blockcapitol/Hausa-ASR-bucket}
+      MODEL_BUCKET_PREFIX: ${ASR_HA_BUCKET_PREFIX:-}
+      ASR_SERVICE_TOKEN: ${ASR_SERVICE_TOKEN:?Set privately}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60m
+  asr-ig:
+    image: ghcr.io/thepopeblack-byte/pauseam-asr@sha256:79b35cce2f5685928d56ebf09750c4c805ce3f61b95f09f6cb176c13cd952859
+    restart: "on-failure:3"
+    mem_limit: 2300m
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:size=128m"]
+    expose: ["8000"]
+    volumes: ["asr-ig-models:/home/inference/models", "licence:/home/inference/license"]
+    environment:
+      MODEL_LANGUAGE: ig
+      MODEL_REVISION: 180732299d5cba3dc8b289260ac84b7838bb3954
+      MODEL_THREADS: "1"
+      HF_HOME: /home/inference/models/hf
+      VERIFIED_MODEL_CACHE: /home/inference/models/verified
+      LICENSE_DB: /home/inference/license/usage.sqlite
+      HF_TOKEN: ${HF_TOKEN:-}
+      MODEL_BUCKET_ID: ${ASR_IG_BUCKET_ID:-Blockcapitol/Igbo-ASR-bucket}
+      MODEL_BUCKET_PREFIX: ${ASR_IG_BUCKET_PREFIX:-}
+      ASR_SERVICE_TOKEN: ${ASR_SERVICE_TOKEN:?Set privately}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60m
+volumes:
+  text-models:
+  licence:
+  caddy-data:
+  caddy-config:
+  asr-en-models:
+  asr-yo-models:
+  asr-ha-models:
+  asr-ig-models:

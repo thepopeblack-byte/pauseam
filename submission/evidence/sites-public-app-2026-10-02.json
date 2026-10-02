@@ -1,0 +1,115 @@
+{
+  "recordedAt": "2026-10-02T04:10:10.001Z",
+  "origin": "https://pauseam.thepopeblack.chatgpt.site",
+  "kind": "Engineering checks, not user validation",
+  "checks": [
+    {
+      "name": "Pinned targets and private status response",
+      "status": 200,
+      "elapsedMs": 2108,
+      "passed": true
+    },
+    {
+      "name": "Page /",
+      "status": 200,
+      "elapsedMs": 1758,
+      "passed": true
+    },
+    {
+      "name": "Page /about",
+      "status": 200,
+      "elapsedMs": 129,
+      "passed": true
+    },
+    {
+      "name": "Page /evaluation",
+      "status": 200,
+      "elapsedMs": 118,
+      "passed": true
+    },
+    {
+      "name": "Supplier-change guidance has expected source and steps",
+      "status": 200,
+      "elapsedMs": 143,
+      "passed": true,
+      "engine": "Source-checked keyword retrieval (no generative answer model)",
+      "model": null
+    },
+    {
+      "name": "Immediate bank-contact checklist bypasses inference",
+      "status": 200,
+      "elapsedMs": 114,
+      "passed": true
+    },
+    {
+      "name": "Learning guidance remains source-grounded",
+      "status": 200,
+      "elapsedMs": 152,
+      "passed": true
+    },
+    {
+      "name": "Private-detail rejection",
+      "status": 422,
+      "elapsedMs": 201,
+      "passed": true
+    },
+    {
+      "name": "Unrelated origin rejected",
+      "status": 403,
+      "elapsedMs": 232,
+      "passed": true
+    },
+    {
+      "name": "Oversized input rejected",
+      "status": 400,
+      "elapsedMs": 161,
+      "passed": true
+    },
+    {
+      "name": "Audio consent required",
+      "status": 400,
+      "elapsedMs": 124,
+      "passed": true
+    },
+    {
+      "name": "Unsupported audio rejected",
+      "status": 415,
+      "elapsedMs": 147,
+      "passed": true
+    },
+    {
+      "name": "Unconfigured yo guidance fails safely",
+      "status": 503,
+      "elapsedMs": 174,
+      "passed": true
+    },
+    {
+      "name": "Unconfigured ha guidance fails safely",
+      "status": 503,
+      "elapsedMs": 183,
+      "passed": true
+    },
+    {
+      "name": "Unconfigured ig guidance fails safely",
+      "status": 503,
+      "elapsedMs": 176,
+      "passed": true
+    }
+  ],
+  "models": {
+    "configured": false,
+    "textInferencePassed": false,
+    "speech": [],
+    "fourLanguageJourneyPassed": false
+  },
+  "transcriptsStored": false,
+  "participantRecordsCreated": 0,
+  "baselinePassed": true,
+  "modelReleaseGatePassed": false,
+  "remaining": [
+    "Fluent critical wording review",
+    "Observed transcript correction and comprehension",
+    "Representative mobile/network testing",
+    "Genuine participant validation"
+  ]
+}

@@ -23,7 +23,8 @@ redaction is claimed.
 
 ## Architecture and data flow
 Frontend: React 19, Vinext, Vite, TypeScript, system fonts, responsive CSS and existing
-Radix controls. Backend: same-origin Cloudflare Worker routes, no bound database.
+Radix controls. Backend: same-origin Cloudflare Worker routes. This release adds
+a logical D1 binding and migration for timestamp-only licence reservations.
 Inference: separately configured Python 3.11 FastAPI HTTPS services.
 
 Voice: consent → record up to 28 seconds → listen/discard → mono 16 kHz PCM16 WAV →
@@ -36,7 +37,8 @@ ASR follows the official Transformers pipeline. Current weight files are
 pytorch_model.bin, so the service uses torch 2.6 weights-only loading with remote
 code disabled. Text uses official Safetensors and the documented chat-template path.
 The text host authenticated health response confirms the pinned revision, verified
-bucket provenance and bfloat16 load. ASR weight loading remains blocked on file access.
+bucket provenance and bfloat16 load. All four separate ASR file sets now match
+official revision hashes; actual ASR loading and inference remain untested.
 
 ## Setup and reproducibility
 Use Node >=22.13 and Python 3.11 for inference. Clone the public repository.
@@ -103,8 +105,10 @@ sequences. It cannot recognise every sensitive expression or language. Speakers
 must listen before uploading. Screenshot input stays disabled.
 
 Input text/audio are transient. Mutable PCM buffers are cleared where possible;
-managed-runtime copies cannot be guaranteed erased immediately. No application
-database or request-body/transcript log exists. Operators must verify host and
+managed-runtime copies cannot be guaranteed erased immediately. The only server
+database content is licence reservation timestamps; no input, user ID, audio,
+research data or transcript is stored there. No request-body/transcript log
+is implemented. Operators must verify host and
 proxy logging/retention independently. Network providers may process IP metadata.
 
 Protection includes origin checks, bounded streams, HTTPS-only configured hosts,
@@ -139,9 +143,12 @@ Transport fixtures are explicitly test-only and excluded from validation.
 Python checks cover truncated/oversized/wrong-format PCM; HTTP checks exercise
 actual app routes without claiming model inference.
 Eighteen Python checks now include the finite token grammar and output boundary.
-The complete root Igbo model was byte-verified; the mixed bucket needs isolated
-text/en/yo/ha/ig folders. Final digest-pinned model images built successfully.
-User-operated deployment and real-host checks are in deployment/secretvm/README.md.
+All 51 required files in the four separate ASR buckets were byte-verified,
+including each entire weight. The mixed text bucket fails its small-file audit;
+the new package uses the approved pinned official text repository. Final
+digest-pinned model images built successfully. The Hugging Face CPU upload
+package and protected gateway are in deployment/huggingface-space/README.md.
+No new Space has been launched.
 
 Build the Worker, push its exact commit, package and deploy through Sites.
 Validate public fresh-session access on desktop/mobile. Configure model hosts
@@ -162,7 +169,8 @@ review and latency/cost. Downloading or running weights is not fine-tuning.
 No dataset, run or improvement has been fabricated.
 
 ## Sustainability and licence
-Local GPU: Quadro P520, 4 GiB. It is not evidence of an 8B training run.
+Local GPU: Quadro P520. Available GPU memory was not remeasured in this inspection.
+It is not evidence of an 8B training run.
 The inspected Google Cloud SecretVM quote is $0.52/hour for eight vCPUs, 32 GB RAM
 and 160 GB storage, or $0.052/hour while stopped. A Production pilot was launched
 on 2 October. Authenticated loading passed; the first actual guidance request
@@ -178,6 +186,14 @@ user accounting before public inference. The prepared deployment uses one shared
 SQLite quota of 950 inference reservations per rolling 30 days, including failures.
 This is deliberately stricter than active-person accounting. Never reset or fork
 the database to bypass the cap. A cookie is not reliable person counting.
+The new CPU package adds an authoritative Sites D1 counter, atomic conditional
+inserts, one carried historical reservation, and an extra ephemeral local cap.
+Missing credentials, storage errors and exhaustion all withhold inference.
+The prepared CPU Upgrade target is 8 vCPU / 32 GB at a published $0.03/hour;
+account eligibility, launch, resident memory and latency remain unverified.
+Pause after each test window and reconcile all prior spend with the $150 budget.
+The app is live at https://pauseam.theblockcapitol.com with active HTTPS and
+15 passed public baseline checks; no public model journey has passed yet.
 Required model attribution is in the app and integration register. Public source
 availability does not grant rights to third-party model weights.
 

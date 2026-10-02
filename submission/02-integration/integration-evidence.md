@@ -65,7 +65,7 @@ No capability checkbox is justified by the current evidence.
 Organiser confirmation of the official-ASR-service requirement is pending.
 See the following access register for exact versions, licence and compute findings.
 
-## User-operated deployment handoff
+## Historical SecretVM handoff
 
 The updated bucket root fully matches the official Igbo model's 13 required files,
 including the entire binary weight. The other three ASR weights do not match;
@@ -77,3 +77,21 @@ The decoder now constrains actual model token choices to one trusted card or
 abstention, then independently validates JSON. Eighteen Python checks passed.
 Final-image runtime inference remains unverified until deployment and real tests.
 See deployment/secretvm/README.md, pauseam-compose.yml and scripts/verify-model-host.mjs.
+
+## Current CPU hosting preparation
+
+The four new separate ASR buckets were streamed in full. All required files
+match pinned official revisions: English 13, Yoruba 12, Hausa 13, Igbo 13,
+including each entire weight. Reports: submission/evidence/asr-bucket-en,
+yo, ha, ig-2026-10-02.json. These 51 file checks prove provenance, not recognition.
+The mixed text root still fails its small-file audit; CPU hosting therefore
+loads the approved official text repository at its pinned revision.
+
+https://pauseam.theblockcapitol.com has active HTTPS. Fifteen public baseline
+checks passed; the model gate failed because no inference host is connected.
+The selected Hugging Face CPU package is in deployment/huggingface-space,
+with a code-only ZIP in output/huggingface-space. Its protected gateway exposes
+five loopback services and reserves usage through a timestamp-only Sites D1
+ledger before every inference. Account billing, private configuration, actual
+launch, RAM and latency tests remain pending. No Space, official API request,
+successful new guidance or speech output is claimed by this preparation.

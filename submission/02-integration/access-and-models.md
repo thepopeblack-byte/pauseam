@@ -66,8 +66,16 @@ Deployment is now user-operated; instructions and pinned Compose are in
 
 ## Resources actually inspected
 
-Windows host: 8 logical processors; approximately 31.8 GiB RAM, 7.9 GiB free at
-inspection; NVIDIA Quadro P520 with 4,096 MiB VRAM. Docker CLI is installed but its
+Latest file-access update: the four new separate approved buckets match all 51
+required official files, including full weight hashes. This supersedes the
+mixed-bucket blockers above. Text uses the approved pinned official repository.
+Actual voice inference and organiser service/API rulings remain unverified.
+The Hugging Face CPU package is prepared, not launched. Its authoritative Sites
+D1 counter survives host restarts; local SQLite is an additional limiter only.
+One known previous failed reservation is carried for its remaining 30-day window.
+
+Windows host: 8 logical processors; approximately 31.8 GiB RAM; NVIDIA Quadro
+P520. GPU memory was not remeasured in this inspection. Docker CLI is installed but its
 Linux engine was not running. Node dependencies are installed. The bundled Python,
 GitHub CLI, FFmpeg and Poppler are available. GitHub CLI identifies thepopeblack-byte.
 A paid Google Cloud SecretVM was subsequently provisioned on 2 October: eight

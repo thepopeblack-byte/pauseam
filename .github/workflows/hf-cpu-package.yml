@@ -1,0 +1,38 @@
+name: Verify Hugging Face CPU Space package
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['deployment/huggingface-space/**', 'deployment/models/approved-sources.json', 'scripts/prepare-hf-space.py', '.github/workflows/hf-cpu-package.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Prepare code-only Space upload files
+        run: python scripts/prepare-hf-space.py --output output/huggingface-space
+      - name: Check gateway boundaries with explicitly test-only transports
+        run: |
+          python -m pip install fastapi==0.115.8 httpx==0.28.1
+          python -m unittest discover -s tests -p 'hf_gateway_test.py' -v
+      - name: Build actual combined runtime; no model downloads or credentials
+        run: docker build -t pauseam-hf-cpu:checked output/huggingface-space
+      - name: Import both services offline in the combined image
+        run: |
+          mkdir -p runtime-evidence
+          docker run --rm --network none --read-only --tmpfs /tmp:size=128m --entrypoint python pauseam-hf-cpu:checked -c 'import gateway,launcher,torch,transformers,json; print(json.dumps({"gatewayImported":True,"modelProcesses":len(gateway.TARGETS),"torch":torch.__version__,"transformers":transformers.__version__,"inferencePerformed":False}))' > runtime-evidence/gateway.json
+          for directory in /app /app/asr; do
+            name=$(basename "$directory")
+            docker run --rm --network none --read-only --tmpfs /tmp:size=128m -w "$directory" --entrypoint python pauseam-hf-cpu:checked -c 'import app,json,numpy; print(json.dumps({"model":app.MODEL,"revision":app.REVISION,"numpy":numpy.__version__,"inferencePerformed":False}))' > "runtime-evidence/$name.json"
+          done
+      - name: Save actual package and runtime results
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pauseam-hf-cpu-package-check
+          path: |
+            runtime-evidence
+            output/huggingface-space/package-manifest.json
+          retention-days: 30

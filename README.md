@@ -5,7 +5,13 @@ A payment decision companion for NAIC 2026, Innovation & Enterprise, PS2.
 **Review build, not submission-ready. No ONDI application has been submitted.**
 
 Public repository: https://github.com/thepopeblack-byte/pauseam
-Site: https://pauseam.thepopeblack.chatgpt.site
+Site: https://pauseam.theblockcapitol.com
+
+Custom domain: pauseam.theblockcapitol.com (DNS and HTTPS active, verified 2 October).
+See [Sites and Namecheap setup](deployment/sites/README.md). The app runs on
+Sites; the Python/PyTorch models still require a separate inference host.
+The [Hugging Face CPU package](deployment/huggingface-space/README.md) is prepared;
+no Space has been launched and live model inference remains unverified.
 
 Implemented: mobile-first English source checklists, three journeys, private incident
 timeline/export, general-checklist sharing, consent-based local evaluation, real

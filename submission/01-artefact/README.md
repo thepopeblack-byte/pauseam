@@ -1,10 +1,10 @@
 # PauseAm working artefact
 
 Ask before you pay. Innovation & Enterprise / PS2 Voice-First Access.
-Review build, 1 October 2026. Not submission-ready.
+Review build, 2 October 2026. Not submission-ready.
 
 Repository: https://github.com/thepopeblack-byte/pauseam
-Site: https://pauseam.thepopeblack.chatgpt.site
+Site: https://pauseam.theblockcapitol.com (active HTTPS)
 Public access and deployed-commit checks are recorded separately in the release gate.
 
 ## Run locally

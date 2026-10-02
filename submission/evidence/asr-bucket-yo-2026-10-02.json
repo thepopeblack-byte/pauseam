@@ -1,0 +1,139 @@
+{
+  "recordedAt": "2026-10-02T04:20:43.399470+00:00",
+  "kind": "read-only byte audit; no inference or human validation",
+  "bucket": "Blockcapitol/Yoruba-ASR-bucket",
+  "prefix": "",
+  "asrWeightRequested": true,
+  "allWeightsRequested": false,
+  "results": [
+    {
+      "target": "yo",
+      "model": "NCAIR1/Yoruba-ASR",
+      "revision": "d1ae7b8b79c2ccd547d8761effe5057433f3fc7f",
+      "allRequiredFilesVerified": true,
+      "matchedFiles": 12,
+      "requiredFiles": 12,
+      "files": [
+        {
+          "file": ".gitattributes",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 1519,
+            "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361",
+            "git-sha1": "a6344aac8c09253b3b630fb776ae94478aa0275b"
+          }
+        },
+        {
+          "file": "README.md",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 11483,
+            "sha256": "0a2298eaa18696f16cbcb564b0273660cfd4f4cb4513ce944c359b68acfd1a6b",
+            "git-sha1": "bb3cd174faac6688d9900608a71d283dbbc878db"
+          }
+        },
+        {
+          "file": "config.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 2227,
+            "sha256": "31dc1400b282dc3af8d48abf1071a9258b22266714e86bdcbcac555bc1214ff1",
+            "git-sha1": "f6df12264242b20ac46d78a16386906b3e25826d"
+          }
+        },
+        {
+          "file": "generation_config.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 3863,
+            "sha256": "03c72a523c2a1e8c5fa12beef4a61a4543f3618cadf2b92f3db2fd8c116a4996",
+            "git-sha1": "bee9778db54943cd9fcb74b6b33df220c660ea2e"
+          }
+        },
+        {
+          "file": "merges.txt",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 493869,
+            "sha256": "2df2990a395e35e8dfbc7511e08c12d56018d8d04691e0133e5d63b21e154dc6",
+            "git-sha1": "6038932a2a1f09a66991b1c2adae0d14066fa29e"
+          }
+        },
+        {
+          "file": "normalizer.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 52666,
+            "sha256": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd",
+            "git-sha1": "dd6ae819ad738ac1a546e9f9282ef325c33b9ea0"
+          }
+        },
+        {
+          "file": "preprocessor_config.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 339,
+            "sha256": "a6a76d28c93edb273669eb9e0b0636a2bddbb1272c3261e47b7ca6dfdbac1b8d",
+            "git-sha1": "91876762a536a746d268353c5cba57286e76b058"
+          }
+        },
+        {
+          "file": "pytorch_model.bin",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 967103046,
+            "sha256": "76d6df4ef959f871351fc79bce56b05707612010a7dd05a284ac0a22bbd997a5"
+          }
+        },
+        {
+          "file": "special_tokens_map.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 2194,
+            "sha256": "e67ae3a0aaa99abcd9f187138e12db1f65c16a14761c50ef10eef2c174a7a691",
+            "git-sha1": "bf69932dca4b3719b59fdd8f6cc1978109509f6c"
+          }
+        },
+        {
+          "file": "tokenizer.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 2481202,
+            "sha256": "9814d1d2918360976ac3fbe20e2e8ff127a02b640d434ca9a5d1aea483f2bafa",
+            "git-sha1": "96c83bc9d9dfa67d74a804c9aaa58cf4c674e5e1"
+          }
+        },
+        {
+          "file": "tokenizer_config.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 282683,
+            "sha256": "2a4c4281cf9f51ac6ccc406fdc711a087afe6530f671fa7b80953edc498275ce",
+            "git-sha1": "d13b786c04765fb1a06492b53587752cd67665ea"
+          }
+        },
+        {
+          "file": "vocab.json",
+          "matchesOfficialBytes": true,
+          "observation": {
+            "status": "downloaded",
+            "size": 835550,
+            "sha256": "8f680bba319e01a653d2e8a5dbc17a9157179e0576e6ce74ce0c06356c6e24f9",
+            "git-sha1": "d7016e21da8776c8a9d577d0f559600f09a240eb"
+          }
+        }
+      ]
+    }
+  ]
+}
