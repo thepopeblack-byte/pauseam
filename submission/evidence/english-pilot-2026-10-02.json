@@ -1,0 +1,244 @@
+{
+  "recordedAt": "2026-10-02T11:02:34.103Z",
+  "kind": "Engineering release checks, not participant validation",
+  "scope": "English-only pilot requested by team; other languages deferred",
+  "deployment": {
+    "versionNumber": 12,
+    "sourceCommit": "6af33d2c34ceca5d4a8d1b4dafc481fc1619f9a1",
+    "deploymentId": "appgdep_6abf8e7f56d88191bda2f6130ba2639f",
+    "status": "succeeded",
+    "environmentRevision": 3,
+    "url": "https://pauseam.theblockcapitol.com"
+  },
+  "hostCapacity": {
+    "provenance": "Owner-provided SecretVM screenshot, not independent capacity measurement",
+    "ramGB": 16,
+    "vCPUs": 8,
+    "diskGB": 160,
+    "reportedHourlyUSD": 0.24
+  },
+  "checks": {
+    "nodeTestsPassed": 45,
+    "pythonDeploymentTestsPassed": 3,
+    "lintPassed": true,
+    "typecheckPassed": true,
+    "liveEnglishScopePassed": true
+  },
+  "baseline": {
+    "recordedAt": "2026-10-02T11:00:07.925Z",
+    "origin": "https://pauseam.theblockcapitol.com",
+    "kind": "Engineering checks, not user validation",
+    "checks": [
+      {
+        "name": "Pinned targets and private status response",
+        "status": 200,
+        "elapsedMs": 2875,
+        "passed": true
+      },
+      {
+        "name": "Unauthenticated licence reservation fails closed",
+        "status": 503,
+        "elapsedMs": 281,
+        "passed": true
+      },
+      {
+        "name": "Page /",
+        "status": 200,
+        "elapsedMs": 615,
+        "passed": true
+      },
+      {
+        "name": "Page /about",
+        "status": 200,
+        "elapsedMs": 274,
+        "passed": true
+      },
+      {
+        "name": "Page /evaluation",
+        "status": 200,
+        "elapsedMs": 328,
+        "passed": true
+      },
+      {
+        "name": "Supplier-change guidance has expected source and steps",
+        "status": 200,
+        "elapsedMs": 267,
+        "passed": true,
+        "engine": "Source-checked keyword retrieval (no generative answer model)",
+        "model": null
+      },
+      {
+        "name": "Immediate bank-contact checklist bypasses inference",
+        "status": 200,
+        "elapsedMs": 245,
+        "passed": true
+      },
+      {
+        "name": "Learning guidance remains source-grounded",
+        "status": 200,
+        "elapsedMs": 229,
+        "passed": true
+      },
+      {
+        "name": "Private-detail rejection",
+        "status": 422,
+        "elapsedMs": 296,
+        "passed": true
+      },
+      {
+        "name": "Unrelated origin rejected",
+        "status": 403,
+        "elapsedMs": 377,
+        "passed": true
+      },
+      {
+        "name": "Oversized input rejected",
+        "status": 400,
+        "elapsedMs": 2675,
+        "passed": true
+      },
+      {
+        "name": "Audio consent required",
+        "status": 400,
+        "elapsedMs": 492,
+        "passed": true
+      },
+      {
+        "name": "Unsupported audio rejected",
+        "status": 415,
+        "elapsedMs": 506,
+        "passed": true
+      },
+      {
+        "name": "Paused yo voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 505,
+        "passed": true
+      },
+      {
+        "name": "Paused ha voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 286,
+        "passed": true
+      },
+      {
+        "name": "Paused ig voice rejected before inference",
+        "status": 503,
+        "elapsedMs": 302,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured yo guidance fails safely",
+        "status": 503,
+        "elapsedMs": 251,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ha guidance fails safely",
+        "status": 503,
+        "elapsedMs": 285,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ig guidance fails safely",
+        "status": 503,
+        "elapsedMs": 296,
+        "passed": true
+      }
+    ],
+    "models": {
+      "configured": false,
+      "textInferencePassed": false,
+      "speech": [],
+      "fourLanguageJourneyPassed": false,
+      "englishPilotJourneyPassed": false
+    },
+    "transcriptsStored": false,
+    "participantRecordsCreated": 0,
+    "baselinePassed": true,
+    "modelReleaseGatePassed": false,
+    "remaining": [
+      "Fluent critical wording review",
+      "Observed transcript correction and comprehension",
+      "Representative mobile/network testing",
+      "Genuine participant validation"
+    ]
+  },
+  "englishReadiness": {
+    "recordedAt": "2026-10-02T10:59:59.673Z",
+    "kind": "Engineering requests, not participant validation",
+    "host": "https://amaranth-nightingale.vm.scrtlabs.com",
+    "mode": "health",
+    "scope": "english",
+    "health": [
+      {
+        "target": "en",
+        "status": 200,
+        "elapsedMs": 3721,
+        "passed": true,
+        "model": "NCAIR1/NigerianAccentedEnglish",
+        "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff"
+      }
+    ],
+    "text": [],
+    "speech": [],
+    "officialApiVerified": false,
+    "fineTuningPerformed": false,
+    "allHealthPassed": true,
+    "textGuidancePassed": false,
+    "fourLanguageInferencePassed": false,
+    "selectedSpeechInferencePassed": false
+  },
+  "earlierGenuineOwnerVoiceRequest": {
+    "timestamp": "2026-10-02T10:32:48.300Z",
+    "route": "/api/asr",
+    "status": 200,
+    "wallTimeMs": 15786,
+    "language": "en",
+    "requestId": "904e9f7be8fb67e326ca65d79743f10f",
+    "ownerReported": "A transcript appears",
+    "model": "NCAIR1/NigerianAccentedEnglish",
+    "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+    "provenance": "Live API returned HTTP 200 after server-side model/revision/language validation; owner reported transcript appeared",
+    "accuracyReviewed": false,
+    "correctedGuidanceJourneyConfirmed": false,
+    "rawAudioRetained": false,
+    "transcriptRetained": false,
+    "researchParticipantInteractionCount": 0
+  },
+  "currentCapabilities": {
+    "englishASR": "Official pinned model ready; owner obtained a real transcript before the workload reduction",
+    "typedGuidance": "Reviewed English source checklists; no generative model",
+    "textInferenceEnabled": false,
+    "otherLanguagesEnabled": false,
+    "officialAPIVerified": false,
+    "fineTuningPerformed": false
+  },
+  "vmWorkload": {
+    "file": "deployment/secretvm/english-pilot-compose.yml",
+    "services": [
+      "gateway",
+      "asr-en"
+    ],
+    "appliedByOwnerConfirmed": false,
+    "observedOldRoutes": {
+      "checkedAt": "2026-10-02T11:01:25Z",
+      "textReadyStatus": 200,
+      "yorubaHealthWithoutAuthenticationStatus": 401
+    },
+    "note": "Old routes still responded during the check. This does not prove which containers are running. Owner must apply the smaller file and stop old services without deleting persistent volumes."
+  },
+  "postReductionLatencyMeasured": false,
+  "completeCorrectedTranscriptJourneyObserved": false,
+  "participantRecordsCreated": 0,
+  "rawAudioRetained": false,
+  "transcriptsStored": false,
+  "remaining": [
+    "Owner applies smaller VM profile and confirms only gateway/asr-en running",
+    "Real English recording through correction, confirmation, guidance and source review",
+    "Actual latency measurement after workload reduction",
+    "Representative mobile/network and usability checks",
+    "Consented documented participant testing",
+    "Refresh historical submission PDFs before final submission review"
+  ]
+}

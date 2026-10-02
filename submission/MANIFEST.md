@@ -9,6 +9,11 @@ timeouts; Yoruba, Hausa and Igbo are paused. Use the [16 GB English deployment
 guide](../deployment/secretvm/ENGLISH-PILOT.md). Earlier reports and PDFs describe
 historical scope and must not be presented as current four-language evidence.
 See [actual voice evidence](evidence/worker-redirect-fix-2026-10-02.json).
+The [English pilot release checks](evidence/english-pilot-2026-10-02.json)
+record Sites version 12, all 19 public baseline checks, and English ASR readiness.
+Applying the smaller VM workload and observing a complete corrected-transcript
+journey remain pending. English typed guidance is source retrieval, not N-ATLaS
+text generation.
 
 Ask before you pay. Innovation & Enterprise / PS2: Voice-First Access.
 Review package updated 2 October 2026. **Overall blocked; do not submit ONDI.**
@@ -16,7 +21,7 @@ Deadline: 12 October 2026, 11:59 p.m. West Africa Time.
 
 | Item | Status | Review artefact and evidence | Exact remaining action |
 |---|---|---|---|
-| 01 Working Artefact | blocked | [Setup](01-artefact/README.md), [public source](https://github.com/thepopeblack-byte/pauseam), [public app](https://pauseam.thepopeblack.chatgpt.site), [production checks](evidence/production-review.json) | Public UI/text release verified; complete genuine four-language PS2 voice flows |
+| 01 Working Artefact | blocked | [Setup](01-artefact/README.md), [public source](https://github.com/thepopeblack-byte/pauseam), [public app](https://pauseam.theblockcapitol.com), [English pilot checks](evidence/english-pilot-2026-10-02.json) | Apply the smaller VM stack, verify the complete English corrected-transcript journey and representative device testing; other languages are deferred |
 | 02 Integration Evidence | blocked | [Source](02-integration/integration-evidence.md), [access register](02-integration/access-and-models.md), [review PDF](../output/pdf/02-natlas-integration.pdf) | Actual model traces/screenshots; organiser service answer; official API proof if claimed; fine-tuning evidence if claimed |
 | 03 Real-World Validation | blocked | [Protocol](03-validation/discovery-pack.md), [report](03-validation/validation-report.md), [empty log schema](03-validation/interactions-template.csv), [review PDF](../output/pdf/03-validation-status.pdf) | Discovery, fluent reviews and at least 50 completed documented PS2 interactions; reconcile counts |
 | 04 Technical Documentation | blocked | [Source](04-technical/technical-documentation.md), [hosting](04-technical/model-hosting.md), [review PDF](../output/pdf/04-technical-documentation.pdf) | Reproduce actual model deployment and update measured results, costs and limitations |
@@ -28,6 +33,8 @@ The five PDFs are genuine status/review documents, not substitutes for missing
 integration, validation or identity evidence. There is no demonstration MP4.
 200+ willing prospective testers have been reported; documented PS2 interactions
 are **0**, as reconciled in [actual totals](evidence/validation-totals.json).
+
+## Historical evidence (earlier builds; not current capability claims)
 
 Real text loading passed on the team-operated HTTPS host. The first actual
 guidance request failed its strict contract and was withheld. See the
