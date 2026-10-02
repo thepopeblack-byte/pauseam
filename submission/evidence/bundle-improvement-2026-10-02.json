@@ -1,0 +1,14 @@
+{
+  "checkedDateWAT": "2026-10-02",
+  "baselineAppCommit": "45a9f255d7b2dd9c3b39d4ad1a88034c35002baf",
+  "method": "Production build file lengths; Python gzip.compress for gzip comparison. Not transferred network bytes or field Web Vitals.",
+  "css": {"beforeBytes": 129019, "afterBytes": 15924, "afterGzipBytes": 4396},
+  "sharedVoiceConsentChunk": {"beforeBytes": 55055, "afterBytes": 12041, "beforeGzipBytes": 19078, "afterGzipBytes": 5245},
+  "change": "Keep CSS preflight and product styles; remove unused utility/animation/library CSS generation. Use native consent checkboxes instead of Radix runtime.",
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "localBrowserChecks": ["Supplier-change checklist with source provenance", "Audio consent checked then unchecked without recording or upload", "Immediate after-payment bank advice"],
+  "pagePerformance": "Production Web Vitals retest pending; previous LCP failure remains recorded.",
+  "modelInferences": 0,
+  "participantInteractions": 0
+}

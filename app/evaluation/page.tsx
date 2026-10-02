@@ -1,7 +1,7 @@
 "use client";
 import {useEffect,useState} from "react";
 import {ShieldCheck,Download,Trash2} from "lucide-react";
-import {Checkbox} from "@/components/ui/checkbox";
+import {Checkbox} from "@/components/consent-checkbox";
 import {VoiceInput} from "@/components/voice-input";
 import {readTrials,clearTrials,summary,languageSummary,type Trial} from "@/lib/evaluation";
 import {MODEL,MODEL_URL,REVISION,TEST_PROMPTS,KB_VERSION} from "@/lib/safety";

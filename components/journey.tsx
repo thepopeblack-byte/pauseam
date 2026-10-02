@@ -1,7 +1,7 @@
 "use client";
 import {useEffect,useState,useRef} from "react";
 import {ArrowRight,Volume2} from "lucide-react";
-import {Checkbox} from "@/components/ui/checkbox";
+import {Checkbox} from "@/components/consent-checkbox";
 import {Incident} from "@/components/incident";
 import {ShareChecklist} from "@/components/share-checklist";
 import {LANGUAGES,type Language} from "@/lib/models";

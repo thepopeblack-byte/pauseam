@@ -1,7 +1,7 @@
 "use client";
 import {useEffect,useRef,useState} from "react";
 import {Mic,Square,Trash2} from "lucide-react";
-import {Checkbox} from "@/components/ui/checkbox";
+import {Checkbox} from "@/components/consent-checkbox";
 import {toWav} from "@/lib/audio";
 import {MODEL,MODEL_URL,REVISION,wordErrors} from "@/lib/safety";
 import {LANGUAGES,type Language} from "@/lib/models";
