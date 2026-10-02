@@ -1,0 +1,23 @@
+{
+  "recordedAt": "2026-10-02T05:20:11.455887+00:00",
+  "kind": "Engineering package checks, not model inference or participant validation",
+  "sourceCommit": "cc6bb38384e7dcc8d7853a5eb471bb16dd93d47c",
+  "ciRun": 36967883845,
+  "ciUrl": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36967883845",
+  "ciConclusion": "success",
+  "combinedContainerBuilt": true,
+  "offlineImportsPassed": true,
+  "packageFileHashesMatched": true,
+  "localArchiveSha256": "64894fad8d07993b529a0f0bf3ff84b1f52a368ceb75d9b4b3861719f0e96f57",
+  "ciArchiveSha256": "673ccfb8324235a0c6394f4be58e497a4610472df24142bf151c6d4d5f75ab49",
+  "archiveNote": "Container verification used the same five file hashes; ZIP metadata differs between Windows and Linux.",
+  "nodeTestsPassed": 39,
+  "pythonModelAudioTestsPassed": 18,
+  "gatewayTransportFixtureTestsPassed": 8,
+  "typecheckPassed": true,
+  "spaceCreated": false,
+  "paidHardwareStarted": false,
+  "inferencePerformed": false,
+  "participantInteractions": 0,
+  "productionQuotaCredentialConfigured": false
+}

@@ -1,0 +1,21 @@
+{
+  "recordedAt": "2026-10-02T05:20:11.455887+00:00",
+  "documents": [
+    {
+      "path": "output/pdf/02-natlas-integration.pdf",
+      "pages": 4,
+      "sha256": "6c5f81354f2d5ca577dd4d78784f4cd9583710d7470d98fc67cd975a18a57995",
+      "renderedWith": "Poppler 80 dpi",
+      "visualReview": "All four pages per document reviewed in rendered contact sheets; no clipping or overlaps observed.",
+      "submissionEvidenceComplete": false
+    },
+    {
+      "path": "output/pdf/04-technical-documentation.pdf",
+      "pages": 4,
+      "sha256": "b942915511c2c3205d486753484e3eacaf2892bf9ef1bf226fbc49f8a0044dc9",
+      "renderedWith": "Poppler 80 dpi",
+      "visualReview": "All four pages per document reviewed in rendered contact sheets; no clipping or overlaps observed.",
+      "submissionEvidenceComplete": false
+    }
+  ]
+}
