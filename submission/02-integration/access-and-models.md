@@ -1,10 +1,14 @@
 # PauseAm — model access findings
 
-Checked 1 October 2026. No successful inference requests have been recorded.
+Checked 1 October 2026; deployment findings updated 2 October. No successful
+guidance response has yet passed the output contract.
 Public model cards and file metadata were read. Gated configuration/weight files
 could not be read: a direct official Yoruba config request returned HTTP 401.
-No Hugging Face token or cached login is present in this workspace. File-list
-inspection is not weight inspection and is not proof of model integration.
+At the initial inspection no Hugging Face token was available. A later private
+token was tested on 2 October; each ASR configuration request returned HTTP 403,
+with the provider reporting GatedRepo access restrictions. See
+../evidence/asr-authenticated-access-2026-10-02.json. File-list inspection is not
+weight inspection and is not proof of model integration.
 
 ## Official repositories and pinned versions
 
@@ -45,7 +49,8 @@ lib/official-api.ts always fails closed until a documented contract is available
 - Yoruba ASR: adapter implemented; live result and fluent review unverified.
 - Hausa ASR: adapter implemented; live result and fluent review unverified.
 - Igbo ASR: adapter implemented; live result and fluent review unverified.
-- Text N-ATLaS: constrained card-selection adapter and service implemented; inference unverified.
+- Text N-ATLaS: real pinned weights loaded on the team host; first actual inference
+  failed the strict contract after 30,453 ms. Guidance was withheld. Fix and retest pending.
 - Official API: no successful request; do not check this capability.
 - Fine-tuning: not performed; do not check this capability.
 - End-to-end four-language guidance: blocked; English interface/source wording only.
@@ -56,7 +61,9 @@ Windows host: 8 logical processors; approximately 31.8 GiB RAM, 7.9 GiB free at
 inspection; NVIDIA Quadro P520 with 4,096 MiB VRAM. Docker CLI is installed but its
 Linux engine was not running. Node dependencies are installed. The bundled Python,
 GitHub CLI, FFmpeg and Poppler are available. GitHub CLI identifies thepopeblack-byte.
-No paid compute has been provisioned or purchased.
+A paid Google Cloud SecretVM was subsequently provisioned on 2 October: eight
+vCPUs, 32 GB RAM, 160 GB disk, $0.52/hour running and $0.052/hour stopped.
+Its HTTPS certificate was verified. It is a team host, not the official N-ATLaS API.
 
 Four ASR models may be run on separate small hosts or sequentially on suitable
 compute after measurement. The text model needs substantially more memory than
@@ -79,5 +86,8 @@ No model is renamed by PauseAm. Keep model attribution with all public use.
 Before enabling public inference, implement and verify cross-host rolling user
 accounting or restrict the pilot to a tracked roster below the cap. A browser
 cookie is not reliable person counting. Rate limits alone do not enforce this cap.
+The implemented persistent shared quota allows at most 950 inference reservations
+per rolling 30 days, counting failures and recording timestamps only. All five
+services must share the same database; never reset or fork it to bypass the ceiling.
 Current public inference remains disabled; the proposed pilot pool is 200+,
 not an approved unlimited model audience.

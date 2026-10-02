@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-10-02T02:52:40.493133+00:00",
+  "kind": "anonymous official file-access probes; not inference",
+  "results": [
+    {
+      "language": "en",
+      "model": "NCAIR1/NigerianAccentedEnglish",
+      "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+      "file": "config.json",
+      "anonymousStatus": 401,
+      "authenticatedAccessTested": false
+    },
+    {
+      "language": "yo",
+      "model": "NCAIR1/Yoruba-ASR",
+      "revision": "d1ae7b8b79c2ccd547d8761effe5057433f3fc7f",
+      "file": "config.json",
+      "anonymousStatus": 401,
+      "authenticatedAccessTested": false
+    },
+    {
+      "language": "ha",
+      "model": "NCAIR1/Hausa-ASR",
+      "revision": "e635b9eda29060c6114c8f4d8b2d903f5c83a44a",
+      "file": "config.json",
+      "anonymousStatus": 401,
+      "authenticatedAccessTested": false
+    },
+    {
+      "language": "ig",
+      "model": "NCAIR1/Igbo-ASR",
+      "revision": "180732299d5cba3dc8b289260ac84b7838bb3954",
+      "file": "config.json",
+      "anonymousStatus": 401,
+      "authenticatedAccessTested": false
+    }
+  ]
+}

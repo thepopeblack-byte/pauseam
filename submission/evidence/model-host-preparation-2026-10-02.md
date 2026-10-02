@@ -37,3 +37,25 @@ credentials. Torch 2.6.0+cpu, Transformers 4.49.0 and cudaAvailable=false were
 reported by the running containers. Exact resolved dependencies and JSON output
 are in model-container-runtime-2026-10-02. Both records explicitly report
 inferencePerformed=false. This check is not weight-loading or ASR evidence.
+
+## Actual provisioning and initial inference
+
+The text-only VM subsequently launched on 2 October at 03:24:11 WAT. It became
+Running at 03:28:41 WAT. Eight vCPUs, 32 GB RAM and 160 GB persistent disk were
+verified in the provider UI. Runtime information remains private. No unrelated VM
+was modified. Running cost is $0.52/hour; stopped retention costs $0.052/hour.
+
+CA-issued HTTPS was verified at copper-squirrel.vm.scrtlabs.com. Authenticated
+/text/health returned ready=true, the exact official text revision,
+weightsProvenance=bucket-bytes-verified-against-official-revision, and torch.bfloat16.
+The loader verifies all 12 required file hashes before readiness. The first actual
+/text/guide request returned HTTP 422 after 30,453 ms because generated output
+did not satisfy the selection contract. No guidance was rendered. The engineering
+question is synthetic; the response and measured latency are real. See
+text-inference-first-attempt-2026-10-02.json.
+
+The supplied public bucket contains text-model files only; no usable four-language
+ASR copies were located there. ASR file access, official API use and organiser
+acceptance of self-hosted ASR remain unverified. A strict fenced-JSON parser passed
+four additional contract tests; the updated image is being applied and needs a
+real inference retest. Public text inference remains disabled at this checkpoint.

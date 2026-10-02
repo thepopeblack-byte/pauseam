@@ -1,15 +1,15 @@
 # Judging evidence matrix — PauseAm
 
-Checked 1 October 2026. No application submitted.
+Updated 2 October 2026. No application submitted.
 
 | Criterion | Existing evidence | Gap / next action |
 |---|---|---|
 | Working Artefact & Technical Rigour | App, source adapters, privacy guards, unit/audio/HTTP checks, setup docs | Public deployment, anonymous HTTP and fresh-clone install/build verified; physical mobile/assistive and live voice remain blocked |
-| N-ATLaS Integration | Pinned official IDs, actual repository metadata, code, strict contracts | Approved access, real hosts/traces, organiser ASR ruling, official API contract; fine-tuning not performed |
+| N-ATLaS Integration | Pinned official IDs, verified text weights loaded on real HTTPS host, first actual failed trace, 16 Python contract/audio/integrity/quota checks | Recover provider update; valid text selection; four ASR repositories return authenticated 403; organiser ASR ruling and official API contract pending; fine-tuning not performed |
 | Real-World Validation | Consent, discovery pack, empty log schema, aggregation tool and predeclared criteria | Run discovery and at least 50 real documented PS2 interactions |
 | Impact Potential | Clearly scoped payment-decision hypothesis | Observe demand, comprehension and return use; future impact remains a projection |
-| Scalability & Sustainability | Explicit hosting split, source-review plan, licence route | Actual host quote/load/cost, shared rate limits, rolling user accounting and support ownership |
-| Team Capability | Kayode's user-supplied background; Suleiman as technical lead | Full second-member bio, member confirmation, eligibility and final ownership agreement |
+| Scalability & Sustainability | Actual 32 GB CPU host at $0.52/hour, shared persistent 950-reservation ceiling, source-review plan, licence route | Measured successful throughput/cost, distributed abuse controls, content review and support ownership |
+| Team Capability | Kayode's user-supplied background; Suleiman as Technical lead | Confirm provided facts, eligibility and final ownership agreement; do not invent further details |
 
 ## Proposed delivery schedule, not a guarantee
 1–2 October: access clarification, discovery, fluent reviewer onboarding.

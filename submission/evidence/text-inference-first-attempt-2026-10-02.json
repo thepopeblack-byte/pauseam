@@ -1,0 +1,110 @@
+{
+  "recordedAt": "2026-10-02T02:40:40.245503+00:00",
+  "kind": "synthetic engineering check; actual model response; not participant validation",
+  "tlsCertificateVerified": true,
+  "requests": [
+    {
+      "path": "/health",
+      "status": 200,
+      "elapsedMs": 1015,
+      "response": {
+        "ready": true,
+        "model": "NCAIR1/N-ATLaS",
+        "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+        "weightsProvenance": "bucket-bytes-verified-against-official-revision",
+        "dtype": "torch.bfloat16"
+      }
+    },
+    {
+      "path": "/guide",
+      "status": 422,
+      "elapsedMs": 30453,
+      "response": {
+        "detail": "Model output failed the constrained contract"
+      },
+      "request": {
+        "question": "A supplier has emailed new bank details and wants payment today. What should I check?",
+        "journey": "before",
+        "language": "en",
+        "cards": [
+          {
+            "id": "supplier",
+            "title": "Verify changed supplier details independently",
+            "steps": [
+              "Pause this payment.",
+              "Call your supplier using a contact established before this request. Confirm the change separately.",
+              "If you cannot confirm the request independently, keep the payment on hold."
+            ]
+          },
+          {
+            "id": "school",
+            "title": "Check fee instructions with the school",
+            "steps": [
+              "Pause payment on instructions received in a forwarded message.",
+              "Reach the school through its independently located official office or portal.",
+              "Confirm the payment process there before taking the next step."
+            ]
+          },
+          {
+            "id": "receipt",
+            "title": "A receipt image cannot prove payment",
+            "steps": [
+              "Pause handing over goods based only on a message or receipt image.",
+              "Check your own bank's official service independently for the transaction.",
+              "Ask your bank about any uncertainty before relying on the claimed payment."
+            ]
+          },
+          {
+            "id": "impersonation",
+            "title": "Pause and verify the request",
+            "steps": [
+              "Do not open a suspicious link or disclose banking secrets.",
+              "Contact the organisation independently to check who is asking. Pressure to act is a reason to pause."
+            ]
+          },
+          {
+            "id": "shopping",
+            "title": "Check the seller before paying",
+            "steps": [
+              "Check independent reviews and the sellerâ€™s credibility.",
+              "An unusually attractive deal can be a warning. A secure-looking website alone does not verify a seller."
+            ]
+          },
+          {
+            "id": "investment",
+            "title": "Be cautious about promised returns",
+            "steps": [
+              "Promises of quick profits with little risk are warning signs.",
+              "Research independently and seek qualified advice before committing money."
+            ]
+          },
+          {
+            "id": "report",
+            "title": "Contact your bank immediately",
+            "steps": [
+              "Contact your bank through a trusted official channel now. Ask it to secure the affected account and investigate the transaction.",
+              "If access was compromised, change passwords through the official service and enable two-factor authentication.",
+              "Report suspected fraud to the relevant authorities. Recovery is not guaranteed."
+            ]
+          },
+          {
+            "id": "secrets",
+            "title": "Your secrets are yours to protect",
+            "steps": [
+              "Keep your PIN, passwords and banking codes private.",
+              "Report suspected fraud or compromised banking information promptly to your bank. Do not enter those details in this app."
+            ]
+          },
+          {
+            "id": "complaint",
+            "title": "Keep a record of your complaint",
+            "steps": [
+              "Lodge your complaint with your bank first and ask for a tracking reference.",
+              "If it remains unresolved, use the CBN complaint guidance to check the applicable escalation process. Do not wait to report suspected fraud."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

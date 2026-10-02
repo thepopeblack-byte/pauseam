@@ -1,7 +1,7 @@
 # 04 — Technical documentation
 
 PauseAm — Ask before you pay.
-Innovation & Enterprise / PS2. Review build, 1 October 2026.
+Innovation & Enterprise / PS2. Review build, 2 October 2026.
 
 ## Implemented behaviour and limits
 A no-account mobile interface offers before-payment, after-payment and learning
@@ -15,8 +15,9 @@ event categories and times in page memory. Downloads and sharing exclude questio
 transcripts and credentials. The learning interaction explains a code-sharing trap.
 User usefulness has not yet been demonstrated.
 
-Four official ASR routes and an N-ATLaS text adapter exist. Live inference, four-language
-comprehension and fluent review are unverified. Current interface and source wording
+Four official ASR routes and an N-ATLaS text adapter exist. The real text weights loaded
+successfully; the first inference failed the output contract and was withheld.
+Four-language comprehension and fluent review are unverified. Current interface and source wording
 are English. No official API success, fine-tuning, receipt authentication or screenshot
 redaction is claimed.
 
@@ -34,7 +35,8 @@ public guidance only.
 ASR follows the official Transformers pipeline. Current weight files are
 pytorch_model.bin, so the service uses torch 2.6 weights-only loading with remote
 code disabled. Text uses official Safetensors and the documented chat-template path.
-Authenticated loading of these weights still requires verification.
+The text host authenticated health response confirms the pinned revision, verified
+bucket provenance and bfloat16 load. ASR weight loading remains blocked on file access.
 
 ## Setup and reproducibility
 Use Node >=22.13 and Python 3.11 for inference. Clone the public repository.
@@ -44,10 +46,15 @@ npm run build, and npm run test:http against the running server.
 For production preview run npm run start after building.
 
 The JavaScript lockfile is committed. New npm install-script policy allows only six pinned esbuild, workerd and unrs-resolver build dependencies; no blanket script permission is enabled. Temporary verification clones are excluded from TypeScript scanning. The Windows npm.cmd shim may need the installed
-npm-cli.js invoked through node. Python direct dependencies are pinned; transitive
-Python resolution is not yet fully frozen. Docker base images and build actions are
-pinned to digests/commits; actual model-service image digests are recorded by CI.
-A fresh authenticated weight load and inference are needed before claiming model deployment.
+npm-cli.js invoked through node. Python direct dependencies are pinned.
+Docker base images and build actions are pinned to digests/commits. Actual model
+images, offline import checks and resolved dependency snapshots are recorded in
+submission/evidence/model-container-build-2026-10-02.json and
+submission/evidence/model-container-runtime-2026-10-02. Use the actual image
+digests for the reproducible pilot; source rebuilds must reconcile their resolved
+dependencies. Actual text loading and the first failed inference are recorded in
+submission/evidence/text-inference-first-attempt-2026-10-02.json. This is a synthetic
+engineering input and a genuine model response, not a participant interaction.
 
 Keep tokens in server-side host secret settings. Never put them in a NEXT_PUBLIC
 variable, source, screenshot or chat. Use .env.example for key names and safe defaults.
@@ -151,18 +158,26 @@ No dataset, run or improvement has been fabricated.
 
 ## Sustainability and licence
 Local GPU: Quadro P520, 4 GiB. It is not evidence of an 8B training run.
-Hosting quotes and load measurements are pending. Calculate costs from measured
+The inspected Google Cloud SecretVM quote is $0.52/hour for eight vCPUs, 32 GB RAM
+and 160 GB storage, or $0.052/hour while stopped. A Production pilot was launched
+on 2 October. Authenticated loading passed; the first actual guidance request
+failed its contract in 30,453 ms. A later image update reported a provider error;
+recovery and successful guidance remain pending. Throughput and costs per
+successful interaction remain unmeasured. Calculate costs from measured
 host-hours, actual dated rates, egress, storage, monitoring, content review and
 support; disclose assumptions and currency. No unverified price is a cost result.
 
 Model terms cap use at 1,000 active end users per rolling 30 days. Obtain separate
 Awarri/FMCIDE licensing before exceeding it. Restrict the pilot and verify cross-host
-user accounting before public inference. A cookie is not reliable person counting.
+user accounting before public inference. The prepared deployment uses one shared
+SQLite quota of 950 inference reservations per rolling 30 days, including failures.
+This is deliberately stricter than active-person accounting. Never reset or fork
+the database to bypass the cap. A cookie is not reliable person counting.
 Required model attribution is in the app and integration register. Public source
 availability does not grant rights to third-party model weights.
 
 ## Remaining release gates
-Actual model credentials/hosts and traces, official service/API clarification,
+Four ASR weight loads, successful guidance traces, official service/API clarification,
 fluent review, human safety review, 50 documented interactions, representative
-mobile/assistive testing, real video, full second-member details and private ID/CAC
+mobile/assistive testing, real video, review of the provided team facts and private ID/CAC
 are pending. ONDI pages 1–2 were inspected and local drafts fit verified limits; Programme Fit and remaining constraints are pending. Section navigation auto-saved the pre-existing draft without field edits. The session subsequently returned to sign-in. Nothing has been submitted.

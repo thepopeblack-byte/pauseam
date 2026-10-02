@@ -1,7 +1,7 @@
 # PauseAm submission manifest
 
 Ask before you pay. Innovation & Enterprise / PS2: Voice-First Access.
-Review package dated 1 October 2026. **Overall blocked; do not submit ONDI.**
+Review package updated 2 October 2026. **Overall blocked; do not submit ONDI.**
 Deadline: 12 October 2026, 11:59 p.m. West Africa Time.
 
 | Item | Status | Review artefact and evidence | Exact remaining action |
@@ -18,6 +18,13 @@ The five PDFs are genuine status/review documents, not substitutes for missing
 integration, validation or identity evidence. There is no demonstration MP4.
 200+ willing prospective testers have been reported; documented PS2 interactions
 are **0**, as reconciled in [actual totals](evidence/validation-totals.json).
+
+Real text loading passed on the team-operated HTTPS host. The first actual
+guidance request failed its strict contract and was withheld. See the
+[genuine first trace](evidence/text-inference-first-attempt-2026-10-02.json),
+[image update](evidence/model-container-update-2026-10-02.json) and
+[authenticated ASR access failures](evidence/asr-authenticated-access-2026-10-02.json).
+No completed voice journey or official API request is inferred from this evidence.
 
 See the [full release gate](RELEASE-GATE.md), [six-criteria matrix](evidence-matrix.md),
 [ONDI drafts](portal-and-form-drafts.md), [engineering review](evidence/engineering-review.md)

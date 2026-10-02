@@ -1,5 +1,6 @@
 
 from pathlib import Path
+import argparse
 import re
 from xml.sax.saxutils import escape
 from reportlab.platypus import SimpleDocTemplate,Paragraph
@@ -8,6 +9,10 @@ from reportlab.lib.colors import HexColor
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 ROOT=Path(__file__).resolve().parents[1]
+parser=argparse.ArgumentParser()
+parser.add_argument("--only", choices=["02","03","04","06","07"])
+parser.add_argument("--date", default="2 October 2026")
+args=parser.parse_args()
 OUT=ROOT/"output/pdf";OUT.mkdir(parents=True,exist_ok=True)
 fonts=[(Path("C:/Windows/Fonts/segoeui.ttf"),Path("C:/Windows/Fonts/segoeuib.ttf")),
        (Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"),Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))]
@@ -23,7 +28,7 @@ styles.add(ParagraphStyle(name="HeadPA",fontName="SegoeBold",fontSize=14,leading
 def page(c,doc):
  c.setStrokeColor(HexColor("#c5d3d8"));c.line(46,795,549,795)
  c.setFont("SegoeBold",9);c.setFillColor(HexColor("#075d51"));c.drawString(46,808,"PauseAm  /  Ask before you pay.")
- c.setFont("Segoe",8);c.setFillColor(HexColor("#49636e"));c.drawString(46,30,"NAIC 2026 · Review copy · Not submitted · 1 October 2026");c.drawRightString(549,30,str(doc.page))
+ c.setFont("Segoe",8);c.setFillColor(HexColor("#49636e"));c.drawString(46,30,"NAIC 2026 · Review copy · Not submitted · "+args.date);c.drawRightString(549,30,str(doc.page))
 def inline(s):
  s=escape(s)
  s=re.sub(r"(https://[^\s]+)",lambda m:'<link href="'+m[0]+'" color="#075d51">'+m[0]+"</link>",s)
@@ -36,6 +41,7 @@ jobs=[
 ("submission/06-team/team-profile.md","06-team-profile-review.pdf",[]),
 ("submission/07-registration/private-checklist.md","07-registration-checklist.pdf",[])]
 for src,name,extras in jobs:
+ if args.only and not name.startswith(args.only+"-"):continue
  story=[]
  for path in [src]+extras:
   text=re.sub(r"(?m)^(#{1,3} .+)$",r"\n\1\n",(ROOT/path).read_text(encoding="utf-8"))

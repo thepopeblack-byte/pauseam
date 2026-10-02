@@ -1,0 +1,9 @@
+{
+  "commit": "cd319628f012e6528cc48a14b9a46de727842dc6",
+  "buildRun": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36956992856",
+  "textImage": "ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:e69db85f60715969661718b8e7a53bda02995463bcacd003ba6ce51bd9ac0e8a",
+  "anonymousManifestStatus": 200,
+  "registryDigestVerified": true,
+  "pythonTestsPassed": 16,
+  "updatedHostInferencePassed": false
+}

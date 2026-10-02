@@ -8,7 +8,7 @@ As of 1 October 2026. Overall: BLOCKED. Do not submit ONDI.
 | PauseAm branding and three implemented journeys | passed | app/page.tsx; components/journey.tsx; components/incident.tsx | Discovery may revise priorities |
 | Text and source safety boundary | passed | tests/core.test.ts; lib/safety.ts | Human safety review still needed |
 | Live four-language ASR | blocked | 02-integration/access-and-models.md | Configure approved hosts; run consented real speech in each language |
-| N-ATLaS text inference | blocked | text_service/app.py; lib/text-model.ts | Load gated weights and record actual constrained responses |
+| N-ATLaS text inference | failed | evidence/text-inference-first-attempt-2026-10-02.json | Genuine loading passed; first output failed contract. Recover updated host and obtain valid constrained responses before enabling |
 | Official ASR service qualification | blocked | organiser-query.md | Obtain organiser answer |
 | Official API capability | blocked | lib/official-api.ts | Obtain official contract/access and demonstrate real requests |
 | Fine-tuning capability | blocked | 04-technical/technical-documentation.md | Reviewed dataset, suitable compute, actual run and base comparison |
@@ -34,3 +34,14 @@ Twelve Python audio, integrity and quota unit tests passed. The prepared VM uses
 a persistent shared 950-reservation rolling quota and a single CA-issued HTTPS
 gateway. At this checkpoint, private credential entry and VM launch are pending;
 no successful inference or completed participant interaction is claimed.
+
+## Actual host update — 2 October 2026 WAT
+
+The real text model subsequently loaded on the paid 32 GB SecretVM. Verified HTTPS
+and authenticated health returned its exact revision and verified bucket provenance.
+The first synthetic engineering question received an actual HTTP 422 in 30,453 ms,
+so guidance was withheld. The strict fenced-JSON parser passed four new contract
+checks (16 Python tests total) and its image built successfully in run 36956992856.
+The provider reported an update error; recovery was initiated. Do not equate these
+checks with a working public model journey. All four official ASR file probes still
+returned HTTP 401 without credentials; private approved access remains necessary.

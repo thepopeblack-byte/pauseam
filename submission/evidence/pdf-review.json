@@ -4,7 +4,7 @@
     {
       "path": "output/pdf/02-natlas-integration.pdf",
       "pages": 3,
-      "sha256": "d950d65dee0f0ea0d0ec3925a20ee7060ed18e126a0fe37bbcd50f33f5f7ceb3",
+      "sha256": "c2795f025f0e373c142bdabcb86e991724e987a3e75a00b8b033b9ac095dc705",
       "textReadable": true
     },
     {
@@ -15,8 +15,8 @@
     },
     {
       "path": "output/pdf/04-technical-documentation.pdf",
-      "pages": 3,
-      "sha256": "f9a85d92b0f081d93e83b5d89c96f555eb9458b609bfe2d9328c37c70d56a828",
+      "pages": 4,
+      "sha256": "a315c064f2fc7f77a3b82886628b56deed6ec0a1a3f0a9ecab007cdaae78075d",
       "textReadable": true
     },
     {
@@ -31,5 +31,6 @@
       "sha256": "a9e19762b3141775284974edbdaf1c31a5938dddf687bd42bfe28a8dd272bdf8",
       "textReadable": true
     }
-  ]
+  ],
+  "updatedDocumentsReview": "2 October: integration and technical PDFs rendered and all seven pages read; clear text and no clipping. Other three PDFs unchanged from previous review."
 }
