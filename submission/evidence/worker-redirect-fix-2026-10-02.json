@@ -29,5 +29,133 @@
   },
   "speechRecognitionValidated": false,
   "textInferencePassed": false,
-  "participantRecordsCreated": 0
+  "participantRecordsCreated": 0,
+  "deployment": {
+    "versionNumber": 11,
+    "sourceCommit": "02f4ba4934c874624730fca840717c759bd3d651",
+    "deploymentId": "appgdep_6abf878af1e081919c245dea69d2757e",
+    "status": "succeeded",
+    "environmentRevision": 2
+  },
+  "baseline": {
+    "recordedAt": "2026-10-02T10:30:25.806Z",
+    "origin": "https://pauseam.theblockcapitol.com",
+    "kind": "Engineering checks, not user validation",
+    "checks": [
+      {
+        "name": "Pinned targets and private status response",
+        "status": 200,
+        "elapsedMs": 3714,
+        "passed": true
+      },
+      {
+        "name": "Unauthenticated licence reservation fails closed",
+        "status": 503,
+        "elapsedMs": 386,
+        "passed": true
+      },
+      {
+        "name": "Page /",
+        "status": 200,
+        "elapsedMs": 754,
+        "passed": true
+      },
+      {
+        "name": "Page /about",
+        "status": 200,
+        "elapsedMs": 414,
+        "passed": true
+      },
+      {
+        "name": "Page /evaluation",
+        "status": 200,
+        "elapsedMs": 377,
+        "passed": true
+      },
+      {
+        "name": "Supplier-change guidance has expected source and steps",
+        "status": 200,
+        "elapsedMs": 266,
+        "passed": true,
+        "engine": "Source-checked keyword retrieval (no generative answer model)",
+        "model": null
+      },
+      {
+        "name": "Immediate bank-contact checklist bypasses inference",
+        "status": 200,
+        "elapsedMs": 307,
+        "passed": true
+      },
+      {
+        "name": "Learning guidance remains source-grounded",
+        "status": 200,
+        "elapsedMs": 410,
+        "passed": true
+      },
+      {
+        "name": "Private-detail rejection",
+        "status": 422,
+        "elapsedMs": 261,
+        "passed": true
+      },
+      {
+        "name": "Unrelated origin rejected",
+        "status": 403,
+        "elapsedMs": 361,
+        "passed": true
+      },
+      {
+        "name": "Oversized input rejected",
+        "status": 400,
+        "elapsedMs": 484,
+        "passed": true
+      },
+      {
+        "name": "Audio consent required",
+        "status": 400,
+        "elapsedMs": 372,
+        "passed": true
+      },
+      {
+        "name": "Unsupported audio rejected",
+        "status": 415,
+        "elapsedMs": 334,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured yo guidance fails safely",
+        "status": 503,
+        "elapsedMs": 359,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ha guidance fails safely",
+        "status": 503,
+        "elapsedMs": 370,
+        "passed": true
+      },
+      {
+        "name": "Unconfigured ig guidance fails safely",
+        "status": 503,
+        "elapsedMs": 338,
+        "passed": true
+      }
+    ],
+    "models": {
+      "configured": false,
+      "textInferencePassed": false,
+      "speech": [],
+      "fourLanguageJourneyPassed": false
+    },
+    "transcriptsStored": false,
+    "participantRecordsCreated": 0,
+    "baselinePassed": true,
+    "modelReleaseGatePassed": false,
+    "remaining": [
+      "Fluent critical wording review",
+      "Observed transcript correction and comprehension",
+      "Representative mobile/network testing",
+      "Genuine participant validation"
+    ]
+  }
 }
