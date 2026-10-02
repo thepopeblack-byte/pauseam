@@ -5,6 +5,14 @@
 English voice and text; other languages are paused at the owner's request.
 Evidence files retain their original historical outcomes.
 
+Free-form voice update: website version 20 is deployed; 58 application and 31
+Python regression tests passed. Amount/date redaction is built in ASR image
+02ffaaf9..., but its live privacy policy is not yet verified because the VM
+startup is missing TEXT_SERVICE_TOKEN after its configuration update. Restore
+the private encrypted environment and retest unscripted speech before a tester
+release. See evidence/freeform-voice-fix-2026-10-03.json. Earlier successful
+engineering/owner checks below remain historical and do not cover this defect.
+
 | Requirement | Status | Evidence | Exact remaining action |
 |---|---|---|---|
 | Public repository, Sites and custom domain | passed | https://github.com/thepopeblack-byte/pauseam; https://pauseam.theblockcapitol.com; evidence/english-pretest-release-2026-10-02.json | Version 19 native navigation verified; repeat final candidate after model enablement |

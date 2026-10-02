@@ -62,7 +62,7 @@ Sites. Save/apply the update and close the panel; never paste the contents in
 chat. Missing credentials must not be worked around by disabling authentication.
 
 ```
-python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b --output deployment/secretvm/english-complete-compose.yml
+python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:02ffaaf976274ae1d65fc13b4fc62a4ac6b2f161f6c0bc331613e698ce650f1d --output deployment/secretvm/english-complete-compose.yml
 node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://amaranth-nightingale.vm.scrtlabs.com --scope english-complete --mode inference --output private/secretvm/english-complete-check.json
 ```
 
@@ -78,6 +78,16 @@ node --experimental-strip-types --env-file=private/secretvm/deployment.env scrip
 ```
 
 ## Rollback and operating limit
+
+The free-form speech fix uses ASR image `02ffaaf9...` above. Once active,
+authenticated `/asr/en/health` must report `privacyPolicy: numbers-redacted-v1`.
+Ordinary amounts/dates are hidden in transcripts instead of causing a blanket
+rejection. Explicit secret disclosures still fail closed. Saved Compose and HTTP
+200 alone do not prove that the new code is active. If an edit loses encrypted
+environment entries, restore the complete existing private environment through
+Encrypted Secrets → Text yourself; preserve tokens, Compose and volumes. Do not
+assume the Form view retains hidden values. Test genuine unscripted speech after
+policy readiness, and count only actual consented observed research sessions.
 
 If conversion, latency or correctness fails, set Sites `TEXT_ENABLED=false`
 before reverting to `english-pilot-compose.yml`. Preserve all persistent

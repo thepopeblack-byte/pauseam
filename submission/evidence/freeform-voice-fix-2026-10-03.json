@@ -1,0 +1,13 @@
+{
+  "kind": "Code regression and actual deployment checks, not participant validation",
+  "reportedProblem": "Owner's recording shorter than fifteen seconds containing an amount or date failed after Transcribe; the sample recording worked",
+  "observedWorkerFailure": {"at": "2026-10-02T22:54:14.184Z", "path": "/api/asr", "status": 503, "wallTimeMs": 8608, "requestBodyInspected": false},
+  "codeFindings": ["ASR discarded every transcript containing digits", "The Worker collapsed upstream 422 privacy/audio failures into generic 503 unavailability"],
+  "fix": ["Redact digits, spoken numbers and email addresses before returning a transcript", "Explicit credential disclosures still discard the transcript", "Keep exact model/revision checks and reject any numeric output that escaped redaction", "Map privacy, silent/invalid audio, capacity and timeout failures to distinct safe messages", "Label recording as Your own words and disclose redaction during transcript review"],
+  "tests": {"applicationPassed":58,"pythonPassed":31,"typecheckPassed":true,"lintPassed":true,"buildPassed":true,"syntheticFixtureOnly":true,"actualVoiceAccuracyMeasured":false},
+  "modelContainer": {"sourceCommit":"138c776c96205e233f4a2da76496a09391280db3","image":"ghcr.io/thepopeblack-byte/pauseam-asr@sha256:02ffaaf976274ae1d65fc13b4fc62a4ac6b2f161f6c0bc331613e698ce650f1d","ci":"https://github.com/thepopeblack-byte/pauseam/actions/runs/37075953781","ciPassed":true,"savedOnExistingVm":true,"newPrivacyPolicyLiveVerified":false},
+  "website": {"version":20,"sourceCommit":"0400591d0c4de65af4c5253e021533d822014663","deployment":"appgdep_6ac03bf22c8481919423b1300f5b9184","status":"succeeded","updatedAt":"2026-10-02T23:19:30.438880+00:00","environmentRevision":4},
+  "liveSilentFixture": {"kind":"Canonical silent WAV, no human voice or fabricated transcript","status":422,"correctAudioErrorReturned":true,"transcriptReturned":false},
+  "pendingDeploymentBlocker": "After the VM update and existing-VM restart, startup reports required variable TEXT_SERVICE_TOKEN is missing a value. Old containers still answer; new ASR health privacyPolicy is absent. Owner must restore complete encrypted deployment.env before live free-form testing.",
+  "secretsPrinted":false,"volumesDeleted":false,"newVmCreated":false,"genericModelSubstituted":false,"researchInteractionsAdded":0,"applicationSubmitted":false
+}
