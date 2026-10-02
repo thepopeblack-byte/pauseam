@@ -12,6 +12,14 @@ test("mistaken transfers and security concerns receive relevant actions without 
   const a = retrieve("I clicked a phishing link", "before", { now });
   assert.equal(a.cards[0].id, "account-security");
   assert.equal(a.model, null);
+  for (const question of [
+    "My bank deducted money twice",
+    "My bank debited me but the transfer failed",
+  ])
+    assert.equal(
+      retrieve(question, "before", { now }).cards[0].id,
+      "complaint",
+    );
 });
 test("bank first and waiting stages do not direct premature CBN escalation", () => {
   for (const stage of ["first", "waiting"] as const)

@@ -248,7 +248,7 @@ export function JourneyPanel({
             ? "Ask about a payment warning sign, or try an example below."
             : "Ask about a payment, message or money concern. Use your own words."}
       </p>
-      {journey === "after" && (
+      {journey === "after" && (!answer || answer.status !== "ok") && (
         <section className="urgent-help" aria-label="First actions">
           <h2>Contact your bank now</h2>
           <ol>

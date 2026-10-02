@@ -28,3 +28,5 @@ Before refreshing the catalog: check the official publisher, record the actual p
 Engineering checks and browser verification are recorded separately from live-user validation. This release is not evidence of completed participant interactions, improved ASR accuracy, official N-ATLaS API use, fine-tuning or working generative text inference. English ASR identity checks and existing server-side configuration remain unchanged.
 
 Relevant implementation: `components/report-guide.tsx`, `lib/reporting.ts`, `components/learning-updates.tsx`, `lib/updates.ts`, `app/api/learn/route.ts`, `lib/safety.ts`, `tests/reporting.test.ts`.
+
+Reproduce public feature checks with `node scripts/verify-reporting-learning.mjs`; the default output is an ignored private engineering trace. The selected learning catalog is expected to be withheld after its review expiry, so a subsequent failed catalog check then indicates that an actual content review is due, not a reason to fabricate new dates.

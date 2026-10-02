@@ -411,6 +411,13 @@ export function retrieve(
         /\b(?:different|new|changed)\b.*\b(?:bank|account|details)\b/.test(text)
           ? 5
           : 0) +
+        (c.id === "complaint" &&
+        /\b(?:deducted|debited|charged|deduction|failed|pending)\b/.test(
+          text,
+        ) &&
+        /\b(?:bank|money|payment|transfer|transaction)\b/.test(text)
+          ? 5
+          : 0) +
         (c.id === "account-security" &&
         /\b(?:clicked|opened|installed|tapped)\b/.test(text) &&
         /\b(?:phishing|malware|link|download)\b/.test(text)
