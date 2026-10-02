@@ -25,6 +25,9 @@ guidance request failed its strict contract and was withheld. See the
 [image update](evidence/model-container-update-2026-10-02.json) and
 [authenticated ASR access failures](evidence/asr-authenticated-access-2026-10-02.json).
 No completed voice journey or official API request is inferred from this evidence.
+The later [bucket byte audit](evidence/bucket-audit-2026-10-02.json) confirms the
+complete Igbo files, not speech inference. Deployment is user-operated using the
+[pinned package and instructions](../deployment/secretvm/README.md).
 
 See the [full release gate](RELEASE-GATE.md), [six-criteria matrix](evidence-matrix.md),
 [ONDI drafts](portal-and-form-drafts.md), [engineering review](evidence/engineering-review.md)

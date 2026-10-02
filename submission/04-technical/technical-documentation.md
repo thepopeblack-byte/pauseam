@@ -73,7 +73,8 @@ latencyMs. Errors: invalid consent/language 400, origin 403, media 415, private 
 
 POST /api/answer accepts question (1–600 characters), journey before/after/learn and
 language. Privacy/source checks precede inference. Urgent response does not await a
-model. The optional text service may select at most one trusted card ID or abstain.
+model. The optional text service constrains actual model token choices to JSON
+containing at most one trusted card ID or abstention; independent validation follows.
 Wrong identity, unknown IDs, malformed or oversized responses fail closed.
 
 Model-host /ready reports readiness; authenticated /health returns model/revision.
@@ -137,6 +138,10 @@ or model identity, unavailable endpoints and constrained source selection.
 Transport fixtures are explicitly test-only and excluded from validation.
 Python checks cover truncated/oversized/wrong-format PCM; HTTP checks exercise
 actual app routes without claiming model inference.
+Eighteen Python checks now include the finite token grammar and output boundary.
+The complete root Igbo model was byte-verified; the mixed bucket needs isolated
+text/en/yo/ha/ig folders. Final digest-pinned model images built successfully.
+User-operated deployment and real-host checks are in deployment/secretvm/README.md.
 
 Build the Worker, push its exact commit, package and deploy through Sites.
 Validate public fresh-session access on desktop/mobile. Configure model hosts

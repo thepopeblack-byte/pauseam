@@ -1,10 +1,12 @@
 {
-  "commit": "56b8aed2f56ce1c7c756db63bdece6165887db39",
-  "buildRun": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36953301322",
+  "commit": "836fe48cfc826ff8c8afa5f9abde41e5b2300776",
+  "buildRun": "https://github.com/thepopeblack-byte/pauseam/actions/runs/36959714636",
   "images": {
-    "pauseam-asr": "ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7e54d7799424d04db64daf7b6ba84725d06608b80cab668f483acb303bd681c5",
-    "pauseam-text_service": "ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:b17cd953b5e1e48c3fc07453f3a3a9db9ecf5d41904f7c91c621c9cd1816a217"
+    "pauseam-asr": "ghcr.io/thepopeblack-byte/pauseam-asr@sha256:79b35cce2f5685928d56ebf09750c4c805ce3f61b95f09f6cb176c13cd952859",
+    "pauseam-text_service": "ghcr.io/thepopeblack-byte/pauseam-text_service@sha256:e12c25884c4bd1ce1de5767a57839366612d5c1e4c16bbccdc37c21c32e9774a"
   },
   "anonymousPullVerified": true,
-  "modelInferenceVerified": false
+  "pythonTestsPassed": 18,
+  "modelInferenceVerified": false,
+  "note": "Final handoff images; actual final-image inference awaits user deployment. Earlier loaded image and failed trace are separate evidence."
 }

@@ -5,7 +5,7 @@ Updated 2 October 2026. No application submitted.
 | Criterion | Existing evidence | Gap / next action |
 |---|---|---|
 | Working Artefact & Technical Rigour | App, source adapters, privacy guards, unit/audio/HTTP checks, setup docs | Public deployment, anonymous HTTP and fresh-clone install/build verified; physical mobile/assistive and live voice remain blocked |
-| N-ATLaS Integration | Pinned official IDs, verified text weights loaded on real HTTPS host, first actual failed trace, 16 Python contract/audio/integrity/quota checks | Recover provider update; valid text selection; four ASR repositories return authenticated 403; organiser ASR ruling and official API contract pending; fine-tuning not performed |
+| N-ATLaS Integration | Pinned official IDs, initial verified text load, genuine failed trace, complete Igbo bytes verified, final images built, 18 Python checks | User deploys isolated five-model folders; valid guidance and real speech remain unverified; organiser ASR ruling and official API contract pending; fine-tuning not performed |
 | Real-World Validation | Consent, discovery pack, empty log schema, aggregation tool and predeclared criteria | Run discovery and at least 50 real documented PS2 interactions |
 | Impact Potential | Clearly scoped payment-decision hypothesis | Observe demand, comprehension and return use; future impact remains a projection |
 | Scalability & Sustainability | Actual 32 GB CPU host at $0.52/hour, shared persistent 950-reservation ceiling, source-review plan, licence route | Measured successful throughput/cost, distributed abuse controls, content review and support ownership |

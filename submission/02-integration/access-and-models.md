@@ -55,6 +55,15 @@ lib/official-api.ts always fails closed until a documented contract is available
 - Fine-tuning: not performed; do not check this capability.
 - End-to-end four-language guidance: blocked; English interface/source wording only.
 
+The bucket was subsequently updated. The complete root Igbo copy matched all
+13 required file hashes, including its full 967 MB weight. Other ASR weight hashes
+did not match. Text configuration/tokenizer files were replaced by ASR files;
+text weight shards remain but were not fully re-downloaded in this audit.
+See ../evidence/bucket-audit-2026-10-02.json. Keep five separate model directories.
+Igbo file verification is not actual ASR inference or four-language validation.
+Deployment is now user-operated; instructions and pinned Compose are in
+../../deployment/secretvm/README.md.
+
 ## Resources actually inspected
 
 Windows host: 8 logical processors; approximately 31.8 GiB RAM, 7.9 GiB free at

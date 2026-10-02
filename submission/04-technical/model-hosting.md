@@ -41,7 +41,9 @@ TEXT_SERVICE_TOKEN of at least 32 random characters. Check /ready and authentica
 on the web host. Keep TEXT_ENABLED=false until real held-out tests pass.
 
 This service follows the documented NCAIR text-model loading and chat template,
-but has not loaded gated weights here. Failure must stay visible, never replaced
+and has now loaded the pinned text weights on the original team-host image. Its
+first guidance output failed the strict contract. The final decoder constrains
+actual token choices and needs a live retest. Failure must stay visible, never replaced
 with generic model output. Four-language source wording still needs fluent review.
 
 ## Operation
@@ -61,7 +63,8 @@ does not establish official API use or organiser acceptance for PS2.
 
 The SecretVM portal lists a Google Cloud xlarge with eight vCPUs and 32 GB RAM,
 at $0.52/hour, with stopped storage billed at $0.052/hour. This is a quoted
-configuration, not evidence of a running deployment. Secret Cloud's 16 GB option
+configuration. The original text pilot subsequently ran and loaded its verified
+weights; the final five-service handoff awaits user deployment. Secret Cloud's 16 GB option
 does not provide sufficient headroom for these five services together.
 
 The model-container workflow builds two Linux amd64 images from the exact Git
@@ -71,8 +74,9 @@ Dockerfiles default to the official PyTorch CPU wheel index. A GPU deployment
 must explicitly select its compatible official PyTorch wheel index and be tested.
 
 On the CPU pilot, TEXT_DTYPE=bfloat16 reduces text-weight memory; MODEL_THREADS=4
-limits text threads, and each ASR uses MODEL_THREADS=1. This setting is not yet
-validated on the provisioned machine. Throughput, peak memory, startup and
+limits text threads, and each ASR uses MODEL_THREADS=1. The original text dtype
+was observed at runtime; simultaneous five-service capacity remains unvalidated.
+Throughput, peak memory, startup and
 inference latency must be measured before enabling the app's inference switches.
 
 An optional MODEL_BUCKET_ID uses model_service/verified_weights.py. It downloads

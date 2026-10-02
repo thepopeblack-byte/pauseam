@@ -64,3 +64,16 @@ Fine-tuning: no training run or held-out comparison.
 No capability checkbox is justified by the current evidence.
 Organiser confirmation of the official-ASR-service requirement is pending.
 See the following access register for exact versions, licence and compute findings.
+
+## User-operated deployment handoff
+
+The updated bucket root fully matches the official Igbo model's 13 required files,
+including the entire binary weight. The other three ASR weights do not match;
+text configuration files have been overwritten by ASR files. Five isolated folders
+are required for reproducible deployment. These byte checks are not speech output.
+The final images built successfully in run 36959714636 from source 836fe48; their
+actual digests and anonymous access are recorded in model-container-build-2026-10-02.json.
+The decoder now constrains actual model token choices to one trusted card or
+abstention, then independently validates JSON. Eighteen Python checks passed.
+Final-image runtime inference remains unverified until deployment and real tests.
+See deployment/secretvm/README.md, pauseam-compose.yml and scripts/verify-model-host.mjs.

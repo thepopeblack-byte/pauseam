@@ -45,3 +45,14 @@ checks (16 Python tests total) and its image built successfully in run 369569928
 The provider reported an update error; recovery was initiated. Do not equate these
 checks with a working public model journey. All four official ASR file probes still
 returned HTTP 401 without credentials; private approved access remains necessary.
+
+## Deployment ownership and final package
+
+Deployment on SecretVM is now user-operated. The final source images built
+successfully in run 36959714636, and both public registry digests were verified.
+Eighteen Python checks passed; the five-service Compose and prepared PowerShell
+copy scripts passed syntax/structure checks. See ../deployment/secretvm/README.md.
+The current bucket root fully matches Igbo's 13 required hashes, including its
+weight, but the other ASR weights do not match and text configurations were
+overwritten. Separate text/en/yo/ha/ig copies are required. No final-image model
+inference, four-language voice journey or participant completion is claimed.
