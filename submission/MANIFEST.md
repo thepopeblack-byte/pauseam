@@ -11,7 +11,7 @@ Deadline: 12 October 2026, 11:59 p.m. West Africa Time.
 | 03 Real-World Validation | blocked | [Protocol](03-validation/discovery-pack.md), [report](03-validation/validation-report.md), [empty log schema](03-validation/interactions-template.csv), [review PDF](../output/pdf/03-validation-status.pdf) | Discovery, fluent reviews and at least 50 completed documented PS2 interactions; reconcile counts |
 | 04 Technical Documentation | blocked | [Source](04-technical/technical-documentation.md), [hosting](04-technical/model-hosting.md), [review PDF](../output/pdf/04-technical-documentation.pdf) | Reproduce actual model deployment and update measured results, costs and limitations |
 | 05 Video Demonstration | blocked | [Capture procedure](05-video/capture-plan.md) | Record actual functioning product in 3–5 minute MP4, caption, verify playback/audio and watch entire export |
-| 06 Team Profile | blocked | [Source](06-team/team-profile.md), [review PDF](../output/pdf/06-team-profile-review.pdf) | Confirm both members' facts and Suleiman's full name, affiliation and experience |
+| 06 Team Profile | blocked | [Source](06-team/team-profile.md), [review PDF](../output/pdf/06-team-profile-review.pdf) | Review the provided facts; retain Suleiman as Technical lead without inventing further details |
 | 07 Endorsement / Registration | blocked | [Private checklist](07-registration/private-checklist.md), [checklist PDF](../output/pdf/07-registration-checklist.pdf) | Provide appropriate private CAC certificate or valid ID; this checklist is not that item |
 
 The five PDFs are genuine status/review documents, not substitutes for missing
