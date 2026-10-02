@@ -14,7 +14,7 @@ React 19, TypeScript, Vinext/Vite, system fonts and responsive CSS form the brow
 
 Voice: consent -> recording up to 28 seconds -> listen/discard -> upload consent -> PCM16 mono 16 kHz WAV -> bounded authenticated ASR -> official identity/privacy validation -> transcript correction and explicit confirmation -> current sources -> optional text-model selection -> validated checklist. Browser speech recognition and other general models are not concealed substitutes. Browser read-aloud uses public guidance only.
 
-Urgent bank-contact steps are maintained content and bypass the model. The text model can select zero or one current card, then independent validation resolves that ID to source-authored wording. It cannot introduce arbitrary prose, contacts, source URLs, confidence scores or safe verdicts. Relevance still requires real-model testing; grammar correctness alone is insufficient.
+Urgent bank-contact steps are maintained content and bypass the model. Source retrieval selects the strongest current card; N-ATLaS checks its relevance and returns that ID or abstains. Independent validation resolves only that candidate to source-authored wording. Instruction attacks and uncovered topics stop before inference. Banking-code requests receive priority over general impersonation. The model cannot introduce prose, contacts, source URLs, confidence scores or safe verdicts. This constrained relevance task is not general conversational generation.
 
 ## Reproduce the application
 
@@ -30,7 +30,7 @@ English ASR: NCAIR1/NigerianAccentedEnglish at 3c52c6e6c9ec508014a7b9db6a42b503b
 
 Text: NCAIR1/N-ATLaS at e294476928aca9030e924ca27bb8e085e8581273. Its bfloat16 weights alone are roughly 16 GB and previous CPU requests exceeded 45/180 seconds. text_cpu verifies the official Safetensors/tokenizer manifest, converts with llama.cpp revision 631109b34da437a3c4a5ebd75091d677671392e3 and quantizes to Q4_K_M. The embedded official template is applied by the engine. Generated receipts record source hashes, output SHA256/size and recipe. Cache mismatches fail closed. Original weights and licence state are preserved; only verified conversion intermediates may be removed.
 
-This conversion is quantization, not training or fine-tuning. No LoRA run, official API request or benchmark improvement over the unchanged base is claimed. The CPU candidate needs genuine relevance, adversarial, latency and memory checks. Do not describe authored engineering examples as human validation.
+This conversion is quantization, not training or fine-tuning. No LoRA run, official API request or benchmark improvement over the unchanged base is claimed. The actual output is 4,920,738,848 bytes with SHA256 cb975863d6eb0bd5488c24f47ffffbfe2d57266f9645bc257dfeffe412b18529. Six local CPU relevance requests passed in 15,909-23,293 ms; two input/source guards passed without inference. Earlier classification failures are preserved. These are authored engineering examples on a Windows PC with four engine threads, not SecretVM latency or human validation. Live CPU hosting, memory and concurrency checks remain pending.
 
 scripts/download-text-weights.mjs supports private approved access and bounded resumable downloads; all bytes must match the official manifest before conversion. Its Python alternative uses Hugging Face's official client. Credentials are loaded privately through environment files, never shell arguments. Conversion uses the pinned official source/runtime; no third-party quantized model is trusted.
 

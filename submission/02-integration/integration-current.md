@@ -4,7 +4,7 @@ PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 2 Octo
 
 ## Current capability boundary
 
-The agreed public language is Nigerian-accented English. The official English ASR returned a real owner transcript through the app; this is engineering evidence, not a completed participant-validation round. Text inference is currently disabled after genuine failures/timeouts. A new same-model CPU service is implemented and undergoing actual image/inference checks. Preparation is not a successful text request.
+The agreed public language is Nigerian-accented English. The official English ASR returned a real owner transcript through the app; this is engineering evidence, not a completed participant-validation round. The new same-model CPU service completed six genuine local relevance requests in 15,909-23,293 ms, plus two source/input guard checks without inference. Its actual conversion output is 4,920,738,848 bytes. Public text inference remains disabled until the owner updates SecretVM and actual HTTPS requests pass. Local success is not VM success.
 
 Yoruba, Hausa and Igbo adapters and byte-verified model files remain available but are paused. Official API access and fine-tuning are not demonstrated. Quantization is a precision conversion, not fine-tuning. Do not select unsupported capabilities or languages on the portal.
 
@@ -32,7 +32,7 @@ Runtime release b11351 is pinned. Linux archive SHA256: c800a3402548d57f408adceb
 
 lib/asr.ts, app/api/asr/route.ts and asr/app.py enforce consent, bounded audio, exact official identity and sensitive-output refusal. lib/text-model.ts validates the selected card and optional CPU runtime identity. app/api/answer/route.ts keeps urgent source content immediate and fails visibly if enabled inference/configuration is unavailable.
 
-text_cpu/bootstrap.py verifies original files and the conversion cache. text_cpu/contract.py creates finite schema-constrained generation; text_cpu/app.py authenticates, serializes and reserves real inference. Only zero or one reviewed card ID is accepted. Model-authored contacts, links and arbitrary safety prose never render. This demonstrates constrained understanding/selection if its actual requests pass; it does not claim open-ended conversational generation.
+text_cpu/bootstrap.py verifies original files and the conversion cache. text_cpu/contract.py creates finite schema-constrained generation; text_cpu/app.py authenticates, serializes and reserves real inference. Source retrieval chooses the strongest current card; N-ATLaS checks its relevance and may accept or abstain. Only that card ID or an empty selection is accepted. Unrelated/instruction-attack inputs are stopped before inference. Model-authored contacts, links and arbitrary safety prose never render. This is constrained relevance checking, not open-ended conversational generation.
 
 scripts/prepare-secretvm.py generates digest-pinned profiles. scripts/verify-model-host.mjs checks real identities/requests. The old full-precision text_service and prior traces remain as historical evidence.
 
@@ -44,9 +44,11 @@ Text is enabled only after genuine host identity, relevance, adversarial and lat
 
 ## Genuine evidence and gaps
 
-The English owner transcript and redirect investigation are documented in worker-redirect-fix-2026-10-02.json and english-pilot-2026-10-02.json. This turn's English authenticated health check returned HTTP 200 in 809 ms with the exact identity; no new audio was uploaded. New provenance/privacy changes passed 55 application tests and 27 Python checks. These are engineering checks, not participant interactions or ASR accuracy measurements.
+The English owner transcript and redirect investigation are documented in worker-redirect-fix-2026-10-02.json and english-pilot-2026-10-02.json. This turn's English authenticated health check returned HTTP 200 in 809 ms with the exact identity; no new audio was uploaded. New provenance/privacy/relevance changes passed 56 application tests and 27 Python checks. These are engineering checks, not participant interactions or ASR accuracy measurements.
 
-Historical text requests failed the contract or exceeded 45/180 seconds. Their original traces remain unchanged. The CPU image built, passed offline imports/binary checks and its exact digest passed anonymous pull: submission/evidence/cpu-container-2026-10-02.json. Build run: https://github.com/thepopeblack-byte/pauseam/actions/runs/37055859513. This is not inference. Attach conversion receipts, actual request outcomes/timing and screenshots only after they exist. Random response references are not signed proof that a human participated. Human sessions need observer attestation.
+Actual local conversion: submission/evidence/cpu-conversion-2026-10-02.json. Actual final local outcomes: submission/evidence/cpu-local-relevance-check-2026-10-02.json. Earlier all-card and three-candidate failures remain in cpu-local-headings-first-check-2026-10-02.json and cpu-three-candidate-check-2026-10-02.json. A required runtime schema-wrapper bug was caught by output validation and fixed before enabling public inference. The final pipeline uses retrieval followed by a model relevance check; it does not assert that model-only classification of all cards passed.
+
+Historical failures remain unchanged. Final container proof is cpu-final-container-2026-10-02.json; actual build: https://github.com/thepopeblack-byte/pauseam/actions/runs/37061753954. Its digest starts ed76b851 and readiness must identify reviewed-card-relevance-v1. A build/import check is not inference. Random response references are not signed proof of human participation: observed sessions require attestation. Final live requests and screenshots remain pending.
 
 ## Official service and API findings
 

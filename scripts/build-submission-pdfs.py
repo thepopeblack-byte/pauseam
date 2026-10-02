@@ -23,6 +23,7 @@ pdfmetrics.registerFont(TTFont("SegoeBold",str(bold)))
 pdfmetrics.registerFontFamily("Segoe",normal="Segoe",bold="SegoeBold",italic="Segoe",boldItalic="SegoeBold")
 styles=getSampleStyleSheet()
 styles.add(ParagraphStyle(name="BodyPA",fontName="Segoe",fontSize=10,leading=13,spaceAfter=6,allowWidows=0,allowOrphans=0,textColor=HexColor("#153640")))
+styles.add(ParagraphStyle(name="IntegrationBody",parent=styles['BodyPA'],fontSize=9.6,leading=12.2))
 styles.add(ParagraphStyle(name="TitlePA",fontName="SegoeBold",fontSize=25,leading=31,spaceAfter=20,textColor=HexColor("#075d51"),keepWithNext=True))
 styles.add(ParagraphStyle(name="HeadPA",fontName="SegoeBold",fontSize=14,leading=20,spaceBefore=12,spaceAfter=7,textColor=HexColor("#075d51"),keepWithNext=True))
 def page(c,doc):
@@ -50,7 +51,7 @@ for src,name,extras in jobs:
    if not b:continue
    if b.startswith("# "):style="TitlePA";b=b[2:]
    elif b.startswith("## "):style="HeadPA";b=b[3:]
-   else:style="BodyPA"
+   else:style="IntegrationBody" if name.startswith('02-') else "BodyPA"
    story.append(Paragraph(inline(b.replace("\n"," ")),styles[style]))
  SimpleDocTemplate(str(OUT/name),pagesize=(595.28,841.89),leftMargin=46,rightMargin=46,topMargin=64,bottomMargin=55,title="PauseAm — "+name,author="PauseAm team; status prepared with Codex").build(story,onFirstPage=page,onLaterPages=page)
  print(name)

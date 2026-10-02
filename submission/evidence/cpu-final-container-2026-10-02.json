@@ -1,0 +1,20 @@
+{
+  "scope": "Final code-only container; local inference evidence is separate and live VM requests remain pending",
+  "date": "2026-10-02",
+  "sourceCommit": "66327950acaa7c8f0b70d1910ba465a7d88a295f",
+  "runUrl": "https://github.com/thepopeblack-byte/pauseam/actions/runs/37061753954",
+  "cpuJobId": 111019805240,
+  "build": "passed",
+  "offlineImportsAndBinaryDependencies": "passed",
+  "image": "ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed",
+  "anonymousManifestPull": {"status": 200,"digestMatched": true},
+  "model": "NCAIR1/N-ATLaS",
+  "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+  "runtime": "llama.cpp",
+  "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+  "quantization": "Q4_K_M",
+  "contractVersion": "reviewed-card-relevance-v1",
+  "fineTuningPerformed": false,
+  "localRelevanceEvidence": "cpu-local-relevance-check-2026-10-02.json",
+  "liveSecretVMInference": "pending owner update and authenticated tests"
+}

@@ -3,13 +3,20 @@
 Use `english-complete-compose.yml`, not the historical full-precision or
 four-language file. It contains gateway, text and asr-en only. The actual CPU
 image built and passed offline imports/binary checks in
-[run 37055859513](https://github.com/thepopeblack-byte/pauseam/actions/runs/37055859513).
+[run 37061753954](https://github.com/thepopeblack-byte/pauseam/actions/runs/37061753954).
 Anonymous registry access to its exact digest passed on 2 October 2026.
 These checks do not prove model inference on your VM.
 
+Final text image digest starts `ed76b851` and the health response must identify
+`contractVersion: reviewed-card-relevance-v1`. Earlier CPU images are historical.
+If you already pasted the earlier contents, replace them with this final file;
+the original downloaded weights and verified conversion can be reused.
+Six genuine local CPU requests passed in 15.9–23.3 seconds, plus two guards
+without inference. This does not promise the same timing on SecretVM.
+
 ## Owner update
 
-1. Open the **existing** amaranth-nightingale VM → Edit VM. Save a private copy
+1. Open the **existing** amaranth-nightingale VM â†’ Edit VM. Save a private copy
    of the current Compose configuration for rollback. Replace the Compose
    configuration with the complete contents of `english-complete-compose.yml`.
    Keep the existing project and persistent volumes. Do not delete the licence
@@ -39,7 +46,7 @@ These checks do not prove model inference on your VM.
 ## Reproduce and verify (developer, private environment only)
 
 ```
-python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:4cdfbda3c039b8f9c55fffa680a697924f82f36365d82adc787d00215b1f327d --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b --output deployment/secretvm/english-complete-compose.yml
+python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:7f986b28e1beea961591d55ef435c0acb12434089b7628823281b8b62f3aba7b --output deployment/secretvm/english-complete-compose.yml
 node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://amaranth-nightingale.vm.scrtlabs.com --scope english-complete --mode inference --output private/secretvm/english-complete-check.json
 ```
 
@@ -47,6 +54,12 @@ This command exercises text with a synthetic engineering question. It does not
 create participant records or claim speech accuracy. A real consented recording
 is required for voice verification. The official N-ATLaS API and organiser
 acceptance of self-hosted ASR remain unverified; quantization is not fine-tuning.
+
+For the complete eight-case engineering check after readiness:
+
+```
+node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-text-inference.mjs --host https://amaranth-nightingale.vm.scrtlabs.com --output private/secretvm/final-text-check.json
+```
 
 ## Rollback and operating limit
 

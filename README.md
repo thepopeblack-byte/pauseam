@@ -28,8 +28,10 @@ adapters are preserved but paused in the UI and API. Typed questions and correct
 transcripts use reviewed English source checklists. The N-ATLaS 8B text adapter
 remains implemented but disabled: real requests exceeded 45 and 180 seconds and
 its roughly 16 GB bfloat16 weights leave insufficient RAM for runtime plus ASR.
-The new pinned same-model Q4_K_M CPU container is built and anonymously pullable;
-actual conversion, relevance and live-VM latency must pass before it is enabled.
+The new pinned same-model Q4_K_M CPU container is built and anonymously pullable.
+Actual local conversion and six relevance requests passed; two source/input
+guards also passed without inference. Local model latency was 15.9–23.3 seconds.
+The final existing-VM update and HTTPS requests must pass before it is enabled.
 No generic model is substituted. Official API access and fine-tuning are unverified.
 
 No account is needed for text guidance. Never enter names, account numbers, PINs,

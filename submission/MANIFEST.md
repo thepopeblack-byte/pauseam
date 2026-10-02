@@ -7,13 +7,16 @@ Review package: 2 October 2026. Owner targets Monday 5 October; official deadlin
 Current scope is English only. Real English owner transcription is evidenced;
 typed reviewed source guidance works. N-ATLaS text remains disabled pending the
 new CPU service's actual conversion/inference and existing-VM deployment.
-Prepared containers and verified files are not inference evidence. Other
+Six genuine local CPU relevance requests and two pre-inference guard checks
+passed, recorded in [local evidence](evidence/cpu-local-relevance-check-2026-10-02.json).
+Their latency is 15.9–23.3 seconds on the local Windows CPU; this is not VM or
+participant validation. Prepared containers and verified files alone are not inference evidence. Other
 languages are paused; official API and fine-tuning are not demonstrated.
 
 | Genuine item | Status | Review artefact | Exact remaining action |
 |---|---|---|---|
 | 01 Working Artefact | blocked | [Public repository](https://github.com/thepopeblack-byte/pauseam), [app](https://pauseam.theblockcapitol.com), [setup](01-artefact/README.md), [CPU deployment](../deployment/secretvm/ENGLISH-COMPLETE.md) | Final live text/voice checks and representative devices |
-| 02 Integration Evidence | blocked | [Current source](02-integration/integration-current.md), [PDF](../output/pdf/02-natlas-integration.pdf), [built container](evidence/cpu-container-2026-10-02.json) | Actual final requests/screenshots and organiser service finding |
+| 02 Integration Evidence | blocked | [Current source](02-integration/integration-current.md), [PDF](../output/pdf/02-natlas-integration.pdf), [final container](evidence/cpu-final-container-2026-10-02.json) | Actual final requests/screenshots and organiser service finding |
 | 03 Real-World Validation | blocked | [Weekend instructions](03-validation/WEEKEND-TESTING.md), [report](03-validation/validation-report.md), [PDF](../output/pdf/03-validation-status.pdf), [empty log](03-validation/interactions-template.csv) | At least 50 genuine completed documented voice interactions; currently 0 |
 | 04 Technical Documentation | blocked | [Current source](04-technical/technical-current.md), [PDF](../output/pdf/04-technical-documentation.pdf) | Reconcile final deployment and measured outcomes |
 | 05 Video Demonstration | blocked | [Exact capture procedure](05-video/capture-plan.md) | Capture actual 3–5 minute MP4, review playback/audio/captions; no MP4 exists |
@@ -34,7 +37,7 @@ the final frozen commit and live build.
 
 - [English owner transcript and request fix](evidence/worker-redirect-fix-2026-10-02.json)
 - [Consumer release](evidence/consumer-release-2026-10-02.json)
-- [CPU image digest, offline imports and anonymous pull](evidence/cpu-container-2026-10-02.json)
+- [Final CPU image digest, offline imports and anonymous pull](evidence/cpu-final-container-2026-10-02.json)
 - [Actual validation totals](evidence/validation-totals.json)
 
 No engineering check is counted as a participant. Source-card facts are

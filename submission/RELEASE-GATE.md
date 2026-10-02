@@ -9,8 +9,9 @@ Evidence files retain their original historical outcomes.
 |---|---|---|---|
 | Public repository, Sites and custom domain | passed | https://github.com/thepopeblack-byte/pauseam; https://pauseam.theblockcapitol.com; evidence/consumer-release-2026-10-02.json | Publish and verify the final candidate after model checks |
 | English ASR engineering journey | passed | evidence/worker-redirect-fix-2026-10-02.json | Repeat on final build with consented speech; fluent accuracy and participant outcomes remain pending |
-| N-ATLaS CPU container preparation | passed | evidence/cpu-container-2026-10-02.json; ../deployment/secretvm/ENGLISH-COMPLETE.md | Owner applies existing-VM update after local inference checks |
-| Live N-ATLaS text guidance | blocked | 02-integration/integration-current.md | Verify actual CPU conversion, relevance, adversarial behavior and VM latency; enable Sites only after passing |
+| N-ATLaS CPU container preparation | passed | evidence/cpu-final-container-2026-10-02.json; ../deployment/secretvm/ENGLISH-COMPLETE.md | Owner applies the final ed76b851 image; preserve weights and ledger |
+| Local CPU conversion and relevance | passed | evidence/cpu-conversion-2026-10-02.json; evidence/cpu-local-relevance-check-2026-10-02.json | Six actual model requests and two guards passed; local Windows timing is not VM timing |
+| Live N-ATLaS text guidance | blocked | 02-integration/integration-current.md | Owner applies final CPU image; verify HTTPS quality/latency and enable Sites only after passing |
 | Clean consumer journeys and reporting | passed | components/journey.tsx; components/reporting.tsx; tests/reporting.test.ts | Verify final browser download/copy and physical-device usability |
 | Privacy, source/output boundaries and provenance | passed | tests/core.test.ts; tests/worker-model-transport.test.mjs; lib/text-model.ts | Human safety review remains required; tests are not a security certification |
 | Rolling licence limit enforcement | passed | lib/model-quota.ts; model_service/licence_quota.py; tests/model-quota.test.ts | Preserve shared state; reconcile consumption and obtain separate licensing before exceeding published cap |
