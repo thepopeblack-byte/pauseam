@@ -387,8 +387,8 @@ test("malicious message cannot inject a contact or safety verdict into curated o
     "before",
     { now },
   );
-  assert.equal(a.status, "ok");
-  assert.ok(a.cards.every((c) => CARDS.some((v) => v.id === c.id)));
+  assert.equal(a.status, "no_match");
+  assert.deepEqual(a.cards, []);
   assert.ok(!JSON.stringify(a.cards).includes("this person is safe"));
 });
 test("supplier, school and receipt journeys have source-grounded limitations", () => {
@@ -603,4 +603,48 @@ test("an unresolved complaint gets escalation guidance while new fraud still get
       .id,
     "report",
   );
+});
+
+test("text inference is bounded by retrieved current candidates and cannot select an unrelated reviewed card", async () => {
+  const config = {
+    TEXT_ENABLED: "true",
+    KB_ENABLED: "true",
+    TEXT_ENDPOINT: "https://models.example/guide",
+    TEXT_SERVICE_TOKEN: "a".repeat(40),
+  };
+  let calls = 0;
+  const fetcher = (async (_url: unknown, init: RequestInit) => {
+    calls++;
+    const body = JSON.parse(init.body as string);
+    assert.equal(body.cards.length, 1);
+    assert.ok(body.cards.some((c: { id: string }) => c.id === "secrets"));
+    assert.ok(!body.cards.some((c: { id: string }) => c.id === "investment"));
+    return Response.json({
+      model: TEXT_MODEL.model,
+      revision: TEXT_MODEL.revision,
+      cardIds: ["investment"],
+    });
+  }) as typeof fetch;
+  await assert.rejects(
+    modelGuidance(
+      "Someone claiming to be my bank wants my OTP",
+      "before",
+      "en",
+      config,
+      undefined,
+      fetcher,
+    ),
+  );
+  assert.equal(calls, 1);
+  const unrelated = await modelGuidance(
+    "What will the weather be tomorrow?",
+    "before",
+    "en",
+    config,
+    undefined,
+    fetcher,
+  );
+  assert.equal(unrelated.status, "no_match");
+  assert.equal(unrelated.model, null);
+  assert.equal(calls, 1);
 });

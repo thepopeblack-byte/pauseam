@@ -1,7 +1,7 @@
 // Real requests only. No generated audio, substitute model, or participant claims.
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import {TEXT_MODEL,LANGUAGES as ASR_MODELS} from '../lib/models.ts';
+import {TEXT_MODEL,CPU_TEXT_RUNTIME,LANGUAGES as ASR_MODELS} from '../lib/models.ts';
 import {modelGuidance} from '../lib/text-model.ts';
 import {readLimited} from '../lib/stream.ts';
 const values=new Map();
@@ -32,8 +32,10 @@ const targets=[...(scope!=='english'?[['text',TEXT_MODEL,process.env.TEXT_SERVIC
 await Promise.all(targets.map(async([target,model,token])=>{
  const route=target==='text'?'/text/health':`/asr/${target}/health`;
  const r=await request(route,token);
- const valid=r.status===200&&r.data?.ready===true&&r.data.model===model.model&&r.data.revision===model.revision&&(target==='text'||r.data.language===target);
- report.health.push({target,status:r.status,elapsedMs:r.elapsedMs,passed:valid,model:valid?r.data.model:null,revision:valid?r.data.revision:null});
+ const cpuRequired=target==='text'&&scope==='english-complete';
+ const cpuValid=!cpuRequired||(r.data?.runtime===CPU_TEXT_RUNTIME.runtime&&r.data.runtimeRevision===CPU_TEXT_RUNTIME.revision&&r.data.quantization===CPU_TEXT_RUNTIME.quantization&&r.data.contractVersion==='reviewed-card-relevance-v1'&&/^[a-f0-9]{64}$/.test(r.data.quantizedSha256||''));
+ const valid=r.status===200&&r.data?.ready===true&&r.data.model===model.model&&r.data.revision===model.revision&&(target==='text'||r.data.language===target)&&cpuValid;
+ report.health.push({target,status:r.status,elapsedMs:r.elapsedMs,passed:valid,model:valid?r.data.model:null,revision:valid?r.data.revision:null,...(cpuRequired?{runtime:r.data?.runtime||null,contractVersion:r.data?.contractVersion||null,quantizedSha256:r.data?.quantizedSha256||null}: {})});
 }));
 if(scope!=='english'&&mode==='inference'&&report.health.find(r=>r.target==='text')?.passed){
  const start=performance.now();

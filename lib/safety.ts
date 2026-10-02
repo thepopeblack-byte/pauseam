@@ -1,7 +1,7 @@
 export const MODEL = "NCAIR1/NigerianAccentedEnglish";
 export const REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff";
 export const MODEL_URL = "https://huggingface.co/" + MODEL;
-export const KB_VERSION = "2026-10-02.2";
+export const KB_VERSION = "2026-10-02.3";
 export type Journey = "before" | "after" | "learn";
 export type Card = {
   id: string;
@@ -195,7 +195,7 @@ export const CARDS: Card[] = [
   },
   {
     id: "secrets",
-    title: "Your secrets are yours to protect",
+    title: "Keep PINs, OTPs and passwords private",
     keywords: [
       "pin",
       "otp",
@@ -353,7 +353,11 @@ export type Answer = {
 export function retrieve(
   question: string,
   journey: Journey,
-  options: { disabled?: boolean; now?: Date; cards?: Card[] } = {},
+  options: {
+    disabled?: boolean;
+    now?: Date;
+    cards?: Card[];
+  } = {},
 ): Answer {
   const base = {
     engine: "Source-checked keyword retrieval (no generative answer model)",
@@ -367,6 +371,19 @@ export function retrieve(
       cards: [],
       message:
         "Remove all numbers and private details. Describe only the situation.",
+    };
+  if (
+    /\b(?:ignore|disregard|override)\b.{0,50}\b(?:rules|instructions|system|prompt)\b/i.test(
+      question,
+    )
+  )
+    return {
+      ...base,
+      status: "no_match",
+      cards: [],
+      engine: "Input safety boundary; no inference performed",
+      message:
+        "I cannot provide a safety verdict or invent a bank contact. Describe what happened, and verify through your bank's official service.",
     };
   if (options.disabled)
     return {
@@ -401,6 +418,12 @@ export function retrieve(
     .map((c) => ({
       c,
       score:
+        (c.id === "secrets" &&
+        /\b(?:pin|otp|password|passcode|banking code|verification code)\b/.test(
+          text,
+        )
+          ? 10
+          : 0) +
         c.keywords.filter((k) => tokens.has(k)).length *
           (c.id === "payment" ? 0.1 : 1) +
         (urgent && c.id === "report" ? 100 : 0) +

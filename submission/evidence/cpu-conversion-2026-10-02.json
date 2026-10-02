@@ -1,0 +1,86 @@
+{
+  "scope": "Actual local conversion, not VM inference or fine-tuning",
+  "device": "Windows local PC, CPU only",
+  "model": "NCAIR1/N-ATLaS",
+  "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+  "converterRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+  "quantization": "Q4_K_M",
+  "sha256": "cb975863d6eb0bd5488c24f47ffffbfe2d57266f9645bc257dfeffe412b18529",
+  "size": 4920738848,
+  "createdAt": "2026-10-02T20:14:19.033700+00:00",
+  "sourceFilesVerified": [
+    {
+      "path": ".gitattributes",
+      "size": 1570,
+      "algorithm": "git-sha1",
+      "digest": "52373fe24473b1aa44333d318f578ae6bf04b49b"
+    },
+    {
+      "path": "README.md",
+      "size": 17619,
+      "algorithm": "git-sha1",
+      "digest": "523af8809883e3b91a79e4358bec7a8b5053bac4"
+    },
+    {
+      "path": "config.json",
+      "size": 875,
+      "algorithm": "git-sha1",
+      "digest": "26a6f06711797e29eb641cbb4a94fec427f0340c"
+    },
+    {
+      "path": "generation_config.json",
+      "size": 184,
+      "algorithm": "git-sha1",
+      "digest": "2b8ae57a0d941ca239bd6c03b4660a3f29bc30a8"
+    },
+    {
+      "path": "model-00001-of-00004.safetensors",
+      "size": 4976698672,
+      "algorithm": "sha256",
+      "digest": "59c6c87e4cbe8787f154ac8499f3288f7f2da4e818b5657c6a755d60a9dd5ae0"
+    },
+    {
+      "path": "model-00002-of-00004.safetensors",
+      "size": 4999802720,
+      "algorithm": "sha256",
+      "digest": "3d087dd3d4db2c54e4a313bccc417de4e4b470023a9e66aa42ab45df9e0a6e4c"
+    },
+    {
+      "path": "model-00003-of-00004.safetensors",
+      "size": 4915916176,
+      "algorithm": "sha256",
+      "digest": "3384248a6cb07e82376ea87cc3d59e09af76022170e4a8f3a5708a33c0865a87"
+    },
+    {
+      "path": "model-00004-of-00004.safetensors",
+      "size": 1168138808,
+      "algorithm": "sha256",
+      "digest": "84a0714c20eb0d2b274d1c1005e18aeea2ae4c4d467a9eb131adabf76e62f413"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "size": 23950,
+      "algorithm": "git-sha1",
+      "digest": "0fd8120f1c6acddc268ebc2583058efaf699a771"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "size": 325,
+      "algorithm": "git-sha1",
+      "digest": "b43be96621d147110fb8a18b5776ec6e38516127"
+    },
+    {
+      "path": "tokenizer.json",
+      "size": 17209920,
+      "algorithm": "sha256",
+      "digest": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size": 55406,
+      "algorithm": "git-sha1",
+      "digest": "8ae1bc63bd6e5ca8a863628311061c143679ff93"
+    }
+  ],
+  "fineTuningPerformed": false
+}

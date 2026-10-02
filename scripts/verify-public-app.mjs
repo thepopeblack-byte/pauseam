@@ -14,13 +14,15 @@ const opts = new Map();
 for (let i=2;i<process.argv.length;i++) {
   const key=process.argv[i];
   if(key==='--require-models'){opts.set(key,true);continue;}
-  if(!['--url','--output','--audio-directory'].includes(key)||!process.argv[i+1]||process.argv[i+1].startsWith('--')) throw Error('Unknown or incomplete option; use --help');
+  if(!['--url','--output','--audio-directory','--scope'].includes(key)||!process.argv[i+1]||process.argv[i+1].startsWith('--')) throw Error('Unknown or incomplete option; use --help');
   opts.set(key,process.argv[++i]);
 }
 const origin=new URL(opts.get('--url')||'');
+const scope=opts.get('--scope')||'english-complete';
+if(!['english-complete','all'].includes(scope))throw Error('Scope must be english-complete or all');
 if(origin.protocol!=='https:'||origin.username||origin.password||origin.search||origin.hash||origin.pathname!=='/') throw Error('Use the public HTTPS application origin without private details');
 if(opts.has('--audio-directory')&&process.env.AUDIO_TEST_CONSENT!=='yes') throw Error('Consented, non-sensitive real recordings required; set AUDIO_TEST_CONSENT=yes privately');
-const report={recordedAt:new Date().toISOString(),origin:origin.origin,kind:'Engineering checks, not user validation',checks:[],models:{configured:false,textInferencePassed:false,speech:[]},transcriptsStored:false,participantRecordsCreated:0};
+const report={recordedAt:new Date().toISOString(),origin:origin.origin,scope,kind:'Engineering checks, not user validation',checks:[],models:{configured:false,textInferencePassed:false,speech:[]},transcriptsStored:false,participantRecordsCreated:0};
 let configuration=null;
 async function request(route,init={}){
   const start=performance.now();
@@ -45,7 +47,7 @@ const identity=r.status===200&&configuration?.model===LANGUAGES.en.model&&config
 record('Pinned targets and private status response',r,identity&&r.noStore);
 r=await request('/api/model-quota',{method:'POST'});
 record('Unauthenticated licence reservation fails closed',r,[401,503].includes(r.status)&&r.data?.reserved===false&&r.noStore);
-report.models.configured=identity&&configuration.textConfigured===true&&Object.values(configuration.languages).every(m=>m.configured===true);
+report.models.configured=identity&&configuration.textConfigured===true&&(scope==='all'?Object.values(configuration.languages).every(m=>m.configured===true):configuration.languages.en.configured===true);
 for(const route of ['/','/about','/evaluation']){r=await request(route);record('Page '+route,r,r.status===200);}
 r=await post('A supplier changed the bank details on an invoice.');
 const supplier=grounded(r.data)&&r.data.cards[0].id==='supplier';
@@ -80,6 +82,7 @@ for(const lang of ['yo','ha','ig']){
 }
 if(opts.has('--audio-directory')){
   for(const [language,model] of Object.entries(LANGUAGES)){
+    if(scope==='english-complete'&&language!=='en')continue;
     if(configuration?.languages?.[language]?.enabled===false)continue;
     if(configuration?.languages?.[language]?.configured!==true){report.models.speech.push({language,performed:false,passed:false,reason:'Model endpoint unconfigured'});continue;}
     let audio;
@@ -96,7 +99,7 @@ if(opts.has('--audio-directory')){
 report.baselinePassed=report.checks.every(c=>c.passed);
 report.models.fourLanguageJourneyPassed=report.models.speech.length===4&&report.models.speech.every(s=>s.passed&&s.guidancePassed);
 report.models.englishPilotJourneyPassed=report.models.speech.some(s=>s.language==='en'&&s.passed&&s.guidancePassed);
-report.modelReleaseGatePassed=report.models.configured&&report.models.textInferencePassed&&report.models.fourLanguageJourneyPassed;
+report.modelReleaseGatePassed=report.models.configured&&report.models.textInferencePassed&&(scope==='all'?report.models.fourLanguageJourneyPassed:report.models.englishPilotJourneyPassed);
 report.remaining=['Fluent critical wording review','Observed transcript correction and comprehension','Representative mobile/network testing','Genuine participant validation'];
 if(opts.has('--output')){await fs.mkdir(path.dirname(opts.get('--output')),{recursive:true});await fs.writeFile(opts.get('--output'),JSON.stringify(report,null,2)+'\n');}
 console.log(JSON.stringify(report,null,2));

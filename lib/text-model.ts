@@ -2,6 +2,7 @@ import { TEXT_MODEL, CPU_TEXT_RUNTIME, type Language } from "./models.ts";
 import { readLimited } from "./stream.ts";
 import {
   currentSourceCards,
+  retrieve,
   containsSensitive,
   KB_VERSION,
   type Answer,
@@ -73,7 +74,8 @@ export async function modelGuidance(
   fetcher: typeof fetch = fetch,
 ): Promise<Answer> {
   const base = {
-    engine: "N-ATLaS constrained card selection; wording from source library",
+    engine:
+      "N-ATLaS relevance check of retrieved card; wording from source library",
     model: TEXT_MODEL.model,
     modelRevision: TEXT_MODEL.revision,
     kbVersion: KB_VERSION,
@@ -87,10 +89,13 @@ export async function modelGuidance(
       cards: [],
       message: "Remove private details before trying again.",
     };
-  const cards = currentSourceCards();
+  const current = currentSourceCards();
   const url = textEndpoint(config);
-  if (!url || config.KB_ENABLED === "false" || !cards.length)
+  if (!url || config.KB_ENABLED === "false" || !current.length)
     throw new Error("unavailable");
+  const candidates = retrieve(question, journey, { cards: current });
+  if (candidates.status !== "ok") return candidates;
+  const cards = candidates.cards;
   const response = await fetcher(url, {
     method: "POST",
     // Reject 3xx below without forwarding the question or service credential.

@@ -70,7 +70,7 @@ async def health(request:Request):
     auth(request)
     return {'ready':running(),'model':MODEL,'revision':REVISION,'weightsProvenance':'official-bytes-verified-then-quantized',
         'runtime':'llama.cpp','runtimeRevision':LLAMA_COMMIT,'quantization':QUANTIZATION,
-        'quantizedSha256':receipt['sha256'] if receipt else None,'fineTuningPerformed':False}
+        'quantizedSha256':receipt['sha256'] if receipt else None,'contractVersion':'reviewed-card-relevance-v1','fineTuningPerformed':False}
 
 @app.post('/guide')
 async def guide(request:Request):

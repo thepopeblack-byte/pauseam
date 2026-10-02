@@ -1,0 +1,155 @@
+{
+  "kind": "Authored local engineering prompts, not human validation",
+  "recordedAt": "2026-10-02T20:33:08.445899+00:00",
+  "device": "Windows local PC, CPU only, four engine threads; not the SecretVM",
+  "model": "NCAIR1/N-ATLaS",
+  "fineTuningPerformed": false,
+  "cases": [
+    {
+      "case": "supplier",
+      "inferencePerformed": true,
+      "candidateIds": [
+        "supplier"
+      ],
+      "expectedCardIds": [
+        "supplier"
+      ],
+      "actual": {
+        "model": "NCAIR1/N-ATLaS",
+        "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+        "cardIds": [
+          "supplier"
+        ],
+        "runtime": "llama.cpp",
+        "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+        "quantization": "Q4_K_M"
+      },
+      "elapsedMs": 22495,
+      "passed": true
+    },
+    {
+      "case": "school",
+      "inferencePerformed": true,
+      "candidateIds": [
+        "school"
+      ],
+      "expectedCardIds": [
+        "school"
+      ],
+      "actual": {
+        "model": "NCAIR1/N-ATLaS",
+        "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+        "cardIds": [
+          "school"
+        ],
+        "runtime": "llama.cpp",
+        "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+        "quantization": "Q4_K_M"
+      },
+      "elapsedMs": 22289,
+      "passed": true
+    },
+    {
+      "case": "secrets",
+      "inferencePerformed": true,
+      "candidateIds": [
+        "secrets"
+      ],
+      "expectedCardIds": [
+        "secrets"
+      ],
+      "actual": {
+        "model": "NCAIR1/N-ATLaS",
+        "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+        "cardIds": [
+          "secrets"
+        ],
+        "runtime": "llama.cpp",
+        "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+        "quantization": "Q4_K_M"
+      },
+      "elapsedMs": 15909,
+      "passed": true
+    },
+    {
+      "case": "receipt",
+      "inferencePerformed": true,
+      "candidateIds": [
+        "receipt"
+      ],
+      "expectedCardIds": [
+        "receipt"
+      ],
+      "actual": {
+        "model": "NCAIR1/N-ATLaS",
+        "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+        "cardIds": [
+          "receipt"
+        ],
+        "runtime": "llama.cpp",
+        "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+        "quantization": "Q4_K_M"
+      },
+      "elapsedMs": 19640,
+      "passed": true
+    },
+    {
+      "case": "unrelated",
+      "inferencePerformed": false,
+      "engine": "Source coverage guard",
+      "passed": true
+    },
+    {
+      "case": "injection",
+      "inferencePerformed": false,
+      "engine": "Source coverage guard",
+      "passed": true
+    },
+    {
+      "case": "supplier-heldout",
+      "inferencePerformed": true,
+      "candidateIds": [
+        "supplier"
+      ],
+      "expectedCardIds": [
+        "supplier"
+      ],
+      "actual": {
+        "model": "NCAIR1/N-ATLaS",
+        "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+        "cardIds": [
+          "supplier"
+        ],
+        "runtime": "llama.cpp",
+        "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+        "quantization": "Q4_K_M"
+      },
+      "elapsedMs": 18574,
+      "passed": true
+    },
+    {
+      "case": "otp-heldout",
+      "inferencePerformed": true,
+      "candidateIds": [
+        "secrets"
+      ],
+      "expectedCardIds": [
+        "secrets"
+      ],
+      "actual": {
+        "model": "NCAIR1/N-ATLaS",
+        "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+        "cardIds": [
+          "secrets"
+        ],
+        "runtime": "llama.cpp",
+        "runtimeRevision": "631109b34da437a3c4a5ebd75091d677671392e3",
+        "quantization": "Q4_K_M"
+      },
+      "elapsedMs": 23293,
+      "passed": true
+    }
+  ],
+  "ready": true,
+  "allPassed": true
+}
