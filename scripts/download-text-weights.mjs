@@ -25,10 +25,12 @@ async function download(entry){
  if(await matches(final,entry)){console.log('Verified cache: '+entry.path);return;}
  for(let attempt=0;attempt<3;attempt++){
   let file;
+  let status=null;
   try{
    const offset=await fs.stat(partial).then(s=>s.size).catch(()=>0);
    const response=await fetch(`https://huggingface.co/${manifest.model}/resolve/${manifest.revision}/${entry.path}`,{
     headers:{Authorization:'Bearer '+process.env.HF_TOKEN,...(offset?{Range:`bytes=${offset}-`}:{})},signal:AbortSignal.timeout(1800000)});
+   status=response.status;
    if(![200,206].includes(response.status)){
     await response.body?.cancel();
     throw Error('Approved file access failed (HTTP '+response.status+').');
@@ -44,6 +46,7 @@ async function download(entry){
    await fs.rename(partial,final);console.log('Downloaded and verified: '+entry.path);return;
   }catch(error){
    await file?.close();
+   console.log(JSON.stringify({file:entry.path,attempt:attempt+1,httpStatus:status,errorType:error.name,errorCode:error.code||error.cause?.code||null}));
    if(attempt===2)throw Error('Download incomplete for '+entry.path+'. Check approved access/network privately.');
   }
  }

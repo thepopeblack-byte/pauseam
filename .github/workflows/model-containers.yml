@@ -49,3 +49,11 @@ jobs:
           IMAGE_DIGEST: ${{ steps.image.outputs.digest }}
         run: |
           printf 'Built %s at %s\n' '${{ matrix.service }}' "$IMAGE_DIGEST" >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify CPU service imports and binary dependencies offline
+        if: matrix.service == 'text_cpu'
+        env:
+          IMAGE_DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          docker pull "ghcr.io/thepopeblack-byte/pauseam-text_cpu@$IMAGE_DIGEST"
+          docker run --rm --network none --read-only --tmpfs /tmp:size=128m --entrypoint python "ghcr.io/thepopeblack-byte/pauseam-text_cpu@$IMAGE_DIGEST" -c 'import app, contract, bootstrap; import json; print(json.dumps({"model":contract.MODEL,"revision":contract.REVISION,"runtimeRevision":contract.LLAMA_COMMIT,"quantization":contract.QUANTIZATION,"inferencePerformed":False}))'
+          docker run --rm --network none --read-only --tmpfs /tmp:size=128m --entrypoint /opt/llama/bin/llama-server "ghcr.io/thepopeblack-byte/pauseam-text_cpu@$IMAGE_DIGEST" --version

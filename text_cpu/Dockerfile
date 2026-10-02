@@ -1,5 +1,5 @@
 FROM python:3.11-slim@sha256:9f6ef439f51f4b36dc5c6bb265c2d3dd810bde94c5bbec77ae86b6650c488cf9 AS engine
-RUN apt-get update && apt-get install -y --no-install-recommends git cmake g++ ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends git cmake g++ make ca-certificates && rm -rf /var/lib/apt/lists/*
 RUN git init /opt/llama-src && cd /opt/llama-src && git remote add origin https://github.com/ggml-org/llama.cpp.git && git fetch --depth 1 origin 631109b34da437a3c4a5ebd75091d677671392e3 && git checkout FETCH_HEAD && test "$(git rev-parse HEAD)" = 631109b34da437a3c4a5ebd75091d677671392e3
 RUN cmake -S /opt/llama-src -B /opt/llama-src/build -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=OFF -DGGML_CPU_ALL_VARIANTS=ON -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_APP=OFF -DLLAMA_BUILD_UI=OFF -DLLAMA_OPENSSL=OFF && cmake --build /opt/llama-src/build --target llama-server llama-quantize -j 2
 
