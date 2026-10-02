@@ -3,6 +3,24 @@ import json
 import re
 
 
+def token_choices(sequences, eos):
+    """Build the finite JSON grammar; the actual model chooses among its tokens."""
+    choices = {}
+    for sequence in sequences:
+        if not sequence or len(sequence) >= 96:
+            raise ValueError("Invalid constrained candidate")
+        for index, token in enumerate(sequence):
+            choices.setdefault(tuple(sequence[:index]), set()).add(token)
+        choices.setdefault(tuple(sequence), set()).add(eos)
+
+    def allowed(prefix):
+        result = choices.get(tuple(prefix))
+        if not result:
+            raise ValueError("Generation escaped the constrained grammar")
+        return sorted(result)
+    return allowed, max(map(len, sequences)) + 1
+
+
 def parse_selection(generated, allowed):
     # A JSON code fence is formatting, not permission to extract JSON from prose.
     fence = re.fullmatch(r"```(?:json)?\s*\n([\s\S]*?)\n```", generated.strip())

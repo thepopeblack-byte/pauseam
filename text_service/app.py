@@ -17,7 +17,7 @@ except ImportError:
     from verified_weights import load_verified_bucket
     from license_quota import reserve_model_use
 from pathlib import Path
-from selection import parse_selection
+from selection import parse_selection, token_choices
 
 MODEL = "NCAIR1/N-ATLaS"
 REVISION = "e294476928aca9030e924ca27bb8e085e8581273"
@@ -98,8 +98,16 @@ def infer(data):
     tokens = tokenizer(text, return_tensors="pt", add_special_tokens=False).to(model.device)
     if tokens["input_ids"].shape[-1] > 6000:
         raise HTTPException(413, "Context too large")
+    prefix_length = tokens["input_ids"].shape[-1]
+    candidates = [json.dumps({"cardIds": ids}, separators=(",", ":")) for ids in [[], *[[i] for i in allowed]]]
+    if not isinstance(tokenizer.eos_token_id, int):
+        raise HTTPException(503, "Model tokenizer unavailable")
+    choices, max_new = token_choices([tokenizer.encode(c, add_special_tokens=False) for c in candidates], tokenizer.eos_token_id)
+    def permitted(batch_id, input_ids):
+        return choices(input_ids[prefix_length:].tolist())
     with torch.inference_mode():
-        output = model.generate(**tokens, max_new_tokens=96, do_sample=False, use_cache=True, repetition_penalty=1.12)
+        output = model.generate(**tokens, max_new_tokens=max_new, do_sample=False, use_cache=True,
+                                prefix_allowed_tokens_fn=permitted, eos_token_id=tokenizer.eos_token_id)
     generated = tokenizer.decode(output[0,tokens["input_ids"].shape[-1]:], skip_special_tokens=True).strip()
     try:
         ids = parse_selection(generated, allowed)
@@ -131,7 +139,7 @@ async def guide(request: Request):
             if data.get("language") not in ("en","yo","ha","ig") or data.get("journey") not in ("before","after","learn"):
                 raise HTTPException(422, "Invalid context")
             cards = data.get("cards")
-            if not isinstance(cards,list) or not 1<=len(cards)<=20 or any(not isinstance(c,dict) or not isinstance(c.get("id"),str) for c in cards):
+            if not isinstance(cards,list) or not 1<=len(cards)<=20 or any(not isinstance(c,dict) or not isinstance(c.get("id"),str) or not re.fullmatch(r"[a-z][a-z0-9_-]{0,39}",c["id"]) for c in cards) or len({c['id'] for c in cards})!=len(cards):
                 raise HTTPException(422, "Invalid source context")
             if not await run_in_threadpool(reserve_model_use, os.environ["LICENSE_DB"]):
                 raise HTTPException(429, "Pilot licence quota reached; contact the team")
