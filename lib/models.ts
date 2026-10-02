@@ -27,6 +27,13 @@ export const LANGUAGES = {
   },
 } as const;
 export type Language = keyof typeof LANGUAGES;
+// Current public pilot scope. Keep paused model identities for future upgrades/evidence.
+export const PILOT_LANGUAGE = "en" as const;
+export function isPilotLanguage(
+  value: unknown,
+): value is typeof PILOT_LANGUAGE {
+  return value === PILOT_LANGUAGE;
+}
 export function isLanguage(value: unknown): value is Language {
   return typeof value === "string" && Object.hasOwn(LANGUAGES, value);
 }

@@ -1,6 +1,6 @@
 import { settings, json, sameOrigin, boundedBody } from "@/lib/server";
 import { retrieve } from "@/lib/safety";
-import { isLanguage } from "@/lib/models";
+import { isLanguage, isPilotLanguage } from "@/lib/models";
 import { modelGuidance, textEndpoint } from "@/lib/text-model";
 import { allowRequest } from "@/lib/rate-limit";
 export async function POST(request: Request) {
@@ -26,6 +26,18 @@ export async function POST(request: Request) {
             "Choose a journey and enter a short situation without private details.",
         },
         400,
+      );
+    if (!isPilotLanguage(language))
+      return json(
+        {
+          status: "unavailable",
+          cards: [],
+          model: null,
+          engine: "English-only pilot",
+          message:
+            "This pilot accepts English questions only. Choose English to continue.",
+        },
+        503,
       );
     const s = await settings();
     let answer = retrieve(data.question, data.journey, {
@@ -56,14 +68,7 @@ export async function POST(request: Request) {
               "N-ATLaS did not return verified guidance. Pause and verify independently. General information is available in the source directory.",
           };
         }
-      } else if (language !== "en")
-        answer = {
-          ...answer,
-          status: "unavailable",
-          cards: [],
-          message:
-            "Guidance in this language is not ready. Use English source checklists or contact your bank independently.",
-        };
+      }
     }
     return json(
       answer,

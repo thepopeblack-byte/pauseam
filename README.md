@@ -11,13 +11,19 @@ Custom domain: pauseam.theblockcapitol.com (DNS and HTTPS active, verified 2 Oct
 See [Sites and Namecheap setup](deployment/sites/README.md). The app runs on
 Sites; the Python/PyTorch models still require a separate inference host.
 Use the [SecretVM self-deployment guide](deployment/secretvm/README.md) for inference.
-The Hugging Face CPU package is an inactive alternative. Live model inference
-remains unverified; no new host was launched during this review.
+The current pilot is English only. A real English recording produced a transcript
+through the public app on 2 October (15.8 seconds server duration); accuracy review
+and completed research validation remain pending. The team-operated host has
+16 GB RAM, 8 vCPUs and 160 GB disk. Use the lightweight English Compose profile;
+the full five-model stack is unsuitable for this host. No new host was purchased.
 
 Implemented: mobile-first English source checklists, three journeys, private incident
 timeline/export, general-checklist sharing, consent-based local evaluation, real
-page Web Vitals, strict four-language official ASR adapters and constrained N-ATLaS
-text-model service. The model services have not been configured or validated live.
+page Web Vitals and official Nigerian-accented-English ASR. Yoruba, Hausa and Igbo
+adapters are preserved but paused in the UI and API. Typed questions and corrected
+transcripts use reviewed English source checklists. The N-ATLaS 8B text adapter
+remains implemented but disabled: real requests exceeded 45 and 180 seconds and
+its roughly 16 GB bfloat16 weights leave insufficient RAM for runtime plus ASR.
 No generic model is substituted. Official API access and fine-tuning are unverified.
 
 No account is needed for text guidance. Never enter names, account numbers, PINs,

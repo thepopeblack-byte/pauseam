@@ -4,7 +4,7 @@ import { ArrowRight, Volume2 } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
 import { Incident } from "@/components/incident";
 import { ShareChecklist } from "@/components/share-checklist";
-import { LANGUAGES, type Language } from "@/lib/models";
+import { LANGUAGES, PILOT_LANGUAGE } from "@/lib/models";
 import { VoiceInput } from "@/components/voice-input";
 import { containsSensitive, type Journey, type Answer } from "@/lib/safety";
 import { saveTrial, type Trial } from "@/lib/evaluation";
@@ -32,7 +32,7 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
     () => true,
     () => false,
   );
-  const [language, setLanguage] = useState<Language>("en");
+  const language = PILOT_LANGUAGE;
   const [verification, setVerification] = useState("unknown");
   const pending = useRef<AbortController | null>(null),
     active = useRef(true),
@@ -250,25 +250,10 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
         </div>
       )}
       {journey === "after" && <Incident />}
-      <label htmlFor={"language-" + journey}>Voice language</label>
-      <select
-        id={"language-" + journey}
-        value={language}
-        onChange={(e) => {
-          setLanguage(e.target.value as Language);
-          edit("");
-          setAsrModel("");
-        }}
-      >
-        {Object.entries(LANGUAGES).map(([key, l]) => (
-          <option key={key} value={key}>
-            {l.label}
-          </option>
-        ))}
-      </select>
       <p className="microcopy">
-        English checklists are available. All four voice integrations await live
-        validation. Yoruba, Hausa and Igbo safety wording awaits fluent review.
+        <strong>Nigerian-accented English.</strong> This pilot supports English
+        voice and typed questions. Checklists come from reviewed sources.
+        Yoruba, Hausa and Igbo are paused.
       </p>
       <VoiceInput
         key={language}

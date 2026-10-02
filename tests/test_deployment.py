@@ -11,6 +11,20 @@ spec.loader.exec_module(generator)
 
 
 class DeploymentConfiguration(unittest.TestCase):
+    def test_english_profile_keeps_ledger_and_excludes_paused_services(self):
+        fixture = "ghcr.io/example/test@sha256:" + "a" * 64
+        config = generator.compose(asr_image=fixture, profile="english-pilot")
+        self.assertIn('  asr-en:', config)
+        self.assertIn('MODEL_BUCKET_ID: Blockcapitol/NigerianAccentedEnglish-bucket', config)
+        self.assertIn('licence:/home/inference/license', config)
+        self.assertIn('asr-en-models:/home/inference/models', config)
+        for paused in ('  text:', '  asr-yo:', '  asr-ha:', '  asr-ig:', '/text/*', 'TEXT_SERVICE_TOKEN'):
+            self.assertNotIn(paused, config)
+        self.assertEqual(config.count('ports:'), 1)
+        self.assertIn('mem_limit: 4g', config)
+        with self.assertRaises(ValueError):
+            generator.compose(profile="english-pilot")
+
     def test_upload_archive_uses_platform_independent_text_and_metadata(self):
         spec = importlib.util.spec_from_file_location("space_package", ROOT / "scripts/prepare-hf-space.py")
         package = importlib.util.module_from_spec(spec)

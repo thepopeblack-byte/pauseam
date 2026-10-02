@@ -15,14 +15,23 @@ def image(value):
     return value
 
 
-def compose(text_image, asr_image=None):
+def compose(text_image=None, asr_image=None, profile="full"):
+    if profile not in ("full", "english-pilot"):
+        raise ValueError("Unknown deployment profile")
+    if profile == "full" and not text_image:
+        raise ValueError("Full profile requires a text image")
+    if profile == "english-pilot" and not asr_image:
+        raise ValueError("English pilot requires an ASR image")
+    include_text = profile == "full"
+    languages = ("en",) if profile == "english-pilot" else ("en", "yo", "ha", "ig")
     root = Path(__file__).resolve().parent.parent
     sources = json.loads((root / "deployment/models/approved-sources.json").read_text())
     proxy = ['  $DOMAIN_NAME {', '    request_body {', '      max_size 1MB', '    }',
-             '    header Cache-Control "no-store"', '    handle_path /text/* {',
-             '      reverse_proxy text:8000', '    }']
+             '    header Cache-Control "no-store"']
+    if include_text:
+        proxy.extend(['    handle_path /text/* {', '      reverse_proxy text:8000', '    }'])
     if asr_image:
-        for lang in ("en", "yo", "ha", "ig"):
+        for lang in languages:
             proxy.extend([f'    handle_path /asr/{lang}/* {{', f'      reverse_proxy asr-{lang}:8000', '    }'])
     proxy.extend(['    handle {', '      respond "PauseAm model gateway" 404', '    }', '  }'])
     lines = ['services:', '  gateway:',
@@ -35,7 +44,8 @@ def compose(text_image, asr_image=None):
         '    command:', '      - |', "        cat > /tmp/Caddyfile <<'CADDYFILE'"]
     lines.extend('        '+line for line in proxy)
     lines.extend(['        CADDYFILE', '        exec caddy run --config /tmp/Caddyfile --adapter caddyfile'])
-    lines.extend(['  text:', f'    image: {text_image}', '    restart: "on-failure:3"',
+    if include_text:
+        lines.extend(['  text:', f'    image: {text_image}', '    restart: "on-failure:3"',
         '    mem_limit: 20g', '    read_only: true', '    cap_drop: [ALL]',
         '    security_opt: [no-new-privileges:true]', '    tmpfs: ["/tmp:size=512m"]',
         '    expose: ["8000"]', '    volumes: ["text-models:/home/app/models", "licence:/home/app/license"]',
@@ -49,14 +59,14 @@ def compose(text_image, asr_image=None):
         '    healthcheck:', '      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen(\'http://127.0.0.1:8000/ready\', timeout=5)"]',
         '      interval: 30s', '      timeout: 10s', '      retries: 5', '      start_period: 60m'])
     if asr_image:
-        for lang in ("en", "yo", "ha", "ig"):
+        for lang in languages:
             revision = json.loads((root/'asr'/'manifests'/(lang+'.json')).read_text(encoding='utf-8'))['revision']
             lines.extend([f'  asr-{lang}:', f'    image: {asr_image}', '    restart: "on-failure:3"',
-                '    mem_limit: 2300m', '    read_only: true', '    cap_drop: [ALL]',
+                '    mem_limit: ' + ('4g' if profile == 'english-pilot' else '2300m'), '    read_only: true', '    cap_drop: [ALL]',
                 '    security_opt: [no-new-privileges:true]', '    tmpfs: ["/tmp:size=128m"]',
                 '    expose: ["8000"]', f'    volumes: ["asr-{lang}-models:/home/inference/models", "licence:/home/inference/license"]',
                 '    environment:', f'      MODEL_LANGUAGE: {lang}', f'      MODEL_REVISION: {revision}',
-                '      MODEL_THREADS: "1"', '      HF_HOME: /home/inference/models/hf',
+                '      MODEL_THREADS: "4"' if profile == 'english-pilot' else '      MODEL_THREADS: "1"', '      HF_HOME: /home/inference/models/hf',
                 '      VERIFIED_MODEL_CACHE: /home/inference/models/verified',
                 '      LICENSE_DB: /home/inference/license/usage.sqlite', '      HF_TOKEN: ${HF_TOKEN:-}',
                 f'      MODEL_BUCKET_ID: {sources[lang]["bucket"]}',
@@ -64,18 +74,26 @@ def compose(text_image, asr_image=None):
                 '      ASR_SERVICE_TOKEN: ${ASR_SERVICE_TOKEN:?Set privately}',
                 '    healthcheck:', '      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen(\'http://127.0.0.1:8000/ready\', timeout=5)"]',
                 '      interval: 30s', '      timeout: 10s', '      retries: 5', '      start_period: 60m'])
-    lines.extend(['volumes:', '  text-models:', '  licence:', '  caddy-data:', '  caddy-config:'])
+    lines.extend(['volumes:'])
+    if include_text:
+        lines.append('  text-models:')
+    lines.extend(['  licence:', '  caddy-data:', '  caddy-config:'])
     if asr_image:
-        lines.extend(f'  asr-{lang}-models:' for lang in ("en", "yo", "ha", "ig"))
+        lines.extend(f'  asr-{lang}-models:' for lang in languages)
     return '\n'.join(lines)+'\n'
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--text-image', required=True, type=image)
+    parser.add_argument('--profile', choices=('full','english-pilot'), default='full')
+    parser.add_argument('--text-image', type=image)
     parser.add_argument('--asr-image', type=image)
     parser.add_argument('--output', required=True, type=Path)
     args = parser.parse_args()
+    if args.profile == 'full' and not args.text_image:
+        parser.error('Full profile requires --text-image')
+    if args.profile == 'english-pilot' and not args.asr_image:
+        parser.error('English pilot requires --asr-image')
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(compose(args.text_image, args.asr_image), encoding='utf-8')
+    args.output.write_text(compose(args.text_image, args.asr_image, args.profile), encoding='utf-8')
     print('Compose written; no credentials or VM purchase performed.')

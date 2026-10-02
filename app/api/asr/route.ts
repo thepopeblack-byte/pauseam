@@ -1,6 +1,6 @@
 import { settings, json, sameOrigin, boundedBody } from "@/lib/server";
 import { transcribe, MAX_AUDIO } from "@/lib/asr";
-import { isLanguage } from "@/lib/models";
+import { isLanguage, isPilotLanguage } from "@/lib/models";
 import { allowRequest } from "@/lib/rate-limit";
 export async function POST(request: Request) {
   if (!sameOrigin(request))
@@ -12,6 +12,8 @@ export async function POST(request: Request) {
   const language = request.headers.get("x-language") || "en";
   if (!isLanguage(language))
     return json({ error: "Choose a supported language." }, 400);
+  if (!isPilotLanguage(language))
+    return json({ error: "This pilot accepts English recordings only." }, 503);
   if (!allowRequest("asr", 30))
     return json(
       { error: "Voice is busy. Wait a minute or type instead." },

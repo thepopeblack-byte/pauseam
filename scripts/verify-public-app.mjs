@@ -62,12 +62,17 @@ r=await post('bank','before','en','https://untrusted.example');record('Unrelated
 r=await post('x'.repeat(5000));record('Oversized input rejected',r,r.status===400);
 r=await request('/api/asr',{method:'POST',headers:{Origin:origin.origin,'Content-Type':'audio/wav'},body:new Uint8Array(44)});record('Audio consent required',r,r.status===400);
 r=await request('/api/asr',{method:'POST',headers:{Origin:origin.origin,'Content-Type':'text/plain','X-Audio-Consent':'yes'},body:'Authored non-audio input'});record('Unsupported audio rejected',r,r.status===415);
+for(const language of ['yo','ha','ig']){
+ r=await request('/api/asr',{method:'POST',headers:{Origin:origin.origin,'Content-Type':'audio/wav','X-Audio-Consent':'yes','X-Language':language},body:new Uint8Array()});
+ record('Paused '+language+' voice rejected before inference',r,r.status===503&&r.data?.error==='This pilot accepts English recordings only.');
+}
 for(const lang of ['yo','ha','ig']){
   if(configuration?.textConfigured===true)continue; // These requests would be real inference after enablement.
   r=await post('supplier','before',lang);record('Unconfigured '+lang+' guidance fails safely',r,r.status===503&&r.data?.status==='unavailable'&&r.data.cards.length===0);
 }
 if(opts.has('--audio-directory')){
   for(const [language,model] of Object.entries(LANGUAGES)){
+    if(configuration?.languages?.[language]?.enabled===false)continue;
     if(configuration?.languages?.[language]?.configured!==true){report.models.speech.push({language,performed:false,passed:false,reason:'Model endpoint unconfigured'});continue;}
     let audio;
     try{audio=await fs.readFile(path.join(opts.get('--audio-directory'),language+'.wav'));}catch{report.models.speech.push({language,performed:false,passed:false,reason:'Consented recording missing'});continue;}
@@ -76,12 +81,13 @@ if(opts.has('--audio-directory')){
     const speech=r.status===200&&r.data?.model===model.model&&r.data.revision===model.revision&&r.data.language===language&&typeof r.data.text==='string'&&r.data.text.trim().length>0&&!containsSensitive(r.data.text);
     const result={language,performed:true,status:r.status,elapsedMs:r.elapsedMs,passed:speech,guidancePassed:false,accuracyReviewed:false,transcriptCorrectionReviewed:false};
     // Exercises the API chain only; fluent reviewers must correct and confirm in the UI.
-    if(speech){const a=await post(r.data.text,'before',language);result.guidancePassed=a.status===200&&grounded(a.data)&&modelIdentity(a.data);result.guidanceElapsedMs=a.elapsedMs;}
+    if(speech){const a=await post(r.data.text,'before',language);result.guidancePassed=a.status===200&&grounded(a.data)&&(configuration.textConfigured?modelIdentity(a.data):language==='en'&&a.data.model===null);result.guidanceElapsedMs=a.elapsedMs;}
     r.data=null;report.models.speech.push(result);
   }
 }
 report.baselinePassed=report.checks.every(c=>c.passed);
 report.models.fourLanguageJourneyPassed=report.models.speech.length===4&&report.models.speech.every(s=>s.passed&&s.guidancePassed);
+report.models.englishPilotJourneyPassed=report.models.speech.some(s=>s.language==='en'&&s.passed&&s.guidancePassed);
 report.modelReleaseGatePassed=report.models.configured&&report.models.textInferencePassed&&report.models.fourLanguageJourneyPassed;
 report.remaining=['Fluent critical wording review','Observed transcript correction and comprehension','Representative mobile/network testing','Genuine participant validation'];
 if(opts.has('--output')){await fs.mkdir(path.dirname(opts.get('--output')),{recursive:true});await fs.writeFile(opts.get('--output'),JSON.stringify(report,null,2)+'\n');}

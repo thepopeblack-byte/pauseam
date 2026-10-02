@@ -1,5 +1,15 @@
 # PauseAm submission manifest
 
+**Current scope, 2 October: English-only pilot at the team's request.** The live
+English voice request returned HTTP 200 and a transcript in 15.8 seconds after
+the Workers redirect fix. Accuracy and comprehension review are pending; this
+owner smoke test does not add completed research participants. Typed guidance
+uses reviewed source checklists. N-ATLaS text inference is disabled after genuine
+timeouts; Yoruba, Hausa and Igbo are paused. Use the [16 GB English deployment
+guide](../deployment/secretvm/ENGLISH-PILOT.md). Earlier reports and PDFs describe
+historical scope and must not be presented as current four-language evidence.
+See [actual voice evidence](evidence/worker-redirect-fix-2026-10-02.json).
+
 Ask before you pay. Innovation & Enterprise / PS2: Voice-First Access.
 Review package updated 2 October 2026. **Overall blocked; do not submit ONDI.**
 Deadline: 12 October 2026, 11:59 p.m. West Africa Time.

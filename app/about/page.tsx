@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { CARDS, KB_VERSION } from "@/lib/safety";
-import { LANGUAGES, TEXT_MODEL, ATTRIBUTION } from "@/lib/models";
+import {
+  LANGUAGES,
+  TEXT_MODEL,
+  ATTRIBUTION,
+  isPilotLanguage,
+} from "@/lib/models";
 export default function About() {
   return (
     <>
@@ -25,10 +30,12 @@ export default function About() {
             listed pages; independent human safety review is pending.
           </p>
           <p>
-            English source checklists work without a model. The model adapters
-            are implemented, but live N-ATLaS inference, four-language
-            comprehension and fluent language review have not yet been
-            validated.{" "}
+            This pilot supports English voice and typed questions. A real
+            English recording returned a transcript on 2 October 2026; accuracy
+            and comprehension validation are still pending. Guidance uses
+            reviewed source checklists, without a generative text model. N-ATLaS
+            text inference is disabled because it exceeded the time budget on
+            the current host. Yoruba, Hausa and Igbo are paused.{" "}
             <a href="/api/status">Read current configuration status</a>.
             Configured does not mean tested.
           </p>
@@ -82,12 +89,15 @@ export default function About() {
             must return the expected pinned identity; failure produces no usable
             transcript.
           </p>
-          {Object.values(LANGUAGES).map((l) => (
+          {Object.entries(LANGUAGES).map(([code, l]) => (
             <p key={l.model}>
               <strong>{l.label}</strong>:{" "}
               <a href={"https://huggingface.co/" + l.model}>{l.model}</a>
               <br />
-              <code>{l.revision}</code> · live validation pending.
+              <code>{l.revision}</code> ·{" "}
+              {isPilotLanguage(code)
+                ? "English pilot; accuracy review pending."
+                : "Paused; no current language capability claimed."}
             </p>
           ))}
           <p>

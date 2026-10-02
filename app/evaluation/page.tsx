@@ -18,7 +18,7 @@ import {
   TEST_PROMPTS,
   KB_VERSION,
 } from "@/lib/safety";
-import { LANGUAGES, type Language } from "@/lib/models";
+import { LANGUAGES, isPilotLanguage, type Language } from "@/lib/models";
 export default function Evaluation() {
   const [rows, setRows] = useState<Trial[]>([]),
     [consent, setConsent] = useState(false),
@@ -142,28 +142,30 @@ export default function Evaluation() {
           {message && <p role="status">{message}</p>}
         </div>
         <div className="content-panel">
-          <h2>Language measurements</h2>
+          <h2>English pilot measurements</h2>
           <p>
             Grouped by the selected ASR target. This does not verify
             spoken-language correctness or fluent understanding. Older records
             without a language are not assigned one.
           </p>
-          {Object.entries(LANGUAGES).map(([code, identity]) => {
-            const m = languageSummary(rows, code as Language);
-            return (
-              <div className="language-metric" key={code}>
-                <h3>{identity.label}</h3>
-                <p>
-                  ASR successes / attempts: {m.successes} / {m.attempts}.
-                  Prompted WER:{" "}
-                  {m.wer === null
-                    ? "Not measured"
-                    : (100 * m.wer).toFixed(1) + "%"}{" "}
-                  ({m.samples} samples).
-                </p>
-              </div>
-            );
-          })}
+          {Object.entries(LANGUAGES)
+            .filter(([code]) => isPilotLanguage(code))
+            .map(([code, identity]) => {
+              const m = languageSummary(rows, code as Language);
+              return (
+                <div className="language-metric" key={code}>
+                  <h3>{identity.label}</h3>
+                  <p>
+                    ASR successes / attempts: {m.successes} / {m.attempts}.
+                    Prompted WER:{" "}
+                    {m.wer === null
+                      ? "Not measured"
+                      : (100 * m.wer).toFixed(1) + "%"}{" "}
+                    ({m.samples} samples).
+                  </p>
+                </div>
+              );
+            })}
           <p>
             No successful model request is claimed by an empty row. Verified
             successful ASR trials retain only the official model ID/revision,

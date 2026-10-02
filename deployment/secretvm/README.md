@@ -1,5 +1,12 @@
 # Deploy PauseAm inference on SecretVM yourselves
 
+**Current scope: English only, 16 GB RAM / 8 vCPUs / 160 GB disk.** Use
+[ENGLISH-PILOT.md](ENGLISH-PILOT.md) and `english-pilot-compose.yml` on the existing
+VM. That profile runs only English ASR; typed guidance uses the reviewed English
+knowledge base. Stop the old text and non-English containers to release RAM,
+preserving volumes and the licence ledger. The instructions below describe the
+historical full five-model stack for a larger host, not this 16 GB pilot.
+
 Keep the app on https://pauseam.theblockcapitol.com. Deploy only inference on
 SecretVM. No VM is launched by these files; live inference and CPU latency remain
 unverified. SecretVM supports Docker Compose and encrypted environment variables:
