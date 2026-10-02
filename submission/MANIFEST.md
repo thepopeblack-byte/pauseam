@@ -43,6 +43,17 @@ prepared. Text uses the pinned approved official repository because the mixed
 text bucket still fails its small-file audit. No Space or successful new
 inference is claimed. Historical failure reports remain unchanged.
 
+The combined CPU container built and imported successfully in
+[actual CI run 36967883845](https://github.com/thepopeblack-byte/pauseam/actions/runs/36967883845).
+See [package/runtime results](evidence/hf-cpu-preparation-2026-10-02.json).
+Sites version 9 deployed the quota route and created its timestamp-only D1 table;
+the private quota credential remains unconfigured. All 16 new
+[public baseline checks](evidence/hf-cpu-app-release-2026-10-02.json) passed,
+while the genuine-model release gate correctly remained failed. Updated
+[PDF visual/hash review](evidence/pdf-cpu-update-review-2026-10-02.json) covers
+the eight rendered integration/technical pages. None of this creates participant
+validation, working speech, official API proof or fine-tuning evidence.
+
 See the [full release gate](RELEASE-GATE.md), [six-criteria matrix](evidence-matrix.md),
 [ONDI drafts](portal-and-form-drafts.md), [engineering review](evidence/engineering-review.md)
 and [organiser query](organiser-query.md). No application was submitted.

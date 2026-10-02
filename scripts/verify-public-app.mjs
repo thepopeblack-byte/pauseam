@@ -43,6 +43,8 @@ let r=await request('/api/status');
 configuration=r.data;
 const identity=r.status===200&&configuration?.model===LANGUAGES.en.model&&configuration.revision===LANGUAGES.en.revision&&Object.entries(LANGUAGES).every(([lang,m])=>configuration?.languages?.[lang]?.model===m.model&&configuration.languages[lang].revision===m.revision);
 record('Pinned targets and private status response',r,identity&&r.noStore);
+r=await request('/api/model-quota',{method:'POST'});
+record('Unauthenticated licence reservation fails closed',r,[401,503].includes(r.status)&&r.data?.reserved===false&&r.noStore);
 report.models.configured=identity&&configuration.textConfigured===true&&Object.values(configuration.languages).every(m=>m.configured===true);
 for(const route of ['/','/about','/evaluation']){r=await request(route);record('Page '+route,r,r.status===200);}
 r=await post('A supplier changed the bank details on an invoice.');

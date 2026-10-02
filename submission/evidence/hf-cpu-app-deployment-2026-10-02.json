@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-10-02T05:27:06.234621+00:00",
+  "projectId": "appgprj_6ab826bba8f48191ad36895acae09407",
+  "versionId": "appgprj_6ab826bba8f48191ad36895acae09407~appgver_f500f35f8c94819195f685e0d0d1f326",
+  "deploymentId": "appgdep_6abf4099269881918b695f296c00e7c9",
+  "status": "succeeded",
+  "sourceCommit": "503d084f20661af2e6d74456f56d360e77aa058d",
+  "providerUrl": "https://pauseam.thepopeblack.chatgpt.site",
+  "customDomain": "https://pauseam.theblockcapitol.com",
+  "environmentRevision": 1,
+  "databaseBinding": "DB",
+  "tables": [
+    "pauseam_model_usage"
+  ],
+  "productionQuotaCredentialConfigured": false,
+  "modelEndpointsConfigured": false,
+  "kind": "Actual native Sites deployment and database-overview evidence; no inference"
+}

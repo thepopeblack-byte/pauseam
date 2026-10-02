@@ -4,6 +4,12 @@ Prepared 2 October 2026. No Space has been created, no paid hardware selected,
 and no inference has been performed by this package. The public app is
 https://pauseam.theblockcapitol.com. Model endpoint settings remain disabled.
 
+The combined container build and offline imports passed in actual GitHub CI
+run 36967883845. All five upload file hashes match the CI package. Sites version
+9 has deployed the quota route and created its D1 table; its private credential
+is still pending. Sixteen real public baseline checks passed. These checks do
+not prove loaded models, transcription, latency or user comprehension.
+
 ## What is included
 
 One Docker Space exposes port 7860. A protected gateway forwards to five

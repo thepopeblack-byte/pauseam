@@ -87,3 +87,13 @@ Node checks, 18 Python model/audio checks, eight gateway tests and TypeScript
 passed. No Space was launched, no new inference passed, no recording was supplied,
 and the validation total remains zero. Models stay disabled. See the current
 Hugging Face guide; preceding host/access sections are historical checkpoints.
+
+The combined CPU image subsequently built and passed offline imports in genuine
+CI run 36967883845. The gateway and both service code paths imported with
+torch 2.6.0+cpu / transformers 4.49.0; no weights loaded or inference performed.
+Package file hashes match the upload files. Sites version 9 successfully
+deployed source 503d084f20661af2e6d74456f56d360e77aa058d and its D1 migration;
+the live DB overview confirms pauseam_model_usage. Sixteen public baseline
+checks passed. Missing quota credentials safely return 503 and model endpoints
+remain unconfigured. See evidence/hf-cpu-app-deployment-2026-10-02.json,
+evidence/hf-cpu-app-release-2026-10-02.json and the preparation report.
