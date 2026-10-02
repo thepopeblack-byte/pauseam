@@ -157,5 +157,22 @@
       "Representative mobile/network testing",
       "Genuine participant validation"
     ]
+  },
+  "englishVoiceSmoke": {
+    "timestamp": "2026-10-02T10:32:48.300Z",
+    "route": "/api/asr",
+    "status": 200,
+    "wallTimeMs": 15786,
+    "language": "en",
+    "requestId": "904e9f7be8fb67e326ca65d79743f10f",
+    "ownerReported": "A transcript appears",
+    "model": "NCAIR1/NigerianAccentedEnglish",
+    "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+    "provenance": "Live API returned HTTP 200 after server-side model/revision/language validation; owner reported transcript appeared",
+    "accuracyReviewed": false,
+    "correctedGuidanceJourneyConfirmed": false,
+    "rawAudioRetained": false,
+    "transcriptRetained": false,
+    "researchParticipantInteractionCount": 0
   }
 }
