@@ -473,23 +473,6 @@ p {
   color: var(--muted-foreground);
   font-size: 0.875rem;
 }
-.source-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  align-items: center;
-  font-size: 0.875rem;
-  margin: 20px 0 4px;
-}
-.source-line small {
-  font-size: inherit;
-  color: var(--muted-foreground);
-}
-.provenance {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-  overflow-wrap: anywhere;
-}
 .result-tools {
   display: flex;
   flex-wrap: wrap;
@@ -498,9 +481,6 @@ p {
 }
 .result-tools > div {
   display: contents;
-}
-.result-tools .microcopy {
-  display: none;
 }
 .research-options {
   margin-top: 24px;
@@ -814,6 +794,40 @@ h2,
 h3,
 button {
   overflow-wrap: anywhere;
+}
+.report-guide,
+.learning-updates {
+  margin-top: 24px;
+}
+.report-guide select {
+  width: 100%;
+  margin: 8px 0 16px;
+}
+.report-guide ol,
+.lesson ol {
+  padding-left: 24px;
+}
+.report-guide li,
+.lesson li {
+  margin: 12px 0;
+}
+.report-draft {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+}
+.lesson {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+.lesson summary {
+  line-height: 1.5;
+}
+.lesson summary small {
+  display: block;
+  color: var(--muted-foreground);
+  font-weight: 400;
+  margin-top: 4px;
 }
 @media (max-width: 380px) {
   .composer-actions {

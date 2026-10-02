@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ShieldCheck, Download, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
 import { VoiceInput } from "@/components/voice-input";
+import { JourneyPanel } from "@/components/journey";
 import {
   readTrials,
   clearTrials,
@@ -19,7 +20,12 @@ import {
   TEST_PROMPTS,
   KB_VERSION,
 } from "@/lib/safety";
-import { LANGUAGES, isPilotLanguage, type Language } from "@/lib/models";
+import {
+  LANGUAGES,
+  ATTRIBUTION,
+  isPilotLanguage,
+  type Language,
+} from "@/lib/models";
 export default function Evaluation() {
   const [rows, setRows] = useState<Trial[]>([]),
     [consent, setConsent] = useState(false),
@@ -250,10 +256,15 @@ export default function Evaluation() {
           </ul>
           <p>
             ASR <a href={MODEL_URL}>{MODEL}</a> · revision {REVISION}.{" "}
-            <Link href="/about">Full configuration and review details</Link>.
+            <a href="/api/status">Current backend configuration</a>.
           </p>
         </div>
+        <details className="content-panel">
+          <summary>Consented question and guidance testing</summary>
+          <JourneyPanel journey="before" research />
+        </details>
         <PerformancePanel />
+        <p className="microcopy">{ATTRIBUTION}</p>
       </main>
     </>
   );

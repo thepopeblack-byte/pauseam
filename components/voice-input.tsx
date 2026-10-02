@@ -274,9 +274,8 @@ export function VoiceInput({
                 setAudio(null);
               }}
             />
-            I agree to send audio to N-ATLaS for transcription. This app
-            processes it in memory without saving it. I won&apos;t speak private
-            details.
+            I agree to send this recording for transcription. This app does not
+            save it. I won&apos;t speak private details.
           </label>
           <button
             type="button"
@@ -358,22 +357,6 @@ export function VoiceInput({
               {message}
             </p>
           )}
-          <details className="provenance">
-            <summary>Voice & privacy details</summary>
-            <p>
-              Transcription:{" "}
-              <a
-                href={"https://huggingface.co/" + identity.model}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {identity.model}
-              </a>{" "}
-              / {identity.revision.slice(0, 8)}. Recognition accuracy is still
-              being reviewed. Check and correct your transcript.{" "}
-              <a href="/about">More about your data</a>.
-            </p>
-          </details>
         </div>
       )}
     </div>

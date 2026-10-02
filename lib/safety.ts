@@ -1,7 +1,7 @@
 export const MODEL = "NCAIR1/NigerianAccentedEnglish";
 export const REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff";
 export const MODEL_URL = "https://huggingface.co/" + MODEL;
-export const KB_VERSION = "2026-10-02.1";
+export const KB_VERSION = "2026-10-02.2";
 export type Journey = "before" | "after" | "learn";
 export type Card = {
   id: string;
@@ -186,7 +186,7 @@ export const CARDS: Card[] = [
     steps: [
       "Contact your bank through a trusted official channel now. Ask it to secure the affected account and investigate the transaction.",
       "If access was compromised, change passwords through the official service and enable two-factor authentication.",
-      "Report suspected fraud to the relevant authorities. Recovery is not guaranteed.",
+      "Keep the payment confirmation and messages privately. Ask your bank for a complaint reference. Recovery is not guaranteed.",
     ],
     source: fraud,
     sourceTitle: "CBN · Fraud and Scam Awareness",
@@ -233,6 +233,11 @@ export const CARDS: Card[] = [
       "dispute",
       "reversed",
       "charges",
+      "duplicate",
+      "deducted",
+      "deduction",
+      "missing",
+      "resolve",
     ],
     steps: [
       "Lodge your complaint with your bank first and ask for a tracking reference.",
@@ -242,6 +247,48 @@ export const CARDS: Card[] = [
     sourceTitle: "CBN · How to Lodge a Complaint",
     section: "Contact your institution first; if your bank fails to resolve",
     ...review,
+  },
+  {
+    id: "mistaken",
+    title: "Ask your bank to investigate a mistaken transfer",
+    keywords: ["mistaken", "accidentally", "accidental"],
+    steps: [
+      "Contact your bank through its official service promptly. Explain that the transfer may have gone to the wrong recipient.",
+      "Keep the confirmation privately. Give the transaction details only through the bank's verified complaints channel.",
+      "Ask for a complaint reference and the next step. A reversal or recovery is not guaranteed.",
+    ],
+    source: "https://www.cbn.gov.ng/FinInc/FinLit/BillOfRights.html",
+    sourceTitle: "CBN · Bank Customers' Bill of Rights and Duties",
+    section: "Duty to report suspected fraud or error; right to redress",
+    basis:
+      "Scenario checklist applying the duty to report errors and the right to complain; it does not assert a right to reverse a completed transfer.",
+    ...review,
+    checked: "2026-10-02",
+  },
+  {
+    id: "account-security",
+    title: "Protect your accounts through the official service",
+    keywords: [
+      "phishing",
+      "malware",
+      "breach",
+      "compromised",
+      "cybersecurity",
+      "virus",
+    ],
+    steps: [
+      "Avoid the suspicious link, download or support contact. Open the provider's official service independently.",
+      "If access may be compromised, change passwords there and turn on two-factor authentication. Keep every recovery code private.",
+      "If banking information or access may be affected, contact your bank immediately and ask it to secure the account.",
+    ],
+    source: fraud,
+    sourceTitle: "CBN · Fraud and Scam Awareness",
+    section:
+      "Phishing scams; identity theft; change passwords and secure accounts",
+    basis:
+      "General protective steps for possible account compromise; this is not malware detection or a device-security assessment.",
+    ...review,
+    checked: "2026-10-02",
   },
   {
     id: "payment",
@@ -363,6 +410,16 @@ export function retrieve(
         (c.id === "supplier" &&
         /\b(?:different|new|changed)\b.*\b(?:bank|account|details)\b/.test(text)
           ? 5
+          : 0) +
+        (c.id === "account-security" &&
+        /\b(?:clicked|opened|installed|tapped)\b/.test(text) &&
+        /\b(?:phishing|malware|link|download)\b/.test(text)
+          ? 5
+          : 0) +
+        (c.id === "mistaken" &&
+        /\b(?:wrong|mistaken)\b/.test(text) &&
+        /\b(?:transfer|transferred|sent|recipient|account)\b/.test(text)
+          ? 5
           : 0),
     }))
     .filter((x) => x.score > 0)
@@ -373,7 +430,7 @@ export function retrieve(
       status: "no_match",
       cards: [],
       message:
-        "I don't have reviewed guidance for that question yet. Tell me what happened with a payment, seller, bank message or banking code. For other issues, use the official help sources or contact your bank independently. This pilot cannot answer general questions or confirm a payment is safe.",
+        "I cannot help with that question yet. Describe what happened with a payment, seller, bank message or banking code. For urgent banking concerns, contact your bank through its official service.",
     };
   return {
     ...base,

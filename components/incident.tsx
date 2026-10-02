@@ -59,8 +59,8 @@ export function Incident() {
     <section className="content-panel">
       <h3>Prepare for your bank conversation</h3>
       <p>
-        Keep originals privately. This page records only event types and times,
-        in memory until you leave. Do not enter account details or secrets.
+        Keep originals privately. Notes stay here until you leave. Download a
+        summary if you need one, without account details or secrets.
       </p>
       <fieldset>
         <legend>Evidence checklist</legend>
@@ -135,15 +135,7 @@ export function Incident() {
       </div>
       <p className="microcopy">
         The download contains only the selections above. Your browser may retain
-        downloaded files.{" "}
-        <a
-          href="https://www.cbn.gov.ng/FinInc/FinLit/LodgeComplaint.html"
-          target="_blank"
-          rel="noreferrer"
-        >
-          CBN complaint process
-        </a>{" "}
-        · checked 1 October 2026.
+        downloaded files.
       </p>
     </section>
   );

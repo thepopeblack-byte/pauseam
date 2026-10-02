@@ -30,10 +30,6 @@ export function ShareChecklist({ answer }: { answer: Answer }) {
       <button className="secondary" onClick={share}>
         Share checklist
       </button>
-      <p className="microcopy">
-        Only these general steps and sources are shared. Your question,
-        transcript and incident notes are excluded.
-      </p>
       {status && <p role="status">{status}</p>}
     </div>
   );

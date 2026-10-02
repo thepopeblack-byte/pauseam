@@ -49,7 +49,7 @@ export default function Home() {
             onClick={() => setJourney("after")}
           >
             <LifeBuoy size={17} aria-hidden="true" />
-            Already paid?
+            Report a problem
           </button>
           <button
             type="button"
@@ -67,8 +67,7 @@ export default function Home() {
         <footer>
           <span>English · No account needed</span>
           <div>
-            <Link href="/about">Sources & privacy</Link>
-            <Link href="/evaluation">Testing</Link>
+            <Link href="/about">Privacy</Link>
           </div>
         </footer>
       </main>

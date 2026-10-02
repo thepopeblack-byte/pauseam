@@ -4,7 +4,9 @@ import { Volume2, LockKeyhole, CheckCheck } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
 import { Incident } from "@/components/incident";
 import { ShareChecklist } from "@/components/share-checklist";
-import { LANGUAGES, PILOT_LANGUAGE } from "@/lib/models";
+import { ReportGuide } from "@/components/report-guide";
+import { LearningUpdates } from "@/components/learning-updates";
+import { PILOT_LANGUAGE } from "@/lib/models";
 import { VoiceInput } from "@/components/voice-input";
 import { containsSensitive, type Journey, type Answer } from "@/lib/safety";
 import { saveTrial, type Trial } from "@/lib/evaluation";
@@ -26,7 +28,13 @@ const topics = {
     "How do I check an online seller?",
   ],
 };
-export function JourneyPanel({ journey }: { journey: Journey }) {
+export function JourneyPanel({
+  journey,
+  research = false,
+}: {
+  journey: Journey;
+  research?: boolean;
+}) {
   const ready = useSyncExternalStore(
     subscribeReady,
     () => true,
@@ -228,14 +236,14 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
     <div className="card-body">
       <h1>
         {journey === "after"
-          ? "Let’s act quickly."
+          ? "Let’s report the problem."
           : journey === "learn"
             ? "Spot the warning signs."
             : "What’s happening?"}
       </h1>
       <p className="question-intro">
         {journey === "after"
-          ? "Contact your bank first. Then get help with your next step."
+          ? "Describe what happened. We’ll help you prepare a report and find the right next step."
           : journey === "learn"
             ? "Ask about a payment warning sign, or try an example below."
             : "Ask about a payment, message or money concern. Use your own words."}
@@ -253,17 +261,7 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
               bank for a complaint reference.
             </li>
           </ol>
-          <p className="microcopy">
-            Recovery is not guaranteed.{" "}
-            <a
-              href="https://www.cbn.gov.ng/supervision/cpdfraudandscam.html"
-              target="_blank"
-              rel="noreferrer"
-            >
-              CBN guidance
-            </a>{" "}
-            · checked 1 October 2026.
-          </p>
+          <p className="microcopy">Recovery is not guaranteed.</p>
         </section>
       )}
       <form
@@ -334,15 +332,6 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
               />
               I’ve checked this transcript and removed private details.
             </label>
-            <details>
-              <summary>Voice model details</summary>
-              <p className="microcopy">
-                Transcribed by{" "}
-                <a href={"https://huggingface.co/" + asrModel}>{asrModel}</a> ·{" "}
-                {LANGUAGES[language].revision.slice(0, 8)}. The model supplies
-                no confidence score. Your corrections are used.
-              </p>
-            </details>
           </div>
         )}
       </form>
@@ -388,7 +377,7 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
           {busy && (
             <div className="result response-loading" role="status">
               <h2>Finding your next step</h2>
-              <p>Checking the source library…</p>
+              <p>One moment…</p>
               <div className="loading-line" aria-hidden="true" />
               <div className="loading-line" aria-hidden="true" />
             </div>
@@ -413,60 +402,30 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
                     : "We couldn’t check this"}
                 </h2>
               )}
-              {answer.cards.map((c) => (
-                <article key={c.id}>
-                  <h2>{c.title}</h2>
-                  <ol>
-                    {c.steps.map((step, i) => (
-                      <li key={step}>
-                        <span className="step-number" aria-hidden="true">
-                          {i + 1}
-                        </span>
-                        {step}
-                        {c.why?.[i] && (
-                          <small className="step-why">{c.why[i]}</small>
-                        )}
-                      </li>
-                    ))}
-                  </ol>
-                  <div className="source-line">
-                    <a href={c.source} target="_blank" rel="noreferrer">
-                      {c.sourceTitle}
-                    </a>
-                    <small>Checked {c.checked}</small>
-                  </div>
-                  <details className="provenance">
-                    <summary>Why this guidance?</summary>
-                    {c.basis && <p>{c.basis}</p>}
-                    <p>
-                      {c.section} · review due {c.expires}. {c.review}
-                    </p>
-                  </details>
-                </article>
-              ))}
-              <p className="microcopy">{answer.message}</p>
-              <details className="provenance">
-                <summary>How this answer was made</summary>
-                <p>
-                  Answer:{" "}
-                  {answer.model ? (
-                    <a href={"https://huggingface.co/" + answer.model}>
-                      {answer.model}
-                    </a>
-                  ) : (
-                    "Reviewed source checklist; no generative text model"
-                  )}
-                  {answer.modelRevision
-                    ? " · " + answer.modelRevision.slice(0, 8)
-                    : ""}
-                  . {answer.engine}.
-                </p>
-                <p>
-                  Speech: {asrModel || "Typed input; no speech model"}. Library{" "}
-                  {answer.kbVersion}.
-                </p>
-              </details>
-              {answer.cards.length > 0 && (
+              {journey === "after" && answer.status === "ok" ? (
+                <ReportGuide question={question} />
+              ) : (
+                answer.cards.map((c) => (
+                  <article key={c.id}>
+                    <h2>{c.title}</h2>
+                    <ol>
+                      {c.steps.map((step, i) => (
+                        <li key={step}>
+                          <span className="step-number" aria-hidden="true">
+                            {i + 1}
+                          </span>
+                          {step}
+                          {c.why?.[i] && (
+                            <small className="step-why">{c.why[i]}</small>
+                          )}
+                        </li>
+                      ))}
+                    </ol>
+                  </article>
+                ))
+              )}
+              {answer.cards.length === 0 && <p>{answer.message}</p>}
+              {answer.cards.length > 0 && journey !== "after" && (
                 <div className="result-tools">
                   <ShareChecklist answer={answer} />
                   <button
@@ -480,12 +439,6 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
                   </button>
                 </div>
               )}
-              {answer.cards.length > 0 && (
-                <p className="microcopy">
-                  Listen uses your browser’s voice service. Sharing includes
-                  only the checklist and sources.
-                </p>
-              )}
               {answer.status === "no_match" && (
                 <div className="chips">
                   <button
@@ -497,10 +450,13 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
                   >
                     Help with a bank complaint
                   </button>
-                  <a className="secondary" href="/about">
-                    Official help sources
-                  </a>
                 </div>
+              )}
+              {journey === "before" && answer.cards[0]?.id === "report" && (
+                <details>
+                  <summary>Prepare a bank or CBN report</summary>
+                  <ReportGuide question={question} />
+                </details>
               )}
               {testing && trial && !saved && answer.status === "ok" && (
                 <div className="content-panel">
@@ -563,11 +519,7 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
                   </div>
                   {quiz !== null && (
                     <p role="status">
-                      Keep the code private and contact your bank independently.{" "}
-                      <a href="https://www.cbn.gov.ng/FinInc/FinLit/BillOfRights.html">
-                        CBN source
-                      </a>
-                      . Practice feedback; no model used.
+                      Keep the code private and contact your bank independently.
                     </p>
                   )}
                 </details>
@@ -593,23 +545,27 @@ export function JourneyPanel({ journey }: { journey: Journey }) {
           <Incident />
         </details>
       )}
-      <details className="research-options">
-        <summary>Optional: help us test PauseAm</summary>
-        <label className="consent">
-          <Checkbox
-            checked={testing}
-            disabled={busy}
-            onCheckedChange={(v) => {
-              setTesting(v === true);
-              setTrial(null);
-              setSaved(false);
-            }}
-          />
-          Save anonymous timing and feedback on this device. No question,
-          transcript or audio is saved. Turning this off stops new measurements.
-        </label>
-        <a href="/evaluation">View or delete test measurements</a>
-      </details>
+      {journey === "learn" && <LearningUpdates />}
+      {research && (
+        <details className="research-options">
+          <summary>Optional: help us test PauseAm</summary>
+          <label className="consent">
+            <Checkbox
+              checked={testing}
+              disabled={busy}
+              onCheckedChange={(v) => {
+                setTesting(v === true);
+                setTrial(null);
+                setSaved(false);
+              }}
+            />
+            Save anonymous timing and feedback on this device. No question,
+            transcript or audio is saved. Turning this off stops new
+            measurements.
+          </label>
+          <a href="/evaluation">View or delete test measurements</a>
+        </details>
+      )}
     </div>
   );
 }

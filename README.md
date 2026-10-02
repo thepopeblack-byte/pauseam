@@ -1,4 +1,8 @@
 # PauseAm
+
+The consumer app has three paths: ask a payment question, prepare a report, and learn a warning sign. Report drafts are created locally from a privacy-checked description; users review and send them themselves. Banking evidence and credentials are not collected. The bank-first/CBN guide and dated ngCERT learning catalog are documented in [reporting and learning evidence](submission/evidence/reporting-learning-2026-10-02.md).
+
+Learning updates are selected official notices maintained by the team, not a live news feed. Refresh and human-review the catalog before its 9 October expiry; stale entries are withheld automatically. Technical provenance and consent-based research tools are separate from ordinary consumer navigation at `/evaluation`; `/api/status` describes actual model configuration.
 ## Ask before you pay.
 
 A payment decision companion for NAIC 2026, Innovation & Enterprise, PS2.
