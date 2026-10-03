@@ -1,14 +1,22 @@
 # 03 — Real-world validation report
 
-PauseAm | Status: BLOCKED | 2 October 2026. Intended review/submission: Monday, 5 October.
+PauseAm | Status: BLOCKED pending reconciled results | 3 October 2026. Intended review/submission: Monday, 5 October.
 
 ## Actual totals
 Prospective pool: 200+ willing people reported by Kayode.
+Owner-reported testers who have now tried the app: 25, reported 3 October.
+Participant feedback and supporting session records received for review: 0.
 Completed discovery sessions supplied: 0.
 Documented PS2 interactions: 0 of the required minimum 50.
 Distinct validated participants: 0. Completed fluent reviews: 0.
 English: 0 interactions. Yoruba: 0. Hausa: 0. Igbo: 0.
 Voice success, WER, comprehension, retention and impact: not measured.
+
+The reported 25 testers are testing activity, not 25 evidenced completed voice
+interactions. Their feedback is being collected. See
+../evidence/testing-owner-report-2026-10-03.json and
+form-answer-status-2026-10-03.txt. Historical zero documented totals remain
+unchanged until genuine consented records are reconciled.
 
 Engineering tests, authored prompts and browser automation are excluded.
 Prospective testers and device-local feedback are not independently documented

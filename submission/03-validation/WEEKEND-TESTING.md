@@ -29,6 +29,12 @@ If no: do not create a research row. If yes: record consent version PA-2026-10-0
 
 ## Record evidence with minimal effort
 
+3 October feedback collection: the owner reports 25 testers have tried the app.
+Use the [published Google feedback form and privacy instructions](feedback-form-content.txt)
+for consented self-reports. Feedback, an attempted session and a documented
+completed voice interaction remain different records. Reconcile actual outcomes
+and supporting evidence before updating totals; do not invent retrospective consent.
+
 For consented measurements, open https://pauseam.theblockcapitol.com/evaluation. The research checkbox is off until the participant agrees. Run the voice test and question flow there, then export the actual anonymous measurements. Exports contain only whitelisted outcomes, timing, model identity and request references where returned. They remain editable device-local evidence, not proof of participant authenticity.
 
 Keep the observer CSV in the ignored private/research folder using interactions-template.csv as the header. Use a random P- plus 12 lowercase hex participant code; never derive it from a name or phone number. Record the actual build commit, returned model/revision, request reference, consent and observed outcomes. The observer must attest a real session. Request references identify responses; they are not signed research attestations. Never fill technical fields with guessed values. If unknown, record the issue and resolve it before counting the session.

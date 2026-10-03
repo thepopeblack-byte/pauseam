@@ -1,0 +1,40 @@
+PauseAm - Ask before you pay.
+N-ATLaS integration evidence | NAIC 2026 | 3 October 2026
+
+IMPLEMENTED INTEGRATION
+English speech-to-text uses NCAIR1/NigerianAccentedEnglish, pinned to revision 3c52c6e6c9ec508014a7b9db6a42b503b8930dff. The corrected and confirmed question can use NCAIR1/N-ATLaS, pinned to revision e294476928aca9030e924ca27bb8e085e8581273, for constrained relevance checking of reviewed payment-safety content. Both run on the team's authenticated SecretVM host. Model calls and secrets remain server-side. The text model uses a documented Q4_K_M CPU conversion of the official weights; quantization is not fine-tuning.
+
+1. INTEGRATION PDF
+Architecture, model IDs and revisions, redacted configuration, adapter locations, genuine traces, screenshots and limitations:
+https://github.com/thepopeblack-byte/pauseam/blob/main/output/pdf/02-natlas-integration.pdf
+
+2. LIVE REQUEST LOGS AND API RESPONSE SAMPLES
+Ten public engineering checks on 3 October; four genuine N-ATLaS text-inference responses include HTTP status, model revision, trace ID and timing. The remaining cases explicitly identify when no model inference was used:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json
+
+Six authenticated model-host text requests on 2 October, plus two pre-inference guards. Successful inference took 6,141-6,754 ms in that engineering run; these are host measurements, not a participant benchmark:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/live-text-inference-2026-10-02.json
+
+English ASR health/privacy and audio-error checks, with earlier owner confirmation kept separate from engineering tests:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/freeform-voice-live-2026-10-03.json
+
+3. ACTUAL APPLICATION SCREENSHOT
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-mobile-v25-2026-10-03.jpg
+
+4. REPRODUCIBLE HEALTH, REQUEST AND TIMING SCRIPT
+https://github.com/thepopeblack-byte/pauseam/blob/main/scripts/verify-model-host.mjs
+
+5. INTEGRATION SOURCE AND MODEL FILE PROVENANCE
+https://github.com/thepopeblack-byte/pauseam/blob/main/lib/asr.ts
+https://github.com/thepopeblack-byte/pauseam/blob/main/lib/text-model.ts
+https://github.com/thepopeblack-byte/pauseam/blob/main/text_cpu/contract.py
+https://github.com/thepopeblack-byte/pauseam/blob/main/asr/manifests/en.json
+
+WORKING ARTEFACT
+https://pauseam.theblockcapitol.com
+https://github.com/thepopeblack-byte/pauseam
+
+CAPABILITY AND VALIDATION BOUNDARIES
+These are genuine engineering/owner checks, not independent participant-validation results. On 3 October, the owner reports that 25 testers have tried the app and feedback is being collected. Their completed voice interactions, consent and outcomes have not yet been reconciled; no success rate or minimum-50 claim is made. Only English is currently enabled. Official N-ATLaS API requests and fine-tuning are not demonstrated. Organiser confirmation that self-hosting official ASR weights qualifies as the required ASR service is pending. App readout uses browser/device speech; the separately labelled demo narrator uses Microsoft Nigerian-English TTS, not N-ATLaS speech generation.
+
+No API keys, tokens, participant identities, raw audio, private bank records or credentials are included in this note. No ONDI application has been submitted.

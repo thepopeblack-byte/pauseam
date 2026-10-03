@@ -7,6 +7,11 @@ Evidence files retain their original historical outcomes.
 
 Owner reconfirmed on 3 October: testers are ready, but no participant sessions or
 demo video have been completed. Current documented participant count is 0.
+Later owner update: 25 testers have now tried the app; feedback collection is
+under way through the team's Google Form. Their completed voice interactions
+and outcomes are not yet reconciled. The edited real 4:43 demo exists locally
+and awaits full owner playback review/publication. See
+evidence/testing-owner-report-2026-10-03.json and 05-video/README.md.
 SecretVM positioning and unverified attestation boundaries are documented in
 [confidentiality-positioning.md](confidentiality-positioning.md).
 

@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-03",
+  "kind": "Questionnaire setup checks, not participant validation",
+  "provider": "Google Forms",
+  "respondentUrl": "https://docs.google.com/forms/d/e/1FAIpQLSehR9XnB63y54J02_NkrXsf59o8CLlbrBEDGRdPyAFyiHrFcg/viewform?usp=header",
+  "published": true,
+  "questions": [
+    {"title": "Consent to record this feedback", "type": "checkbox", "required": true},
+    {"title": "Your random tester code", "type": "short answer", "required": true},
+    {"title": "How was the artefact tested with real users, real data, or live benchmarks?", "type": "paragraph", "required": true},
+    {"title": "Validation evidence", "type": "paragraph", "required": false},
+    {"title": "Key results or feedback from validation", "type": "paragraph", "required": true},
+    {"title": "What happened in your English voice test?", "type": "multiple choice", "required": true}
+  ],
+  "collectEmailAddresses": false,
+  "limitToOneResponseRequiringSignIn": false,
+  "shareResultsSummaryWithRespondents": false,
+  "fileUploadQuestionAdded": false,
+  "checks": {
+    "respondentFieldsEditable": true,
+    "emptySubmitRequiredConsentError": true,
+    "participantResponseSubmittedDuringSetup": false,
+    "editorResponseCountObserved": 0,
+    "cookieFreeGetHttpStatus": 200,
+    "cookieFreeGetRedirectedToSignIn": false,
+    "allThreeRequestedQuestionLabelsPresentWithoutCookies": true
+  },
+  "ownerReportedTestersWhoTriedApp": 25,
+  "participantRecordsReconciled": 0,
+  "privacy": {
+    "noticeIncludesGoogleProcessing": true,
+    "noticeExcludesNamesEmailsBankingSecretsRecordsAudioAndPrivateScreenshots": true,
+    "declaredIndividualResponseRetentionDays": 90,
+    "retentionEnforcement": "Team must delete individual responses and exported copies; no automatic deletion configured",
+    "publication": "Questionnaire public; raw responses are not shared with respondents and must remain private",
+    "notConfidentialVmStorage": true
+  },
+  "screenshot": "private/research/feedback-form-proof-2026-10-03.png",
+  "applicationSubmitted": false
+}

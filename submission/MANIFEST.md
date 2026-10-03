@@ -30,6 +30,12 @@ review MP4, with captions and separately labelled Microsoft Nigerian-English
 narration. Human full playback review and public video URL remain pending;
 no additional participant interactions or portal uploads are inferred from it.
 
+Testing update: the owner now reports 25 testers have tried the app and will
+provide feedback. This is recorded in
+[owner-reported testing status](evidence/testing-owner-report-2026-10-03.json);
+reviewed participant findings and documented completed voice counts remain
+pending. No participant success rate or minimum-50 claim is made.
+
 | Genuine item | Status | Review artefact | Exact remaining action |
 |---|---|---|---|
 | 01 Working Artefact | blocked | [Public repository](https://github.com/thepopeblack-byte/pauseam), [app](https://pauseam.theblockcapitol.com), [setup](01-artefact/README.md), [CPU deployment](../deployment/secretvm/ENGLISH-COMPLETE.md) | Representative devices and ambiguous-phrasing quality work before final freeze |

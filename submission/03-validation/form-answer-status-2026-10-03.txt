@@ -1,0 +1,20 @@
+PauseAm - validation answers for the ONDI draft
+3 October 2026 | Reported testing is under way; results pending review
+
+How was the artefact tested with real users, real data, or live benchmarks?
+
+The live English prototype is being tested by users coordinated by our team. As of 3 October, the team lead reports that 25 testers have tried it. We are collecting consented, pseudonymous feedback on device/network conditions, the journey attempted, voice-to-transcript-to-guidance completion, corrections, assistance, action comprehension and defects. Feedback will be reconciled with observer notes and consented anonymous exports where available. Failed attempts and typed-only sessions will remain separate from completed voice interactions. Engineering evidence includes 80 passing application tests and ten final public checks, four of which used the real pinned N-ATLaS text model. These checks are not user sessions. We use fictional payment scenarios and do not request private transaction records or banking secrets. No representative-user success rate or speech-accuracy benchmark has yet been established.
+
+Validation evidence
+
+Owner-reported testing status: 25 testers reported to have tried the app on 3 October; feedback and session documentation pending. No participant response or testimonial is invented. Genuine engineering logs and screenshots:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-mobile-v25-2026-10-03.jpg
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/live-text-inference-2026-10-02.json
+Completed consented feedback, redacted observations and aggregate results will be added only after review. Raw participant responses and private screenshots must not be published.
+
+Key results or feedback from validation
+
+The team lead reports that 25 testers have tried PauseAm; their feedback is now being collected. No reviewed participant findings, completion/comprehension percentages, retention, impact or recovery results are available yet. Engineering and owner checks confirm a working English voice journey, transcript review, source-backed guidance, reply replay/stop, silent typed responses and report-draft download. Previously reported amount/date, combined bank-contact and free-form voice defects informed documented fixes. These are development findings, not results from the 25 testers. We will report actual participant outcomes, negative feedback, limitations and fixes after reconciliation. The minimum of 50 documented completed PS2 interactions has not yet been evidenced.
+
+These answers reflect current evidence and may need shortening to the portal's actual limits. Update them with genuine reviewed findings before final submission. Do not turn 25 people into 25 completed voice interactions without checking what they actually did.
