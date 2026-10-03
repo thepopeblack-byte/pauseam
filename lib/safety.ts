@@ -1,6 +1,6 @@
 import { containsPrivateDetails } from "./question-privacy.ts";
 import { bankInformation, type BankInformation, type BankKind } from "./bank-directory.ts";
-import type { Guidance } from "./guidance.ts";
+import type { Guidance, FollowUp } from "./guidance.ts";
 export const MODEL = "NCAIR1/NigerianAccentedEnglish";
 export const REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff";
 export const MODEL_URL = "https://huggingface.co/" + MODEL;
@@ -346,6 +346,7 @@ export type Answer = {
   bankInfo?: BankInformation;
   bankQuery?: { kind: BankKind; options: { id: string; name: string }[] };
   guidance?: Guidance;
+  clarification?: FollowUp;
 };
 export function retrieve(
   question: string,

@@ -38,6 +38,12 @@ The local dev runner returned an internal error before exposing a preview. The
 production build/Worker must be checked separately; no preview success is claimed.
 
 Independent human safety review and representative usability remain pending.
+
+A genuine request against version 22 for "I need help with a payment" returned
+HTTP 200/no_match from the pinned N-ATLaS model. The correction asks a clarification
+before assessment when the only retrieved match is a general payment topic. It
+returns no cards or safety advice and claims no model inference for that question.
+After the person adds context and sends again, normal source/model checks resume.
 No research interactions are added. The requested automatic voice replies await
 the owner's provider decision. Browser Listen is not GPT speech; no OpenAI key
 has been created or used. No SecretVM/model container update is needed for the

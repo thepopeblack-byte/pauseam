@@ -54,6 +54,17 @@ export function contextualGuidance(question: string, answer: Answer, now = new D
 }
 
 export function withGuidance(question: string, answer: Answer, now = new Date()): Answer {
+  const clarification = clarifyPayment(question, answer, now);
+  if (clarification !== answer) return clarification;
   const guidance = contextualGuidance(question, answer, now);
   return guidance ? { ...answer, guidance } : answer;
+}
+
+export function clarifyPayment(question: string, answer: Answer, now = new Date()): Answer {
+  if (answer.cards[0]?.id !== "payment") return answer;
+  const guidance = contextualGuidance(question, answer, now);
+  if (!guidance?.followUp) return answer;
+  return { ...answer, status:"no_match", cards:[],
+    engine:answer.model ? answer.engine + "; clarification needed" : "Clarifying question; no inference or payment assessment performed",
+    message:guidance.summary, clarification:guidance.followUp };
 }

@@ -30,10 +30,10 @@ test("deductions, missing credits and existing complaints get different explanat
 });
 test("vague payment concerns ask for context without pretending to know what happened", () => {
   const a=answer("I need help with a payment");
-  assert.equal(a.guidance?.sourceId,"payment");
-  assert.match(a.guidance?.summary||"",/not enough context/);
-  assert.equal(a.guidance?.followUp?.choices.length,4);
-  const statement=a.guidance?.followUp?.choices.find(c=>c.label==="I paid and the seller disappeared")?.statement;
+  assert.deepEqual(a.cards,[]); assert.equal(a.model,null); assert.equal(a.guidance,undefined);
+  assert.match(a.message,/not enough context/);
+  assert.equal(a.clarification?.choices.length,4);
+  const statement=a.clarification?.choices.find(c=>c.label==="I paid and the seller disappeared")?.statement;
   assert.equal(answer(`I need help with a payment. ${statement}`).cards[0].id,"report");
   assert.equal(answer("What is a bank?").status,"no_match");
   assert.equal(answer("What is a bank?").guidance,undefined);

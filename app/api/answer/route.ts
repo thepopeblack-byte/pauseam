@@ -3,7 +3,7 @@ import { retrieve } from "@/lib/safety";
 import { isLanguage, isPilotLanguage } from "@/lib/models";
 import { modelGuidance, textEndpoint } from "@/lib/text-model";
 import { allowRequest } from "@/lib/rate-limit";
-import { withGuidance } from "@/lib/guidance";
+import { withGuidance, clarifyPayment } from "@/lib/guidance";
 export async function POST(request: Request) {
   if (!sameOrigin(request))
     return json({ error: "Request origin rejected." }, 403);
@@ -44,11 +44,13 @@ export async function POST(request: Request) {
     let answer = retrieve(data.question, data.journey, {
       disabled: s.KB_ENABLED === "false",
     });
+    answer = clarifyPayment(data.question, answer);
     // Privacy/source checks precede inference. Urgent actions do not await a model.
     if (
       answer.status !== "unavailable" &&
       answer.status !== "sensitive" &&
       !answer.bankQuery &&
+      !answer.clarification &&
       data.journey !== "after" &&
       answer.cards[0]?.id !== "report"
     ) {

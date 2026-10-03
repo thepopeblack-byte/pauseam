@@ -7,7 +7,7 @@ import { ShareChecklist } from "@/components/share-checklist";
 import { ReportGuide } from "@/components/report-guide";
 import { LearningUpdates } from "@/components/learning-updates";
 import { BankInformation } from "@/components/bank-information";
-import { ContextualAnswer } from "@/components/contextual-answer";
+import { ContextualAnswer, FollowUpQuestion } from "@/components/contextual-answer";
 import { bankQuestion } from "@/lib/bank-directory";
 import { PILOT_LANGUAGE } from "@/lib/models";
 import { VoiceInput } from "@/components/voice-input";
@@ -243,6 +243,12 @@ export function JourneyPanel({
     speech.rate = 0.9;
     window.speechSynthesis.speak(speech);
   }
+  function addFollowUp(statement: string) {
+    const next = `${question.trim()} ${statement}`;
+    if (next.length > 600) { setError("Your question is full. Edit it to add this detail, then send again."); return; }
+    edit(next);
+    document.getElementById("question-" + journey)?.focus();
+  }
   return (
     <div className="card-body">
       <h1>
@@ -410,7 +416,7 @@ export function JourneyPanel({
                 </div>
               ) : (
                 <h2>
-                  {answer.bankQuery ? "Find your bank’s details" : answer.status === "no_match"
+                  {answer.bankQuery ? "Find your bank’s details" : answer.clarification ? "One detail will help" : answer.status === "no_match"
                     ? "We don’t have a verified answer yet"
                     : "We couldn’t check this"}
                 </h2>
@@ -418,12 +424,7 @@ export function JourneyPanel({
               {answer.bankInfo ? <><BankInformation information={answer.bankInfo} />{journey === "after" && <ReportGuide question={question} />}</> : journey === "after" && answer.status === "ok" ? (
                 <ReportGuide question={question} context={answer.guidance} />
               ) : answer.guidance && answer.cards[0] ? (
-                <ContextualAnswer guidance={answer.guidance} source={answer.cards[0]} onFollowUp={statement => {
-                  const next = `${question.trim()} ${statement}`;
-                  if (next.length > 600) { setError("Your question is full. Edit it to add this detail, then send again."); return; }
-                  edit(next);
-                  document.getElementById("question-" + journey)?.focus();
-                }} />
+                <ContextualAnswer guidance={answer.guidance} source={answer.cards[0]} onFollowUp={addFollowUp} />
               ) : (
                 answer.cards.map((c) => (
                   <article key={c.id}>
@@ -445,6 +446,7 @@ export function JourneyPanel({
                 ))
               )}
               {answer.cards.length === 0 && !answer.bankInfo && <p>{answer.message}</p>}
+              {answer.clarification && <FollowUpQuestion followUp={answer.clarification} onFollowUp={addFollowUp} />}
               {answer.bankQuery && answer.bankQuery.options.length > 0 && (
                 <div className="bank-choice">
                   <label htmlFor="bank-choice">Choose your bank</label>
