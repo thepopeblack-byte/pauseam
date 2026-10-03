@@ -4,6 +4,17 @@ PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 2 Octo
 
 ## Current capability boundary
 
+3 October update: Sites version 20 is live. The existing VM's authenticated ASR
+health reports the pinned English model and numbers-redacted-v1 privacy policy;
+the pinned llama.cpp text service is ready. Public authored questions with a
+redacted amount returned exact reviewed supplier and reporting cards. A silent
+WAV received the distinct 422 recording error without a transcript. Actual
+timestamps, identities and latency are in ../evidence/freeform-voice-live-2026-10-03.json.
+The owner confirms that the unscripted amount/date full voice journey works.
+This is a self-reported check, not independent observation, speech accuracy
+evidence or a completed participant interaction. The 2 October
+PDF remains a dated review copy and does not include this addendum.
+
 The agreed public language is Nigerian-accented English. The official English ASR returned a real owner transcript through the app; this is engineering evidence, not a completed participant-validation round. After the owner restored missing encrypted configuration, the correct same-model CPU service became ready. Six genuine authenticated HTTPS relevance requests passed in 6,141-6,754 ms, plus two pre-inference guards. Sites version 19 was redeployed with TEXT_ENABLED=true at 22:36:47 UTC on 2 October. Public model-backed supplier guidance was verified in the actual browser. These are engineering checks, not human validation.
 
 Yoruba, Hausa and Igbo adapters and byte-verified model files remain available but are paused. Official API access and fine-tuning are not demonstrated. Quantization is a precision conversion, not fine-tuning. Do not select unsupported capabilities or languages on the portal.

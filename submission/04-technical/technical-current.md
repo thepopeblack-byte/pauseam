@@ -4,6 +4,13 @@ PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 2 Octo
 
 ## Product and hosting
 
+3 October addendum: Sites version 20 and the updated English ASR container are
+live. After encrypted environment restoration, authenticated health checks
+verified numbers-redacted-v1 and the pinned text runtime. See
+../evidence/freeform-voice-live-2026-10-03.json; retain the earlier failed-startup
+checkpoint separately. The owner confirms that the unscripted amount/date voice
+journey works; this self-report adds no participant validation record. The 2 October technical PDF has not been regenerated for this addendum.
+
 The no-account mobile app offers Ask a question, Report a problem and Learn. Users describe a short payment concern by English voice or text, review/correct transcripts and receive practical source-backed actions. Reports remain drafts for private bank/CBN use; PauseAm does not send them or promise recovery. Learn has selected dated ngCERT notices, not a live feed. Consumer technical clutter was removed at Kayode's request; detailed provenance remains in backend metadata/evaluation/evidence.
 
 Sites serves https://pauseam.theblockcapitol.com; GitHub source is https://github.com/thepopeblack-byte/pauseam. The existing team model host is https://amaranth-nightingale.vm.scrtlabs.com. The supplied VM has 16 GB RAM, 8 vCPUs and 160 GB disk. English ASR and the genuine N-ATLaS Q4_K_M CPU relevance service are connected. Sites version 19 now uses TEXT_ENABLED=true, applied with environment revision 4. Other languages are paused.
@@ -13,6 +20,15 @@ Sites serves https://pauseam.theblockcapitol.com; GitHub source is https://githu
 React 19, TypeScript, Vinext/Vite, system fonts and responsive CSS form the browser UI. Same-origin Cloudflare Worker routes validate input and keep model credentials server-side. Separate Python/FastAPI services run pinned official models with serialized inference. The active SecretVM ledger stores timestamps only. The prepared inactive alternate-host package uses a D1 reservation route; do not run separate uncoordinated ledgers in parallel.
 
 Voice: consent -> recording up to 28 seconds -> listen/discard -> upload consent -> PCM16 mono 16 kHz WAV -> bounded authenticated ASR -> official identity/privacy validation -> transcript correction and explicit confirmation -> current sources -> optional text-model selection -> validated checklist. Browser speech recognition and other general models are not concealed substitutes. Browser read-aloud uses public guidance only.
+
+ASR privacy sanitization is in asr/transcript_privacy.py, applied to genuine
+inference output before it leaves the model service. Digits, spoken numbers and
+email addresses are hidden; explicit credential disclosures discard the
+transcript. The app indicates redaction during correction and rejects residual
+numeric/private output. A sample sentence is not required. Typed input retains
+its strict private-detail rejection. lib/asr.ts maps known upstream privacy,
+audio, capacity and timeout failures to distinct bounded messages; raw model
+errors are never shown. Regression fixtures are authored tests, not model output.
 
 Urgent bank-contact steps are maintained content and bypass the model. Source retrieval selects the strongest current card; N-ATLaS checks its relevance and returns that ID or abstains. Independent validation resolves only that candidate to source-authored wording. Instruction attacks and uncovered topics stop before inference. Banking-code requests receive priority over general impersonation. The model cannot introduce prose, contacts, source URLs, confidence scores or safe verdicts. This constrained relevance task is not general conversational generation.
 

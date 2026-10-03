@@ -1,0 +1,86 @@
+{
+  "recordedAt": "2026-10-03T04:21:52.580Z",
+  "kind": "Genuine live engineering checks; not participant validation or speech accuracy evidence",
+  "previousCheckpoint": "freeform-voice-fix-2026-10-03.json",
+  "websiteVersion": 20,
+  "modelHealth": [
+    {
+      "at": "2026-10-03T04:21:53.546Z",
+      "target": "en",
+      "status": 200,
+      "elapsedMs": 963,
+      "ready": true,
+      "model": "NCAIR1/NigerianAccentedEnglish",
+      "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+      "privacyPolicy": "numbers-redacted-v1",
+      "passed": true
+    },
+    {
+      "at": "2026-10-03T04:21:53.548Z",
+      "target": "text",
+      "status": 200,
+      "elapsedMs": 888,
+      "ready": true,
+      "model": "NCAIR1/N-ATLaS",
+      "revision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "runtime": "llama.cpp",
+      "passed": true
+    }
+  ],
+  "publicGuidance": [
+    {
+      "case": "Supplier change with a redacted amount",
+      "kind": "Authored engineering question; not an ASR transcript",
+      "at": "2026-10-03T04:22:02.848Z",
+      "status": 200,
+      "elapsedMs": 9300,
+      "responseStatus": "ok",
+      "cardIds": [
+        "supplier"
+      ],
+      "model": "NCAIR1/N-ATLaS",
+      "modelRevision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "sourceContentMatched": true,
+      "passed": true
+    },
+    {
+      "case": "Paid seller with a redacted amount",
+      "kind": "Authored engineering question; not an ASR transcript",
+      "at": "2026-10-03T04:22:02.985Z",
+      "status": 200,
+      "elapsedMs": 137,
+      "responseStatus": "ok",
+      "cardIds": [
+        "report"
+      ],
+      "model": null,
+      "modelRevision": null,
+      "sourceContentMatched": true,
+      "passed": true
+    }
+  ],
+  "ownerCredentialRestorationReported": true,
+  "ownerFreeFormVoiceCheck": {
+    "status": "passed-owner-reported",
+    "recordedAt": "2026-10-03T04:24:01.764Z",
+    "task": "Refresh public app; short unscripted English payment question mentioning an ordinary amount or date; transcribe, review and request next steps",
+    "reportedResult": "The full journey works",
+    "independentlyObserved": false,
+    "rawRecordingReceived": false,
+    "transcriptReceived": false,
+    "countedAsParticipantValidation": false
+  },
+  "rawAudioRetained": false,
+  "transcriptsStored": false,
+  "participantInteractionsAdded": 0,
+  "silentFixture": {
+    "kind": "One-second canonical silent WAV; not human speech; rejected before model inference",
+    "at": "2026-10-03T04:22:03.434Z",
+    "status": 422,
+    "elapsedMs": 449,
+    "correctAudioErrorReturned": true,
+    "transcriptReturned": false,
+    "passed": true
+  },
+  "engineeringChecksPassed": true
+}

@@ -1,22 +1,26 @@
 # PauseAm release gate
 
-2 October 2026. Target owner submission: Monday 5 October. Official deadline:
+3 October 2026. Target owner submission: Monday 5 October. Official deadline:
 12 October, 23:59 WAT. **Overall blocked. Do not submit ONDI.** Current scope is
 English voice and text; other languages are paused at the owner's request.
 Evidence files retain their original historical outcomes.
 
 Free-form voice update: website version 20 is deployed; 58 application and 31
-Python regression tests passed. Amount/date redaction is built in ASR image
-02ffaaf9..., but its live privacy policy is not yet verified because the VM
-startup is missing TEXT_SERVICE_TOKEN after its configuration update. Restore
-the private encrypted environment and retest unscripted speech before a tester
-release. See evidence/freeform-voice-fix-2026-10-03.json. Earlier successful
-engineering/owner checks below remain historical and do not cover this defect.
+Python regression tests passed. After the owner restored the encrypted environment,
+the live English ASR reports numbers-redacted-v1 and the pinned text model is ready.
+Public questions containing a redacted amount returned the source-matched supplier
+and reporting checklists; silent audio returned the distinct 422 recording error.
+See evidence/freeform-voice-live-2026-10-03.json for actual timings and identities.
+The owner reports that the unscripted amount/date voice-to-guidance journey
+works. This self-report was not independently observed and adds no participant
+validation record; speech accuracy review remains pending. The earlier
+missing-secret checkpoint remains in evidence/freeform-voice-fix-2026-10-03.json.
 
 | Requirement | Status | Evidence | Exact remaining action |
 |---|---|---|---|
 | Public repository, Sites and custom domain | passed | https://github.com/thepopeblack-byte/pauseam; https://pauseam.theblockcapitol.com; evidence/english-pretest-release-2026-10-02.json | Version 19 native navigation verified; repeat final candidate after model enablement |
 | English ASR engineering journey | passed | evidence/worker-redirect-fix-2026-10-02.json | Repeat on final build with consented speech; fluent accuracy and participant outcomes remain pending |
+| Free-form voice amount/date regression | passed | evidence/freeform-voice-live-2026-10-03.json; evidence/freeform-voice-fix-2026-10-03.json | Live policy, redacted-text guidance and audio-error checks passed; owner confirms unscripted full journey. Representative speech accuracy and participant validation remain pending |
 | N-ATLaS CPU container preparation | passed | evidence/cpu-final-container-2026-10-02.json; evidence/live-text-inference-2026-10-02.json | Final ed76b851 image is running; preserve weights and ledger |
 | Local CPU conversion and relevance | passed | evidence/cpu-conversion-2026-10-02.json; evidence/cpu-local-relevance-check-2026-10-02.json | Six actual model requests and two guards passed; local Windows timing is not VM timing |
 | Live N-ATLaS text inference and Sites enablement | passed | evidence/live-text-inference-2026-10-02.json; evidence/live-cpu-release-2026-10-02.json | Six real host requests and two guards passed; Sites env revision 4 is deployed. Owner confirms full voice journey works |

@@ -40,6 +40,18 @@ No account is needed for text guidance. Never enter names, account numbers, PINs
 OTPs, passwords or full credentials. No raw audio retention is implemented.
 This app cannot authenticate a person, account, receipt or payment or promise recovery.
 
+Voice accepts payment questions in your own words; the sample is optional. The
+3 October ASR update hides digits, spoken numbers and email addresses before
+returning a transcript. Explicit credential disclosures still discard the
+transcript. Review and correct the situation wording before requesting guidance;
+do not restore private details. Typed questions still reject numeric/private
+details rather than redacting them. Both pinned services and the public
+redacted-text guidance path passed [live engineering checks](submission/evidence/freeform-voice-live-2026-10-03.json).
+The owner confirms the unscripted amount/date voice journey works; this is a
+self-reported owner check, not participant validation. Accuracy review remains
+pending. Silent or unreadable audio receives a recording error instead
+of being described as a model outage.
+
 ## Run and test
 Node >=22.13:
 npm ci --no-audit --no-fund
