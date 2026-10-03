@@ -83,10 +83,10 @@ missing-secret checkpoint remains in evidence/freeform-voice-fix-2026-10-03.json
 | Physical mobile, constrained network, assistive checks | blocked | evidence/production-review.json | Run representative Android and screen-reader sessions; measure LCP/INP/CLS separately from model latency |
 | 01 Working artefact final freeze | blocked | 01-artefact/README.md; evidence/live-cpu-release-2026-10-02.json | Live model works; complete representative device checks and address/document ambiguous phrasing before final freeze |
 | 02 Integration evidence final PDF | blocked | ../output/pdf/02-natlas-integration.pdf | Actual final traces/screenshot added; organiser service qualification remains pending |
-| 03 Validation final PDF | blocked | ../output/pdf/03-validation-status.pdf | Add genuine reviewed results and limitations |
+| 03 Validation final PDF | blocked | ../output/pdf/03-real-world-validation.pdf | Add genuine reviewed results and limitations |
 | 04 Technical documentation final PDF | blocked | ../output/pdf/04-technical-documentation.pdf | Live deployment/timing reconciled; add representative resource/mobile results and final human validation |
 | 05 Actual 3–5 minute MP4 | blocked | 05-video/README.md; evidence/demo-video-edit-2026-10-03.json | Local 282.5-second edited real recording passes decode/specification/caption/audio checks. Owner must watch the entire file with sound, approve narration/content and publish a signed-out accessible URL |
-| 06 Team profile | blocked | ../output/pdf/06-team-profile-review.pdf | Owner confirms supplied facts; Suleiman stays Technical lead as instructed |
+| 06 Team profile | blocked | ../output/pdf/06-team-profile.pdf | Owner confirms supplied facts; Suleiman stays Technical lead as instructed |
 | 07 Private CAC/ID | blocked | 07-registration/private-checklist.md | Owner has documents; review correct portal requirement privately, do not publish |
 | ONDI limits and matching drafts | blocked | ondi-answer-drafts.json | Known page 1–2 limits enforced; inspect remaining signed-in fields and declarations |
 | Final review of all seven genuine items | blocked | MANIFEST.md | Kayode reviews complete evidence; no automatic submission |

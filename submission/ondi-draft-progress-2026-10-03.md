@@ -2,6 +2,11 @@
 
 ## Latest revision
 
+All six current PDFs have been checked for legacy footer labels. The registration
+checklist was rebuilt with a neutral NAIC/date footer. Validation and team files
+now use `03-real-world-validation.pdf` and `06-team-profile.pdf`. The current
+validation and integration-note attachments were refreshed in ONDI.
+
 Rewrote the product, team and Programme Fit answers in concise team language,
 removing conversational owner/status commentary. All verified character limits
 passed. Rebuilt and visually inspected the integration, technical, team,

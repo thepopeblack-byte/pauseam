@@ -40,10 +40,10 @@ pending. No participant success rate or minimum-50 claim is made.
 |---|---|---|---|
 | 01 Working Artefact | blocked | [Public repository](https://github.com/thepopeblack-byte/pauseam), [app](https://pauseam.theblockcapitol.com), [setup](01-artefact/README.md), [CPU deployment](../deployment/secretvm/ENGLISH-COMPLETE.md) | Representative devices and ambiguous-phrasing quality work before final freeze |
 | 02 Integration Evidence | blocked | [Current source](02-integration/integration-current.md), [PDF](../output/pdf/02-natlas-integration.pdf), [live traces](evidence/live-text-inference-2026-10-02.json) | Organiser service finding; actual requests/screenshot are added |
-| 03 Real-World Validation | blocked | [Weekend instructions](03-validation/WEEKEND-TESTING.md), [report](03-validation/validation-report.md), [PDF](../output/pdf/03-validation-status.pdf), [empty log](03-validation/interactions-template.csv) | At least 50 genuine completed documented voice interactions; currently 0 |
+| 03 Real-World Validation | blocked | [Weekend instructions](03-validation/WEEKEND-TESTING.md), [report](03-validation/validation-report.md), [PDF](../output/pdf/03-real-world-validation.pdf), [empty log](03-validation/interactions-template.csv) | At least 50 genuine completed documented voice interactions; currently 0 |
 | 04 Technical Documentation | blocked | [Current source](04-technical/technical-current.md), [PDF](../output/pdf/04-technical-documentation.pdf) | Reconcile final deployment and measured outcomes |
 | 05 Video Demonstration | blocked | [Edited video and review notes](05-video/README.md), [actual edit checks](evidence/demo-video-edit-2026-10-03.json) | Actual 4:43 MP4 exists locally; owner full playback review with sound and evaluator-accessible publication URL remain pending |
-| 06 Team Profile | blocked | [Source](06-team/team-profile.md), [PDF](../output/pdf/06-team-profile-review.pdf) | Owner review of supplied facts; preserve Suleiman as Technical lead |
+| 06 Team Profile | blocked | [Source](06-team/team-profile.md), [PDF](../output/pdf/06-team-profile.pdf) | Owner review of supplied facts; preserve Suleiman as Technical lead |
 | 07 Endorsement / Registration | blocked | [Private checklist](07-registration/private-checklist.md), [PDF](../output/pdf/07-registration-checklist.pdf) | Owner reports CAC and valid ID available; inspect appropriate private document, never publish |
 
 The PDFs are genuine review/status documents; missing validation and

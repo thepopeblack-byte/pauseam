@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-03T11:28:06.267591+00:00",
+  "recordedAt": "2026-10-03T11:37:40.942721+00:00",
   "kind": "Submission prose and PDF checks",
   "pdfs": [
     {
@@ -10,7 +10,7 @@
       "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
     },
     {
-      "path": "output/pdf/03-validation-status.pdf",
+      "path": "output/pdf/03-real-world-validation.pdf",
       "sha256": "ba708a8b808dc60ec24c30e25e7d22f26285bf41347ffea33c12fbfcc1d09b3b",
       "pages": 1,
       "bytes": 44666,
@@ -24,10 +24,17 @@
       "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
     },
     {
-      "path": "output/pdf/06-team-profile-review.pdf",
+      "path": "output/pdf/06-team-profile.pdf",
       "sha256": "8bcc2c7a3fd85277c68f26862b166fbdc9d0f262f57c71e10b84b0dee1d3f8b6",
       "pages": 1,
       "bytes": 42368,
+      "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
+    },
+    {
+      "path": "output/pdf/07-registration-checklist.pdf",
+      "sha256": "40e1b862cb597a65583777afed1c7258d18c28c613f5ba0a85a4a4cda90b0a25",
+      "pages": 1,
+      "bytes": 42538,
       "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
     },
     {
@@ -44,7 +51,7 @@
   "participantFeedbackAnalysed": false,
   "portalUploads": [
     "pauseam-integration-evidence-note.pdf",
-    "03-validation-status.pdf",
+    "03-real-world-validation.pdf",
     "04-technical-documentation.pdf"
   ],
   "submitted": false
