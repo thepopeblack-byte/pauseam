@@ -1,7 +1,7 @@
 # PauseAm working artefact
 
 Ask before you pay. Innovation & Enterprise / PS2 Voice-First Access.
-Review build, 2 October 2026. Not submission-ready.
+Review build, 3 October 2026. Not submission-ready.
 
 Repository: https://github.com/thepopeblack-byte/pauseam
 Site: https://pauseam.theblockcapitol.com (active HTTPS)
@@ -14,10 +14,12 @@ For production: npm run build, then npm run start. Wrangler prints the local URL
 Check /api/status and run npm run test:http with BASE_URL set to that origin.
 
 ## Stable demonstration
-In Ask a question, type your own non-sensitive payment concern or the optional supplier example and choose Send question. Follow-up choices amend the question for review before sending. Expand More about your situation for detail and Source and limits for the primary source.
-For voice, choose Speak instead; consent, record, listen, transcribe, correct and
-confirm. Model-backed supplier guidance was checked in the actual public browser;
-the owner confirms the complete voice journey works. Choose Report a problem
+In Ask a question, choose Type, enter your own non-sensitive payment concern or the optional supplier example and choose Send question. The reply stays silent. Follow-up choices amend the question for review before sending. Expand More about your situation for detail and Source and limits for the primary source.
+For voice, choose Speak; consent, record, listen, transcribe, correct, confirm
+and send. Hear the reply with text below; use Replay reply and Stop. Readout
+uses a local English device voice; N-ATLaS supplies recognition and model-backed
+relevance. The owner confirms these controls and silent text work. This is not
+an N-ATLaS TTS claim or representative participant validation. Choose Report a problem
 for immediate bank-first instructions and a private report draft; preview, copy
 or download it yourself. Choose Learn and answer a warning-sign question.
 Technical provenance lives in /api/status, /evaluation and submission evidence;

@@ -14,8 +14,16 @@ or claimed inference. The live browser follow-up and 320/390-pixel overflow chec
 passed; these are not physical-device or human validation. Evidence:
 evidence/contextual-replies-release-2026-10-03.json and
 evidence/contextual-replies-live-v24-2026-10-03.json. No SecretVM update is needed.
-Automatic spoken replies remain pending the owner's speech-provider choice;
-the existing browser Listen control is not an OpenAI voice integration.
+Spoken-reply update: version 25 is live. All 80 application tests, typecheck,
+production build and ten live backend checks passed. Four backend checks used
+the pinned N-ATLaS text model. Speak produces a device-read reply with text below
+and replay/stop; Type is silent. The owner confirms the full new audio controls
+and silent text path work. This is one owner usability check, not a documented
+participant interaction. No official N-ATLaS TTS resource was found; device
+readout is explicitly distinguished from the N-ATLaS ASR/text integrations.
+See evidence/spoken-replies-release-2026-10-03.json,
+evidence/spoken-replies-live-2026-10-03.json and
+evidence/spoken-replies-implementation-2026-10-03.md. No SecretVM update is needed.
 
 Current payment-context/bank update: version 21 passed 32 public HTTP checks,
 including genuine pinned N-ATLaS relevance inference with an ordinary amount and
@@ -49,7 +57,7 @@ missing-secret checkpoint remains in evidence/freeform-voice-fix-2026-10-03.json
 | Free-form voice amount/date regression | passed | evidence/freeform-voice-live-2026-10-03.json; evidence/freeform-voice-fix-2026-10-03.json | Live policy, redacted-text guidance and audio-error checks passed; owner confirms unscripted full journey. Representative speech accuracy and participant validation remain pending |
 | Typed/corrected amounts and dates; combined bank information | passed | evidence/payment-bank-release-2026-10-03.json; evidence/payment-bank-combined-live-2026-10-03.json; evidence/bank-information-source-review-2026-10-03.md | Version 22 live; 65 tests and 56 HTTP checks passed. Eight banks only; human content review and representative tester checks remain pending. Voice numbers remain redacted; no numeric ASR accuracy claimed |
 | Contextual replies and clarification | passed | evidence/contextual-replies-release-2026-10-03.json; evidence/contextual-replies-live-v24-2026-10-03.json; evidence/contextual-guidance-review-2026-10-03.md | Version 24 engineering checks pass; independent human wording/source review and representative comprehension testing remain pending |
-| Automatic spoken replies with text | blocked | README.md; pending speech-provider question in this chat | Owner selects browser speech or secure OpenAI speech setup; no OpenAI key created, paid API used or GPT voice claimed |
+| Automatic spoken replies with text | passed | evidence/spoken-replies-release-2026-10-03.json; evidence/spoken-replies-implementation-2026-10-03.md; tests/speech.test.ts | Engineering checks and owner voice/replay/stop/silent-text check pass. Device readout is not N-ATLaS TTS. Representative Android/audio and screen-reader checks remain pending |
 | N-ATLaS CPU container preparation | passed | evidence/cpu-final-container-2026-10-02.json; evidence/live-text-inference-2026-10-02.json | Final ed76b851 image is running; preserve weights and ledger |
 | Local CPU conversion and relevance | passed | evidence/cpu-conversion-2026-10-02.json; evidence/cpu-local-relevance-check-2026-10-02.json | Six actual model requests and two guards passed; local Windows timing is not VM timing |
 | Live N-ATLaS text inference and Sites enablement | passed | evidence/live-text-inference-2026-10-02.json; evidence/live-cpu-release-2026-10-02.json | Six real host requests and two guards passed; Sites env revision 4 is deployed. Owner confirms full voice journey works |

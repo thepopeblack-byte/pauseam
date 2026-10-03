@@ -104,6 +104,20 @@ Monitor authenticated readiness, actual outcomes/latency, memory, disk, restarts
 
 ## Release limitations and attribution
 
+Version 25 adds explicit Speak / Type modes. Only an answer originating from a
+genuine corrected/confirmed voice transcript automatically attempts device
+speech. Text answers stay silent. SpokenReply uses a local English device voice;
+no official N-ATLaS TTS weights/API were found in the published resources. No
+additional server credentials or SecretVM update is required. Answer readout
+excludes the user's raw question, transcript and report draft. Bank facts are
+read with individual phone/code digits and star/hash symbols. Reporting display
+and speech share the current plan. Replay cancels the previous generation;
+editing, mode changes, report-stage changes, tab hiding and unmount cancel audio.
+Missing device voices and blocked autoplay retain the text and replay fallback.
+Nine dedicated speech tests use explicit mocked events and are not ASR or human
+validation. The owner confirms the complete audio controls and silent typed path
+work; representative Android and assistive-technology testing remain pending.
+
 Contextual replies use lib/guidance.ts after successful source retrieval and,
 where required, genuine N-ATLaS relevance selection. The exact source card is
 unchanged. Scenario explanations respond to explicit circumstances such as

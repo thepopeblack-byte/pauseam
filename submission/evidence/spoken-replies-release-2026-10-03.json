@@ -1,0 +1,98 @@
+{
+  "recordedAt": "2026-10-03 07:23:55 UTC",
+  "kind": "Engineering release evidence plus one owner-reported usability check; not participant validation",
+  "siteVersion": {
+    "id": "appgprj_6ab826bba8f48191ad36895acae09407~appgver_7fbff186f3408191929be29e197b0b5f",
+    "project_id": "appgprj_6ab826bba8f48191ad36895acae09407",
+    "version_number": 25,
+    "source": {
+      "commit_sha": "37a88225905963275b65eedb1ebf28bdf286f065"
+    },
+    "archive_storage": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_00000000392c81f4ac6cfb385ef91b0f",
+      "content_hash": "sha256:4acb9bf3b99db870cae6b9dc8cdb78a4cc45b9bff1e285d122c1dec98da30a1b",
+      "size_bytes": 1433600,
+      "file_count": 85
+    },
+    "screenshot_url": null,
+    "deployment_id": null
+  },
+  "deployment": {
+    "id": "appgdep_6ac0abcd1a148191a1f4be4f52a4def1",
+    "project_id": "appgprj_6ab826bba8f48191ad36895acae09407",
+    "title": "PauseAm — Ask before you pay.",
+    "version_id": "appgprj_6ab826bba8f48191ad36895acae09407~appgver_7fbff186f3408191929be29e197b0b5f",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://pauseam.thepopeblack.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ab826bba8f48191ad36895acae09407",
+    "failure_message": null,
+    "env_set_revision": 4,
+    "updated_at": "2026-10-03T07:16:45.520279+00:00"
+  },
+  "validation": {
+    "automatedTests": {
+      "total": 80,
+      "passed": 80
+    },
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "liveBackendChecks": {
+      "total": 10,
+      "passed": 10,
+      "realNatlasTextRequests": 4,
+      "evidence": "spoken-replies-live-2026-10-03.json"
+    }
+  },
+  "browserChecks": {
+    "plainDomainFreshRequest": "new Speak / Type UI rendered and hydrated",
+    "typedSupplierAnswer": "real source-matched contextual answer; no spoken player",
+    "combinedBankEmailPhone": "GTBank returned both reviewed contacts; no spoken player",
+    "urgentReporting": "bank-first actions and report draft controls present",
+    "reportStage": "waiting selection updated visible follow-up plan",
+    "emulatedWidths": [
+      {
+        "width": 320,
+        "documentWidth": 305,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 390,
+        "documentWidth": 375,
+        "horizontalOverflow": false
+      }
+    ],
+    "screenshot": "spoken-replies-mobile-v25-2026-10-03.jpg",
+    "temporaryViewportReset": true
+  },
+  "ownerCheck": {
+    "reportedInThisChat": true,
+    "answer": "Voice, replay/stop and silent text all work",
+    "deviceAndNetwork": "not supplied",
+    "recordingRetained": false,
+    "countsAsDocumentedParticipantValidation": false
+  },
+  "integration": {
+    "asrModel": "NCAIR1/NigerianAccentedEnglish",
+    "asrRevision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+    "textModel": "NCAIR1/N-ATLaS",
+    "textRevision": "e294476928aca9030e924ca27bb8e085e8581273",
+    "speechGeneration": "browser SpeechSynthesis with local English device voice",
+    "officialNatlasTts": "No documented official TTS found in published NCAIR resources",
+    "openaiApiUsed": false,
+    "secretVmUpdateRequired": false,
+    "newComputePurchased": false
+  },
+  "limitations": [
+    "Browser speech is readout, not an audio reply file or N-ATLaS TTS.",
+    "Physical Android, constrained-network and screen-reader checks remain pending.",
+    "Official ASR service qualification, official API and fine-tuning remain unverified.",
+    "Three other language journeys remain paused.",
+    "50 completed documented user interactions and genuine demo MP4 remain pending.",
+    "Existing submission PDFs require final regeneration/render review."
+  ],
+  "applicationSubmitted": false
+}

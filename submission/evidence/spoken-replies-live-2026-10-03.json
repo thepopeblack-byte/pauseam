@@ -1,0 +1,153 @@
+{
+  "recordedAt": "2026-10-03T07:18:03.415Z",
+  "origin": "https://pauseam.theblockcapitol.com",
+  "kind": "Live engineering checks with authored questions; not voice accuracy or participant validation",
+  "kbVersion": "2026-10-03.3",
+  "checks": [
+    {
+      "name": "Supplier pressure",
+      "httpStatus": 200,
+      "outcome": "ok",
+      "cardIds": [
+        "supplier"
+      ],
+      "model": "NCAIR1/N-ATLaS",
+      "modelRevision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "guidanceTitle": "Confirm the changed details before paying",
+      "clarificationChoices": 0,
+      "traceId": "c4f531ff-a325-4e56-bccc-1ca20bf1831a",
+      "elapsedMs": 7484,
+      "passed": true
+    },
+    {
+      "name": "Completed independent callback",
+      "httpStatus": 200,
+      "outcome": "ok",
+      "cardIds": [
+        "supplier"
+      ],
+      "model": "NCAIR1/N-ATLaS",
+      "modelRevision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "guidanceTitle": "Keep the change and your confirmation together",
+      "clarificationChoices": 0,
+      "traceId": "e2f60700-8223-4283-9264-3ead1e40e17c",
+      "elapsedMs": 5960,
+      "passed": true
+    },
+    {
+      "name": "Bank deduction",
+      "httpStatus": 200,
+      "outcome": "ok",
+      "cardIds": [
+        "complaint"
+      ],
+      "model": "NCAIR1/N-ATLaS",
+      "modelRevision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "guidanceTitle": "Ask the bank to explain the deduction",
+      "clarificationChoices": 0,
+      "traceId": "27a2c1cc-7397-4995-ab53-3e076f87ba17",
+      "elapsedMs": 7803,
+      "passed": true
+    },
+    {
+      "name": "Missing credit after debit",
+      "httpStatus": 200,
+      "outcome": "ok",
+      "cardIds": [
+        "complaint"
+      ],
+      "model": "NCAIR1/N-ATLaS",
+      "modelRevision": "e294476928aca9030e924ca27bb8e085e8581273",
+      "guidanceTitle": "Ask the bank to trace the payment you were debited for",
+      "clarificationChoices": 0,
+      "traceId": "6bc1273c-f2d9-4c18-a019-8f7ec849b3fe",
+      "elapsedMs": 6405,
+      "passed": true
+    },
+    {
+      "name": "Existing complaint",
+      "httpStatus": 200,
+      "outcome": "ok",
+      "cardIds": [
+        "complaint"
+      ],
+      "model": null,
+      "modelRevision": null,
+      "guidanceTitle": "Follow up on your existing bank complaint",
+      "clarificationChoices": 0,
+      "traceId": "7a552eb2-f3e9-43e7-8e40-9445c271c28c",
+      "elapsedMs": 172,
+      "passed": true
+    },
+    {
+      "name": "Paid seller disappeared",
+      "httpStatus": 200,
+      "outcome": "ok",
+      "cardIds": [
+        "report"
+      ],
+      "model": null,
+      "modelRevision": null,
+      "guidanceTitle": "Report the payment concern to your bank now",
+      "clarificationChoices": 0,
+      "traceId": "1aabdaf5-f36f-4708-b6cb-779b1da068da",
+      "elapsedMs": 161,
+      "passed": true
+    },
+    {
+      "name": "Clarify a vague payment concern",
+      "httpStatus": 200,
+      "outcome": "no_match",
+      "cardIds": [],
+      "model": null,
+      "modelRevision": null,
+      "guidanceTitle": null,
+      "clarificationChoices": 4,
+      "traceId": "d81599e5-76c3-40b6-8c4c-03b95fe43269",
+      "elapsedMs": 238,
+      "passed": true
+    },
+    {
+      "name": "General bank definition has no invented safety scenario",
+      "httpStatus": 200,
+      "outcome": "no_match",
+      "cardIds": [],
+      "model": null,
+      "modelRevision": null,
+      "guidanceTitle": null,
+      "clarificationChoices": 0,
+      "traceId": "8816fc2d-c22c-4e84-90cc-19cd3c755c60",
+      "elapsedMs": 199,
+      "passed": true
+    },
+    {
+      "name": "Combined bank contacts stay exact",
+      "httpStatus": 200,
+      "outcome": "ok",
+      "cardIds": [],
+      "model": null,
+      "modelRevision": null,
+      "guidanceTitle": null,
+      "clarificationChoices": 0,
+      "traceId": "b6a030fe-01d0-4a1f-bd38-71518e102af4",
+      "elapsedMs": 218,
+      "passed": true
+    },
+    {
+      "name": "Authored dummy secret is rejected",
+      "httpStatus": 422,
+      "outcome": "sensitive",
+      "cardIds": [],
+      "model": null,
+      "modelRevision": null,
+      "guidanceTitle": null,
+      "clarificationChoices": 0,
+      "traceId": "b879962b-14f3-4995-a5f9-b37194ee140f",
+      "elapsedMs": 202,
+      "passed": true
+    }
+  ],
+  "participantInteractionsAdded": 0,
+  "rawUserDataReceived": false,
+  "passed": true
+}
