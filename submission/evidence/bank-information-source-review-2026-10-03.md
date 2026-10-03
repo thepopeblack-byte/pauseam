@@ -81,3 +81,13 @@ sources as abstentions. A new regression exercises seven combined phrasings
 for all eight banks. This owner report is a defect finding, not a completed
 research interaction or proof of transcription accuracy. The earlier 32/32
 version-21 HTTP checks remain unchanged; they missed this combined-request case.
+
+Version 22 is now published. All 65 application tests, typecheck and production
+build passed; 56/56 actual public HTTP checks passed. The live UI displayed both
+GTBank contact channels for a combined question, and selecting Access Bank after
+an unspecified three-part request preserved and displayed email, phone and USSD.
+The combined result had no horizontal overflow at an emulated 320-pixel width.
+This is not a physical Android, screen-reader or human-validation claim. Release
+identity, request timings and a genuine screenshot are in
+payment-bank-release-2026-10-03.json, payment-bank-combined-live-2026-10-03.json
+and bank-combined-live-2026-10-03.jpg. No SecretVM changes are required.

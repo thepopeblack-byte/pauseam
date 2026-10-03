@@ -1,0 +1,50 @@
+{
+  "recordedAt": "2026-10-03 06:01:16 UTC",
+  "siteVersion": 22,
+  "sourceCommit": "3a1a6193a8d10255007ae7745664510704f90063",
+  "deployment": {
+    "id": "appgdep_6ac0997d87fc81918356d18a7aa0406b",
+    "project_id": "appgprj_6ab826bba8f48191ad36895acae09407",
+    "title": "PauseAm — Ask before you pay.",
+    "version_id": "appgprj_6ab826bba8f48191ad36895acae09407~appgver_119d4a5ed0c48191b06595f7168e2af1",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://pauseam.thepopeblack.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ab826bba8f48191ad36895acae09407",
+    "failure_message": null,
+    "env_set_revision": 4,
+    "updated_at": "2026-10-03T05:58:37.761751+00:00"
+  },
+  "publicUrl": "https://pauseam.theblockcapitol.com",
+  "unitTests": {
+    "passed": 65,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "liveChecks": {
+    "path": "payment-bank-combined-live-2026-10-03.json",
+    "passed": 56,
+    "failed": 0
+  },
+  "browser": {
+    "actualQuestion": "What are GTBank’s customer-care number and email?",
+    "result": "Both exact reviewed bank facts and their official source links are visible",
+    "screenshot": "bank-combined-live-2026-10-03.jpg",
+    "mobileViewport": {
+      "width": 320,
+      "height": 740,
+      "pageWidth": 305,
+      "horizontalOverflow": false
+    },
+    "physicalDevice": false
+  },
+  "limits": {
+    "speechNumbers": "Still redacted by ASR; ordinary payment amount/date may be added when correcting",
+    "independentBankContentReview": "pending",
+    "participantInteractionsAdded": 0
+  },
+  "secretVmChangeRequired": false
+}
