@@ -30,7 +30,7 @@ styles.add(ParagraphStyle(name="HeadPA",fontName="SegoeBold",fontSize=14,leading
 def page(c,doc):
  c.setStrokeColor(HexColor("#c5d3d8"));c.line(46,795,549,795)
  c.setFont("SegoeBold",9);c.setFillColor(HexColor("#075d51"));c.drawString(46,808,"PauseAm  /  Ask before you pay.")
- c.setFont("Segoe",8);c.setFillColor(HexColor("#49636e"));c.drawString(46,30,"NAIC 2026 · Review copy · Not submitted · "+args.date);c.drawRightString(549,30,str(doc.page))
+ c.setFont("Segoe",8);c.setFillColor(HexColor("#49636e"));c.drawString(46,30,"NAIC 2026 | "+args.date);c.drawRightString(549,30,str(doc.page))
 def inline(s):
  s=escape(s)
  s=re.sub(r"(https://[^\s]+)",lambda m:'<link href="'+m[0]+'" color="#075d51">'+m[0]+"</link>",s)
@@ -58,7 +58,7 @@ for src,name,extras in jobs:
  if name.startswith("02-") and screenshot.exists():
   story.append(PageBreak())
   story.append(Paragraph("Actual public text journey",styles["HeadPA"]))
-  story.append(Paragraph("2 October 2026. An authored supplier question returned the reviewed checklist through the public app after genuine N-ATLaS inference was enabled. This screenshot is operating-product evidence, not a participant result. The owner separately confirms the complete English voice journey works.",styles["IntegrationBody"]))
+  story.append(Paragraph("2 October 2026. A supplier bank-detail-change question returned the reviewed checklist through the public app with N-ATLaS inference enabled.",styles["IntegrationBody"]))
   width,height=ImageReader(str(screenshot)).getSize()
   factor=min(490/width,570/height)
   story.append(Image(str(screenshot),width=width*factor,height=height*factor))
@@ -66,9 +66,9 @@ for src,name,extras in jobs:
  if name.startswith("02-") and current_screenshot.exists():
   story.append(PageBreak())
   story.append(Paragraph("Current mobile interface - version 25",styles["HeadPA"]))
-  story.append(Paragraph("3 October 2026. Actual operating product in a 390-pixel emulated viewport, showing the Speak / Type interface. This screenshot proves the interface state; it does not prove speech accuracy, physical-device performance or participant validation. The separate genuine traces and owner check are linked in this report.",styles["IntegrationBody"]))
+  story.append(Paragraph("3 October 2026. The operating Speak / Type interface in a 390-pixel browser viewport.",styles["IntegrationBody"]))
   width,height=ImageReader(str(current_screenshot)).getSize()
   factor=min(490/width,550/height)
   story.append(Image(str(current_screenshot),width=width*factor,height=height*factor))
- SimpleDocTemplate(str(OUT/name),pagesize=(595.28,841.89),leftMargin=46,rightMargin=46,topMargin=64,bottomMargin=55,title="PauseAm — "+name,author="PauseAm team; status prepared with Codex").build(story,onFirstPage=page,onLaterPages=page)
+ SimpleDocTemplate(str(OUT/name),pagesize=(595.28,841.89),leftMargin=46,rightMargin=46,topMargin=64,bottomMargin=55,title="PauseAm — "+name,author="PauseAm team").build(story,onFirstPage=page,onLaterPages=page)
  print(name)

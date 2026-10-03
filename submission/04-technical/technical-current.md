@@ -1,169 +1,81 @@
-# 04 - Technical documentation
+# Technical documentation
 
-PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 3 October 2026. English scope; not submitted. Historical evidence remains separately dated.
+PauseAm | Ask before you pay. | Innovation & Enterprise | PS2: Voice-First Access
 
-## Current release and evidence
+## Product
+PauseAm is a mobile payment decision companion for Nigerian students, everyday users and small businesses. It offers three journeys: check before paying, get bank-first help after a suspected scam, and learn warning signs or find published bank contact information. The first useful action requires no account. The current release supports Nigerian-accented English voice and text.
 
-Website version 25 is live. Its source commit is
-37a88225905963275b65eedb1ebf28bdf286f065 and deployment is
-appgdep_6ac0abcd1a148191a1f4be4f52a4def1, with environment revision 4.
-English ASR, pinned N-ATLaS CPU text inference, Speak/Type modes and device-read
-replies with replay/stop are connected. Typed replies stay silent. All 80
-application tests, typecheck, production build and ten final public backend
-checks passed; four checks used genuine N-ATLaS text requests. The owner confirms
-the actual voice journey and controls work. Evidence:
-https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-release-2026-10-03.json
-and
-https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json
+A voice question produces a transcript for correction and confirmation. The selected guidance is read by a browser/device voice and shown as text with replay and stop controls. Typed questions return silent text. Reports can be previewed, copied or downloaded for the user to send to their bank.
 
-The owner now reports testers are testing. No completed observer records have
-yet been supplied, so the documented completed count remains 0. This document
-does not substitute engineering checks for participant validation. Official ASR
-service qualification and the real demo video remain pending. Other languages,
-official API and fine-tuning are not claimed as delivered.
+## Architecture
+The React 19/TypeScript frontend runs through Vinext/Vite on a Cloudflare Worker hosted by Sites. Same-origin API routes validate input and call authenticated Python/FastAPI model services on SecretVM. The model host has 16 GB RAM, 8 vCPUs and 160 GB disk. The active containers are gateway, text and asr-en.
 
-## Product and hosting
+App: https://pauseam.theblockcapitol.com
 
-Historical 3 October checkpoint: Sites version 20 and the updated English ASR container were
-live. After encrypted environment restoration, authenticated health checks
-verified numbers-redacted-v1 and the pinned text runtime. See
-../evidence/freeform-voice-live-2026-10-03.json; retain the earlier failed-startup
-checkpoint separately. The owner confirms that the unscripted amount/date voice
-journey works; this self-report adds no participant validation record.
+Repository: https://github.com/thepopeblack-byte/pauseam
 
-The no-account mobile app offers Ask a question, Report a problem and Learn. Users describe a short payment concern by English voice or text, review/correct transcripts and receive practical source-backed actions. Reports remain drafts for private bank/CBN use; PauseAm does not send them or promise recovery. Learn has selected dated ngCERT notices, not a live feed. Consumer technical clutter was removed at Kayode's request; detailed provenance remains in backend metadata/evaluation/evidence.
+Model host: https://amaranth-nightingale.vm.scrtlabs.com
 
-Sites serves https://pauseam.theblockcapitol.com; GitHub source is https://github.com/thepopeblack-byte/pauseam. The existing team model host is https://amaranth-nightingale.vm.scrtlabs.com. The supplied VM has 16 GB RAM, 8 vCPUs and 160 GB disk. English ASR and the genuine N-ATLaS Q4_K_M CPU relevance service are connected. TEXT_ENABLED=true was first deployed with version 19 and environment revision 4; current release is version 25. Other languages are paused.
+Version 25 source commit: 37a88225905963275b65eedb1ebf28bdf286f065. Model enablement uses environment revision 4. Documentation updates are tracked separately in Git.
 
-## Architecture and data flow
+## Voice and guidance flow
+Consent -> record -> listen or discard -> upload PCM16 mono 16 kHz WAV -> ASR identity and privacy checks -> correct and confirm transcript -> retrieve current source card -> N-ATLaS relevance check -> independently validated checklist -> device readout and text.
 
-Bank-information questions use lib/bank-directory.ts before generic keyword
-scoring. Exact per-fact official URLs, dates and expiry are bundled into the
-reviewed source content. Unknown/ambiguous banks prompt a choice; stale facts and
-uncovered product details abstain. Directory answers have model=null and bypass
-text inference. The result component exposes the requested email/phone/menu and
-its source, with secondary review metadata collapsed. No public-bank contact is
-accepted from the user's message or generated by N-ATLaS. Coverage is eight banks,
-not an exhaustive Nigerian banking directory. Source review expires 17 October;
-the maintenance procedure is in ../evidence/bank-information-source-review-2026-10-03.md.
+Retrieval selects a reviewed card; the text model may accept it or abstain. Only an eligible card ID can be returned. lib/guidance.ts adds source-derived explanations and small clarifying choices for payment pressure, independent supplier confirmation, missing credit, bank deductions and existing complaints. No arbitrary model-authored contacts or source links enter the answer.
 
-React 19, TypeScript, Vinext/Vite, system fonts and responsive CSS form the browser UI. Same-origin Cloudflare Worker routes validate input and keep model credentials server-side. Separate Python/FastAPI services run pinned official models with serialized inference. The active SecretVM ledger stores timestamps only. The prepared inactive alternate-host package uses a D1 reservation route; do not run separate uncoordinated ledgers in parallel.
+Urgent bank-first actions and the eight-bank contact directory use maintained official-source facts directly. Unknown banks prompt clarification. Expired sources or unavailable required inference produce a clear failure or safe independent-verification route.
 
-Voice: consent -> recording up to 28 seconds -> listen/discard -> upload consent -> PCM16 mono 16 kHz WAV -> bounded authenticated ASR -> official identity/privacy validation -> transcript correction and explicit confirmation -> current sources -> optional text-model selection -> validated checklist. Browser speech recognition and other general models are not concealed substitutes. Browser read-aloud uses public guidance only.
+## Model configuration
+English ASR: NCAIR1/NigerianAccentedEnglish, revision 3c52c6e6c9ec508014a7b9db6a42b503b8930dff. asr/manifests/en.json pins required file hashes. asr/app.py follows the official Transformers pipeline, disables remote code and uses weights-only loading with torch 2.6.
 
-ASR privacy sanitization is in asr/transcript_privacy.py, applied to genuine
-inference output before it leaves the model service. Digits, spoken numbers and
-email addresses are hidden; explicit credential disclosures discard the
-transcript. The app indicates redaction during correction and rejects residual
-numeric/private output. A sample sentence is not required. Typed input retains
-its strict private-detail rejection. lib/asr.ts maps known upstream privacy,
-audio, capacity and timeout failures to distinct bounded messages; raw model
-errors are never shown. Regression fixtures are authored tests, not model output.
+Text: NCAIR1/N-ATLaS, revision e294476928aca9030e924ca27bb8e085e8581273. text_cpu/bootstrap.py verifies official Safetensors/tokenizer files, converts them with llama.cpp revision 631109b34da437a3c4a5ebd75091d677671392e3 and quantizes to Q4_K_M. The engine uses the embedded official chat template. Receipts record original hashes, conversion recipe and output hash. The deployed conversion SHA256 is 3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b.
 
-Urgent bank-contact steps are maintained content and bypass the model. Source retrieval selects the strongest current card; N-ATLaS checks its relevance and returns that ID or abstains. Independent validation resolves only that candidate to source-authored wording. Instruction attacks and uncovered topics stop before inference. Banking-code requests receive priority over general impersonation. The model cannot introduce prose, contacts, source URLs, confidence scores or safe verdicts. This constrained relevance task is not general conversational generation.
+This deployment uses approved model weights and team-hosted inference endpoints. Quantization reduces runtime memory; it is not fine-tuning. The official API adapter is inactive. Organiser confirmation of the self-hosted ASR-service qualification is being sought.
 
-## Reproduce the application
+## Setup and tests
+Requirements: Node >=22.13, npm and the committed lockfile. Clone the repository, then run npm ci --no-audit --no-fund, npm run dev, npm test, npm run typecheck, npm run lint and npm run build. With the server running, run npm run test:http. Python contracts run with python -m unittest discover -s tests -p 'test_*.py' -v. Production model images use Python 3.11.
 
-Use Node >=22.13. Clone the repository and run npm ci --no-audit --no-fund, npm run dev, npm test, npm run typecheck, npm run lint and npm run build. With a server running, run npm run test:http. Python contracts: python -m unittest discover -s tests -p 'test_*.py' -v. The lockfile is committed. Preserve the established package manager/build scripts; Windows preview wrappers are ignored .sites-runtime state. Inference images use Python 3.11; local isolated conversion preparation used Python 3.12.
+Server settings: ASR_ENABLED=true, KB_ENABLED=true and TEXT_ENABLED=true. ASR_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/asr/en/transcribe. TEXT_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/text/guide. ASR_SERVICE_TOKEN and TEXT_SERVICE_TOKEN belong in server secrets; HF_TOKEN is used privately during model preparation.
 
-Sites publishing uses the existing project appgprj_6ab826bba8f48191ad36895acae09407 and its installed workflow. Preserve domain, audience and bindings. Runtime values belong in Sites, not .openai/hosting.json. Deploy a saved version after any settings change. No local Docker/PowerShell deployment is required for an owner dashboard update; local build commands are optional reproduction/verification tools.
+For SecretVM, follow deployment/secretvm/ENGLISH-COMPLETE.md and deployment/secretvm/english-complete-compose.yml. Preserve model, licence and gateway volumes. The CPU profile limits text to 10 GB, ASR to 3 GB and gateway to 256 MB; these are configured limits rather than measured peak usage. Check authenticated health, then run scripts/verify-model-host.mjs with the English-complete scope and real inference. A downloading or converting container is not ready for requests.
 
-GitHub Actions builds code-only model images with pinned base images and actions, records actual digests and checks imports/binary dependencies offline. Never embed weights or secrets in public images. A successful image import is not inference evidence. Use actual digests after a successful build, not a guessed tag or placeholder.
-
-## Model identities and CPU preparation
-
-English ASR: NCAIR1/NigerianAccentedEnglish at 3c52c6e6c9ec508014a7b9db6a42b503b8930dff. Required bytes are pinned in asr/manifests/en.json; the approved English bucket passed complete checks. asr/app.py follows the official Transformers pipeline, 16 kHz audio, torch 2.6 weights-only loading, remote code disabled.
-
-Text: NCAIR1/N-ATLaS at e294476928aca9030e924ca27bb8e085e8581273. Its bfloat16 weights alone are roughly 16 GB and previous CPU requests exceeded 45/180 seconds. text_cpu verifies the official Safetensors/tokenizer manifest, converts with llama.cpp revision 631109b34da437a3c4a5ebd75091d677671392e3 and quantizes to Q4_K_M. The embedded official template is applied by the engine. Generated receipts record source hashes, output SHA256/size and recipe. Cache mismatches fail closed. Original weights and licence state are preserved; only verified conversion intermediates may be removed.
-
-This conversion is quantization, not training or fine-tuning. No LoRA run, official API request or benchmark improvement over the unchanged base is claimed. The Windows output is 4,920,738,848 bytes with SHA256 cb975863d6eb0bd5488c24f47ffffbfe2d57266f9645bc257dfeffe412b18529. Its six local requests took 15,909-23,293 ms. The independent VM conversion reports SHA256 3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b. Six genuine VM HTTPS requests passed in 6,141-6,754 ms; two guards passed without inference. Public checks passed 20 of 21, with a safe abstention for an ambiguous bank-detail-change question. Original failures remain unchanged. These are authored engineering examples, not participant validation. Measured peak memory and concurrent-user capacity remain unverified.
-
-scripts/download-text-weights.mjs supports private approved access and bounded resumable downloads; all bytes must match the official manifest before conversion. Its Python alternative uses Hugging Face's official client. Credentials are loaded privately through environment files, never shell arguments. Conversion uses the pinned official source/runtime; no third-party quantized model is trusted.
-
-scripts/prepare-secretvm.py generates full, english-pilot and english-complete profiles. The completion profile uses planned limits of 10 GB text, 3 GB English ASR and 256 MB gateway; these are limits, not measured peak consumption. It preserves text-models, asr-en-models, licence and Caddy volumes. Only gateway, text and asr-en should run. Do not delete volumes or create a replacement ledger. Keep the existing private HF_TOKEN, TEXT_SERVICE_TOKEN and ASR_SERVICE_TOKEN. The gateway handles HTTPS; no model port is publicly exposed directly.
-
-After the actual CPU image passes checks, follow deployment/secretvm/ENGLISH-COMPLETE.md. Download/conversion is a startup phase, not a ready model. Authenticate /health; then run scripts/verify-model-host.mjs with --scope english-complete and real inference mode. Owner audio needs explicit consent and an actual recording. If tests fail, retain/restore the English pilot and TEXT_ENABLED=false. Bigger compute alone does not prove latency or quality.
+Sites deployment preserves the existing project, domain, audience and D1 bindings. Configure secrets through hosting settings and deploy a saved version after changes. GitHub Actions builds code-only digest-pinned images and checks runtime imports. Model weights and secrets are not embedded in public images.
 
 ## API contracts
+GET /api/status returns configured capability flags, pinned targets and English scope. GET /api/learn returns eligible dated notices after source-expiry checks.
 
-GET /api/status returns pinned targets, configured flags, English scope and limitations. It does no inference. GET /api/learn returns eligible dated notices with server-side source/date/expiry checks. Configuration alone is not validation.
+POST /api/asr requires a matching Origin, Content-Type audio/wav, X-Audio-Consent: yes and X-Language: en. Audio must be PCM16 mono 16 kHz, 0.5-30 seconds and at most 960,044 bytes. Successful responses include actual text, model/revision/language, confidence:null, latencyMs and traceId. Invalid input, missing consent, sensitive output, overload and upstream failure return distinct bounded errors.
 
-POST /api/asr requires matching Origin, Content-Type audio/wav, X-Audio-Consent: yes and X-Language: en. Canonical PCM16 mono 16 kHz audio must be 0.5-30 seconds, <=960,044 bytes. Success returns actual text, model/revision/language, confidence:null, latencyMs and random traceId. Missing consent or bad input is rejected; known paused languages return 503; sensitive output is discarded (422); overload/unavailable inference fails visibly. No transcript is invented.
+POST /api/answer accepts a 1-600-character question, before/after/learn journey and English language. Source and privacy checks precede inference. Successful metadata identifies the actual model/revision, or model:null for source-only responses. Wrong model identity, expired content and invalid card output fail closed.
 
-POST /api/answer accepts a 1-600 character nonsensitive question, before/after/learn journey and English language. Privacy/source checks precede models; urgent response does not wait for one. If text is enabled, missing settings, failure, wrong identity or untrusted card output fail visibly. Success metadata identifies actual engine/model/revision and optional checked CPU runtime/quantization. Source-only answers have model:null. Response references are correlation identifiers, not signed research attestations.
+SecretVM exposes /asr/en/transcribe, /asr/en/ready and authenticated /asr/en/health; text uses /text/guide, /text/ready and authenticated /text/health. llama.cpp listens on loopback behind the gateway.
 
-SecretVM routes: /asr/en/transcribe, /asr/en/ready, authenticated /asr/en/health; completion adds /text/guide, /text/ready and authenticated /text/health. llama.cpp is fixed to loopback. These are team-host contracts, not proof of the official N-ATLaS API. lib/official-api.ts remains fail-closed.
+## Content maintenance
+lib/safety.ts records source URLs, sections, review dates and expiry. lib/bank-directory.ts selects official bank contacts before generic guidance. lib/reporting.ts provides complaint-stage actions and user-reviewed report drafts. lib/updates.ts contains selected dated ngCERT notices, not a live news feed.
 
-## Source maintenance
+The notice catalogue expires 9 October, bank facts 17 October and general source/escalation entries 1 November unless rechecked. Kayode coordinates content review; Suleiman publishes reviewed changes with source evidence and checks. Withdraw uncertain or stale entries rather than advancing dates without review. The latest CBN/ngCERT checks used official-domain indexed content where direct requests returned 403.
 
-lib/safety.ts records source URL/section, date, expiry, scenario basis and review status. Human safety review remains pending. lib/reporting.ts handles bank-first reporting and user-reported CBN escalation stages; it cannot determine eligibility automatically. Drafts preserve only the nonsensitive description and add no invented transaction facts. Latest direct CBN/ngCERT fetching returned 403; facts were checked against official-domain search-index content, not successful direct extraction.
+## Privacy and security
+Raw audio, questions and transcripts are processed transiently and are not retained by default. Users are instructed to omit names and banking credentials. Input guards reject PINs, OTPs, passwords, account identifiers and other private numeric content. Ordinary amounts and dates are accepted in typed or corrected questions; ASR hides numeric details before returning transcripts. Numeric values are omitted from text-model relevance requests.
 
-lib/updates.ts contains three selected ngCERT notices dated 27 August, 13 July and 15 June 2026. The catalog expires 9 October unless actually rechecked. General source/escalation entries expire 1 November. Do not merely advance dates. Kayode coordinates safety review; Suleiman publishes reviewed changes with source evidence and tests. Withdraw uncertain/stale content and give a safe bank-contact fallback.
+Origin checks, bounded streams, HTTPS-only endpoints, redirect refusal, pinned identities and output allowlists protect the model path. Services serialize inference and reject overload. Containers are non-root, resource-limited and read-only with capabilities dropped. Prompt/access logs and persistent prompt caches are disabled at the inference layer; infrastructure metadata requires separate operational review.
 
-## Privacy and safety
+SecretVM provides confidential-computing infrastructure for model hosting. Sites processes plaintext requests before forwarding them over HTTPS. Browser-to-attested-VM end-to-end encryption has not been demonstrated; attestation authenticity and expected-workload matching require verification. The licence ledger stores reservation timestamps rather than question bodies or user identities.
 
-Never request/store PINs, OTPs, passwords, account numbers or full credentials. Users must leave out names and banking identifiers. The current consumer guard accepts bounded ordinary amounts and date/time forms, rejecting unclassified numeric identifiers, email addresses and explicit secret statements. It cannot detect every disguised sensitive phrase. ASR still hides numeric details; corrected transcripts may include ordinary amounts/dates. Numeric values are omitted before text relevance inference so the pinned host's stricter contract remains unchanged. Listen/review before uploading. Screenshot input stays disabled. Optional local report drafts may contain user-provided non-sensitive amounts/dates; normal use retains no question/transcript.
+The app allows 90 answer requests and 30 ASR attempts per minute per Worker isolate. The shared persistent pilot ledger allows up to 950 inference reservations in a rolling window, including failures. Preserve its state across restarts. A hung CPU engine is terminated before further inference; audio is not retried automatically.
 
-Raw audio is not retained by default; text/audio are transient processing inputs. Mutable PCM is cleared where possible; immediate erasure of managed/runtime copies cannot be guaranteed. Inference access/prompt logs are disabled. Operators must check proxy/infrastructure logging independently; providers may process IP metadata. The active database stores licence timestamps, no user identifiers or bodies.
+## Evaluation and verification
+The current release passed 80 application tests, type checking, the production build and ten public backend checks. Four checks used the pinned N-ATLaS text model and completed in 5,960-7,803 ms. Earlier six authenticated model-host requests completed in 6,141-6,754 ms. Historical outcomes remain available in dated evidence files.
 
-SecretVM hosts the models on confidential-computing infrastructure, but the
-Sites backend processes plaintext requests before forwarding them. This is not
-a demonstrated browser-to-attested-VM end-to-end encrypted channel. The public
-CPU quote endpoint is reachable; authenticity, expected-workload matching and
-KMS configuration have not been verified. Do not claim everything is confidential
-or independently security audited. Boundaries and verification procedure:
-https://github.com/thepopeblack-byte/pauseam/blob/main/submission/confidentiality-positioning.md
+Thirty people have tested the app; feedback collection is in progress. /evaluation stores consented whitelisted measurements on the device and exports model identities, timing and request references. Observed-session records and scripts/validate-research.py support aggregation. Raw responses remain private; user counts, attempts and completed voice interactions are analysed separately.
 
-Protection includes origin checks, bounded streams, HTTPS-only endpoints, redirect refusal, exact identities, sensitive-output filtering and independent source/output allowlists. Non-root containers are read-only, resource-limited and capability-dropped. CPU web UI/slot monitoring/persistent prompt cache are disabled. Secrets are server-side and excluded from screenshots, exports and demo captures.
+Semantic labels, keyboard access, visible focus, touch targets, reduced motion and text alternatives are implemented. Browser overflow checks passed at 320 and 390 pixels. A historical warm emulated-mobile observation measured LCP 332 ms, INP 56 ms and CLS 0.000; it does not represent a cold low-end Android test. Representative device/network and assistive-technology findings will be recorded separately from model latency.
 
-App limits are 90 answers and 30 ASR attempts per minute per Worker isolate, not global user quotas. Each model serializes work and rejects overload. Each inference reserves a timestamp in the shared conservative 950-request rolling ledger, including failures. Preserve it across restarts/upgrades. A hung CPU engine is terminated before new work is admitted and bounded container restart handles recovery. No automatic audio retry is performed.
+## Operations and licence
+Monitor readiness, outcome/latency, memory, disk, restarts and licence consumption without request-body logs. Keep one coordinated pilot ledger and inactive alternate hosts off. The supplied running compute price is $0.24/hour; infrastructure cost estimates must be reconciled with billing.
 
-## Research and evaluation
+The published model licence caps active end users at 1,000 within a rolling 30-day period. Obtain separate licensing before exceeding the cap and before commercial model use. Additional languages require capacity and fluent review. The planned revenue service adds human recovery-case support through a legal partner, with a support fee plus an agreed percentage of recovered funds; it is separate from the current free guidance product.
 
-Ordinary questions create no research records. /evaluation consent defaults off. Its device-local whitelist retains measurements, optional helpfulness, prompted WER, checked model identities and returned request references, never question/transcript/audio or participant identifiers. Exported records are editable; they cannot independently prove human participation.
-
-Use submission/03-validation/WEEKEND-TESTING.md and the empty observer CSV. Current final-round targets are English only and declared before data. At least 50 genuine completed voice interactions require consent, actual devices/networks, returned model evidence, corrections, comprehension, feedback and observer attestation. scripts/validate-research.py checks consistency and totals, not authenticity. No completed rows have been supplied. Raw logs remain private; reviewed aggregates only are published. Consent specifies deletion of individual logs within 90 days and withdrawal before aggregation.
-
-## Accessibility, performance and operations
-
-Semantic labels/headings, keyboard access, visible focus, touch targets, high contrast, reduced motion, system fonts and a text alternative are implemented. Earlier consumer checks passed 320/390-pixel overflow tests. Physical low-end Android, assistive technology and constrained-network testing remain pending. Real Web Vitals must state device/network/cache conditions; warm-browser measurements are limited observations. Report model latency separately from LCP/INP/CLS.
-
-Monitor authenticated readiness, actual outcomes/latency, memory, disk, restarts and remaining licence/budget without body logs. A 502/503 is a failed check. Freeze a tested final-round build, record fixes and separate retests. Keep the inactive alternate host off. The supplied price is $0.24/hour ($5.76 per running day), excluding other charges; billing has not been independently reconciled. Existing budget: $150 total through 12 October; stop paid compute after review/testing. No new purchase is authorized here.
-
-## Release limitations and attribution
-
-Version 25 adds explicit Speak / Type modes. Only an answer originating from a
-genuine corrected/confirmed voice transcript automatically attempts device
-speech. Text answers stay silent. SpokenReply uses a local English device voice;
-no official N-ATLaS TTS weights/API were found in the published resources. No
-additional server credentials or SecretVM update is required. Answer readout
-excludes the user's raw question, transcript and report draft. Bank facts are
-read with individual phone/code digits and star/hash symbols. Reporting display
-and speech share the current plan. Replay cancels the previous generation;
-editing, mode changes, report-stage changes, tab hiding and unmount cancel audio.
-Missing device voices and blocked autoplay retain the text and replay fallback.
-Nine dedicated speech tests use explicit mocked events and are not ASR or human
-validation. The owner confirms the complete audio controls and silent typed path
-work; representative Android and assistive-technology testing remain pending.
-
-Contextual replies use lib/guidance.ts after successful source retrieval and,
-where required, genuine N-ATLaS relevance selection. The exact source card is
-unchanged. Scenario explanations respond to explicit circumstances such as
-payment pressure, independent supplier confirmation, missing credit/deduction
-and an existing bank complaint. They are source-derived scenario wording, not
-free-form generated model output or full semantic understanding. Missing context
-offers a small follow-up choice; the choice stages an amended question without
-submitting it automatically or saving a conversation. Amounts, dates and raw
-message text are not copied into the contextual reply. Unavailable inference,
-expired/altered source cards and privacy rejection produce no contextual advice.
-Reporting defaults to a waiting stage only for an explicit existing bank report;
-it does not infer escalation eligibility from the payment date. Independent
-human safety review and representative usability testing remain pending.
-
-Official PS2 requires the official ASR service and at least 50 documented real interactions. Organiser acceptance of self-hosted official weights is unresolved. Official API, fine-tuning and paused language capabilities cannot be claimed. Team facts need owner approval; CAC/ID remain private. A genuine 3-5 minute MP4 and human validation are pending. Nothing has been submitted to ONDI. Revenue and future impact are proposed, not traction.
-
-Model licence: https://huggingface.co/NCAIR1/N-ATLaS
+Licence: https://huggingface.co/NCAIR1/N-ATLaS
 
 Challenge: https://ncair.nitda.gov.ng/naic/
-
-Obtain separate licensing before exceeding 1,000 active users in a rolling 30 days. N-ATLaS is an initiative of the Federal Ministry of Communications, Innovation and Digital Economy, and powered by Awarri Technologies.

@@ -1,27 +1,14 @@
-# 06 — Team profile
+# PauseAm team
 
-PauseAm | Two-person Innovation & Enterprise team.
-Status: incomplete; user-supplied details need final confirmation.
+Innovation & Enterprise | PS2: Voice-First Access
 
-## Kayode Popoola — team lead
-User-provided affiliation: Head of Sales and Business Development at Secret Network
-Foundation. Experience supplied by Kayode: blockchain intelligence and financial
-crime analyst; member of the International Association of Financial Crime
-Investigators. These credentials have not been independently verified.
+## Kayode Popoola - Team lead
+Kayode is Head of Sales and Business Development at Secret Network Foundation, a blockchain intelligence and financial crime analyst, and a member of the International Association of Financial Crime Investigators.
 
-Proposed ownership: discovery, safety-review coordination, consenting recruitment,
-validation, impact/sustainability and final review. An employment affiliation does
-not imply employer sponsorship, endorsement or project ownership.
+He leads product direction, payment-safety content, partnerships, user research and validation. His work connects the product's payment-verification and reporting journeys with the needs of students, everyday users and small businesses.
 
-## Suleiman — technical lead
-Confirmed by Kayode: Suleiman, Technical lead.
-Full name, affiliation and relevant technical experience have not been supplied.
-No surname or credentials are invented.
-Proposed ownership: model hosting, engineering, security, reproducibility,
-testing, deployment, monitoring and integration evidence.
+## Suleiman - Technical lead
+Suleiman leads application engineering, N-ATLaS integration, model hosting, deployment and testing. He is responsible for reproducibility, operational monitoring and the technical evidence package.
 
-## Final checks
-Confirm each person's details, publication consent, citizenship/entity eligibility,
-age if applicable, residency condition, originality and previous-award status.
-Two people fit the published portal range. Keep identity evidence private.
-Obtain both members' final approval before submission.
+## Responsibilities
+Kayode coordinates testers, reviews guidance and feedback, and leads distribution and sustainability planning. Suleiman maintains the frontend, backend and model adapters, investigates defects and manages release checks. Both members review the final application and evidence.

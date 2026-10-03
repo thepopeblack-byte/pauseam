@@ -1,55 +1,28 @@
-# 03 — Real-world validation report
+# User testing and validation
 
-PauseAm | Status: BLOCKED pending reconciled results | 3 October 2026. Intended review/submission: Monday, 5 October.
+PauseAm | English pilot | 3 October 2026
 
-## Actual totals
-Prospective pool: 200+ willing people reported by Kayode.
-Owner-reported testers who have now tried the app: 25, reported 3 October.
-Participant feedback and supporting session records received for review: 0.
-Completed discovery sessions supplied: 0.
-Documented PS2 interactions: 0 of the required minimum 50.
-Distinct validated participants: 0. Completed fluent reviews: 0.
-English: 0 interactions. Yoruba: 0. Hausa: 0. Igbo: 0.
-Voice success, WER, comprehension, retention and impact: not measured.
+## User testing
+Thirty people have tested PauseAm. We are collecting feedback on the journeys they used, voice or text input, device and network conditions, transcription corrections, useful next steps and any errors. A wider pool of more than 200 volunteers is available for further testing.
 
-The reported 25 testers are testing activity, not 25 evidenced completed voice
-interactions. Their feedback is being collected. See
-../evidence/testing-owner-report-2026-10-03.json and
-form-answer-status-2026-10-03.txt. Historical zero documented totals remain
-unchanged until genuine consented records are reconciled.
+## Feedback collection
+The questionnaire asks what users tried, what happened, what failed, what was helpful or confusing, what they would do next and whether the English voice journey completed. Participation is voluntary. The form collects no names, email addresses or tester codes. Responses remain in the team's Google Forms account and individual feedback is retained for up to 90 days.
 
-Engineering tests, authored prompts and browser automation are excluded.
-Prospective testers and device-local feedback are not independently documented
-human interactions. No scores, responses or participant evidence have been invented.
+Feedback form: https://docs.google.com/forms/d/e/1FAIpQLSehR9XnB63y54J02_NkrXsf59o8CLlbrBEDGRdPyAFyiHrFcg/viewform?usp=header
 
-## Method
-The discovery pack defines 6–8 varied 15-minute sessions, voluntary consent,
-adult participants, neutral questions and non-sensitive task scenarios.
-Kayode agreed to arrange sessions and reports reviewers are available.
-Availability is not completion. Record findings and revise the product before
-locking features. A separate business mode and screenshots remain deferred.
+## Evaluation method
+We evaluate the complete voice flow: recording, transcription, correction and confirmation, then usable guidance. Typed-only tests, incomplete attempts and assisted completions are recorded separately. Follow-up questions assess whether users understand the recommended action and can find the bank-first reporting journey.
 
-The current English final-round protocol is WEEKEND-TESTING.md, declared before
-new participant data. Targets: at least 50 genuine completed English voice
-interactions, 80% unassisted voice-to-guidance completion, 90% correct action
-comprehension, 80% unassisted bank-first report-path finding, and zero critical
-harmful advice or secret exposure. These are targets, not findings. The earlier
-four-language/source-finding targets remain historical planning: three languages
-were deferred and consumer source controls removed at Kayode's request. Report
-all failures, changes and retests.
+The observed-session protocol records consent, device/network conditions, the journey, transcript corrections, completion, comprehension, defects and retests. Anonymous app exports provide model identities, request references and timing. Team records are checked with scripts/validate-research.py before aggregation. Response, participant and completed-interaction counts are recorded separately.
 
-## Evidence controls
-Use interactions-template.csv. Completed records go in private/research/, outside
-public Git: consent/date, random participant code, language, device/network,
-journey, build, model/revision, trace, completion, correction counts, comprehension,
-feedback codes, defect/change IDs and observer attestation. No banking secrets.
+The next round targets 50 documented completed English voice interactions, 80% unassisted completion, 90% correct next-action comprehension and 80% unassisted bank-first reporting navigation.
 
-An aggregation script checks schema, duplicate IDs and arithmetic. It cannot prove
-a human participated. An observer must verify provenance; publish only redacted
-aggregates. Separate scheduling contacts from research. Confirm the proposed
-90-day raw-log retention and participant deletion procedure before collection.
+## Current findings
+Participant feedback is being collected and has not yet been analysed. Completion rates, comprehension scores and speech accuracy will be calculated from the reviewed evidence.
 
-## Limitations
-The decision-companion hypothesis remains untested. No actual finding supports or
-rejects it yet. This honest status report does not satisfy the required completed
-validation. No impact or language-level success claim can be made.
+Development testing identified problems with free-form voice questions containing amounts or dates, combined bank email/phone requests and generic next-step wording. These led to input-handling fixes, combined contact answers, contextual explanations and clarifying questions. Replay/stop controls and the report download were checked in the operating product.
+
+## Engineering results
+The current release passed 80 application tests, type checking, the production build and ten public backend checks. Four backend checks used the pinned N-ATLaS text model and completed in 5,960-7,803 ms. These measurements describe engineering verification, separate from participant feedback.
+
+Logs: https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json

@@ -1,5 +1,25 @@
 # ONDI draft progress - 3 October 2026
 
+## Latest revision
+
+Rewrote the product, team and Programme Fit answers in concise team language,
+removing conversational owner/status commentary. All verified character limits
+passed. Rebuilt and visually inspected the integration, technical, team,
+testing and evidence-note PDFs. Integration and technical uploads were replaced;
+the current testing report was added to Validation evidence.
+
+The owner confirmed that 30 people have now tested the app. The existing portal
+session count is 30 and was preserved. Participant feedback is still being
+collected; no completion rate, comprehension score or speech-accuracy result
+has been calculated from participant records. Engineering evidence remains
+separate. Portal completeness is 31 of 31 required fields.
+
+The owner supplied a video URL in the saved form: https://youtu.be/Q-CDzLg24J0.
+The original statements below record earlier work and are superseded where
+the latest revision differs. The application has not been submitted.
+
+## Earlier draft history
+
 Owner authorized filling the signed-in Innovation & Enterprise form and uploading
 available documents. No application submission was authorized or performed.
 

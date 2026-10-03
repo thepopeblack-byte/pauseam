@@ -1,122 +1,54 @@
-# 02 - N-ATLaS integration evidence
+# N-ATLaS integration
 
-PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 3 October 2026. Intended owner review/submission: Monday, 5 October. Not submitted.
+PauseAm | Ask before you pay. | Innovation & Enterprise | PS2: Voice-First Access
 
-## Latest demonstrated release
+## Integration overview
+PauseAm uses official NCAIR models for English speech recognition and source-grounded payment guidance. Users record a question, review and correct the transcript, then receive practical next steps. The frontend is hosted on Sites at https://pauseam.theblockcapitol.com. The team's authenticated model services run on SecretVM at https://amaranth-nightingale.vm.scrtlabs.com.
 
-Version 25 is live with English ASR, pinned N-ATLaS CPU relevance inference and
-device-read spoken replies with text below and replay/stop. Typed replies stay
-silent. All 80 application tests and ten final public backend checks passed;
-four backend checks used the genuine N-ATLaS text model. The owner confirms the
-full voice journey and controls work. These are engineering/owner checks, not
-participant validation. Current live source commit:
-37a88225905963275b65eedb1ebf28bdf286f065. Deployment:
-appgdep_6ac0abcd1a148191a1f4be4f52a4def1; environment revision 4.
+## Models and deployment
+English ASR: NCAIR1/NigerianAccentedEnglish, revision 3c52c6e6c9ec508014a7b9db6a42b503b8930dff. The service follows the published Transformers pipeline with 16 kHz mono audio. Required files are checked against asr/manifests/en.json and the official revision before loading.
 
-Latest release evidence:
-https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-release-2026-10-03.json
-Latest genuine request traces:
-https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json
+Text: NCAIR1/N-ATLaS, revision e294476928aca9030e924ca27bb8e085e8581273. The official weights are verified, converted with llama.cpp revision 631109b34da437a3c4a5ebd75091d677671392e3, and quantized to Q4_K_M for the 16 GB CPU host. The embedded model chat template and a constrained output schema are used. The deployed conversion SHA256 is 3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b. This is inference with quantized official weights, not fine-tuning.
 
-The owner reports testing is under way, but no completed observer records have
-been supplied. Documented participant count remains 0. Official-service
-qualification remains unresolved. Other languages, official API and fine-tuning
-are not claimed. Older request outcomes below retain their historical dates.
+The current deployment supports Nigerian-accented English. Browser/device speech reads voice-mode replies, with text, replay and stop controls. Typed replies remain silent. The video's separately labelled Microsoft Nigerian-English narration is postproduction audio.
 
-## Current capability boundary
+## End-to-end flow
+1. The user chooses Speak and consents to audio processing.
+2. The browser records a short question and converts it to bounded PCM16 mono 16 kHz WAV.
+3. A same-origin server route validates the recording and forwards it to the authenticated English ASR service.
+4. The returned model identity and transcript privacy policy are checked. The user corrects and confirms the transcript.
+5. Retrieval chooses a current reviewed payment-safety card. N-ATLaS evaluates its relevance and returns the eligible card ID or abstains.
+6. Independent validation resolves the selected ID to the reviewed checklist. Situation-specific wording gives the next action; voice mode reads it aloud.
 
-Amount/date and bank-help addendum: corrected/typed payment questions accept
-ordinary amounts and dates; number values are omitted before the genuine model
-relevance request. The active ASR continues to hide numbers. An independent
-official-source directory answers email, phone and basic USSD-menu questions for
-eight Nigerian banks without model inference (model=null). These contacts are
-published bank facts, not model generation or official N-ATLaS API integration.
-See ../evidence/bank-information-source-review-2026-10-03.md. Independent human
-source review and documented participant results remain pending.
+Urgent reporting actions and published bank contacts use maintained source content directly. These responses are labelled source-only in backend metadata. Model output cannot introduce new phone numbers, source URLs or unsupported payment verdicts.
 
-Historical 3 October checkpoint: Sites version 20 was live. The existing VM's authenticated ASR
-health reports the pinned English model and numbers-redacted-v1 privacy policy;
-the pinned llama.cpp text service is ready. Public authored questions with a
-redacted amount returned exact reviewed supplier and reporting cards. A silent
-WAV received the distinct 422 recording error without a transcript. Actual
-timestamps, identities and latency are in ../evidence/freeform-voice-live-2026-10-03.json.
-The owner confirms that the unscripted amount/date full voice journey works.
-This is a self-reported check, not independent observation, speech accuracy
-evidence or a completed participant interaction.
+## Implementation
+lib/asr.ts and app/api/asr/route.ts implement the browser-to-server contract; asr/app.py runs the official ASR pipeline. lib/text-model.ts and app/api/answer/route.ts connect the relevance service. text_cpu/bootstrap.py verifies model files and conversion receipts; text_cpu/contract.py constrains generation; text_cpu/app.py authenticates requests and serializes inference. lib/safety.ts maintains guidance provenance; lib/guidance.ts applies situation-specific explanations.
 
-The agreed public language is Nigerian-accented English. The official English ASR returned a real owner transcript through the app; this is engineering evidence, not a completed participant-validation round. After the owner restored missing encrypted configuration, the correct same-model CPU service became ready. Six genuine authenticated HTTPS relevance requests passed in 6,141-6,754 ms, plus two pre-inference guards. Sites version 19 was redeployed with TEXT_ENABLED=true at 22:36:47 UTC on 2 October. Public model-backed supplier guidance was verified in the actual browser. These are engineering checks, not human validation.
+Production settings: ASR_ENABLED=true, KB_ENABLED=true, TEXT_ENABLED=true. ASR_ENDPOINT is https://amaranth-nightingale.vm.scrtlabs.com/asr/en/transcribe. TEXT_ENDPOINT is https://amaranth-nightingale.vm.scrtlabs.com/text/guide. Service tokens are configured as server-side secrets.
 
-Yoruba, Hausa and Igbo adapters and byte-verified model files remain available but are paused. Official API access and fine-tuning are not demonstrated. Quantization is a precision conversion, not fine-tuning. Do not select unsupported capabilities or languages on the portal.
+## Engineering verification
+Version 25 passed 80 application tests, type checking, the production build and ten public backend checks. Four of those backend checks returned the pinned N-ATLaS text-model identity, request references and relevant guidance. Recorded request timings were 5,960-7,803 ms. The six authenticated text-host requests on 2 October completed in 6,141-6,754 ms; two input guards returned without inference.
 
-## Actual architecture
+Health, real requests, model identity, input guards and timings can be reproduced with scripts/verify-model-host.mjs. The engineering results and operating-product screenshots are linked below. Participant feedback is documented separately in the validation report.
 
-Consent -> English recording -> bounded mono 16 kHz WAV -> Sites Worker -> authenticated SecretVM ASR -> identity/privacy checks -> transcript correction/confirmation -> current source cards -> optional N-ATLaS card selection -> independently validated checklist.
+Request traces: https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json
 
-Urgent bank-first actions do not wait for a model. Reports are reviewed drafts, not automatically sent complaints. No funds are moved, accounts authenticated, safe verdicts issued or recovery promised.
+Authenticated model-host requests: https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/live-text-inference-2026-10-02.json
 
-Public app: https://pauseam.theblockcapitol.com
+ASR checks: https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/freeform-voice-live-2026-10-03.json
 
-Public source: https://github.com/thepopeblack-byte/pauseam
+Verification script: https://github.com/thepopeblack-byte/pauseam/blob/main/scripts/verify-model-host.mjs
 
-Team inference: https://amaranth-nightingale.vm.scrtlabs.com
+Source repository: https://github.com/thepopeblack-byte/pauseam
 
-## Model identities and recipe
+## Access and licence
+Access is through approved model weights on the team's inference host. These endpoints are team-hosted services; an official N-ATLaS API endpoint has not been established. We are seeking organiser confirmation that hosting the published ASR weights satisfies the PS2 service requirement.
 
-English ASR: NCAIR1/NigerianAccentedEnglish at 3c52c6e6c9ec508014a7b9db6a42b503b8930dff. Its separate approved bucket is Blockcapitol/NigerianAccentedEnglish-bucket; every required file was checked against that official revision. See asr/manifests/en.json and submission/evidence/asr-bucket-en-2026-10-02.json.
+The model licence allows up to 1,000 active end users within a rolling 30-day period. A persistent shared 950-reservation guard conservatively limits pilot inference. Separate licensing is required before exceeding the published cap or starting commercial model use.
 
-Text: NCAIR1/N-ATLaS at e294476928aca9030e924ca27bb8e085e8581273. The new CPU path verifies original Safetensors/tokenizer bytes against text_service/model-manifest.json, converts with official llama.cpp revision 631109b34da437a3c4a5ebd75091d677671392e3 and quantizes to Q4_K_M. The embedded official chat template is used. The generated provenance receipt records original hashes, output hash/size and recipe. No alternative model is substituted.
+Model terms: https://huggingface.co/NCAIR1/N-ATLaS
 
-Runtime release b11351 is pinned. Linux archive SHA256: c800a3402548d57f408adcebe4e53b939141e34e09b7e4701c785435572d1fee. Downloading files alone proves neither inference nor quality.
+English ASR: https://huggingface.co/NCAIR1/NigerianAccentedEnglish
 
-## Code locations
-
-lib/asr.ts, app/api/asr/route.ts and asr/app.py enforce consent, bounded audio, exact official identity and sensitive-output refusal. lib/text-model.ts validates the selected card and optional CPU runtime identity. app/api/answer/route.ts keeps urgent source content immediate and fails visibly if enabled inference/configuration is unavailable.
-
-text_cpu/bootstrap.py verifies original files and the conversion cache. text_cpu/contract.py creates finite schema-constrained generation; text_cpu/app.py authenticates, serializes and reserves real inference. Source retrieval chooses the strongest current card; N-ATLaS checks its relevance and may accept or abstain. Only that card ID or an empty selection is accepted. Unrelated/instruction-attack inputs are stopped before inference. Model-authored contacts, links and arbitrary safety prose never render. This is constrained relevance checking, not open-ended conversational generation.
-
-scripts/prepare-secretvm.py generates digest-pinned profiles. scripts/verify-model-host.mjs checks real identities/requests. The old full-precision text_service and prior traces remain as historical evidence.
-
-## Redacted production settings
-
-ASR_ENABLED=true; ASR_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/asr/en/transcribe; KB_ENABLED=true; TEXT_ENABLED=true; TEXT_ENDPOINT=https://amaranth-nightingale.vm.scrtlabs.com/text/guide. ASR_SERVICE_TOKEN and TEXT_SERVICE_TOKEN are server-side secrets, excluded here. HF_TOKEN is private to model hosting/preparation. Deployment appgdep_6ac031f10d708191a2bb327e3af7dc14 applied environment revision 4.
-
-Text is enabled only after genuine host identity, relevance, adversarial and latency checks, followed by a Sites deployment. Missing settings or failed inference cannot be passed off as model guidance.
-
-## Genuine evidence and gaps
-
-The earlier English owner transcript is documented in worker-redirect-fix-2026-10-02.json. The latest authenticated English health check returned HTTP 200 in 835 ms with the exact identity. Provenance/privacy/relevance changes passed 56 application tests and 27 Python checks. These are not participant interactions or speech-accuracy measurements.
-
-Local conversion and successful requests remain in cpu-conversion-2026-10-02.json and cpu-local-relevance-check-2026-10-02.json. Earlier all-card/three-candidate failures remain unchanged. A schema-wrapper defect was caught and fixed before enablement. Retrieval followed by relevance checking passed; model-only classification of all cards did not.
-
-Historical failures remain unchanged. Final container proof is cpu-final-container-2026-10-02.json; actual build: https://github.com/thepopeblack-byte/pauseam/actions/runs/37061753954. Its digest starts ed76b851; live readiness identifies llama.cpp and reviewed-card-relevance-v1. The VM-generated quantized SHA256 is 3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b; the separately generated Windows conversion has a different hash. Original source files are pinned in both recipes. Actual request trace: https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/live-text-inference-2026-10-02.json
-
-Historical public results: live-text-public-check-2026-10-02.json. Of 21 public checks, 20 passed. The vague question "They want me to use different bank details" returned a safe no-match; the explicit supplier question worked. This historical outcome is retained. Version 24 subsequently added clarification for vague payment concerns; representative comprehension testing remains pending. Five additional reporting/learning checks passed. The owner reports that the fresh complete English recording, transcript review and supplier guidance journey works; this is owner confirmation, not independently observed participant validation. Random response references are not signed proof of human participation: observed sessions require attestation.
-
-## Official service and API findings
-
-Version 24 adds source-derived situation explanations and clarifying questions;
-the model's constrained card-selection contract and original source card remain
-unchanged. It does not claim that authored explanations were generated by N-ATLaS.
-Four genuine final public requests carried the pinned text-model identity and
-returned eligible cards; see evidence/contextual-replies-live-v24-2026-10-03.json.
-Vague payment queries request clarification without a payment assessment or claimed
-model inference. Version 25 adds automatic device readout after a corrected,
-confirmed voice question, with reply text below and replay/stop controls. Typed
-questions remain silent. N-ATLaS ASR and text inference are retained; no official
-N-ATLaS TTS model/API was found in its published model inventory and licence.
-Readout uses local browser/device speech, not another advice model or an OpenAI
-API. The owner confirms voice, replay/stop and silent text work. This is one owner
-check, not a recorded research interaction. See
-../evidence/spoken-replies-implementation-2026-10-03.md and
-../evidence/spoken-replies-release-2026-10-03.json. This review copy includes the
-spoken-reply update; final human validation and submission review remain pending.
-
-PS2 requires the official N-ATLaS ASR service for the relevant language: https://ncair.nitda.gov.ng/naic/
-
-Organiser acceptance of self-hosted official weights remains pending. Kayode authorized the prepared secretariat query, but no successful dispatch or reply is evidenced here. The official page lists API credentials among shortlisted-team support; no verified official endpoint/contract or successful official request is established. lib/official-api.ts fails closed. Official API and fine-tuning checkboxes remain unverified.
-
-## Licence
-
-The published cap is 1,000 active end users within a rolling 30 days; obtain separate licensing before exceeding it. The published scope also requires a separate agreement for commercial use, so obtain paid-use permission before commercial launch even below that cap. Model access approval is not proof of commercial permission. This deployment uses a shared persistent ceiling of 950 inference reservations, including failures. Preserve its ledger across updates and keep alternate hosts inactive. Model terms: https://huggingface.co/NCAIR1/N-ATLaS
-
-N-ATLaS is an initiative of the Federal Ministry of Communications, Innovation and Digital Economy, and powered by Awarri Technologies.
+Challenge: https://ncair.nitda.gov.ng/naic/

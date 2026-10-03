@@ -1,0 +1,51 @@
+{
+  "recordedAt": "2026-10-03T11:28:06.267591+00:00",
+  "kind": "Submission prose and PDF checks",
+  "pdfs": [
+    {
+      "path": "output/pdf/02-natlas-integration.pdf",
+      "sha256": "bad3a8112cf89f9553937f84470ccc7c34719e9849d86abb42b36c90824d5191",
+      "pages": 4,
+      "bytes": 191300,
+      "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
+    },
+    {
+      "path": "output/pdf/03-validation-status.pdf",
+      "sha256": "ba708a8b808dc60ec24c30e25e7d22f26285bf41347ffea33c12fbfcc1d09b3b",
+      "pages": 1,
+      "bytes": 44666,
+      "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
+    },
+    {
+      "path": "output/pdf/04-technical-documentation.pdf",
+      "sha256": "cfacb6753481af910a81537df31b7dcf6ca692896dca50805aa6754d5e47a0ed",
+      "pages": 3,
+      "bytes": 52038,
+      "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
+    },
+    {
+      "path": "output/pdf/06-team-profile-review.pdf",
+      "sha256": "8bcc2c7a3fd85277c68f26862b166fbdc9d0f262f57c71e10b84b0dee1d3f8b6",
+      "pages": 1,
+      "bytes": 42368,
+      "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
+    },
+    {
+      "path": "output/pdf/pauseam-integration-evidence-note.pdf",
+      "sha256": "6fb5f8684aef43144da3bfd65614bfe5249dbd8a0df1a355ee11ea7d8152b2df",
+      "pages": 1,
+      "bytes": 44724,
+      "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
+    }
+  ],
+  "verifiedCharacterLimitsPassed": true,
+  "reportedTesters": 30,
+  "reviewedCompletedVoiceInteractions": 0,
+  "participantFeedbackAnalysed": false,
+  "portalUploads": [
+    "pauseam-integration-evidence-note.pdf",
+    "03-validation-status.pdf",
+    "04-technical-documentation.pdf"
+  ],
+  "submitted": false
+}
