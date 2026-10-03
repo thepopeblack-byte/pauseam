@@ -126,7 +126,9 @@ export async function transcribe(
     (data.redacted !== undefined && typeof data.redacted !== "boolean")
   )
     throw new Error("provenance");
-  if (containsSensitive(data.text)) throw new Error("sensitive");
+  // The active ASR policy promises redacted numeric output. Keep this stronger
+  // check even though corrected/typed questions now accept amounts and dates.
+  if (containsSensitive(data.text) || /\p{Nd}/u.test(data.text)) throw new Error("sensitive");
   return {
     text: data.text.trim(),
     model: identity.model,

@@ -1,7 +1,9 @@
+import { containsPrivateDetails } from "./question-privacy.ts";
+import { bankInformation, type BankInformation, type BankKind } from "./bank-directory.ts";
 export const MODEL = "NCAIR1/NigerianAccentedEnglish";
 export const REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff";
 export const MODEL_URL = "https://huggingface.co/" + MODEL;
-export const KB_VERSION = "2026-10-02.3";
+export const KB_VERSION = "2026-10-03.1";
 export type Journey = "before" | "after" | "learn";
 export type Card = {
   id: string;
@@ -326,16 +328,7 @@ export const CARDS: Card[] = [
   },
 ];
 export function containsSensitive(text: string): boolean {
-  return (
-    /\d/.test(text) ||
-    /\b(?:zero|one|two|three|four|five|six|seven|eight|nine)(?:[\s,-]+(?:zero|one|two|three|four|five|six|seven|eight|nine)){2,}\b/i.test(
-      text,
-    ) ||
-    /[\w.+-]+@[\w.-]+\.[a-z]{2,}/i.test(text) ||
-    /\b(?:my|the)\s+(?:pin|otp|password|passcode|credential|account number)\s*(?:is|:|=)\s*\S+/i.test(
-      text,
-    )
-  );
+  return containsPrivateDetails(text);
 }
 export type Answer = {
   status: "ok" | "unavailable" | "no_match" | "sensitive";
@@ -349,6 +342,8 @@ export type Answer = {
   modelRuntime?: string;
   modelRuntimeRevision?: string;
   modelQuantization?: string;
+  bankInfo?: BankInformation;
+  bankQuery?: { kind: BankKind; options: { id: string; name: string }[] };
 };
 export function retrieve(
   question: string,
@@ -370,7 +365,7 @@ export function retrieve(
       status: "sensitive",
       cards: [],
       message:
-        "Remove all numbers and private details. Describe only the situation.",
+        "Amounts and dates are welcome. Remove account/card numbers, phone numbers, PINs, OTPs and passwords before trying again.",
     };
   if (
     /\b(?:ignore|disregard|override)\b.{0,50}\b(?:rules|instructions|system|prompt)\b/i.test(
@@ -394,6 +389,19 @@ export function retrieve(
         "The safety library is unavailable. I cannot assess this request. Pause the payment and contact your bank through a trusted channel.",
     };
   const now = options.now || new Date();
+  const bank = bankInformation(question, now);
+  if (bank)
+    return {
+      ...base,
+      engine: "Reviewed official bank directory; no model inference",
+      status: bank.information ? "ok" : "no_match",
+      cards: [],
+      message: bank.message,
+      bankQuery: { kind: bank.kind, options: bank.options },
+      ...(bank.information ? { bankInfo: bank.information } : {}),
+    };
+  if (/\b(?:interest rate|exchange rate|sort code|swift|routing number|loan eligibility|minimum balance|fee schedule|branch address)\b/i.test(question))
+    return { ...base, status: "no_match", cards: [], message: "That detail is not covered by our reviewed sources. Check the bank’s official app or website; we cannot invent a rate, charge or banking detail." };
   const cards = currentSourceCards(options.cards || CARDS, now);
   if (!cards.length)
     return {

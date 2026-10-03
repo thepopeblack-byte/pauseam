@@ -6,6 +6,7 @@ import { Incident } from "@/components/incident";
 import { ShareChecklist } from "@/components/share-checklist";
 import { ReportGuide } from "@/components/report-guide";
 import { LearningUpdates } from "@/components/learning-updates";
+import { BankInformation } from "@/components/bank-information";
 import { PILOT_LANGUAGE } from "@/lib/models";
 import { VoiceInput } from "@/components/voice-input";
 import { containsSensitive, type Journey, type Answer } from "@/lib/safety";
@@ -23,6 +24,8 @@ const topics = {
     "My bank complaint remains unresolved.",
   ],
   learn: [
+    "What is the USSD code for GTBank?",
+    "What is Access Bank's customer-care email?",
     "How do I protect my banking codes?",
     "How can I recognise an investment scam?",
     "How do I check an online seller?",
@@ -146,7 +149,7 @@ export function JourneyPanel({
       setQuestion("");
       setAsrModel("");
       setError(
-        "Private details or numbers were detected and cleared. Please describe only the situation.",
+        "Private details were detected and cleared. Amounts and dates are welcome; leave out account/card numbers, phone numbers and secret codes.",
       );
       return;
     }
@@ -250,7 +253,7 @@ export function JourneyPanel({
         {journey === "after"
           ? "Describe what happened. We’ll help you prepare a report and find the right next step."
           : journey === "learn"
-            ? "Ask about a payment warning sign, or try an example below."
+            ? "Ask about a warning sign, a bank’s customer care or its USSD menu code."
             : "Ask about a payment, message or money concern. Use your own words."}
       </p>
       {journey === "after" && (!answer || answer.status !== "ok") && (
@@ -327,7 +330,7 @@ export function JourneyPanel({
         </div>
         <p className="privacy-note" id="question-privacy">
           <LockKeyhole size={15} aria-hidden="true" />
-          Leave out names, numbers, PINs, OTPs and passwords.
+          Amounts and dates are welcome. Leave out account details, PINs, OTPs and passwords.
         </p>
         {asrModel && (
           <div className="transcript-review">
@@ -361,7 +364,7 @@ export function JourneyPanel({
                   (journey === "after"
                     ? ["Suspected scam", "Bank not responding"]
                     : journey === "learn"
-                      ? ["Banking codes", "Investment offers", "Online sellers"]
+                      ? ["Bank USSD code", "Customer-care email", "Banking secrets", "Investment offers", "Online sellers"]
                       : [
                           "Someone asks for a code",
                           "New supplier bank details",
@@ -397,19 +400,19 @@ export function JourneyPanel({
               aria-label="Your next steps"
               aria-live="polite"
             >
-              {answer.cards.length > 0 ? (
+              {answer.cards.length > 0 || answer.bankInfo ? (
                 <div className="result-heading">
                   <CheckCheck size={19} aria-hidden="true" />
-                  Your next steps
+                  {answer.bankInfo ? "Bank information" : "Your next steps"}
                 </div>
               ) : (
                 <h2>
-                  {answer.status === "no_match"
-                    ? "Tell us a little more"
+                  {answer.bankQuery ? "Find your bank’s details" : answer.status === "no_match"
+                    ? "We don’t have a verified answer yet"
                     : "We couldn’t check this"}
                 </h2>
               )}
-              {journey === "after" && answer.status === "ok" ? (
+              {answer.bankInfo ? <><BankInformation information={answer.bankInfo} />{journey === "after" && <ReportGuide question={question} />}</> : journey === "after" && answer.status === "ok" ? (
                 <ReportGuide question={question} />
               ) : (
                 answer.cards.map((c) => (
@@ -431,7 +434,20 @@ export function JourneyPanel({
                   </article>
                 ))
               )}
-              {answer.cards.length === 0 && <p>{answer.message}</p>}
+              {answer.cards.length === 0 && !answer.bankInfo && <p>{answer.message}</p>}
+              {answer.bankQuery && answer.bankQuery.options.length > 0 && (
+                <div className="bank-choice">
+                  <label htmlFor="bank-choice">Choose your bank</label>
+                  <select id="bank-choice" defaultValue="" onChange={e => {
+                    const bank = answer.bankQuery?.options.find(b => b.id === e.target.value);
+                    if (!bank) return;
+                    const kind = answer.bankQuery!.kind;
+                    edit(`What is ${bank.name}'s ${kind === "ussd" ? "USSD menu code" : kind === "email" ? "customer-care email" : kind === "phone" ? "customer-care phone number" : "customer-care contact details"}?`);
+                    setAsrModel("");
+                    document.getElementById("question-" + journey)?.focus();
+                  }}><option value="" disabled>Select a bank</option>{answer.bankQuery.options.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}</select>
+                </div>
+              )}
               {answer.cards.length > 0 && journey !== "after" && (
                 <div className="result-tools">
                   <ShareChecklist answer={answer} />
@@ -446,7 +462,7 @@ export function JourneyPanel({
                   </button>
                 </div>
               )}
-              {answer.status === "no_match" && (
+              {answer.status === "no_match" && !answer.bankQuery && (
                 <div className="chips">
                   <button
                     type="button"

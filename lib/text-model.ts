@@ -1,5 +1,6 @@
 import { TEXT_MODEL, CPU_TEXT_RUNTIME, type Language } from "./models.ts";
 import { readLimited } from "./stream.ts";
+import { modelQuestion } from "./question-privacy.ts";
 import {
   currentSourceCards,
   retrieve,
@@ -94,7 +95,7 @@ export async function modelGuidance(
   if (!url || config.KB_ENABLED === "false" || !current.length)
     throw new Error("unavailable");
   const candidates = retrieve(question, journey, { cards: current });
-  if (candidates.status !== "ok") return candidates;
+  if (candidates.status !== "ok" || candidates.bankQuery) return candidates;
   const cards = candidates.cards;
   const response = await fetcher(url, {
     method: "POST",
@@ -108,7 +109,7 @@ export async function modelGuidance(
       Authorization: "Bearer " + config.TEXT_SERVICE_TOKEN,
     },
     body: JSON.stringify({
-      question,
+      question: modelQuestion(question),
       journey,
       language,
       cards: cards.map((c) => ({ id: c.id, title: c.title, steps: c.steps })),

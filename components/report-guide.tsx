@@ -29,7 +29,7 @@ export function ReportGuide({ question }: { question: string }) {
   function download() {
     if (!draft) {
       setMessage(
-        "Describe the situation without numbers or private details first.",
+        "Describe what happened. Amounts and dates are welcome; leave out account details and secret codes.",
       );
       return;
     }

@@ -4,6 +4,16 @@ PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 2 Octo
 
 ## Current capability boundary
 
+Amount/date and bank-help addendum: corrected/typed payment questions accept
+ordinary amounts and dates; number values are omitted before the genuine model
+relevance request. The active ASR continues to hide numbers. An independent
+official-source directory answers email, phone and basic USSD-menu questions for
+eight Nigerian banks without model inference (model=null). These contacts are
+published bank facts, not model generation or official N-ATLaS API integration.
+See ../evidence/bank-information-source-review-2026-10-03.md. Independent human
+source review and participant testing remain pending; earlier PDFs are dated
+copies and have not yet been regenerated for this update.
+
 3 October update: Sites version 20 is live. The existing VM's authenticated ASR
 health reports the pinned English model and numbers-redacted-v1 privacy policy;
 the pinned llama.cpp text service is ready. Public authored questions with a

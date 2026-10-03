@@ -473,6 +473,13 @@ p {
   color: var(--muted-foreground);
   font-size: 0.875rem;
 }
+.bank-facts { margin: 1rem 0; }
+.bank-facts > div { padding: 1rem 0; border-bottom: 1px solid var(--border, #d6e1de); }
+.bank-facts dt { font-size: .9rem; margin-bottom: .4rem; }
+.bank-facts dd { margin: 0; font-size: 1.25rem; font-weight: 650; overflow-wrap: anywhere; }
+.bank-facts dd a { display: inline-flex; min-height: 44px; align-items: center; }
+.bank-facts dd strong { letter-spacing: .04em; }
+.bank-choice { margin: 1rem 0; }
 .result-tools {
   display: flex;
   flex-wrap: wrap;

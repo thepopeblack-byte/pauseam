@@ -25,7 +25,7 @@ export default function About() {
           </p>
           <p>
             Ask about sellers, payment requests, changed bank details, school
-            fees, receipts, banking codes or bank complaints. If we cannot help
+            fees, receipts, banking codes, bank contacts or bank complaints. If we cannot help
             with a question, we will say so.
           </p>
           <p>
@@ -36,7 +36,7 @@ export default function About() {
         <section className="content-panel">
           <h2>Your privacy</h2>
           <p>
-            No account needed. Leave out names, account numbers, PINs, OTPs and
+            No account needed. Amounts and dates are welcome. Leave out names, account numbers, PINs, OTPs and
             passwords.
           </p>
           <p>
@@ -50,6 +50,8 @@ export default function About() {
               Audio is sent through this website to our transcription host.
               Hosting providers may process network information such as IP
               addresses. Private information filtering cannot catch everything.
+              Numbers in voice transcripts are hidden before they return; you can
+              add an ordinary amount or payment date while correcting the transcript.
             </p>
             <p>
               Bank preparation notes stay on this page until you leave or clear

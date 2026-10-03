@@ -47,6 +47,7 @@ export async function POST(request: Request) {
     if (
       answer.status !== "unavailable" &&
       answer.status !== "sensitive" &&
+      !answer.bankQuery &&
       data.journey !== "after" &&
       answer.cards[0]?.id !== "report"
     ) {

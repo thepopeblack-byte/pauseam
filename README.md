@@ -44,13 +44,23 @@ Voice accepts payment questions in your own words; the sample is optional. The
 3 October ASR update hides digits, spoken numbers and email addresses before
 returning a transcript. Explicit credential disclosures still discard the
 transcript. Review and correct the situation wording before requesting guidance;
-do not restore private details. Typed questions still reject numeric/private
-details rather than redacting them. Both pinned services and the public
+do not restore private details. Typed and corrected questions now accept ordinary
+payment amounts and dates. Unknown numeric identifiers, account/card/phone
+numbers and explicit secret disclosures are rejected. Amount/date numbers are
+omitted before the model request; they are unnecessary for checklist selection.
+Both pinned services and the public
 redacted-text guidance path passed [live engineering checks](submission/evidence/freeform-voice-live-2026-10-03.json).
 The owner confirms the unscripted amount/date voice journey works; this is a
 self-reported owner check, not participant validation. Accuracy review remains
 pending. Silent or unreadable audio receives a recording error instead
 of being described as a model outage.
+
+Learn also answers customer-care email, phone and basic USSD-menu questions for
+Access Bank, GTBank, UBA, Zenith, FirstBank, Fidelity, Wema/ALAT and Stanbic IBTC.
+These are exact facts from a dated official-source directory, not generated
+model contacts. Missing/ambiguous bank names prompt a bank choice; uncovered or
+expired details abstain. No dial/transfer string, authentication or sender safety
+verdict is produced. See [source review and maintenance](submission/evidence/bank-information-source-review-2026-10-03.md).
 
 ## Run and test
 Node >=22.13:
