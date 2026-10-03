@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useState, useRef, useSyncExternalStore } from "react";
-import { Volume2, LockKeyhole, CheckCheck } from "lucide-react";
+import { Mic, Keyboard, LockKeyhole, CheckCheck } from "lucide-react";
+import { SpokenReply } from "@/components/spoken-reply";
+import { spokenAnswer } from "@/lib/spoken-answer";
+import { hasContactedBank } from "@/lib/payment-context";
+import type { ComplaintStage } from "@/lib/reporting";
 import { Checkbox } from "@/components/consent-checkbox";
 import { Incident } from "@/components/incident";
 import { ShareChecklist } from "@/components/share-checklist";
@@ -46,6 +50,9 @@ export function JourneyPanel({
     () => false,
   );
   const language = PILOT_LANGUAGE;
+  const [inputMode, setInputMode] = useState<"voice" | "text">("voice");
+  const [replyMode, setReplyMode] = useState<"voice" | "text">("text");
+  const [complaintStage, setComplaintStage] = useState<ComplaintStage>("first");
   const [voiceActive, setVoiceActive] = useState(false);
   const pending = useRef<AbortController | null>(null),
     active = useRef(true),
@@ -108,6 +115,7 @@ export function JourneyPanel({
             setQuestion(q);
             setAnswer(null);
             setAsrModel("");
+            setInputMode("text");
             setConfirmed(false);
             setQuiz(null);
             setTrial(null);
@@ -184,6 +192,8 @@ export function JourneyPanel({
           "Guidance is unavailable. Pause and contact your bank through a trusted channel.",
         );
       if (!active.current || controller.signal.aborted) return;
+      setReplyMode(asrModel && inputMode === "voice" ? "voice" : "text");
+      setComplaintStage(hasContactedBank(question) ? "waiting" : "first");
       setAnswer(data);
       quizStarted.current = performance.now();
       const t: Trial = {
@@ -233,15 +243,10 @@ export function JourneyPanel({
     setSaved(ok);
     if (!ok) setError("The local test result could not be saved.");
   }
-  function listen() {
-    if (!answer) return;
-    window.speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance(
-      answer.guidance ? [answer.guidance.title, answer.guidance.summary, ...(answer.guidance.sourceId === "payment" ? [answer.guidance.followUp?.question || ""] : answer.guidance.steps.map(s => s.text)), ...answer.guidance.details.map(d => d.text)].join(". ") : answer.cards.flatMap((c) => [c.title, ...c.steps]).join(". "),
-    );
-    speech.lang = "en-NG";
-    speech.rate = 0.9;
-    window.speechSynthesis.speak(speech);
+  function chooseMode(mode: "voice" | "text") {
+    edit(question);
+    setInputMode(mode);
+    if (mode === "text") setAsrModel("");
   }
   function addFollowUp(statement: string) {
     const next = `${question.trim()} ${statement}`;
@@ -287,6 +292,20 @@ export function JourneyPanel({
           void ask();
         }}
       >
+        <div className="input-mode" role="group" aria-label="How would you like to ask?">
+          <button type="button" aria-pressed={inputMode === "voice"} disabled={!ready || busy || voiceActive} onClick={() => chooseMode("voice")}><Mic size={18} aria-hidden="true" /> Speak</button>
+          <button type="button" aria-pressed={inputMode === "text"} disabled={!ready || busy || voiceActive} onClick={() => chooseMode("text")}><Keyboard size={18} aria-hidden="true" /> Type</button>
+        </div>
+        <p className="mode-hint">{inputMode === "voice" ? "Speak in your own words. Check what we heard, then hear your reply." : "Write your question. Your reply will be in text."}</p>
+        {inputMode === "voice" && !asrModel && <VoiceInput
+          embedded language={language} journey={journey} testing={testing} disabled={busy}
+          onActivityChange={setVoiceActive}
+          onTranscript={(text, model, redacted) => {
+            edit(text); setAsrModel(model); setTranscriptRedacted(redacted === true);
+            requestAnimationFrame(() => document.getElementById("question-" + journey)?.focus());
+          }}
+        />}
+        {(inputMode === "text" || !!asrModel) && <>
         <label
           className={asrModel ? "" : "visually-hidden"}
           htmlFor={"question-" + journey}
@@ -311,21 +330,7 @@ export function JourneyPanel({
             aria-describedby="question-privacy"
           />
           <div className="composer-actions">
-            <VoiceInput
-              language={language}
-              journey={journey}
-              testing={testing}
-              disabled={busy}
-              onActivityChange={setVoiceActive}
-              onTranscript={(text, model, redacted) => {
-                edit(text);
-                setAsrModel(model);
-                setTranscriptRedacted(redacted === true);
-                requestAnimationFrame(() =>
-                  document.getElementById("question-" + journey)?.focus(),
-                );
-              }}
-            />
+            {asrModel && <button type="button" className="text-button" disabled={busy || voiceActive} onClick={() => { edit(""); setAsrModel(""); }}>Record again</button>}
             <button
               type="submit"
               className="primary"
@@ -353,6 +358,7 @@ export function JourneyPanel({
             </label>
           </div>
         )}
+        </>}
       </form>
       {!answer && !busy && (
         <>
@@ -366,6 +372,7 @@ export function JourneyPanel({
                 onClick={() => {
                   edit(t);
                   setAsrModel("");
+                  setInputMode("text");
                   document.getElementById("question-" + journey)?.focus();
                 }}
               >
@@ -407,8 +414,8 @@ export function JourneyPanel({
               tabIndex={-1}
               ref={resultRef}
               aria-label="Your answer"
-              aria-live="polite"
             >
+              {replyMode === "voice" && <><SpokenReply text={spokenAnswer(answer, journey, complaintStage)} /><p className="reply-text-label">Reply in text</p></>}
               {answer.cards.length > 0 || answer.bankInfo ? (
                 <div className="result-heading">
                   <CheckCheck size={19} aria-hidden="true" />
@@ -421,8 +428,8 @@ export function JourneyPanel({
                     : "We couldn’t check this"}
                 </h2>
               )}
-              {answer.bankInfo ? <><BankInformation information={answer.bankInfo} />{journey === "after" && <ReportGuide question={question} />}</> : journey === "after" && answer.status === "ok" ? (
-                <ReportGuide question={question} context={answer.guidance} />
+              {answer.bankInfo ? <><BankInformation information={answer.bankInfo} />{journey === "after" && <ReportGuide question={question} stage={complaintStage} onStageChange={setComplaintStage} />}</> : journey === "after" && answer.status === "ok" ? (
+                <ReportGuide question={question} context={answer.guidance} stage={complaintStage} onStageChange={setComplaintStage} />
               ) : answer.guidance && answer.cards[0] ? (
                 <ContextualAnswer guidance={answer.guidance} source={answer.cards[0]} onFollowUp={addFollowUp} />
               ) : (
@@ -456,6 +463,7 @@ export function JourneyPanel({
                     const kind = answer.bankQuery!.kind;
                     edit(bankQuestion(bank.name, kind));
                     setAsrModel("");
+                    setInputMode("text");
                     document.getElementById("question-" + journey)?.focus();
                   }}><option value="" disabled>Select a bank</option>{answer.bankQuery.options.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}</select>
                 </div>
@@ -463,15 +471,6 @@ export function JourneyPanel({
               {answer.cards.length > 0 && journey !== "after" && answer.cards[0]?.id !== "payment" && (
                 <div className="result-tools">
                   <ShareChecklist answer={answer} />
-                  <button
-                    type="button"
-                    className="secondary"
-                    onClick={listen}
-                    disabled={!ready || !("speechSynthesis" in window)}
-                  >
-                    <Volume2 size={16} aria-hidden="true" />
-                    Listen
-                  </button>
                 </div>
               )}
               {journey === "before" && answer.cards[0]?.id === "report" && (

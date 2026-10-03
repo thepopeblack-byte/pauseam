@@ -11,9 +11,15 @@ confirmation and existing bank reports change the reply; missing credit and
 deduction concerns are distinguished. Follow-up choices stage an amended question
 for review, without auto-sending or retaining a conversation. N-ATLaS still checks
 relevance; explanatory wording comes from reviewed scenarios, not arbitrary model
-prose. This does not claim full understanding of every question. The user-requested
-automatic spoken-reply experience remains pending their speech-provider choice;
-the existing browser Listen button is not an OpenAI voice integration.
+prose. This does not claim full understanding of every question.
+
+Choose **Speak** for a corrected, confirmed N-ATLaS transcript followed by a spoken
+reply with text below and replay/stop controls. Choose **Type** for a silent text
+reply. Readout uses an installed local English device voice, not an N-ATLaS TTS
+model or OpenAI API; missing voices and blocked autoplay fall back to text/replay.
+The official NCAIR resources publish ASR and text models, with no documented TTS
+resource found. No SecretVM update is needed for this website change. See the
+[implementation and resource review](submission/evidence/spoken-replies-implementation-2026-10-03.md).
 
 A payment decision companion for NAIC 2026, Innovation & Enterprise, PS2.
 **Review build, not submission-ready. No ONDI application has been submitted.**

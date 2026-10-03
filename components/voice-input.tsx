@@ -21,6 +21,7 @@ export function VoiceInput({
   language = "en",
   disabled = false,
   onActivityChange,
+  embedded = false,
 }: {
   onTranscript: (text: string, model: string, redacted?: boolean) => void;
   testing?: boolean;
@@ -29,8 +30,9 @@ export function VoiceInput({
   language?: Language;
   disabled?: boolean;
   onActivityChange?: (active: boolean) => void;
+  embedded?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(embedded);
   const [consent, setConsent] = useState(false),
     [configured, setConfigured] = useState<boolean | null>(null),
     [recording, setRecording] = useState(false),
@@ -39,6 +41,7 @@ export function VoiceInput({
     [message, setMessage] = useState("");
   useEffect(() => {
     onActivityChange?.(busy || recording);
+    return () => onActivityChange?.(false);
   }, [busy, recording, onActivityChange]);
   const identity = LANGUAGES[language];
   const operation = useRef(0);
@@ -250,8 +253,8 @@ export function VoiceInput({
     }
   }
   return (
-    <div className="voice-input">
-      <button
+    <div className={embedded ? "voice-input voice-input-embedded" : "voice-input"}>
+      {!embedded && <button
         type="button"
         className="voice-toggle"
         aria-expanded={open}
@@ -265,7 +268,7 @@ export function VoiceInput({
       >
         <Mic size={18} aria-hidden="true" />
         {open ? "Close voice" : "Speak instead"}
-      </button>
+      </button>}
       {open && (
         <div className="voice-panel" id={"voice-" + journey}>
           <label className="consent">

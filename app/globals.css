@@ -195,6 +195,46 @@ p {
   margin: 0 0 24px;
   max-width: 36rem;
 }
+.input-mode {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #f3f5f9;
+}
+.input-mode button {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 110px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--foreground);
+  font-weight: 650;
+}
+.input-mode button[aria-pressed="true"] {
+  background: var(--primary);
+  color: white;
+}
+.mode-hint { font-size: .9rem; color: var(--muted-foreground); margin: 12px 0 16px; }
+.voice-input-embedded { display: block; }
+.voice-input-embedded > .voice-panel { margin: 0 0 18px; }
+.spoken-reply { border: 1px solid #c5d3ec; border-radius: 16px; background: #f1f5fd; padding: 18px; margin-bottom: 22px; }
+.spoken-reply-heading { display: flex; gap: 12px; align-items: center; }
+.spoken-reply-icon { display: grid; place-items: center; width: 46px; height: 46px; flex-shrink: 0; background: var(--primary); color: white; border-radius: 50%; }
+.spoken-reply-heading p { margin: 3px 0 0; color: var(--muted-foreground); font-size: .875rem; }
+.spoken-reply-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.spoken-reply-controls button { min-height: 48px; }
+.speech-details { margin: 14px 0 0; font-size: .8rem; }
+.speech-details summary { min-height: 28px; color: var(--muted-foreground); }
+.reply-text-label { font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted-foreground); margin-bottom: 10px; }
 .composer {
   border: 1px solid #a9b6cc;
   border-radius: 16px;

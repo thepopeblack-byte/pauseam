@@ -5,13 +5,15 @@ import { hasContactedBank } from "@/lib/payment-context";
 import type { Guidance } from "@/lib/guidance";
 import {
   complaintPlan,
+  reportingSteps,
   COMPLAINT_SOURCE,
   reportDraft,
   type ComplaintStage,
 } from "@/lib/reporting";
 
-export function ReportGuide({ question, context }: { question: string; context?: Guidance }) {
-  const [stage, setStage] = useState<ComplaintStage>(() => hasContactedBank(question) ? "waiting" : "first");
+export function ReportGuide({ question, context, stage: suppliedStage, onStageChange }: { question: string; context?: Guidance; stage?: ComplaintStage; onStageChange?: (stage: ComplaintStage) => void }) {
+  const [localStage, setStage] = useState<ComplaintStage>(() => hasContactedBank(question) ? "waiting" : "first");
+  const stage = suppliedStage ?? localStage;
   const [message, setMessage] = useState("");
   const plan = complaintPlan(stage);
   const draft = reportDraft(question, stage);
@@ -59,6 +61,7 @@ export function ReportGuide({ question, context }: { question: string; context?:
         value={stage}
         onChange={(e) => {
           setStage(e.target.value as ComplaintStage);
+          onStageChange?.(e.target.value as ComplaintStage);
           setMessage("");
         }}
       >
@@ -73,7 +76,7 @@ export function ReportGuide({ question, context }: { question: string; context?:
       </select>
       <h3>{plan.title}</h3>
       <ol>
-        {(stage === "first" && context?.sourceId === "complaint" ? context.steps.map(s => s.text) : plan.steps).map((step, index) => (
+        {reportingSteps(stage, context).map((step, index) => (
           <li key={step}>
             <span className="step-number" aria-hidden="true">
               {index + 1}

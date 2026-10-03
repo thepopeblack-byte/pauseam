@@ -1,6 +1,11 @@
 import { containsSensitive } from "./safety.ts";
+import type { Guidance } from "./guidance.ts";
 
 export type ComplaintStage = "first" | "waiting" | "unacknowledged" | "overdue";
+export function reportingSteps(stage: ComplaintStage, context?: Guidance): string[] {
+  return stage === "first" && context?.sourceId === "complaint"
+    ? context.steps.map(s => s.text) : complaintPlan(stage).steps;
+}
 export const COMPLAINT_SOURCE = {
   url: "https://www.cbn.gov.ng/Out/2022/CCD/CBN%20How%20to%20Lodge%20a%20Complaint.pdf",
   checked: "2026-10-02",
