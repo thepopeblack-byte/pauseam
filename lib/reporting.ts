@@ -19,7 +19,7 @@ export function complaintPlan(stage: ComplaintStage, now = new Date()) {
     current,
     title: escalate
       ? "Prepare a CBN complaint about your bank"
-      : "Start with your bank",
+      : stage === "waiting" ? "Follow up with your bank" : "Start with your bank",
     steps: escalate
       ? [
           "Keep proof that you complained to your bank, including its reply or your attempt to get a reference.",

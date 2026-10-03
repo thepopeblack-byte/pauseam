@@ -39,6 +39,16 @@ production build/Worker must be checked separately; no preview success is claime
 
 Independent human safety review and representative usability remain pending.
 
+The authorized production build passed 71 tests and typecheck. Its local Worker
+rendered HTTP 200 and the actual browser showed the supplier explanation, changed
+wording after independent-confirmation input, vague-question clarification and
+the correct default waiting stage for an existing complaint. Local model endpoints
+were not configured; these checks prove rendering and scenario behavior, not live
+inference. The browser also exposed a remaining generic "Start with your bank"
+subheading for the waiting stage; that label is corrected and regression-checked
+before final publication. The failed development runner is superseded by this
+successful production Worker preview, not described as a successful dev preview.
+
 A genuine request against version 22 for "I need help with a payment" returned
 HTTP 200/no_match from the pinned N-ATLaS model. The correction asks a clarification
 before assessment when the only retrieved match is a general payment topic. It

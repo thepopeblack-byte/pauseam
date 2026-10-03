@@ -22,6 +22,7 @@ test("mistaken transfers and security concerns receive relevant actions without 
     );
 });
 test("bank first and waiting stages do not direct premature CBN escalation", () => {
+  assert.equal(complaintPlan("waiting", now).title, "Follow up with your bank");
   for (const stage of ["first", "waiting"] as const)
     assert.equal(complaintPlan(stage, now).escalate, false);
   assert.equal(complaintPlan("unacknowledged", now).escalate, true);
