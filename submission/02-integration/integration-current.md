@@ -1,6 +1,27 @@
 # 02 - N-ATLaS integration evidence
 
-PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 2 October 2026. Intended owner review/submission: Monday, 5 October. Not submitted.
+PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 3 October 2026. Intended owner review/submission: Monday, 5 October. Not submitted.
+
+## Latest demonstrated release
+
+Version 25 is live with English ASR, pinned N-ATLaS CPU relevance inference and
+device-read spoken replies with text below and replay/stop. Typed replies stay
+silent. All 80 application tests and ten final public backend checks passed;
+four backend checks used the genuine N-ATLaS text model. The owner confirms the
+full voice journey and controls work. These are engineering/owner checks, not
+participant validation. Current live source commit:
+37a88225905963275b65eedb1ebf28bdf286f065. Deployment:
+appgdep_6ac0abcd1a148191a1f4be4f52a4def1; environment revision 4.
+
+Latest release evidence:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-release-2026-10-03.json
+Latest genuine request traces:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json
+
+The owner reports testing is under way, but no completed observer records have
+been supplied. Documented participant count remains 0. Official-service
+qualification remains unresolved. Other languages, official API and fine-tuning
+are not claimed. Older request outcomes below retain their historical dates.
 
 ## Current capability boundary
 
@@ -11,10 +32,9 @@ official-source directory answers email, phone and basic USSD-menu questions for
 eight Nigerian banks without model inference (model=null). These contacts are
 published bank facts, not model generation or official N-ATLaS API integration.
 See ../evidence/bank-information-source-review-2026-10-03.md. Independent human
-source review and participant testing remain pending; earlier PDFs are dated
-copies and have not yet been regenerated for this update.
+source review and documented participant results remain pending.
 
-3 October update: Sites version 20 is live. The existing VM's authenticated ASR
+Historical 3 October checkpoint: Sites version 20 was live. The existing VM's authenticated ASR
 health reports the pinned English model and numbers-redacted-v1 privacy policy;
 the pinned llama.cpp text service is ready. Public authored questions with a
 redacted amount returned exact reviewed supplier and reporting cards. A silent
@@ -22,8 +42,7 @@ WAV received the distinct 422 recording error without a transcript. Actual
 timestamps, identities and latency are in ../evidence/freeform-voice-live-2026-10-03.json.
 The owner confirms that the unscripted amount/date full voice journey works.
 This is a self-reported check, not independent observation, speech accuracy
-evidence or a completed participant interaction. The 2 October
-PDF remains a dated review copy and does not include this addendum.
+evidence or a completed participant interaction.
 
 The agreed public language is Nigerian-accented English. The official English ASR returned a real owner transcript through the app; this is engineering evidence, not a completed participant-validation round. After the owner restored missing encrypted configuration, the correct same-model CPU service became ready. Six genuine authenticated HTTPS relevance requests passed in 6,141-6,754 ms, plus two pre-inference guards. Sites version 19 was redeployed with TEXT_ENABLED=true at 22:36:47 UTC on 2 October. Public model-backed supplier guidance was verified in the actual browser. These are engineering checks, not human validation.
 
@@ -71,7 +90,7 @@ Local conversion and successful requests remain in cpu-conversion-2026-10-02.jso
 
 Historical failures remain unchanged. Final container proof is cpu-final-container-2026-10-02.json; actual build: https://github.com/thepopeblack-byte/pauseam/actions/runs/37061753954. Its digest starts ed76b851; live readiness identifies llama.cpp and reviewed-card-relevance-v1. The VM-generated quantized SHA256 is 3820854be929790f10d171cd6f20dcd4e1ab3ccba095c133144a8dd10d65e49b; the separately generated Windows conversion has a different hash. Original source files are pinned in both recipes. Actual request trace: https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/live-text-inference-2026-10-02.json
 
-Public results: live-text-public-check-2026-10-02.json. Of 21 public checks, 20 passed. The vague question "They want me to use different bank details" returned a safe no-match; the explicit supplier question worked. This unresolved comprehension limitation is retained. Five additional reporting/learning checks passed. The owner reports that the fresh complete English recording, transcript review and supplier guidance journey works; this is owner confirmation, not independently observed participant validation. Random response references are not signed proof of human participation: observed sessions require attestation.
+Historical public results: live-text-public-check-2026-10-02.json. Of 21 public checks, 20 passed. The vague question "They want me to use different bank details" returned a safe no-match; the explicit supplier question worked. This historical outcome is retained. Version 24 subsequently added clarification for vague payment concerns; representative comprehension testing remains pending. Five additional reporting/learning checks passed. The owner reports that the fresh complete English recording, transcript review and supplier guidance journey works; this is owner confirmation, not independently observed participant validation. Random response references are not signed proof of human participation: observed sessions require attestation.
 
 ## Official service and API findings
 
@@ -89,8 +108,8 @@ Readout uses local browser/device speech, not another advice model or an OpenAI
 API. The owner confirms voice, replay/stop and silent text work. This is one owner
 check, not a recorded research interaction. See
 ../evidence/spoken-replies-implementation-2026-10-03.md and
-../evidence/spoken-replies-release-2026-10-03.json. Existing PDFs precede this
-addendum and need final regeneration/render review before submission.
+../evidence/spoken-replies-release-2026-10-03.json. This review copy includes the
+spoken-reply update; final human validation and submission review remain pending.
 
 PS2 requires the official N-ATLaS ASR service for the relevant language: https://ncair.nitda.gov.ng/naic/
 

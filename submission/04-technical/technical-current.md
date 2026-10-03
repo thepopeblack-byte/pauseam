@@ -1,19 +1,39 @@
 # 04 - Technical documentation
 
-PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 2 October 2026. English scope; not submitted. Historical documents remain separately dated and must not be treated as current capability statements.
+PauseAm - Ask before you pay. Innovation & Enterprise / PS2. Review copy, 3 October 2026. English scope; not submitted. Historical evidence remains separately dated.
+
+## Current release and evidence
+
+Website version 25 is live. Its source commit is
+37a88225905963275b65eedb1ebf28bdf286f065 and deployment is
+appgdep_6ac0abcd1a148191a1f4be4f52a4def1, with environment revision 4.
+English ASR, pinned N-ATLaS CPU text inference, Speak/Type modes and device-read
+replies with replay/stop are connected. Typed replies stay silent. All 80
+application tests, typecheck, production build and ten final public backend
+checks passed; four checks used genuine N-ATLaS text requests. The owner confirms
+the actual voice journey and controls work. Evidence:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-release-2026-10-03.json
+and
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/evidence/spoken-replies-live-2026-10-03.json
+
+The owner now reports testers are testing. No completed observer records have
+yet been supplied, so the documented completed count remains 0. This document
+does not substitute engineering checks for participant validation. Official ASR
+service qualification and the real demo video remain pending. Other languages,
+official API and fine-tuning are not claimed as delivered.
 
 ## Product and hosting
 
-3 October addendum: Sites version 20 and the updated English ASR container are
+Historical 3 October checkpoint: Sites version 20 and the updated English ASR container were
 live. After encrypted environment restoration, authenticated health checks
 verified numbers-redacted-v1 and the pinned text runtime. See
 ../evidence/freeform-voice-live-2026-10-03.json; retain the earlier failed-startup
 checkpoint separately. The owner confirms that the unscripted amount/date voice
-journey works; this self-report adds no participant validation record. The 2 October technical PDF has not been regenerated for this addendum.
+journey works; this self-report adds no participant validation record.
 
 The no-account mobile app offers Ask a question, Report a problem and Learn. Users describe a short payment concern by English voice or text, review/correct transcripts and receive practical source-backed actions. Reports remain drafts for private bank/CBN use; PauseAm does not send them or promise recovery. Learn has selected dated ngCERT notices, not a live feed. Consumer technical clutter was removed at Kayode's request; detailed provenance remains in backend metadata/evaluation/evidence.
 
-Sites serves https://pauseam.theblockcapitol.com; GitHub source is https://github.com/thepopeblack-byte/pauseam. The existing team model host is https://amaranth-nightingale.vm.scrtlabs.com. The supplied VM has 16 GB RAM, 8 vCPUs and 160 GB disk. English ASR and the genuine N-ATLaS Q4_K_M CPU relevance service are connected. Sites version 19 now uses TEXT_ENABLED=true, applied with environment revision 4. Other languages are paused.
+Sites serves https://pauseam.theblockcapitol.com; GitHub source is https://github.com/thepopeblack-byte/pauseam. The existing team model host is https://amaranth-nightingale.vm.scrtlabs.com. The supplied VM has 16 GB RAM, 8 vCPUs and 160 GB disk. English ASR and the genuine N-ATLaS Q4_K_M CPU relevance service are connected. TEXT_ENABLED=true was first deployed with version 19 and environment revision 4; current release is version 25. Other languages are paused.
 
 ## Architecture and data flow
 
@@ -85,6 +105,14 @@ lib/updates.ts contains three selected ngCERT notices dated 27 August, 13 July a
 Never request/store PINs, OTPs, passwords, account numbers or full credentials. Users must leave out names and banking identifiers. The current consumer guard accepts bounded ordinary amounts and date/time forms, rejecting unclassified numeric identifiers, email addresses and explicit secret statements. It cannot detect every disguised sensitive phrase. ASR still hides numeric details; corrected transcripts may include ordinary amounts/dates. Numeric values are omitted before text relevance inference so the pinned host's stricter contract remains unchanged. Listen/review before uploading. Screenshot input stays disabled. Optional local report drafts may contain user-provided non-sensitive amounts/dates; normal use retains no question/transcript.
 
 Raw audio is not retained by default; text/audio are transient processing inputs. Mutable PCM is cleared where possible; immediate erasure of managed/runtime copies cannot be guaranteed. Inference access/prompt logs are disabled. Operators must check proxy/infrastructure logging independently; providers may process IP metadata. The active database stores licence timestamps, no user identifiers or bodies.
+
+SecretVM hosts the models on confidential-computing infrastructure, but the
+Sites backend processes plaintext requests before forwarding them. This is not
+a demonstrated browser-to-attested-VM end-to-end encrypted channel. The public
+CPU quote endpoint is reachable; authenticity, expected-workload matching and
+KMS configuration have not been verified. Do not claim everything is confidential
+or independently security audited. Boundaries and verification procedure:
+https://github.com/thepopeblack-byte/pauseam/blob/main/submission/confidentiality-positioning.md
 
 Protection includes origin checks, bounded streams, HTTPS-only endpoints, redirect refusal, exact identities, sensitive-output filtering and independent source/output allowlists. Non-root containers are read-only, resource-limited and capability-dropped. CPU web UI/slot monitoring/persistent prompt cache are disabled. Secrets are server-side and excluded from screenshots, exports and demo captures.
 

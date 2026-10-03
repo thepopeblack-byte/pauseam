@@ -1,0 +1,33 @@
+{
+  "recordedAt": "2026-10-03T08:08:50.390187+00:00",
+  "kind": "PDF authoring and authorized portal draft work, not user validation",
+  "pdfs": [
+    {
+      "path": "output/pdf/02-natlas-integration.pdf",
+      "sha256": "97416d0284ec2681f0af1ae6716c7620445099da279b6462e228c03fc73b4355",
+      "bytes": 196685,
+      "pages": 5,
+      "render": "Poppler PNG",
+      "visualReview": "All rendered pages inspected; no clipping or overlap observed",
+      "uploadedToONDI": false
+    },
+    {
+      "path": "output/pdf/04-technical-documentation.pdf",
+      "sha256": "6cbf4d83185be6ad0416ffd79fd9adebb1b0afc1430380c3bf9116a673e4dbfb",
+      "bytes": 61173,
+      "pages": 5,
+      "render": "Poppler PNG",
+      "visualReview": "All rendered pages inspected; no clipping or overlap observed",
+      "uploadedToONDI": true
+    }
+  ],
+  "portal": {
+    "draftSaved": true,
+    "requiredFieldsComplete": 19,
+    "requiredFieldsTotal": 31,
+    "completedDocumentedInteractions": 0,
+    "testingStatus": "Owner reports testing under way; no completed observer records supplied",
+    "remainingNextBlocker": "Video demonstration (3 to 5 minutes)",
+    "submitted": false
+  }
+}

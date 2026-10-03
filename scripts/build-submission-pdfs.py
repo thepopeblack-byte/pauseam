@@ -62,5 +62,13 @@ for src,name,extras in jobs:
   width,height=ImageReader(str(screenshot)).getSize()
   factor=min(490/width,570/height)
   story.append(Image(str(screenshot),width=width*factor,height=height*factor))
+ current_screenshot=ROOT/"submission/evidence/spoken-replies-mobile-v25-2026-10-03.jpg"
+ if name.startswith("02-") and current_screenshot.exists():
+  story.append(PageBreak())
+  story.append(Paragraph("Current mobile interface - version 25",styles["HeadPA"]))
+  story.append(Paragraph("3 October 2026. Actual operating product in a 390-pixel emulated viewport, showing the Speak / Type interface. This screenshot proves the interface state; it does not prove speech accuracy, physical-device performance or participant validation. The separate genuine traces and owner check are linked in this report.",styles["IntegrationBody"]))
+  width,height=ImageReader(str(current_screenshot)).getSize()
+  factor=min(490/width,550/height)
+  story.append(Image(str(current_screenshot),width=width*factor,height=height*factor))
  SimpleDocTemplate(str(OUT/name),pagesize=(595.28,841.89),leftMargin=46,rightMargin=46,topMargin=64,bottomMargin=55,title="PauseAm — "+name,author="PauseAm team; status prepared with Codex").build(story,onFirstPage=page,onLaterPages=page)
  print(name)

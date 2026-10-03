@@ -18,6 +18,13 @@ The owner confirmed on 3 October that testers are ready but sessions and the
 video have not yet been completed. Documented participant interactions remain 0.
 See [confidentiality claims and boundaries](confidentiality-positioning.md).
 
+Later 3 October update: the owner reports testing is now under way; no completed
+observer records have yet been supplied. With authorization, the signed-in ONDI
+draft's page 1-2 answers were corrected and saved, and the refreshed technical
+PDF was uploaded. Programme Fit is blocked by the mandatory real-video URL;
+no placeholder was supplied. No application was submitted. See
+[form progress](ondi-draft-progress-2026-10-03.md).
+
 | Genuine item | Status | Review artefact | Exact remaining action |
 |---|---|---|---|
 | 01 Working Artefact | blocked | [Public repository](https://github.com/thepopeblack-byte/pauseam), [app](https://pauseam.theblockcapitol.com), [setup](01-artefact/README.md), [CPU deployment](../deployment/secretvm/ENGLISH-COMPLETE.md) | Representative devices and ambiguous-phrasing quality work before final freeze |

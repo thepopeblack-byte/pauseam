@@ -1,5 +1,5 @@
 {
-  "scope": "Local English-scope drafts, 3 October 2026. Version 25 engineering/owner evidence and proposed recovery-support revenue. Only actual page 1-2 limits are verified; unknown limits remain null. No ONDI fields edited or submitted. Final human evidence and portal review remain required.",
+  "scope": "English-scope drafts, 3 October 2026. Verified page 1-2 answers have been entered and saved to ONDI by browser control with owner authorization; this script itself is local-only. Technical PDF attached. No application submitted. Programme Fit and Review remain inaccessible until a real video URL is supplied. Final documented validation and review remain required.",
   "drafts": [
     {
       "field": "Team/Project Name",
@@ -32,8 +32,8 @@
     {
       "field": "Why did you choose this problem statement?",
       "verifiedLimit": 500,
-      "characters": 416,
-      "answer": "Payment requests in chats can leave students, everyday users and small businesses uncertain about what to verify. PauseAm tests whether short, practical actions are more useful than a general fraud chatbot. PS2 offers a route to help through Nigerian speech on ordinary phones. This need remains a hypothesis: 200+ people are willing to test, but discovery and documented user validation have not yet been completed.",
+      "characters": 404,
+      "answer": "Payment requests in chats can leave students, everyday users and small businesses uncertain about what to verify. PauseAm tests whether short, practical actions are more useful than a general fraud chatbot. PS2 offers a route to help through Nigerian speech on ordinary phones. Our reported pool of 200+ willing testers is starting testing; completed, documented validation results are not yet available.",
       "withinLimit": true
     },
     {
@@ -84,10 +84,13 @@
     "deliveryChannel": "Low-bandwidth mobile app",
     "need": "Financial literacy",
     "completedInteractions": 0,
-    "capabilities": [],
+    "capabilities": [
+      "N-ATLAS language model (text)",
+      "N-ATLAS ASR (speech-to-text)"
+    ],
     "languagesProvenByLiveVoice": [
       "Nigerian-accented English (owner engineering check only; participant accuracy review pending)"
     ],
-    "buildStatus": "Live version 25 English ASR/text with device readout; owner confirms replay/stop and silent text. Official-service eligibility, documented human validation and video remain pending. No form capability checkbox selected by this script."
+    "buildStatus": "Working prototype. Live version 25 English ASR/text with device readout; owner confirms replay/stop and silent text. Testing is reported under way, but no completed observer records are supplied. Official-service eligibility, documented validation and video remain pending. Portal selections were corrected through authorized browser control, not by this local script."
   }
 }
