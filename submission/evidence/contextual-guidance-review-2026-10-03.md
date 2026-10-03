@@ -54,6 +54,15 @@ HTTP 200/no_match from the pinned N-ATLaS model. The correction asks a clarifica
 before assessment when the only retrieved match is a general payment topic. It
 returns no cards or safety advice and claims no model inference for that question.
 After the person adds context and sends again, normal source/model checks resume.
+
+Version 23 passed all ten genuine public checks. Its live browser showed a vague
+question becoming a missing-transfer explanation after the person chose a
+follow-up and sent the amended question. Expanded details fitted 320/390-pixel
+emulated widths without horizontal overflow. That check also showed that the
+missing-credit detail belonged in the main action, not only the expansion.
+The final correction names the debit/missing credit or deduction in the initial
+investigation request and carries those actions into the first reporting stage.
+The version-23 evidence remains in contextual-replies-live-2026-10-03.json.
 No research interactions are added. The requested automatic voice replies await
 the owner's provider decision. Browser Listen is not GPT speech; no OpenAI key
 has been created or used. No SecretVM/model container update is needed for the

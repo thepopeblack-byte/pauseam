@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import {KB_VERSION,currentSourceCards} from '../lib/safety.ts';
 import {TEXT_MODEL} from '../lib/models.ts';
 const options=new Map();
-for(let i=2;i<process.argv.length;i+=2){if(!['--url','--output'].includes(process.argv[i])||!process.argv[i+1])throw Error('Use --url HTTPS_ORIGIN [--output evidence.json]');options.set(process.argv[i],process.argv[i+1]);}
+for(let i=2;i<process.argv.length;i+=2){if(!['--url','--output','--case'].includes(process.argv[i])||!process.argv[i+1])throw Error('Use --url HTTPS_ORIGIN [--output evidence.json] [--case exact-case-name]');options.set(process.argv[i],process.argv[i+1]);}
 const origin=new URL(options.get('--url')||'');
 if(origin.protocol!=='https:'||origin.username||origin.password||origin.pathname!=='/'||origin.search||origin.hash)throw Error('Use a public HTTPS origin');
 const report={recordedAt:new Date().toISOString(),origin:origin.origin,kind:'Live engineering checks with authored questions; not voice accuracy or participant validation',kbVersion:KB_VERSION,checks:[],participantInteractionsAdded:0,rawUserDataReceived:false};
@@ -19,7 +19,9 @@ const cases=[
  ['Combined bank contacts stay exact','What are GTBank’s customer-care number and email?','learn',null,false,a=>a.status==='ok'&&a.bankInfo?.facts.length===2&&!a.guidance],
  ['Authored dummy secret is rejected','my PIN is DUMMY_TEST_ONLY','before',null,false,a=>a.status==='sensitive'&&!a.guidance&&!a.clarification&&a.cards?.length===0],
 ];
-for(const [name,question,journey,cardId,modelRequired,extra] of cases){
+const selected=options.has('--case')?cases.filter(c=>c[0]===options.get('--case')):cases;
+if(!selected.length)throw Error('Unknown test case');
+for(const [name,question,journey,cardId,modelRequired,extra] of selected){
  const start=performance.now();let entry;
  try{
   const response=await fetch(origin.origin+'/api/answer',{method:'POST',headers:{Origin:origin.origin,'Content-Type':'application/json'},body:JSON.stringify({question,journey,language:'en'}),redirect:'error',signal:AbortSignal.timeout(60000)});

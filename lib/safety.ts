@@ -4,7 +4,7 @@ import type { Guidance, FollowUp } from "./guidance.ts";
 export const MODEL = "NCAIR1/NigerianAccentedEnglish";
 export const REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff";
 export const MODEL_URL = "https://huggingface.co/" + MODEL;
-export const KB_VERSION = "2026-10-03.2";
+export const KB_VERSION = "2026-10-03.3";
 export type Journey = "before" | "after" | "learn";
 export type Card = {
   id: string;

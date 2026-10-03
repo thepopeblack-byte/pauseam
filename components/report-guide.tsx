@@ -73,7 +73,7 @@ export function ReportGuide({ question, context }: { question: string; context?:
       </select>
       <h3>{plan.title}</h3>
       <ol>
-        {plan.steps.map((step, index) => (
+        {(stage === "first" && context?.sourceId === "complaint" ? context.steps.map(s => s.text) : plan.steps).map((step, index) => (
           <li key={step}>
             <span className="step-number" aria-hidden="true">
               {index + 1}

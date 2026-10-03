@@ -22,7 +22,9 @@ test("supplier guidance responds to stated pressure and completed independent co
 });
 test("deductions, missing credits and existing complaints get different explanations", () => {
   assert.match(answer("My bank debited the transfer but the recipient has not received it").guidance?.title||"",/debited for/);
+  assert.match(answer("My bank debited the transfer but the recipient has not received it").guidance?.steps[0].text||"",/debited but the intended credit has not arrived/);
   assert.match(answer("My bank deducted money").guidance?.title||"",/explain the deduction/);
+  assert.match(answer("My bank deducted money").guidance?.steps[0].text||"",/identify and explain the deduction/);
   const existing=answer("My bank complaint remains unresolved. I already contacted the bank.");
   assert.match(existing.guidance?.title||"",/existing bank complaint/);
   assert.doesNotMatch(existing.guidance?.steps.map(s=>s.text).join(" ")||"",/Lodge your complaint/);
