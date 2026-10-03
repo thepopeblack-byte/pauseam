@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-03T11:37:40.942721+00:00",
+  "recordedAt": "2026-10-03T11:57:19.508636+00:00",
   "kind": "Submission prose and PDF checks",
   "pdfs": [
     {
@@ -11,9 +11,9 @@
     },
     {
       "path": "output/pdf/03-real-world-validation.pdf",
-      "sha256": "ba708a8b808dc60ec24c30e25e7d22f26285bf41347ffea33c12fbfcc1d09b3b",
+      "sha256": "ebb8d7a9ba411197b1ad2ab1e21cff7d3a74e12264bff141bf03507f9490e72e",
       "pages": 1,
-      "bytes": 44666,
+      "bytes": 44668,
       "visualReview": "Rendered pages inspected with Poppler; no clipping or overlap observed."
     },
     {

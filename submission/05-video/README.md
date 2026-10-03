@@ -1,4 +1,4 @@
-# PauseAm demo edit — owner review
+# PauseAm video demonstration
 
 The real owner-supplied mobile recording has been edited into a **4:43**
 (282.5 seconds) landscape demo. No application transcript, question or answer
@@ -6,14 +6,14 @@ was created or replaced for this edit. Selected takes retain normal playback
 speed; idle and repeated sections were trimmed. The closing actual result frame
 is held for 18 seconds. Captions and explanatory chapter panels were added.
 
-## Review files on the owner's PC
+## Video files
 
 - Video: `output/video/pauseam-demo-review.mp4`
 - Captions: `output/video/pauseam-demo-captions.srt`
 - Poster: `output/video/pauseam-demo-poster.jpg`
 - Render receipt: `output/video/pauseam-demo-edit-receipt.json`
 
-These paths are relative to the repository checkout. Generated review media
+These paths are relative to the repository checkout. Generated media
 stays local and is excluded from Git. The original recording in Downloads was
 not changed. The [edit plan](edit-plan.json),
 [render script](../../scripts/edit-demo-video.py) and
@@ -58,9 +58,10 @@ recording. Keep the actual recognition corrections and edit disclosure visible.
 If another recording is needed to demonstrate audible product speech, capture
 microphone and app audio as separate tracks.
 
-After approval, upload the MP4 to an appropriate video host, test the exact URL
-while signed out, and enter that URL in ONDI. No video has been published and
-no application has been submitted by this edit.
+Video URL supplied in ONDI: https://youtu.be/Q-CDzLg24J0
+
+On 3 October, a fresh browser check encountered Google's traffic-verification
+page. Check this exact URL while signed out in a normal browser before submitting.
 
 ## Reproduce the edit
 

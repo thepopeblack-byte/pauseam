@@ -3,7 +3,7 @@ PauseAm - ONDI validation answers
 
 How was the artefact tested with real users, real data, or live benchmarks?
 
-Thirty people have tested the live English prototype. We are collecting feedback on the journey used, voice or text input, device/network conditions, transcript corrections, completion, useful next steps and errors. We provide fictional payment scenarios for testing. Our observed-session protocol measures the complete voice journey and whether users understand what to do next. Separately, the current release passed 80 application tests and ten public backend checks; four used the pinned N-ATLaS text model.
+Thirty people have tested the live English application. We are collecting feedback on the journey used, voice or text input, device/network conditions, transcript corrections, completion, useful next steps and errors. We provide fictional payment scenarios for testing. Our observed-session protocol measures the complete voice journey and whether users understand what to do next. Separately, the current release passed 80 application tests and ten public backend checks; four used the pinned N-ATLaS text model.
 
 Key results or feedback from validation
 

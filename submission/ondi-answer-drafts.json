@@ -1,5 +1,5 @@
 {
-  "scope": "English-scope ONDI draft answers, 3 October 2026. Public evidence and product facts; save without submitting.",
+  "scope": "English-scope ONDI application answers, 3 October 2026. Public evidence and product facts.",
   "drafts": [
     {
       "field": "Team/Project Name",
@@ -53,8 +53,8 @@
     {
       "field": "Link to public repository, live demo, or deployed application",
       "verifiedLimit": 500,
-      "characters": 82,
-      "answer": "https://github.com/thepopeblack-byte/pauseam | https://pauseam.theblockcapitol.com",
+      "characters": 35,
+      "answer": "https://pauseam.theblockcapitol.com",
       "withinLimit": true
     },
     {
@@ -74,8 +74,8 @@
     {
       "field": "Working artefact evidence (repository / deployed app link / model / API / dataset)",
       "verifiedLimit": 500,
-      "characters": 82,
-      "answer": "https://github.com/thepopeblack-byte/pauseam | https://pauseam.theblockcapitol.com",
+      "characters": 44,
+      "answer": "https://github.com/thepopeblack-byte/pauseam",
       "withinLimit": true
     },
     {
@@ -95,8 +95,8 @@
     {
       "field": "How was the artefact tested with real users, real data, or live benchmarks?",
       "verifiedLimit": 1500,
-      "answer": "Thirty people have tested the live English prototype. We are collecting feedback on the journey used, voice or text input, device/network conditions, transcript corrections, completion, useful next steps and errors. We provide fictional payment scenarios for testing. Our observed-session protocol measures the complete voice journey and whether users understand what to do next. Separately, the current release passed 80 application tests and ten public backend checks; four used the pinned N-ATLaS text model.",
-      "characters": 511,
+      "answer": "Thirty people have tested the live English application. We are collecting feedback on the journey used, voice or text input, device/network conditions, transcript corrections, completion, useful next steps and errors. We provide fictional payment scenarios for testing. Our observed-session protocol measures the complete voice journey and whether users understand what to do next. Separately, the current release passed 80 application tests and ten public backend checks; four used the pinned N-ATLaS text model.",
+      "characters": 513,
       "withinLimit": true
     },
     {
@@ -139,7 +139,7 @@
     "languagesProvenByLiveVoice": [
       "Nigerian-accented English (owner engineering check only; participant accuracy review pending)"
     ],
-    "buildStatus": "Working English voice/text prototype; 30 people have tested it and feedback collection is in progress.",
+    "buildStatus": "Fully deployed and live",
     "reportedTesters": 30,
     "reviewedCompletedVoiceInteractions": 0,
     "portalTestSessions": 30

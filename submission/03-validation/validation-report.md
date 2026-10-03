@@ -1,6 +1,6 @@
 # User testing and validation
 
-PauseAm | English pilot | 3 October 2026
+PauseAm | English voice and text | 3 October 2026
 
 ## User testing
 Thirty people have tested PauseAm. We are collecting feedback on the journeys they used, voice or text input, device and network conditions, transcription corrections, useful next steps and any errors. A wider pool of more than 200 volunteers is available for further testing.

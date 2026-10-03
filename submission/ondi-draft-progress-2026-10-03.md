@@ -2,6 +2,14 @@
 
 ## Latest revision
 
+Current ONDI build status is **Fully deployed and live**. Narrative testing text
+uses "live English application". The form and current package agree on English
+ASR/text, device reply playback, 30 testers, feedback collection and the proposed
+recovery-support business model. The current manifest, criterion matrix and
+release checks replace outdated counts and video-status descriptions. The
+supplied video link is recorded; Google traffic verification prevented a fresh
+playback check in this environment. No application was submitted.
+
 All six current PDFs have been checked for legacy footer labels. The registration
 checklist was rebuilt with a neutral NAIC/date footer. Validation and team files
 now use `03-real-world-validation.pdf` and `06-team-profile.pdf`. The current

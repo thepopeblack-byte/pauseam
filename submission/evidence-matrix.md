@@ -1,33 +1,17 @@
 # Six-criterion evidence matrix
 
-3 October 2026. English-only scope; no application submitted.
+PauseAm | English voice and text | 3 October 2026
 
-| Criterion | Actual evidence | Remaining evidence |
+| Criterion | Current evidence | Further evidence |
 |---|---|---|
-| Working Artefact & Technical Rigour | Public app/repository; version 25 Speak/Type and reply controls; 80 application tests and ten final live backend checks passed; owner confirms audio controls and silent text; reporting and learning; pinned CPU image | Representative Android/network, assistive and final participant checks |
-| N-ATLaS Integration | Exact official identities; actual checksum-verified 4.92 GB conversion; six genuine VM relevance requests in 6.1-6.8 seconds and two guards passed; owner confirms full English voice journey; earlier failures preserved | Ambiguous bank-detail-change phrasing and representative accuracy; organiser self-hosted-ASR ruling. Official API and fine-tuning not proven |
-| Real-World Validation | Consent, short discovery protocol, empty observer schema, predeclared English targets, anonymous device evaluation | At least 50 genuine documented completed interactions, competent review, failures and defect/fix/retest record. Current total 0 |
-| Impact Potential | Payment-decision/reporting companion hypothesis; 200+ prospective willing testers reported | Observed demand, comprehension, useful completion and return behavior. Future impact is a projection |
-| Scalability & Sustainability | Existing supplied VM price $0.24/hour; CPU resource caps; shared persistent 950-reservation pilot guard; source review; proposed support fee plus percentage of actual recoveries; owner reports legal partner available | Actual costs, willingness-to-pay and margins; verified legal partner/fee approval and secure case handling; commercial model permission before paid use, separately from the rolling 1,000-user cap |
-| Team Capability | Kayode's supplied relevant financial-crime/business experience; Suleiman, Technical lead | Owner confirms facts, roles and eligibility; no invented affiliations/biographies |
+| Working Artefact & Technical Rigour | Public app and repository; version 25; 80 application tests, type checking, production build and ten live backend checks | Representative Android/network and assistive results |
+| N-ATLaS Integration | Official pinned English ASR and text weights; six authenticated VM text requests and four public text-model requests; transcript correction and grounded guidance | Organiser confirmation of self-hosted ASR-service qualification; participant speech accuracy |
+| Real-World Validation | Thirty testers; consented feedback form, observed-session protocol and anonymous evaluation export | Fifty documented real user interactions; feedback analysis, defects and retests |
+| Impact Potential | Payment checking, bank-first reporting and verified information for students, everyday users and small businesses; 200+ willing volunteer pool | Observed comprehension, useful completion and return use; 1,000 users in three months is the post-award acquisition target |
+| Scalability & Sustainability | 16 GB CPU host; supplied price $0.24/hour; persistent licence guard; source-review workflow; free guidance with proposed paid human recovery-case support | Measured cost and demand; legal-partner fee review and secure case intake; commercial model licensing and permission before exceeding the rolling 1,000-user cap |
+| Team Capability | Kayode Popoola: product, content, partnerships and research; Suleiman: technical lead, application engineering, model hosting and testing | Maintain clear ownership as operation and validation expand |
 
-## Owner's accelerated schedule, not completed work
-
-Friday 2 October: finish CPU preparation and authentic inference checks; owner
-updates existing VM. Saturday–Sunday: discovery, English review, at least 50
-consented observed interactions only after the working build passes; fix defects
-and record retests. Record the real video and reconcile PDFs/form drafts.
-Monday 5 October: owner reviews all seven items and submits manually only if
-the evidence gates pass. Report any unmet requirement honestly. The official
-deadline remains 12 October at 23:59 WAT.
-
-Proposed primary revenue: optional human recovery-case support with a disclosed
-support fee plus an agreed percentage of money actually returned to the client.
-The owner reports a Nigerian legal partner is available. Advice and court work
-would be handled by qualified counsel; bank/eligible CBN complaints and police
-reporting depend on the case. Fees, legal arrangements, commercial model licence,
-secure intake and demand remain unverified. The first consumer action stays free,
-and recovery is never guaranteed. Sponsored access may be explored as a secondary
-channel; it is not traction or a contracted partnership. See
-[the proposed business model](business-model.md). No sale of question, audio,
-incident or financial-credential data is proposed.
+Current records: [manifest](MANIFEST.md), [release checks](RELEASE-GATE.md),
+[integration report](02-integration/integration-current.md),
+[user testing](03-validation/validation-report.md) and
+[technical documentation](04-technical/technical-current.md).
