@@ -5,6 +5,11 @@
 English voice and text; other languages are paused at the owner's request.
 Evidence files retain their original historical outcomes.
 
+Owner reconfirmed on 3 October: testers are ready, but no participant sessions or
+demo video have been completed. Current documented participant count is 0.
+SecretVM positioning and unverified attestation boundaries are documented in
+[confidentiality-positioning.md](confidentiality-positioning.md).
+
 Contextual-reply update: website version 24 is live. All 71 application tests,
 typecheck, production build and ten final public checks passed. Four checks used
 the real pinned N-ATLaS model. Situation explanations and main actions respond to

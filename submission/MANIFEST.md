@@ -1,17 +1,22 @@
 # PauseAm submission manifest
 
 Ask before you pay. Innovation & Enterprise / PS2: Voice-First Access.
-Review package: 2 October 2026. Owner targets Monday 5 October; official deadline
+Review package: 3 October 2026. Owner targets Monday 5 October; official deadline
 12 October, 23:59 WAT. **Not submission-ready; no ONDI submission authorized.**
 
-Current scope is English only. Real English owner transcription is evidenced;
-N-ATLaS CPU text inference is now enabled on the public app. Six genuine HTTPS
-model requests took 6.1–6.8 seconds and two guards passed; the owner confirms
-the combined English voice-to-guidance journey works. Public checks passed
-20/21, with a safe abstention on a vague changed-bank-details question.
-See [live evidence](evidence/live-cpu-release-2026-10-02.json).
+Current scope is English only. Website version 25 is live with real English ASR,
+N-ATLaS CPU text inference, spoken replies with text and replay/stop, and silent
+typed replies. All 80 application tests, typecheck, production build and ten
+final public backend checks passed; four checks used genuine N-ATLaS text
+inference. The owner confirms the complete voice journey and audio controls work.
+See [release evidence](evidence/spoken-replies-release-2026-10-03.json) and
+[live checks](evidence/spoken-replies-live-2026-10-03.json).
 These are engineering/owner checks, not participant validation. Other
 languages are paused; official API and fine-tuning are not demonstrated.
+
+The owner confirmed on 3 October that testers are ready but sessions and the
+video have not yet been completed. Documented participant interactions remain 0.
+See [confidentiality claims and boundaries](confidentiality-positioning.md).
 
 | Genuine item | Status | Review artefact | Exact remaining action |
 |---|---|---|---|
