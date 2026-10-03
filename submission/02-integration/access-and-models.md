@@ -93,7 +93,10 @@ Each model card publishes terms with a cap of 1,000 active end users in a rollin
 30-day period. Separate commercial licensing is required before exceeding it,
 through Awarri Technologies in partnership with FMCIDE. Contact details appear
 in the official model cards: datasupport@awarri.com and ncair@nitda.gov.ng.
-Obtain a written licence decision before scaling; do not assume a software licence
+The licence also states that commercial use requires a separate agreement;
+staying below the user cap does not establish paid-use permission. Obtain written
+commercial permission before any paid N-ATLaS-backed service, separately from
+the cap requirement. Obtain a written licence decision before scaling; do not assume a software licence
 for this repository grants model rights. Required model attribution:
 
 “N-ATLaS is an initiative of the Federal Ministry of Communications, Innovation

@@ -24,6 +24,12 @@ resource found. No SecretVM update is needed for this website change. See the
 A payment decision companion for NAIC 2026, Innovation & Enterprise, PS2.
 **Review build, not submission-ready. No ONDI application has been submitted.**
 
+The [proposed revenue model](submission/business-model.md) is optional human
+recovery-case support: a disclosed support fee plus an agreed percentage of
+funds actually recovered, with a Nigerian legal partner. It is not a launched
+service or a recovery guarantee. Legal engagement/fee approval, secure case
+handling and commercial N-ATLaS permission remain required before paid launch.
+
 Public repository: https://github.com/thepopeblack-byte/pauseam
 Site: https://pauseam.theblockcapitol.com
 

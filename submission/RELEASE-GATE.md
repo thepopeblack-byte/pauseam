@@ -85,5 +85,11 @@ One historical warm mobile viewport measured LCP 332 ms, INP 56 ms, CLS 0.000.
 That is not a representative low-end Android/cold-network performance result.
 Engineering and owner smoke checks do not add completed research interactions.
 
-Revenue is a proposed sponsored/B2B distribution model; no revenue, retention or
-verified willingness-to-pay is claimed. Prospective tester pool: 200+, not users.
+Revenue proposal: optional human recovery-case support for a disclosed support
+fee plus a percentage of actual funds recovered. The owner reports a legal
+partner is available; practising status, engagement and approval of these fees
+remain unverified. Commercial N-ATLaS permission, secure case handling, price and
+demand validation are paid-launch gates. The current app offers guidance and
+report drafts; no paid recovery service or successful recovery is claimed. See
+business-model.md. No revenue, retention or verified willingness-to-pay is
+claimed. Prospective tester pool: 200+, not users.

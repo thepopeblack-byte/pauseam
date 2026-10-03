@@ -33,6 +33,13 @@ remain unchanged. Prefer the current integration/technical sources above over
 old full-language planning documents. All demonstrated capabilities must match
 the final frozen commit and live build.
 
+The [proposed business model](business-model.md) records the owner's support-fee
+plus actual-recovery-percentage proposal and reported legal partner availability.
+It is not a delivered paid service, verified recovery, legal approval or revenue
+claim. Paid launch needs legal engagement/fee approval, secure case handling and
+commercial model permission. Source Markdown and local form drafts include this
+proposal; existing PDFs require final regeneration and review.
+
 ## Actual existing evidence
 
 - [English owner transcript and request fix](evidence/worker-redirect-fix-2026-10-02.json)

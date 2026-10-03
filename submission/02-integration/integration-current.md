@@ -98,6 +98,6 @@ Organiser acceptance of self-hosted official weights remains pending. Kayode aut
 
 ## Licence
 
-The published cap is 1,000 active end users within a rolling 30 days; obtain separate licensing before exceeding it. This deployment uses a shared persistent ceiling of 950 inference reservations, including failures. Preserve its ledger across updates and keep alternate hosts inactive. Model terms: https://huggingface.co/NCAIR1/N-ATLaS
+The published cap is 1,000 active end users within a rolling 30 days; obtain separate licensing before exceeding it. The published scope also requires a separate agreement for commercial use, so obtain paid-use permission before commercial launch even below that cap. Model access approval is not proof of commercial permission. This deployment uses a shared persistent ceiling of 950 inference reservations, including failures. Preserve its ledger across updates and keep alternate hosts inactive. Model terms: https://huggingface.co/NCAIR1/N-ATLaS
 
 N-ATLaS is an initiative of the Federal Ministry of Communications, Innovation and Digital Economy, and powered by Awarri Technologies.

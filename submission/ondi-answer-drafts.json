@@ -1,5 +1,5 @@
 {
-  "scope": "Local current English-scope drafts, 2 October 2026. Actual page 1â€“2 limits only; unknown limits remain null. No ONDI fields edited or submitted. Reconcile after final model/human evidence.",
+  "scope": "Local English-scope drafts, 3 October 2026. Version 25 engineering/owner evidence and proposed recovery-support revenue. Only actual page 1-2 limits are verified; unknown limits remain null. No ONDI fields edited or submitted. Final human evidence and portal review remain required.",
   "drafts": [
     {
       "field": "Team/Project Name",
@@ -39,8 +39,8 @@
     {
       "field": "Describe the artefact you are building (or have built)",
       "verifiedLimit": 1000,
-      "characters": 971,
-      "answer": "PauseAm is a mobile payment companion with English voice/text questions, bank-first reporting guidance and scam lessons. Official Nigerian-accented-English weights transcribe speech on our SecretVM; users correct and confirm the transcript. The live N-ATLaS CPU model checks retrieved card relevance; actions come from reviewed sources. Six genuine HTTPS model requests passed in 6.1-6.8 seconds. The owner confirms the full voice journey. Public checks passed 20/21; vague changed-bank-details wording safely abstained. These are engineering checks, not participant validation. Users review and send report drafts themselves. No funds are moved, accounts authenticated or recovery promised. Secrets stay server-side; raw audio is not retained by default. Yoruba, Hausa and Igbo are paused; official API and fine-tuning are unverified. The public app/repository exist. Official-ASR-service qualification, 50 documented interactions and the real demo video remain pending.",
+      "characters": 944,
+      "answer": "PauseAm is a mobile payment companion with English voice/text questions, bank-first reporting guidance and scam lessons. Official Nigerian-accented-English ASR on our SecretVM produces a transcript for correction and confirmation. The pinned N-ATLaS CPU text model selects relevant reviewed guidance; authored actions remain source-grounded. Voice questions receive device-read replies with text and replay/stop; typed replies stay silent. Version 25 passed 80 application tests and ten live backend checks; four checks used genuine N-ATLaS requests. The owner confirms playback works; these are not participant interactions. Bank contacts use official sources. Report drafts are reviewed and sent by users. No money is moved, account authenticated or recovery guaranteed. Other languages are paused; official API and fine-tuning are unverified. Official-ASR-service eligibility, 50 documented interactions and a real demo video remain pending.",
       "withinLimit": true
     },
     {
@@ -60,15 +60,15 @@
     {
       "field": "PS2: Describe the end-to-end user journey, from voice input to service delivered",
       "verifiedLimit": 1500,
-      "characters": 1281,
-      "answer": "Current English flow: choose a payment question; consent to microphone use; record, listen or discard; separately consent to processing; convert to bounded mono 16 kHz WAV; send server-side to the authenticated official-model host; verify exact model identity and privacy; show the transcript for correction and confirmation; return a short reviewed action checklist. A genuine owner transcript is evidenced; this is not participant validation. Typed source guidance works. The live N-ATLaS CPU relevance service passed six genuine HTTPS requests in 6.1-6.8 seconds. The owner confirms the full English journey; 20/21 public checks passed, with safe abstention for a vague question. It selects only an allowed reviewed card, never model-written contacts or arbitrary safety prose. Failures offer an honest retry/text route, without simulated output. Bank-first report guidance appears immediately; a redacted draft stays in the browser for user review and sending. Learning uses dated, manually maintained official notices. No raw audio retention, PINs, OTPs, passwords, full credentials, safe verdicts or recovery promises. Yoruba, Hausa and Igbo are paused. Organiser acceptance of self-hosted official ASR weights remains unresolved; official API and fine-tuning are unverified.",
+      "characters": 1429,
+      "answer": "Current English flow: choose Speak; consent to audio processing; record a short question in your own words; listen or discard; transcribe through the authenticated official NCAIR ASR weights; verify returned model identity; correct and confirm the transcript; send the question. The pinned N-ATLaS CPU text model checks relevance against current allowlisted source cards. Users receive situation-specific authored guidance or a clarification, with a device-read reply, text below and replay/stop. Type produces a silent text reply. No official N-ATLaS TTS resource was found; device readout is not claimed as N-ATLaS speech generation. Eight-bank contact facts and urgent bank-first actions use direct reviewed sources. Missing inference or expired sources fail safely. Report drafts remain private for user review and sending; police reports, court filings and paid case handling are not automated. Amounts/dates are accepted in text/correction; raw speech numbers are redacted. No raw audio retention by default, PINs, OTPs, passwords, full credentials, safety verdicts or recovery promises. Version 25 passed 80 tests and ten live backend checks, including four genuine text-model requests. The owner confirms audio controls and silent text; this is not participant validation. Other languages are paused. Official-ASR-service qualification, official API, fine-tuning, 50 documented interactions and the MP4 remain unresolved.",
       "withinLimit": true
     },
     {
       "field": "PS2: User-acquisition plan for reaching 1,000 users within 3 months of award",
       "verifiedLimit": 1500,
-      "characters": 959,
-      "answer": "The reported 200+ people are prospective willing testers, not existing users. The owner will coordinate discovery and at least 50 consented, observed English voice interactions after the live build passes. If results support the companion, projected post-award acquisition is 200 completed users in month one, 300 additional users in month two and 500 more in month three through student/small-business partners and voluntary educational sharing. These figures are targets, not traction. Measure completion, comprehension, failures and return use without saving private questions or credentials. Expansion to paused languages requires compute and fluent review. Preserve the conservative shared rolling licence guard and obtain separate licensing before exceeding 1,000 active users in a rolling 30 days. Proposed sustainability is sponsored/B2B distribution and support, with the first consumer action free; willingness-to-pay and pricing remain unvalidated.",
+      "characters": 1305,
+      "answer": "The reported 200+ willing testers are prospective, not completed users. First conduct discovery and at least 50 consented observed English voice interactions; measure comprehension, corrections, failures and useful completion. If evidence supports the product, post-award acquisition targets are 200 users in month one, 300 additional users in month two and 500 in month three through student/small-business partners and voluntary sharing. These are projections, not traction. Measure return use without retaining private questions. Other languages need compute and fluent review. Keep the shared pilot licence guard and secure permission before exceeding 1,000 active users in a rolling 30 days. Proposed revenue is optional human recovery-case support: a disclosed support fee plus an agreed percentage of funds actually recovered, with a Nigerian legal partner the owner reports is available. Counsel would handle legal advice and court work; bank/eligible CBN and police reporting depend on the case. Verify the partner and written fee terms, establish secure intake and obtain commercial N-ATLaS permission before paid launch. Recovery is not guaranteed; no paid service, recovery outcome or revenue is claimed. First-use guidance stays free. Pricing, costs and willingness-to-pay require validation.",
       "withinLimit": true
     },
     {
@@ -86,8 +86,8 @@
     "completedInteractions": 0,
     "capabilities": [],
     "languagesProvenByLiveVoice": [
-      "Nigerian-accented English (owner engineering smoke only; participant review pending)"
+      "Nigerian-accented English (owner engineering check only; participant accuracy review pending)"
     ],
-    "buildStatus": "Working English ASR and live N-ATLaS CPU relevance inference. Owner confirms full voice journey; known ambiguous-question abstention. Official-service qualification, participant validation and MP4 pending. No portal submission made."
+    "buildStatus": "Live version 25 English ASR/text with device readout; owner confirms replay/stop and silent text. Official-service eligibility, documented human validation and video remain pending. No form capability checkbox selected by this script."
   }
 }
