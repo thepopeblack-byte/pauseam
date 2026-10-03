@@ -1,9 +1,10 @@
 import { containsPrivateDetails } from "./question-privacy.ts";
 import { bankInformation, type BankInformation, type BankKind } from "./bank-directory.ts";
+import type { Guidance } from "./guidance.ts";
 export const MODEL = "NCAIR1/NigerianAccentedEnglish";
 export const REVISION = "3c52c6e6c9ec508014a7b9db6a42b503b8930dff";
 export const MODEL_URL = "https://huggingface.co/" + MODEL;
-export const KB_VERSION = "2026-10-03.1";
+export const KB_VERSION = "2026-10-03.2";
 export type Journey = "before" | "after" | "learn";
 export type Card = {
   id: string;
@@ -344,6 +345,7 @@ export type Answer = {
   modelQuantization?: string;
   bankInfo?: BankInformation;
   bankQuery?: { kind: BankKind; options: { id: string; name: string }[] };
+  guidance?: Guidance;
 };
 export function retrieve(
   question: string,
@@ -432,7 +434,7 @@ export function retrieve(
         )
           ? 10
           : 0) +
-        c.keywords.filter((k) => tokens.has(k)).length *
+        c.keywords.filter((k) => tokens.has(k) && !(c.id === "impersonation" && k === "bank")).length *
           (c.id === "payment" ? 0.1 : 1) +
         (urgent && c.id === "report" ? 100 : 0) +
         (c.id === "complaint" &&
@@ -472,7 +474,7 @@ export function retrieve(
       status: "no_match",
       cards: [],
       message:
-        "I cannot help with that question yet. Describe what happened with a payment, seller, bank message or banking code. For urgent banking concerns, contact your bank through its official service.",
+        "This question is outside the payment and bank-help guidance we have checked. For a payment issue, describe what happened and whether money has already moved.",
     };
   return {
     ...base,

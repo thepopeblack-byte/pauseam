@@ -104,6 +104,20 @@ Monitor authenticated readiness, actual outcomes/latency, memory, disk, restarts
 
 ## Release limitations and attribution
 
+Contextual replies use lib/guidance.ts after successful source retrieval and,
+where required, genuine N-ATLaS relevance selection. The exact source card is
+unchanged. Scenario explanations respond to explicit circumstances such as
+payment pressure, independent supplier confirmation, missing credit/deduction
+and an existing bank complaint. They are source-derived scenario wording, not
+free-form generated model output or full semantic understanding. Missing context
+offers a small follow-up choice; the choice stages an amended question without
+submitting it automatically or saving a conversation. Amounts, dates and raw
+message text are not copied into the contextual reply. Unavailable inference,
+expired/altered source cards and privacy rejection produce no contextual advice.
+Reporting defaults to a waiting stage only for an explicit existing bank report;
+it does not infer escalation eligibility from the payment date. Independent
+human safety review and representative usability testing remain pending.
+
 Official PS2 requires the official ASR service and at least 50 documented real interactions. Organiser acceptance of self-hosted official weights is unresolved. Official API, fine-tuning and paused language capabilities cannot be claimed. Team facts need owner approval; CAC/ID remain private. A genuine 3-5 minute MP4 and human validation are pending. Nothing has been submitted to ONDI. Revenue and future impact are proposed, not traction.
 
 Model licence: https://huggingface.co/NCAIR1/N-ATLaS

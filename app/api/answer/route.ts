@@ -3,6 +3,7 @@ import { retrieve } from "@/lib/safety";
 import { isLanguage, isPilotLanguage } from "@/lib/models";
 import { modelGuidance, textEndpoint } from "@/lib/text-model";
 import { allowRequest } from "@/lib/rate-limit";
+import { withGuidance } from "@/lib/guidance";
 export async function POST(request: Request) {
   if (!sameOrigin(request))
     return json({ error: "Request origin rejected." }, 403);
@@ -74,7 +75,7 @@ export async function POST(request: Request) {
       }
     }
     return json(
-      { ...answer, traceId: crypto.randomUUID() },
+      { ...withGuidance(data.question, answer), traceId: crypto.randomUUID() },
       answer.status === "unavailable"
         ? 503
         : answer.status === "sensitive"

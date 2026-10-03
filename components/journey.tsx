@@ -7,6 +7,7 @@ import { ShareChecklist } from "@/components/share-checklist";
 import { ReportGuide } from "@/components/report-guide";
 import { LearningUpdates } from "@/components/learning-updates";
 import { BankInformation } from "@/components/bank-information";
+import { ContextualAnswer } from "@/components/contextual-answer";
 import { bankQuestion } from "@/lib/bank-directory";
 import { PILOT_LANGUAGE } from "@/lib/models";
 import { VoiceInput } from "@/components/voice-input";
@@ -127,6 +128,7 @@ export function JourneyPanel({
   }, []);
   function edit(value: string) {
     pending.current?.abort();
+    window.speechSynthesis?.cancel();
     setBusy(false);
     setQuiz(null);
     setError("");
@@ -235,7 +237,7 @@ export function JourneyPanel({
     if (!answer) return;
     window.speechSynthesis.cancel();
     const speech = new SpeechSynthesisUtterance(
-      answer.cards.flatMap((c) => [c.title, ...c.steps]).join(". "),
+      answer.guidance ? [answer.guidance.title, answer.guidance.summary, ...(answer.guidance.sourceId === "payment" ? [answer.guidance.followUp?.question || ""] : answer.guidance.steps.map(s => s.text)), ...answer.guidance.details.map(d => d.text)].join(". ") : answer.cards.flatMap((c) => [c.title, ...c.steps]).join(". "),
     );
     speech.lang = "en-NG";
     speech.rate = 0.9;
@@ -325,7 +327,7 @@ export function JourneyPanel({
                 !ready || busy || voiceActive || (!!asrModel && !confirmed)
               }
             >
-              {!ready ? "Loading…" : busy ? "Checking…" : "Get next steps"}
+              {!ready ? "Loading…" : busy ? "Answering…" : "Send question"}
             </button>
           </div>
         </div>
@@ -387,8 +389,8 @@ export function JourneyPanel({
         <div aria-busy={busy}>
           {busy && (
             <div className="result response-loading" role="status">
-              <h2>Finding your next step</h2>
-              <p>One moment…</p>
+              <h2>Working on your question</h2>
+              <p>Checking the guidance for what you described.</p>
               <div className="loading-line" aria-hidden="true" />
               <div className="loading-line" aria-hidden="true" />
             </div>
@@ -398,13 +400,13 @@ export function JourneyPanel({
               className="result"
               tabIndex={-1}
               ref={resultRef}
-              aria-label="Your next steps"
+              aria-label="Your answer"
               aria-live="polite"
             >
               {answer.cards.length > 0 || answer.bankInfo ? (
                 <div className="result-heading">
                   <CheckCheck size={19} aria-hidden="true" />
-                  {answer.bankInfo ? "Bank information" : "Your next steps"}
+                  {answer.bankInfo ? "Bank information" : "Your answer"}
                 </div>
               ) : (
                 <h2>
@@ -414,7 +416,14 @@ export function JourneyPanel({
                 </h2>
               )}
               {answer.bankInfo ? <><BankInformation information={answer.bankInfo} />{journey === "after" && <ReportGuide question={question} />}</> : journey === "after" && answer.status === "ok" ? (
-                <ReportGuide question={question} />
+                <ReportGuide question={question} context={answer.guidance} />
+              ) : answer.guidance && answer.cards[0] ? (
+                <ContextualAnswer guidance={answer.guidance} source={answer.cards[0]} onFollowUp={statement => {
+                  const next = `${question.trim()} ${statement}`;
+                  if (next.length > 600) { setError("Your question is full. Edit it to add this detail, then send again."); return; }
+                  edit(next);
+                  document.getElementById("question-" + journey)?.focus();
+                }} />
               ) : (
                 answer.cards.map((c) => (
                   <article key={c.id}>
@@ -449,7 +458,7 @@ export function JourneyPanel({
                   }}><option value="" disabled>Select a bank</option>{answer.bankQuery.options.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}</select>
                 </div>
               )}
-              {answer.cards.length > 0 && journey !== "after" && (
+              {answer.cards.length > 0 && journey !== "after" && answer.cards[0]?.id !== "payment" && (
                 <div className="result-tools">
                   <ShareChecklist answer={answer} />
                   <button
@@ -460,19 +469,6 @@ export function JourneyPanel({
                   >
                     <Volume2 size={16} aria-hidden="true" />
                     Listen
-                  </button>
-                </div>
-              )}
-              {answer.status === "no_match" && !answer.bankQuery && (
-                <div className="chips">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      edit("My bank complaint remains unresolved.");
-                      setAsrModel("");
-                    }}
-                  >
-                    Help with a bank complaint
                   </button>
                 </div>
               )}

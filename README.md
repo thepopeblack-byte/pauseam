@@ -5,6 +5,16 @@ The consumer app has three paths: ask a payment question, prepare a report, and 
 Learning updates are selected official notices maintained by the team, not a live news feed. Refresh and human-review the catalog before its 9 October expiry; stale entries are withheld automatically. Technical provenance and consent-based research tools are separate from ordinary consumer navigation at `/evaluation`; `/api/status` describes actual model configuration.
 ## Ask before you pay.
 
+Answers now include a situation-specific explanation, source-grounded actions,
+optional detail and a small follow-up when context is missing. Explicit supplier
+confirmation and existing bank reports change the reply; missing credit and
+deduction concerns are distinguished. Follow-up choices stage an amended question
+for review, without auto-sending or retaining a conversation. N-ATLaS still checks
+relevance; explanatory wording comes from reviewed scenarios, not arbitrary model
+prose. This does not claim full understanding of every question. The user-requested
+automatic spoken-reply experience remains pending their speech-provider choice;
+the existing browser Listen button is not an OpenAI voice integration.
+
 A payment decision companion for NAIC 2026, Innovation & Enterprise, PS2.
 **Review build, not submission-ready. No ONDI application has been submitted.**
 

@@ -796,6 +796,14 @@ footer a {
 }
 
 /* Keep the composer usable on narrow screens and enlarged text. */
+.situation-summary { color: var(--foreground); margin: 12px 0 24px; }
+.follow-up { margin: 24px 0; padding: 18px; border: 1px solid var(--border); border-radius: 14px; background: var(--background); }
+.follow-up legend { padding: 0 6px; font-weight: 700; }
+.follow-up-options { display: flex; flex-wrap: wrap; gap: 10px; }
+.follow-up-options button { min-height: 44px; text-align: left; }
+.guidance-detail, .guidance-source { margin-top: 18px; }
+.guidance-detail h3 { font-size: 1rem; margin: 20px 0 6px; }
+.guidance-detail p { margin: 0 0 16px; }
 h1,
 h2,
 h3,

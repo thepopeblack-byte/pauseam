@@ -20,8 +20,9 @@ export default function About() {
         <section className="content-panel">
           <h2>Ask in your own words</h2>
           <p>
-            Describe a payment concern in English, by voice or text. Get a short
-            checklist to help you decide what to do next.
+            Describe a payment concern in English, by voice or text. Get an
+            explanation and practical actions for your situation. If a detail is
+            missing, we may ask a follow-up question.
           </p>
           <p>
             Ask about sellers, payment requests, changed bank details, school

@@ -139,6 +139,6 @@ export async function modelGuidance(
     cards: ids.map((id) => cards.find((c) => c.id === id)!),
     message: ids.length
       ? "Review these actions. This is not a verdict on a person, account or payment."
-      : "The model could not find supported guidance. Verify independently with your bank.",
+      : "I could not match this to checked guidance. Describe what was requested and whether you have paid, without account details or secret codes.",
   };
 }

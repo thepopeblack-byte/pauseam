@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { downloadBlob } from "@/lib/browser-download";
+import { hasContactedBank } from "@/lib/payment-context";
+import type { Guidance } from "@/lib/guidance";
 import {
   complaintPlan,
   COMPLAINT_SOURCE,
@@ -8,8 +10,8 @@ import {
   type ComplaintStage,
 } from "@/lib/reporting";
 
-export function ReportGuide({ question }: { question: string }) {
-  const [stage, setStage] = useState<ComplaintStage>("first");
+export function ReportGuide({ question, context }: { question: string; context?: Guidance }) {
+  const [stage, setStage] = useState<ComplaintStage>(() => hasContactedBank(question) ? "waiting" : "first");
   const [message, setMessage] = useState("");
   const plan = complaintPlan(stage);
   const draft = reportDraft(question, stage);
@@ -49,7 +51,8 @@ export function ReportGuide({ question }: { question: string }) {
   }
   return (
     <section className="report-guide" aria-label="Reporting steps">
-      <h2>Where should I report it?</h2>
+      <h2>{context?.title || "Where should I report it?"}</h2>
+      {context && <p className="situation-summary">{context.summary}</p>}
       <label htmlFor="complaint-stage">What has your bank done so far?</label>
       <select
         id="complaint-stage"
@@ -93,6 +96,7 @@ export function ReportGuide({ question }: { question: string }) {
           official channel.
         </p>
       )}
+      {context && context.details.length > 0 && <details className="guidance-detail"><summary>More about your situation</summary>{context.details.map(d => <div key={d.title}><h3>{d.title}</h3><p>{d.text}</p></div>)}</details>}
       <div className="chips">
         {draft && (
           <button
