@@ -1,43 +1,43 @@
 PauseAm - Tester feedback (English pilot)
-Published Google Form:
+Version 2 - simplified for testers on 3 October 2026
+Published Google Form (same link):
 https://docs.google.com/forms/d/e/1FAIpQLSehR9XnB63y54J02_NkrXsf59o8CLlbrBEDGRdPyAFyiHrFcg/viewform?usp=header
 
 PURPOSE AND CONSENT NOTICE
-Thank you for testing PauseAm. Please take about 4 minutes to describe what actually happened, including failures. This is English-pilot feedback, not a bank complaint. Do not include your name, email, phone/account numbers, PINs, OTPs, passwords, real payment records, audio or private screenshots. We will use consented, non-identifying answers to improve the app and report anonymous totals in our NAIC submission. Google Forms processes these answers; the team will keep individual feedback for up to 90 days. Keep your random tester code so you can ask the team to delete your response before aggregation. Participation is optional; close this form if you do not consent.
+Please take 2-3 minutes to tell us about your experience with PauseAm. Honest feedback, including failures, helps us improve. Participation is optional. Do not include your name, email, phone/account numbers, PINs, OTPs, passwords or real payment records. Google Forms processes your answers. The team will keep individual feedback for up to 90 days and may publish anonymous findings for the NAIC challenge. We do not link answers to your identity, so we may be unable to identify your response after submission. You can leave without submitting.
 
 1. Consent to record this feedback
 Required checkbox:
-I have read the notice above and agree to the team recording my non-identifying feedback and publishing anonymous totals.
+I agree to share this feedback with the PauseAm team and allow anonymous findings to be used in the challenge submission.
 
-2. Your random tester code
-Required short answer.
-Use the random code provided by the team. If you have none, make a code beginning P- followed by 12 random letters/numbers. Do not use your name, initials, date of birth, phone or email. Keep this code; use the same code if you retest.
-
-3. How was the artefact tested with real users, real data, or live benchmarks?
+2. What did you try, and what happened?
 Required paragraph.
-Describe YOUR test, not other people's results. Include: test date (YYYY-MM-DD); student/everyday user/business/other (optional); device and browser; network (Wi-Fi/mobile data/poor signal); journey (Check/Report/Learn); voice or typed; a fictional scenario in a few words; what worked or failed; whether you needed help; whether you corrected the transcript. Say "not measured" if you do not know timings. Do not include an actual payment record.
+Tell us whether you used Check a payment, Report a problem or Learn, and whether you spoke or typed. Include your test date, phone/browser and Wi-Fi/mobile-data connection if you know them. Describe a made-up scenario briefly; do not include a real transaction.
 
-4. Validation evidence
+3. Did anything fail or give an incorrect answer?
 Optional paragraph.
-Provide an app request/reference ID if visible, exact error wording without private details, or which test steps you completed. If you have a consented anonymous evaluation export or redacted screenshot, tell the team privately using your tester code; do not paste private files, financial records, audio or public links here. "No supporting evidence available" is fine. A feedback response alone is a self-report, not an independently observed session.
+If something went wrong, describe the step and any error message without private details. Tell us if you had to correct the transcript. If nothing went wrong, say so. This question is optional.
 
-5. Key results or feedback from validation
+4. What was helpful, confusing or missing?
 Required paragraph.
-In your own words: What action would you take after the answer, and why? What was useful? What was confusing, incorrect or missing? Did anything fail? What is the one change you most want? Would you use PauseAm again for a payment concern, and why or why not? Negative feedback is welcome. Do not include private names, transaction details or credentials.
+What would you do next after the answer, and why? What is the main improvement you would like? Would you use PauseAm again, and why or why not?
 
-6. What happened in your English voice test?
+5. What happened in your English voice test?
 Required multiple choice; choose one:
-- I recorded, reviewed/confirmed the transcript and received usable guidance without help.
-- I completed the full voice journey, but needed help.
-- A transcript appeared, but I did not receive usable guidance.
-- Recording or transcription failed.
+- I recorded, checked the transcript and got useful next steps without help.
+- I finished the voice journey, but someone had to help me.
+- I got a transcript, but no useful next steps.
+- I could not record or get a transcript.
 - I used text only or did not try voice.
 
+AFTER SUBMISSION
+Thank you. Your feedback has been received by the PauseAm team. Please submit once per actual test session. This form does not report a transaction to a bank or CBN.
+
 TEAM OPERATIONS
-Use the form's Responses tab to review/export results. The form does not collect email addresses, require sign-in for a single response, accept file uploads or share a response summary with respondents. Google still operates the hosting service; do not promise anonymity from Google or confidential VM protection for this form. Keep raw exports private and publish only reviewed non-identifying totals/quotes. Review free text for accidental sensitive information before sharing it further.
+The user requested removal of the random-code question and evaluator-oriented wording. The form now has five questions including consent, with no names, email fields, tester codes or uploads. It does not collect emails or share response summaries with respondents. Raw feedback stays in the owner's Google Forms account; Google processing is disclosed, and this is not confidential SecretVM storage. Review free text for accidental personal data before exporting or publishing anonymised findings.
 
-Deduplicate by tester code and actual session date. Treat repeat tests separately and preserve failures. A retrospective self-report is not an observed benchmark or a verified completed voice interaction. Pair completed voice reports with consented observer notes or anonymous app exports where available; do not make up missing trace IDs, times, devices or consent. A person who tried text only is still a tester, but does not count as a completed PS2 voice interaction.
+Without participant identifiers, form submissions cannot establish a count of distinct people or reliably deduplicate retests. Report response counts as response counts. Distinct participant and documented voice-interaction counts need separate, consented team observations; this form does not prove them. Optional internal research IDs used by an observer are not a required tester form field. Do not infer missing devices, times, trace IDs, consent or successful interactions.
 
-As of form setup on 3 October 2026, the owner reports 25 testers have tried the app; zero participant feedback responses have yet been reviewed by the build assistant. No synthetic response was submitted during setup. Do not select a minimum-50 claim on this basis.
+Keep failed attempts and typed-only tests separate from completed voice reports. Feedback is self-reported; objective ASR accuracy, latency and observed comprehension require appropriate independent evidence. No test feedback response was submitted during form editing, and no validation result has been invented.
 
-Delete individual responses and exported copies within the stated 90-day period. The team must carry out retention/deletion; the form itself does not automatically enforce it. Keep a deletion route through the same coordinator who shared the link, using the participant code. Do not automatically contact testers or publish their responses.
+Delete individual responses and exported copies within the stated 90-day period. The team must carry this out; the form does not automatically enforce it. With no code or identity field, an individual response may not be identifiable for deletion after submission; the consent notice discloses this limitation. Preserve the original setup evidence as historical and use feedback-form-simplified-2026-10-03.json for the revised form.

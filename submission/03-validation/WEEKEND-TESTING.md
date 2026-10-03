@@ -34,6 +34,10 @@ Use the [published Google feedback form and privacy instructions](feedback-form-
 for consented self-reports. Feedback, an attempted session and a documented
 completed voice interaction remain different records. Reconcile actual outcomes
 and supporting evidence before updating totals; do not invent retrospective consent.
+The form was simplified at the owner's request: no tester-code field. Its
+responses alone cannot establish distinct participants or deduplicate retests.
+Any observer IDs below belong to the separate private research log, not the
+tester questionnaire.
 
 For consented measurements, open https://pauseam.theblockcapitol.com/evaluation. The research checkbox is off until the participant agrees. Run the voice test and question flow there, then export the actual anonymous measurements. Exports contain only whitelisted outcomes, timing, model identity and request references where returned. They remain editable device-local evidence, not proof of participant authenticity.
 

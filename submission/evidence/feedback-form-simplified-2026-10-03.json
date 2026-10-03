@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-03",
+  "kind": "Questionnaire wording revision, not participant validation",
+  "version": 2,
+  "respondentUrl": "https://docs.google.com/forms/d/e/1FAIpQLSehR9XnB63y54J02_NkrXsf59o8CLlbrBEDGRdPyAFyiHrFcg/viewform?usp=header",
+  "userRequestedRemovalOfTesterCode": true,
+  "testerCodeFieldPresent": false,
+  "evaluatorHeadingsRemoved": true,
+  "questions": [
+    {
+      "title": "Consent to record this feedback",
+      "type": "checkbox",
+      "required": true
+    },
+    {
+      "title": "What did you try, and what happened?",
+      "type": "paragraph",
+      "required": true
+    },
+    {
+      "title": "Did anything fail or give an incorrect answer?",
+      "type": "paragraph",
+      "required": false
+    },
+    {
+      "title": "What was helpful, confusing or missing?",
+      "type": "paragraph",
+      "required": true
+    },
+    {
+      "title": "What happened in your English voice test?",
+      "type": "multiple choice",
+      "required": true
+    }
+  ],
+  "collectEmailAddresses": false,
+  "shareResultsSummaryWithRespondents": false,
+  "publishedRespondentPageVerified": true,
+  "thankYouCodeReferencesRemoved": true,
+  "noParticipantResponseSubmittedDuringEditing": true,
+  "validationTotalsUpdated": false,
+  "uniqueParticipantDeduplicationFromFormAlone": "not available without identifiers",
+  "screenshot": "private/research/feedback-form-simplified-2026-10-03.png",
+  "previousSetupEvidence": "submission/evidence/feedback-form-setup-2026-10-03.json"
+}
