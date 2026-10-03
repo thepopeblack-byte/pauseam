@@ -51,7 +51,8 @@
   },
   "scope": {
     "wording": "Source-derived contextual scenarios, not free-form model prose or fine-tuning",
-    "personalDataCopiedToReply": false,
+    "rawQuestionOrAmountDateValuesCopiedToReply": false,
+    "userStatedCircumstancesReflected": true,
     "humanSafetyReview": "pending",
     "participantInteractionsAdded": 0,
     "automaticSpokenReplies": "Pending owner speech-provider choice; existing browser Listen remains available"
