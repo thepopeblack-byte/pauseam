@@ -1,0 +1,60 @@
+{
+  "recordedAt": "2026-10-03 06:55:17 UTC",
+  "siteVersion": 24,
+  "sourceCommit": "43ff87893251a908858a6a1df74cdc22d18dfc33",
+  "deployment": {
+    "id": "appgdep_6ac0a562b93c819189dabb21dc21d093",
+    "project_id": "appgprj_6ab826bba8f48191ad36895acae09407",
+    "title": "PauseAm — Ask before you pay.",
+    "version_id": "appgprj_6ab826bba8f48191ad36895acae09407~appgver_80a3fc6767088191b6ef9fc92442032b",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://pauseam.thepopeblack.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ab826bba8f48191ad36895acae09407",
+    "failure_message": null,
+    "env_set_revision": 4,
+    "updated_at": "2026-10-03T06:49:23.686353+00:00"
+  },
+  "publicUrl": "https://pauseam.theblockcapitol.com",
+  "kbVersion": "2026-10-03.3",
+  "checks": {
+    "applicationTests": {
+      "passed": 71,
+      "failed": 0
+    },
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "publicRequests": {
+      "passed": 10,
+      "failed": 0,
+      "path": "contextual-replies-live-v24-2026-10-03.json",
+      "genuineNatlasRequests": 4
+    }
+  },
+  "browser": {
+    "followUp": "Vague payment concern -> debit/missing credit choice -> staged amended question -> sent request -> specific trace-transfer guidance",
+    "mainActions": "Name the debit/missing credit, private evidence to provide and complaint reference to request",
+    "localProductionPreview": "Passed; local model configuration absent, not inference proof",
+    "devPreview": "Failed in development runner; production preview and live checks supersede it",
+    "mobile": {
+      "widths": [
+        320,
+        390
+      ],
+      "horizontalOverflow": false,
+      "physicalDevice": false
+    },
+    "screenshot": "contextual-answer-live-v24-2026-10-03.jpg",
+    "viewportReset": true
+  },
+  "scope": {
+    "wording": "Source-derived contextual scenarios, not free-form model prose or fine-tuning",
+    "personalDataCopiedToReply": false,
+    "humanSafetyReview": "pending",
+    "participantInteractionsAdded": 0,
+    "automaticSpokenReplies": "Pending owner speech-provider choice; existing browser Listen remains available"
+  },
+  "secretVmUpdateRequired": false
+}

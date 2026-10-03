@@ -63,6 +63,15 @@ missing-credit detail belonged in the main action, not only the expansion.
 The final correction names the debit/missing credit or deduction in the initial
 investigation request and carries those actions into the first reporting stage.
 The version-23 evidence remains in contextual-replies-live-2026-10-03.json.
+
+Final version 24 passed all 71 tests, typecheck, production build and 10/10 actual
+public checks, including four genuine pinned N-ATLaS requests. The final live
+browser follow-up produced the specific debit/missing-credit main actions, which
+fit an emulated 320-pixel width without overflow. Viewport overrides were reset.
+Release identity, limits and screenshot are recorded in
+contextual-replies-release-2026-10-03.json and contextual-answer-live-v24-2026-10-03.jpg.
+There is no new human-interaction count, speech-accuracy proof or actual OpenAI
+speech use in these checks. No SecretVM update is required.
 No research interactions are added. The requested automatic voice replies await
 the owner's provider decision. Browser Listen is not GPT speech; no OpenAI key
 has been created or used. No SecretVM/model container update is needed for the

@@ -14,7 +14,7 @@ For production: npm run build, then npm run start. Wrangler prints the local URL
 Check /api/status and run npm run test:http with BASE_URL set to that origin.
 
 ## Stable demonstration
-In Ask a question, type the supplier example and choose Get next steps.
+In Ask a question, type your own non-sensitive payment concern or the optional supplier example and choose Send question. Follow-up choices amend the question for review before sending. Expand More about your situation for detail and Source and limits for the primary source.
 For voice, choose Speak instead; consent, record, listen, transcribe, correct and
 confirm. Model-backed supplier guidance was checked in the actual public browser;
 the owner confirms the complete voice journey works. Choose Report a problem

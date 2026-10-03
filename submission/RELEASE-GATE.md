@@ -5,6 +5,18 @@
 English voice and text; other languages are paused at the owner's request.
 Evidence files retain their original historical outcomes.
 
+Contextual-reply update: website version 24 is live. All 71 application tests,
+typecheck, production build and ten final public checks passed. Four checks used
+the real pinned N-ATLaS model. Situation explanations and main actions respond to
+explicit supplier confirmation, pressure, missing credit/deduction and an existing
+bank complaint. Vague payment concerns ask a clarification without an assessment
+or claimed inference. The live browser follow-up and 320/390-pixel overflow checks
+passed; these are not physical-device or human validation. Evidence:
+evidence/contextual-replies-release-2026-10-03.json and
+evidence/contextual-replies-live-v24-2026-10-03.json. No SecretVM update is needed.
+Automatic spoken replies remain pending the owner's speech-provider choice;
+the existing browser Listen control is not an OpenAI voice integration.
+
 Current payment-context/bank update: version 21 passed 32 public HTTP checks,
 including genuine pinned N-ATLaS relevance inference with an ordinary amount and
 date. Bank facts are sourced from eight banks' official published pages and are
@@ -36,6 +48,8 @@ missing-secret checkpoint remains in evidence/freeform-voice-fix-2026-10-03.json
 | English ASR engineering journey | passed | evidence/worker-redirect-fix-2026-10-02.json | Repeat on final build with consented speech; fluent accuracy and participant outcomes remain pending |
 | Free-form voice amount/date regression | passed | evidence/freeform-voice-live-2026-10-03.json; evidence/freeform-voice-fix-2026-10-03.json | Live policy, redacted-text guidance and audio-error checks passed; owner confirms unscripted full journey. Representative speech accuracy and participant validation remain pending |
 | Typed/corrected amounts and dates; combined bank information | passed | evidence/payment-bank-release-2026-10-03.json; evidence/payment-bank-combined-live-2026-10-03.json; evidence/bank-information-source-review-2026-10-03.md | Version 22 live; 65 tests and 56 HTTP checks passed. Eight banks only; human content review and representative tester checks remain pending. Voice numbers remain redacted; no numeric ASR accuracy claimed |
+| Contextual replies and clarification | passed | evidence/contextual-replies-release-2026-10-03.json; evidence/contextual-replies-live-v24-2026-10-03.json; evidence/contextual-guidance-review-2026-10-03.md | Version 24 engineering checks pass; independent human wording/source review and representative comprehension testing remain pending |
+| Automatic spoken replies with text | blocked | README.md; pending speech-provider question in this chat | Owner selects browser speech or secure OpenAI speech setup; no OpenAI key created, paid API used or GPT voice claimed |
 | N-ATLaS CPU container preparation | passed | evidence/cpu-final-container-2026-10-02.json; evidence/live-text-inference-2026-10-02.json | Final ed76b851 image is running; preserve weights and ledger |
 | Local CPU conversion and relevance | passed | evidence/cpu-conversion-2026-10-02.json; evidence/cpu-local-relevance-check-2026-10-02.json | Six actual model requests and two guards passed; local Windows timing is not VM timing |
 | Live N-ATLaS text inference and Sites enablement | passed | evidence/live-text-inference-2026-10-02.json; evidence/live-cpu-release-2026-10-02.json | Six real host requests and two guards passed; Sites env revision 4 is deployed. Owner confirms full voice journey works |
