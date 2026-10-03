@@ -1,0 +1,51 @@
+{
+  "title": "PauseAm - Ask before you pay",
+  "recordingDate": "2026-10-03",
+  "canvas": {"width": 1920, "height": 1080, "fps": 30},
+  "narration": {"provider": "Microsoft Edge online text-to-speech", "voice": "en-NG-AbeoNeural", "client": "edge-tts 7.2.8", "rate": "-8%", "notNatlas": true},
+  "editingDisclosure": "Selected takes; idle/repeated sections trimmed. Original audio removed. Narration added in post; not app audio or N-ATLaS TTS.",
+  "clips": [
+    {"start": 3, "duration": 12, "chapter": "intro"},
+    {"start": 24, "duration": 62, "chapter": "voice"},
+    {"start": 133, "duration": 47, "chapter": "report"},
+    {"start": 190, "duration": 31, "chapter": "followup"},
+    {"start": 227, "duration": 10, "chapter": "download"},
+    {"start": 291, "duration": 19, "chapter": "learn"},
+    {"start": 312, "duration": 43, "chapter": "contacts"},
+    {"start": 357, "duration": 40.5, "chapter": "email"},
+    {"start": 397.1, "duration": 18, "chapter": "closing", "freeze": true}
+  ],
+  "chapters": {
+    "intro": {"eyebrow": "NAIC 2026 / PS2 VOICE-FIRST ACCESS", "title": "Ask before\nyou pay.", "description": "PauseAm helps people check a payment request, report a money problem and find verified information.", "points": ["Speak in your own words", "Review what we heard", "Get a practical next step"]},
+    "voice": {"eyebrow": "01 / CHECK BEFORE PAYMENT", "title": "A question in\nyour own words.", "description": "Watch a real recording become a transcript, then a source-backed payment checklist.", "points": ["Audio processing needs consent", "Correct and confirm the transcript", "Reply text, replay and stop"]},
+    "report": {"eyebrow": "02 / REPORT A MONEY PROBLEM", "title": "Start with\nyour bank.", "description": "Describe what happened. The urgent action stays clear while the voice journey continues.", "points": ["Use an independently verified channel", "Keep evidence and a complaint reference", "No recovery promise"]},
+    "followup": {"eyebrow": "02 / FOLLOW UP OR ESCALATE", "title": "The next step\ndepends on progress.", "description": "Choose what your bank has done so far. Follow the appropriate bank or CBN complaint route.", "points": ["Already reported? Keep the reference", "Check the applicable complaint guidance", "The user sends the complaint"]},
+    "download": {"eyebrow": "02 / YOUR REPORT DRAFT", "title": "Take a clear\nrecord with you.", "description": "Preview, copy or download a report draft for your bank. Review it before sending.", "points": ["Draft only; not a filed report", "Do not include PINs or secret codes", "Keep downloaded evidence private"]},
+    "learn": {"eyebrow": "03 / LEARN AND FIND HELP", "title": "Find the right\ninformation.", "description": "Ask about warning signs and supported banks' published customer-care details.", "points": ["Selected dated security notices", "Official bank sources", "English voice and text paths"]},
+    "contacts": {"eyebrow": "03 / VERIFIED BANK CONTACTS", "title": "Check the bank\nname first.", "description": "This real UBA question shows transcript correction before the published contact is returned.", "points": ["Review recognition errors", "Bank facts come from an allowlist", "No invented contact details"]},
+    "email": {"eyebrow": "03 / SOURCE-LINKED BANK HELP", "title": "A direct answer.\nAn official source.", "description": "The GTBank email result links to the bank's own published information.", "points": ["Correct the question before sending", "Read the actual returned result", "Open the official source independently"]},
+    "closing": {"eyebrow": "CURRENT ENGLISH PROTOTYPE", "title": "PauseAm\nAsk before you pay.", "description": "Official NCAIR English ASR and N-ATLaS text inference on SecretVM. Other languages are paused.", "points": ["Self-hosted ASR-service qualification pending", "Official API and fine-tuning not claimed", "Demo narrator is separate Microsoft TTS"]}
+  },
+  "utterances": [
+    {"start": 0.8, "text": "Pause am. Ask before you pay. A payment decision companion for Nigerians. This real mobile recording has separate Nigerian English narration."},
+    {"start": 14, "text": "Choose Speak and agree to audio processing. Ask in your own words, then listen to the recording or discard it before transcription."},
+    {"start": 27, "text": "Official N C A I R Nigerian accented English A S R transcribes the audio. The actual transcript appears on screen."},
+    {"start": 40, "text": "Review the transcript, correct errors and confirm it. Leave out account details, passwords, P I Ns and secret codes."},
+    {"start": 53, "text": "For this supplier request, pause payment and confirm the changed details through an established contact. If you cannot confirm independently, keep payment on hold."},
+    {"start": 66, "text": "Replay and Stop sit above the text reply. App speech uses device readout; this video's narrator is a separate voice."},
+    {"start": 77, "text": "If you may have paid a scammer, contact your bank promptly through a verified channel. Keep your payment confirmation and messages private."},
+    {"start": 90, "text": "The same consented voice journey lets you describe an incident. Here a supplier says the payment was not received."},
+    {"start": 104, "text": "Review and confirm the incident description. The bank can investigate its records; Pause am cannot establish who committed fraud or guarantee that money will be recovered."},
+    {"start": 123, "text": "The next steps depend on what your bank has done. This example changes from not yet reported to already reported and waiting."},
+    {"start": 136, "text": "Keep the complaint reference, ask about the resolution date and follow up through the bank's official channel. Use the relevant C B N guidance when escalation is appropriate."},
+    {"start": 153, "text": "Preview and download the report draft. The user reviews and sends it; Pause am does not submit a bank complaint automatically."},
+    {"start": 165, "text": "Learn helps with warning signs and verified bank information. Its security updates are selected, dated official notices, rather than a live stream of every new scam."},
+    {"start": 182, "text": "Here, the user asks for U B A customer care. After transcription, they correct the bank name before sending. Recognition errors should always be checked."},
+    {"start": 198, "text": "Bank contact answers come from reviewed official bank pages. The model does not invent a phone number or treat a contact in a suspicious message as verified."},
+    {"start": 215, "text": "The actual U B A result is now visible. Check the official bank source independently before making contact."},
+    {"start": 226, "text": "A second bank example asks for G T Bank's customer care email. Again, the recording is transcribed, reviewed and corrected before the question is sent."},
+    {"start": 241, "text": "Ordinary payment questions can use voice or text. This recording shows the voice path. Typed answers in the product stay silent."},
+    {"start": 253, "text": "The returned G T Bank email is linked to an official bank source. The screen shows the genuine result from this recording."},
+    {"start": 266, "text": "N atlas supplies A S R and text inference. This build supports English; other languages are paused. The separate demo narrator is Microsoft Nigerian English speech, not N atlas speech generation."}
+  ]
+}

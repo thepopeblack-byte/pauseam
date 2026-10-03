@@ -58,3 +58,4 @@ __pycache__/
 *.wav
 *.webm
 *.mp4
+/output/video/

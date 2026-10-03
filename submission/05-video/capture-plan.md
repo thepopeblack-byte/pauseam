@@ -1,6 +1,15 @@
-# 05 — Video demonstration: incomplete
+# 05 — Video demonstration: edited review file
 
-No submission MP4 exists. Current scope is English only. Actual English voice
+An owner-supplied real screen recording has been edited into a 282.5-second
+(4:43 rounded), 1920×1080, 30 fps MP4. The local review file is
+`output/video/pauseam-demo-review.mp4`. See [edit and review notes](README.md)
+and [recorded checks](../evidence/demo-video-edit-2026-10-03.json).
+Original mixed audio was removed, including the app's recorded spoken reply;
+separate Microsoft Nigerian-English narration and captions were added. This is
+not N-ATLaS speech generation or audible proof of the app's readout.
+Human full playback review and an evaluator-accessible URL remain pending.
+
+Current scope is English only. Actual English voice
 and CPU text engineering/owner checks pass on live version 25. The current
 browser-control environment exposes screenshots and form interaction, but no
 screen-and-microphone video recording capability; native apps are unavailable.
@@ -8,7 +17,7 @@ Encoding tools are installed, so a real owner capture can be captioned and
 rendered here after it is provided. A slideshow or fake transcript is not
 evidence; reproduce the actual model behaviour during capture.
 
-## Four-minute capture script
+## Original four-minute capture procedure (for a new recording if needed)
 0:00–0:20: open https://pauseam.theblockcapitol.com. Say: "PauseAm: Ask before
 you pay. Our PS2 prototype helps Nigerians check a payment request, report a
 money problem and learn warning signs. This build supports English voice and text."
@@ -74,4 +83,5 @@ Require 180–300 seconds, readable captions, audible speech and smooth playback
 Watch the entire final file with sound. Hash it, record consent and build, then
 publish an evaluator-accessible URL after Kayode reviews it. Test the URL while
 signed out, then paste that real URL into ONDI's video field. Its absence currently
-prevents access to Programme Fit. No video was created or uploaded by this plan.
+prevents access to Programme Fit. The review MP4 has now been created from the
+owner's recording; it has not been published or uploaded to ONDI.

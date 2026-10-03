@@ -39,9 +39,14 @@ Review any CAC/ID privately with the owner before transmission; no identity
 document was accessed or uploaded during this update. Other submission PDFs
 remain local/public review documents, not claimed portal attachments.
 
-The [recording plan](05-video/capture-plan.md) explains the actual capture and
-encoding procedure. Browser automation here lacks screen-and-microphone video
-recording; FFmpeg is available to process a genuine recording once provided.
+Later video-edit update: the owner provided an actual mobile screen recording.
+It has been edited locally into a 282.5-second 1080p MP4 with captions and
+separate, explicitly labelled Microsoft Nigerian-English narration. Original
+audio was removed. Technical checks passed; owner full playback review with
+sound and a public evaluator URL remain pending. No new video URL was entered
+in ONDI and no form action was taken during this edit. See
+[review notes](05-video/README.md) and
+[actual edit checks](evidence/demo-video-edit-2026-10-03.json).
 
 Private proof screenshot: `private/ondi/draft-document-upload-2026-10-03.png`.
 Keep it outside the public repository. This progress note contains no credentials,

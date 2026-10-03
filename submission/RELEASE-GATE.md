@@ -80,7 +80,7 @@ missing-secret checkpoint remains in evidence/freeform-voice-fix-2026-10-03.json
 | 02 Integration evidence final PDF | blocked | ../output/pdf/02-natlas-integration.pdf | Actual final traces/screenshot added; organiser service qualification remains pending |
 | 03 Validation final PDF | blocked | ../output/pdf/03-validation-status.pdf | Add genuine reviewed results and limitations |
 | 04 Technical documentation final PDF | blocked | ../output/pdf/04-technical-documentation.pdf | Live deployment/timing reconciled; add representative resource/mobile results and final human validation |
-| 05 Actual 3–5 minute MP4 | blocked | 05-video/capture-plan.md | Owner captures real product; verify duration, captions, audio and entire playback |
+| 05 Actual 3–5 minute MP4 | blocked | 05-video/README.md; evidence/demo-video-edit-2026-10-03.json | Local 282.5-second edited real recording passes decode/specification/caption/audio checks. Owner must watch the entire file with sound, approve narration/content and publish a signed-out accessible URL |
 | 06 Team profile | blocked | ../output/pdf/06-team-profile-review.pdf | Owner confirms supplied facts; Suleiman stays Technical lead as instructed |
 | 07 Private CAC/ID | blocked | 07-registration/private-checklist.md | Owner has documents; review correct portal requirement privately, do not publish |
 | ONDI limits and matching drafts | blocked | ondi-answer-drafts.json | Known page 1–2 limits enforced; inspect remaining signed-in fields and declarations |
