@@ -14,7 +14,8 @@ export function BankInformation({ information }: { information: Information }) {
           </div>
         ))}
       </dl>
-      <p>{information.kind === "ussd" ? "This is the bank’s published menu code. Confirm it on the official page before using it. PauseAm does not run USSD or handle a payment." : "Use the official bank page to confirm these details. Never share a PIN, OTP or password with a caller or in an email."}</p>
+      <p>Use the official bank page to confirm these details. Never share a PIN, OTP or password with a caller or in an email.</p>
+      {information.facts.some(f => f.label === "USSD menu") && <p>This is the bank’s published menu code. PauseAm does not run USSD or handle a payment.</p>}
     </article>
   );
 }

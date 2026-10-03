@@ -69,3 +69,15 @@ expiry, unavailable content, injection, unsupported rates, learning boundaries
 and omission of numbers in the model request. Authored fixtures are not model
 output or human validation. Live publication/request evidence is recorded
 separately when completed.
+
+## Combined-question correction
+
+After version 21, the owner reported that single-channel bank questions passed
+but asking for a customer-care number and email together returned incomplete
+details. The parser previously chose email before evaluating phone intent. The
+correction collects all requested channels (email, phone and base USSD menu),
+preserves them when a bank must be selected, and keeps ambiguity and expired
+sources as abstentions. A new regression exercises seven combined phrasings
+for all eight banks. This owner report is a defect finding, not a completed
+research interaction or proof of transcription accuracy. The earlier 32/32
+version-21 HTTP checks remain unchanged; they missed this combined-request case.

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { containsSensitive, retrieve } from "../lib/safety.ts";
 import { modelQuestion } from "../lib/question-privacy.ts";
-import { bankInformation, BANKS } from "../lib/bank-directory.ts";
+import { bankInformation, bankQuestion, BANKS } from "../lib/bank-directory.ts";
 import { modelGuidance } from "../lib/text-model.ts";
 import { TEXT_MODEL } from "../lib/models.ts";
 import { reportDraft } from "../lib/reporting.ts";
@@ -37,6 +37,29 @@ test("each bank returns its exact reviewed public facts, not generic scam advice
   assert.equal(retrieve("How do I contact UBA?", "learn", {now}).bankInfo?.facts.length, 2);
   assert.equal(retrieve("What is my bank’s customer-care number?", "learn", {now}).status, "no_match");
   assert.equal(retrieve("What is GT-bank’s customer-care number?", "learn", {now}).bankInfo?.facts[0].value, "08029002900");
+});
+test("combined bank questions return every requested channel and preserve it through clarification", () => {
+  const requests = [
+    ["customer care number and email", "contact", ["email", "phone"]],
+    ["email and customer-care number", "contact", ["email", "phone"]],
+    ["email and number", "contact", ["email", "phone"]],
+    ["USSD code and email", "email-ussd", ["email", "ussd"]],
+    ["customer care number and USSD code", "phone-ussd", ["phone", "ussd"]],
+    ["customer-care number, email and USSD code", "all", ["email", "phone", "ussd"]],
+    ["contact details and USSD code", "all", ["email", "phone", "ussd"]],
+  ] as const;
+  for (const b of BANKS) for (const [wording, kind, keys] of requests) {
+    const a = retrieve(`What are ${b.name}'s ${wording}?`, "learn", {now});
+    assert.equal(a.bankInfo?.kind, kind, wording);
+    assert.deepEqual(a.bankInfo?.facts.map(f => [f.value, f.source.url]), keys.map(k => [b[k].value, b[k].source.url]), wording);
+    assert.equal(a.model, null); assert.deepEqual(a.cards, []);
+    const missing = bankInformation(`What are my bank's ${wording}?`, now);
+    assert.equal(missing?.kind, kind);
+    assert.deepEqual(bankInformation(bankQuestion(b.name, kind), now)?.information, a.bankInfo);
+  }
+  assert.equal(bankInformation("GTBank or UBA customer-care number and email", now)?.information, null);
+  assert.equal(bankInformation("GTBank email and USSD", new Date("2026-10-18"))?.information, null);
+  assert.equal(bankInformation("Someone stole my phone", now), null);
 });
 test("missing, ambiguous, uncovered and expired bank details abstain without invention", () => {
   for (const q of ["What is my bank's USSD code?", "What is Ecobank's customer care email?", "GTBank or UBA customer care number?"]) {

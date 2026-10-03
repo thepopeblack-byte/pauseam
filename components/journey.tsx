@@ -7,6 +7,7 @@ import { ShareChecklist } from "@/components/share-checklist";
 import { ReportGuide } from "@/components/report-guide";
 import { LearningUpdates } from "@/components/learning-updates";
 import { BankInformation } from "@/components/bank-information";
+import { bankQuestion } from "@/lib/bank-directory";
 import { PILOT_LANGUAGE } from "@/lib/models";
 import { VoiceInput } from "@/components/voice-input";
 import { containsSensitive, type Journey, type Answer } from "@/lib/safety";
@@ -442,7 +443,7 @@ export function JourneyPanel({
                     const bank = answer.bankQuery?.options.find(b => b.id === e.target.value);
                     if (!bank) return;
                     const kind = answer.bankQuery!.kind;
-                    edit(`What is ${bank.name}'s ${kind === "ussd" ? "USSD menu code" : kind === "email" ? "customer-care email" : kind === "phone" ? "customer-care phone number" : "customer-care contact details"}?`);
+                    edit(bankQuestion(bank.name, kind));
                     setAsrModel("");
                     document.getElementById("question-" + journey)?.focus();
                   }}><option value="" disabled>Select a bank</option>{answer.bankQuery.options.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}</select>
