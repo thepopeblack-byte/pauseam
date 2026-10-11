@@ -5,11 +5,14 @@ For a replacement host after compute credits run out, follow
 keeping the website and its DNS. The existing-host instructions below apply
 to workload updates on the original VM.
 
-Current target: **English voice and N-ATLaS text on the existing 16 GB RAM,
-8-vCPU, 160 GB VM** at amaranth-nightingale.vm.scrtlabs.com.
+Current target: **English voice and N-ATLaS text on the existing 16 GB RAM VM**
+at pink-bandicoot.vm.scrtlabs.com.
 The website stays on Sites at https://pauseam.theblockcapitol.com.
 
 ## Use this deployment
+
+For the amount/date voice update, follow [AMOUNT-DATE-UPDATE.md](AMOUNT-DATE-UPDATE.md).
+Its ASR image keeps recognised payment amounts and dates in the transcript.
 
 Follow [ENGLISH-COMPLETE.md](ENGLISH-COMPLETE.md) and replace the existing VM's
 Compose configuration with **english-complete-compose.yml**. Keep encrypted

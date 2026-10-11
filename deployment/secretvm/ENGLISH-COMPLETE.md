@@ -16,7 +16,7 @@ without inference. This does not promise the same timing on SecretVM.
 
 ## Owner update
 
-1. Open the **existing** amaranth-nightingale VM â†’ Edit VM. Save a private copy
+1. Open the **existing** pink-bandicoot VM â†’ Edit VM. Save a private copy
    of the current Compose configuration for rollback. Replace the Compose
    configuration with the complete contents of `english-complete-compose.yml`.
    Keep the existing project and persistent volumes. Do not delete the licence
@@ -62,8 +62,8 @@ Sites. Save/apply the update and close the panel; never paste the contents in
 chat. Missing credentials must not be worked around by disabling authentication.
 
 ```
-python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:02ffaaf976274ae1d65fc13b4fc62a4ac6b2f161f6c0bc331613e698ce650f1d --output deployment/secretvm/english-complete-compose.yml
-node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://amaranth-nightingale.vm.scrtlabs.com --scope english-complete --mode inference --output private/secretvm/english-complete-check.json
+python scripts/prepare-secretvm.py --profile english-complete --text-image ghcr.io/thepopeblack-byte/pauseam-text_cpu@sha256:ed76b8515257ae16ace80f47d66adc8fbd8c85fd0f5ca52dcbfa4395a44a26ed --asr-image ghcr.io/thepopeblack-byte/pauseam-asr@sha256:ed1ca075f99c268a5def7c20b91e49ca3e16059e776866906003e173b11e66a0 --output deployment/secretvm/english-complete-compose.yml
+node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-model-host.mjs --host https://pink-bandicoot.vm.scrtlabs.com --scope english-complete --mode inference --output private/secretvm/english-complete-check.json
 ```
 
 This command exercises text with a synthetic engineering question. It does not
@@ -74,14 +74,14 @@ acceptance of self-hosted ASR remain unverified; quantization is not fine-tuning
 For the complete eight-case engineering check after readiness:
 
 ```
-node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-text-inference.mjs --host https://amaranth-nightingale.vm.scrtlabs.com --output private/secretvm/final-text-check.json
+node --experimental-strip-types --env-file=private/secretvm/deployment.env scripts/verify-text-inference.mjs --host https://pink-bandicoot.vm.scrtlabs.com --output private/secretvm/final-text-check.json
 ```
 
 ## Rollback and operating limit
 
-The free-form speech fix uses ASR image `02ffaaf9...` above. Once active,
-authenticated `/asr/en/health` must report `privacyPolicy: numbers-redacted-v1`.
-Ordinary amounts/dates are hidden in transcripts instead of causing a blanket
+The amount/date voice update uses ASR image `ed1ca075...` above. Once active,
+authenticated `/asr/en/health` must report `privacyPolicy: payment-context-v2`.
+Ordinary amounts/dates remain in transcripts instead of causing a blanket
 rejection. Explicit secret disclosures still fail closed. Saved Compose and HTTP
 200 alone do not prove that the new code is active. If an edit loses encrypted
 environment entries, restore the complete existing private environment through
