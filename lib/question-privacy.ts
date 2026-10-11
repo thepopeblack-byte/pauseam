@@ -6,9 +6,9 @@ const bounded = (body: string) => new RegExp("(?<![\\w.,])(?:" + body + ")(?![\\
 function permittedNumbers(text: string): string {
   let rest = text;
   // Full dates only: refuse impossible days/months instead of matching arbitrary IDs.
-  rest = rest.replace(/\b(\d{4})-(\d{2})-(\d{2})\b|\b(\d{1,2})[/-](\d{1,2})[/-](\d{4})\b/g,
+  rest = rest.replace(/\b(\d{4})-(\d{2})-(\d{2})\b|\b(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{4}|\d{2})\b/g,
     (match, y, m, d, day, month, year) => {
-      const yy = Number(y || year), mm = Number(m || month), dd = Number(d || day);
+      const yy = y ? Number(y) : year.length === 2 ? 2000 + Number(year) : Number(year), mm = Number(m || month), dd = Number(d || day);
       const date = new Date(Date.UTC(yy, mm - 1, dd));
       return yy >= 1900 && yy <= 2100 && date.getUTCFullYear() === yy && date.getUTCMonth() === mm - 1 && date.getUTCDate() === dd ? "[date]" : match;
     });
@@ -27,7 +27,7 @@ function permittedNumbers(text: string): string {
   rest = rest.replace(bounded("(?:₦|NGN\\s*|naira\\s*|N\\s*|\\$|USD\\s*|GBP\\s*|£|€)\\s*" + amount), "[amount]");
   rest = rest.replace(bounded(amount + "\\s*(?:naira|NGN|dollars|USD|pounds|GBP|euros)"), "[amount]");
   // Natural questions often omit the currency: “I paid 5000 yesterday”.
-  rest = rest.replace(new RegExp("\\b(?:paid|pay|sent|send|transferred|transfer|debited|charged|cost|price|amount|payment|withdrew|withdraw|received|credited|took)\\s*(?:(?:of|is|was|me|about)\\s+|[:=]\\s*)?(" + amount + ")(?![\\w]|[.,]\\d)", "gi"),
+  rest = rest.replace(new RegExp("\\b(?:paid|pay|sent|send|transferred|transfer|debited|debit|charged|charge|cost|price|amount|payment|transaction|withdrew|withdraw|received|credited|took|lost)\\s*(?:(?:of|is|was|me|about)\\s+|[:=]\\s*)?(" + amount + ")(?![\\w]|[.,]\\d)", "gi"),
     (match, value: string) => match.replace(value, "[amount]"));
   rest = rest.replace(new RegExp("\\b(?:asked|asks|asking|requested|requests|wants|want)\\s+(?:me\\s+)?(?:for|to pay)\\s+(" + amount + ")(?![\\w]|[.,]\\d)", "gi"),
     (match, value: string) => match.replace(value, "[amount]"));
@@ -36,7 +36,7 @@ function permittedNumbers(text: string): string {
 export function containsPrivateDetails(text: string): boolean {
   if (/[\w.+-]+@[\w.-]+\.[a-z]{2,}/i.test(text)) return true;
   if (/\b(?:pin|otp|password|passcode|credential|verification code|banking code|account number|card number|bvn|nin)\s*(?:is|are|was|:|=)\s*\S+/i.test(text)) return true;
-  if (/\b(?:pin|otp|password|passcode|account(?:\s+(?:number|no))?|card(?:\s+number)?|bvn|nin|phone(?:\s+number)?|mobile(?:\s+number)?|telephone|date of birth|dob)\s*(?:(?:is|was|are|of|:|=|#)\s*)?\d/i.test(text)) return true;
+  if (/\b(?:pin|otp|password|passcode|account(?:\s+(?:number|no))?|card(?:\s+number)?|bvn|nin|phone(?:\s+number)?|mobile(?:\s+number)?|telephone|date of birth|dob)\s*(?:(?:is|was|are|of|:|=|#)\s*)?(?:₦|NGN\s*|naira\s*)?\p{Nd}/iu.test(text)) return true;
   if (/\b(?:date of birth|dob)\b[^.!?\n]{0,32}\d/i.test(text)) return true;
   if (/\b(?:zero|one|two|three|four|five|six|seven|eight|nine)(?:[\s,-]+(?:zero|one|two|three|four|five|six|seven|eight|nine)){2,}\b/i.test(text)) return true;
   return /\p{Nd}/u.test(permittedNumbers(text));

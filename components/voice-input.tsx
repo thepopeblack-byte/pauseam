@@ -281,7 +281,7 @@ export function VoiceInput({
               }}
             />
             I agree to send this recording for transcription. This app does not
-            save it. I won&apos;t speak private details.
+            save it. I won&apos;t speak account numbers, PINs, OTPs or passwords.
           </label>
           <button
             type="button"

@@ -6,15 +6,27 @@ class TranscriptPrivacy(unittest.TestCase):
     def test_freeform_amount_date_keeps_payment_context(self):
         for text in ["I paid 25000 naira on 2 October but the seller disappeared.",
                      "I paid twenty five thousand naira yesterday and the seller blocked me.",
-                     "I transferred ٢٥٠٠ naira and have not received my order."]:
+                     "I transferred ₦25,000.50 on 11/10/2026 for an order via my bank app.",
+                     "The transaction was 25000 on 11.10.2026 at 10:30.",
+                     "I lost 5000 on 11/10/26.",
+                     "I paid twenty five thousand naira on October third two thousand twenty six."]:
             safe, redacted = public_transcript(text)
-            self.assertTrue(redacted)
-            self.assertIn("naira", safe)
+            self.assertFalse(redacted, text)
+            self.assertEqual(safe, text)
+
+    def test_unknown_numbers_stay_hidden_without_losing_amount_or_date(self):
+        text = "I paid 25000 naira on 11/10/2026 to 1234567890 for an order."
+        safe, redacted = public_transcript(text)
+        self.assertTrue(redacted)
+        self.assertIn("25000 naira on 11/10/2026", safe)
+        self.assertNotIn("1234567890", safe)
+        for text in ["I paid 1234567890 naira", "I paid １２３４ naira", "I paid on 31/02/2026", "I paid one two three four naira"]:
+            safe, redacted = public_transcript(text)
+            self.assertTrue(redacted, text)
             self.assertIn("[number removed]", safe)
-            self.assertFalse(any(c.isdigit() for c in safe))
 
     def test_credentials_fail_without_returning_transcript(self):
-        for text in ["My PIN is DUMMY_VALUE", "OTP: DUMMY_VALUE", "The account number is DUMMY_VALUE"]:
+        for text in ["My PIN is DUMMY_VALUE", "OTP: DUMMY_VALUE", "The account number is DUMMY_VALUE", "PIN 5000 naira", "account number ₦5000", "My DOB is 11/10/2026", "My phone number is 08000000000", "account number one two three four"]:
             with self.assertRaisesRegex(ValueError, "transcript discarded"):
                 public_transcript(text)
 

@@ -70,7 +70,7 @@ export function reportDraft(
       ? "I previously raised this issue with my bank. Please review its handling of my complaint."
       : "Please investigate this payment issue and provide a complaint reference and an expected resolution date. If my account is at risk, please help secure it urgently.",
     "",
-    "Before sending, add the transaction date, amount, reference, bank name and relevant evidence ONLY through the recipient's verified channel. For CBN escalation, include proof of the complaint to the bank and its response or lack of acknowledgment.",
+    "Check the transaction amount, date, bank name and description above. Add any missing details and your transaction reference and relevant evidence ONLY through the recipient's verified channel. For CBN escalation, include proof of the complaint to the bank and its response or lack of acknowledgment.",
     "Never include PINs, OTPs or passwords. Review every sentence; this draft is not an investigation, fraud finding or guarantee of recovery. PauseAm has not sent this report.",
     "Complaint guidance: " + COMPLAINT_SOURCE.url,
   ].join("\n");

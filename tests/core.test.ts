@@ -269,12 +269,18 @@ test("ASR host rejection categories stay distinct without exposing upstream deta
   assert.equal(asrFailure(new Error("untrusted private error fixture")).error.includes("fixture"), false);
 });
 
-test("redacted free-form ASR transcript keeps provenance and still rejects leaked numeric details", async () => {
+test("ASR preserves amounts and dates but independently rejects leaked identifiers", async () => {
   const data={text:"I paid [number removed] naira but the seller disappeared.",model:MODEL,revision:REVISION,language:"en",redacted:true};
   const result=await transcribe(wav(),config,async()=>Response.json(data));
   assert.equal(result.text,data.text);
   assert.equal(result.redacted,true);
-  await assert.rejects(()=>transcribe(wav(),config,async()=>Response.json({...data,text:"I paid 25000 naira.",redacted:true})), {message:"sensitive"});
+  for (const text of ["I paid 25000 naira on 11/10/2026 for an order.", "I sent ₦25,000.50 on October 11, 2026."]) {
+    const result = await transcribe(wav(),config,async()=>Response.json({...data,text,redacted:false}));
+    assert.equal(result.text,text);
+  }
+  for (const text of ["I sent to 1234567890", "My PIN is 5000", "account number ₦5000", "I paid 1234567890 naira", "I paid on 31/02/2026"]) {
+    await assert.rejects(()=>transcribe(wav(),config,async()=>Response.json({...data,text,redacted:true})), {message:"sensitive"});
+  }
 });
 
 test("learning banking-codes suggestion retrieves its source", () => {

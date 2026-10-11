@@ -56,6 +56,13 @@ test("report preserves the user's words without inventing evidence, promises or 
   assert.doesNotMatch(draft, /I previously raised/);
   assert.match(reportDraft(question, "overdue", now)!, /I previously raised/);
 });
+test("private report retains the amount, date and transaction description verbatim", () => {
+  const question = "I transferred ₦25,000.50 on 11/10/2026 through my bank app for an online order. The seller stopped replying.";
+  const draft = reportDraft(question, "first", now)!;
+  assert.ok(draft.includes(question));
+  assert.match(draft, /Check the transaction amount, date/);
+  assert.equal(reportDraft(question + " My PIN is 5000.", "first", now), null);
+});
 test("learning updates are dated, source linked, and withdrawn at review expiry", () => {
   assert.equal(currentSafetyUpdates(now).length, 3);
   assert.deepEqual(currentSafetyUpdates(new Date("2026-10-10")), []);

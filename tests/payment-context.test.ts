@@ -13,7 +13,7 @@ test("ordinary amounts, dates and corrected transcripts remain usable", () => {
     assert.doesNotMatch(modelQuestion(q), /\d/);
   }
   assert.equal(retrieve("I paid ₦5000 on 03/10/2026 and the seller stopped replying", "before", {now}).cards[0].id, "report");
-  for (const q of ["They asked me for 5000 on the 3rd", "I received 5000 yesterday", "The amount: 10,000 on 3 Sept", "I withdrew 2500 yesterday"]) assert.equal(containsSensitive(q), false, q);
+  for (const q of ["They asked me for 5000 on the 3rd", "I received 5000 yesterday", "The amount: 10,000 on 3 Sept", "I withdrew 2500 yesterday", "I lost 5000 on 11/10/26", "The transaction was 25000 on 11.10.2026 at 10:30", "I paid twenty five thousand naira on October third two thousand twenty six"]) assert.equal(containsSensitive(q), false, q);
   assert.match(reportDraft("I paid ₦5000 on 2026-10-03 and the seller disappeared", "first", now) || "", /₦5000/);
 });
 test("permitted context cannot bypass secret, identifier or malformed-date rejection", () => {

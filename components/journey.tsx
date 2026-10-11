@@ -296,7 +296,7 @@ export function JourneyPanel({
           <button type="button" aria-pressed={inputMode === "voice"} disabled={!ready || busy || voiceActive} onClick={() => chooseMode("voice")}><Mic size={18} aria-hidden="true" /> Speak</button>
           <button type="button" aria-pressed={inputMode === "text"} disabled={!ready || busy || voiceActive} onClick={() => chooseMode("text")}><Keyboard size={18} aria-hidden="true" /> Type</button>
         </div>
-        <p className="mode-hint">{inputMode === "voice" ? "Speak in your own words. Check what we heard, then hear your reply." : "Write your question. Your reply will be in text."}</p>
+        <p className="mode-hint">{inputMode === "voice" ? "Describe the transaction, amount and date in your own words. Check what we heard, then hear your reply." : "Write what happened, including the amount and date. Your reply will be in text."}</p>
         {inputMode === "voice" && !asrModel && <VoiceInput
           embedded language={language} journey={journey} testing={testing} disabled={busy}
           onActivityChange={setVoiceActive}
@@ -324,7 +324,7 @@ export function JourneyPanel({
             onChange={(e) => edit(e.target.value)}
             placeholder={
               journey === "after"
-                ? "What happened after you paid?"
+                    ? "For example: I transferred ₦25,000 on 11 October 2026 for an order. The seller stopped replying."
                 : "For example: I sent money, but the seller has stopped replying. What should I do?"
             }
             aria-describedby="question-privacy"
@@ -344,11 +344,11 @@ export function JourneyPanel({
         </div>
         <p className="privacy-note" id="question-privacy">
           <LockKeyhole size={15} aria-hidden="true" />
-          Amounts and dates are welcome. Leave out account details, PINs, OTPs and passwords.
+          Include the amount, transaction date and what happened. Leave out account numbers, PINs, OTPs and passwords.
         </p>
         {asrModel && (
           <div className="transcript-review">
-            {transcriptRedacted && <p className="microcopy">Numbers were hidden for privacy. Check that the transcript describes what happened.</p>}
+            {transcriptRedacted && <p className="microcopy">Some details were hidden for privacy. You can add or correct the amount and transaction date.</p>}
             <label className="consent">
               <Checkbox
                 checked={confirmed}

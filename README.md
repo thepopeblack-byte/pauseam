@@ -62,15 +62,16 @@ No account is needed for text guidance. Never enter names, account numbers, PINs
 OTPs, passwords or full credentials. No raw audio retention is implemented.
 This app cannot authenticate a person, account, receipt or payment or promise recovery.
 
-Voice accepts payment questions in your own words; the sample is optional. The
-3 October ASR update hides digits, spoken numbers and email addresses before
-returning a transcript. Explicit credential disclosures still discard the
-transcript. Review and correct the situation wording before requesting guidance;
-do not restore private details. Typed and corrected questions now accept ordinary
-payment amounts and dates. Unknown numeric identifiers, account/card/phone
-numbers and explicit secret disclosures are rejected. Amount/date numbers are
-omitted before the model request; they are unnecessary for checklist selection.
-Both pinned services and the public
+Voice accepts payment questions in your own words; the sample is optional.
+The 11 October `payment-context-v2` ASR filter preserves ordinary amounts and
+transaction dates, including recognised spoken wording, without guessing values.
+Deploy its updated ASR image to enable this on the model host; older images still
+hide every number. Review and correct the transcript before requesting guidance.
+Typed and corrected questions accept amounts, dates and transaction descriptions.
+Unknown numeric identifiers, account/card/phone numbers and explicit secret
+disclosures remain blocked or redacted. Amount/date digits are omitted before
+the text-model request; the report download retains the user's description.
+The earlier pinned services and public
 redacted-text guidance path passed [live engineering checks](submission/evidence/freeform-voice-live-2026-10-03.json).
 The owner confirms the unscripted amount/date voice journey works; this is a
 self-reported owner check, not participant validation. Accuracy review remains
