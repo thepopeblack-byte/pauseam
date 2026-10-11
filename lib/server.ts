@@ -1,6 +1,7 @@
 import { readLimited } from "./stream.ts";
 import type { ASRConfig } from "./asr.ts";
-export type Settings = ASRConfig & {
+import type { ModelLicenceConfig } from "./model-licence-fetch.ts";
+export type Settings = ASRConfig & ModelLicenceConfig & {
   KB_ENABLED?: string;
   TEXT_ENDPOINT?: string;
   TEXT_SERVICE_TOKEN?: string;

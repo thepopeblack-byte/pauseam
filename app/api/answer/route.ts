@@ -4,6 +4,7 @@ import { isLanguage, isPilotLanguage } from "@/lib/models";
 import { modelGuidance, textEndpoint } from "@/lib/text-model";
 import { allowRequest } from "@/lib/rate-limit";
 import { withGuidance, clarifyPayment } from "@/lib/guidance";
+import { licensedModelFetch } from "@/lib/model-licence-fetch";
 export async function POST(request: Request) {
   if (!sameOrigin(request))
     return json({ error: "Request origin rejected." }, 403);
@@ -64,6 +65,7 @@ export async function POST(request: Request) {
             language,
             s,
             request.signal,
+            licensedModelFetch(s),
           );
         } catch {
           answer = {

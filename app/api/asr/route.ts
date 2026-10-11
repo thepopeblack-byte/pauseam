@@ -2,6 +2,7 @@ import { settings, json, sameOrigin, boundedBody } from "@/lib/server";
 import { transcribe, MAX_AUDIO, asrFailure } from "@/lib/asr";
 import { isLanguage, isPilotLanguage } from "@/lib/models";
 import { allowRequest } from "@/lib/rate-limit";
+import { licensedModelFetch } from "@/lib/model-licence-fetch";
 export async function POST(request: Request) {
   if (!sameOrigin(request))
     return json({ error: "Request origin rejected." }, 403);
@@ -22,11 +23,12 @@ export async function POST(request: Request) {
   try {
     const bytes = await boundedBody(request, MAX_AUDIO);
     try {
+      const s = await settings();
       const start = performance.now();
       const result = await transcribe(
         bytes,
-        await settings(),
-        fetch,
+        s,
+        licensedModelFetch(s),
         request.signal,
         language,
       );

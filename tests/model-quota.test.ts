@@ -7,6 +7,7 @@ import {
   LEGACY_RESERVED_AT,
   MODEL_USE_WINDOW,
 } from "../lib/model-quota.ts";
+import { licensedModelFetch, migrationCeiling } from "../lib/model-licence-fetch.ts";
 
 function ledger() {
   const sql = new DatabaseSync(":memory:");
@@ -36,6 +37,48 @@ function ledger() {
   } as unknown as D1Database;
   return { sql, db };
 }
+
+test("migration allowance caps concurrent outbound calls without creating prior-user records", async () => {
+  const { sql, db } = ledger();
+  const now = Date.parse("2026-10-11T21:00:00Z");
+  const config = { DB: db, MODEL_LEGACY_USER_UPPER_BOUND: "200", MODEL_LEGACY_HOLD_UNTIL: "2026-11-10T21:00:00Z" };
+  assert.equal(migrationCeiling(config, now), 800);
+  for (let i = 0; i < 797; i++) assert.equal(await reserveUsage(db, now, 800), true);
+  let calls = 0;
+  const guarded = licensedModelFetch(config, async () => { calls++; return new Response("ok"); }, () => now);
+  const results = await Promise.allSettled(Array.from({ length: 10 }, () => guarded("https://example.test/guide")));
+  assert.equal(results.filter(r => r.status === "fulfilled").length, 2);
+  assert.equal(calls, 2);
+  assert.equal((sql.prepare("SELECT COUNT(*) AS n FROM pauseam_model_usage").get() as { n: number }).n, 799);
+  assert.deepEqual(Object.keys(sql.prepare("SELECT * FROM pauseam_model_usage LIMIT 1").get()!), ["id", "reserved_at"]);
+  // Both the hold and the actual reservations expire; no manual reset needed.
+  assert.equal(migrationCeiling(config, now + MODEL_USE_WINDOW), 950);
+  await licensedModelFetch(config, async () => new Response("ok"), () => now + MODEL_USE_WINDOW)("https://example.test/guide");
+  sql.close();
+});
+
+test("missing migration configuration or unavailable storage prevents transmission", async () => {
+  let calls = 0;
+  const fetcher: typeof fetch = async () => { calls++; return new Response("ok"); };
+  const { sql, db } = ledger();
+  const now = Date.parse("2026-10-11T21:00:00Z");
+  const valid = { DB: db, MODEL_LEGACY_USER_UPPER_BOUND: "100", MODEL_LEGACY_HOLD_UNTIL: "2026-11-10T21:00:00Z" };
+  for (const config of [ {}, { DB: db }, { ...valid, MODEL_LEGACY_USER_UPPER_BOUND: "-1" }, { ...valid, MODEL_LEGACY_HOLD_UNTIL: "invalid" }, { ...valid, MODEL_LEGACY_USER_UPPER_BOUND: "1001" }, { ...valid, DB: undefined }, { ...valid, MODEL_LEGACY_USER_UPPER_BOUND: "1000" } ]) {
+    await assert.rejects(licensedModelFetch(config, fetcher, () => now)("https://example.test/transcribe"));
+  }
+  assert.equal(calls, 0);
+  assert.equal((sql.prepare("SELECT COUNT(*) AS n FROM pauseam_model_usage").get() as { n: number }).n, 0);
+  sql.close();
+});
+
+test("failed upstream request keeps its timestamp reservation", async () => {
+  const { sql, db } = ledger();
+  const now = Date.parse("2026-10-11T21:00:00Z");
+  const config = { DB: db, MODEL_LEGACY_USER_UPPER_BOUND: "100", MODEL_LEGACY_HOLD_UNTIL: "2026-11-10T21:00:00Z" };
+  await assert.rejects(licensedModelFetch(config, async () => { throw Error("offline"); }, () => now)("https://example.test/guide"), /offline/);
+  assert.equal((sql.prepare("SELECT COUNT(*) AS n FROM pauseam_model_usage").get() as { n: number }).n, 1);
+  sql.close();
+});
 test("actual SQLite conditional insert carries legacy reservation and caps queued calls", async () => {
   const { sql, db } = ledger();
   const now = LEGACY_RESERVED_AT + 1000;

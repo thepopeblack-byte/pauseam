@@ -4,7 +4,7 @@ export const MODEL_USE_WINDOW = 30 * 24 * 60 * 60 * 1000;
 // Carry the one documented failed engineering reservation from the stopped host.
 export const LEGACY_RESERVED_AT = Date.parse("2026-10-02T02:40:40.245Z");
 export const RESERVE_SQL = `INSERT INTO pauseam_model_usage (reserved_at)
-SELECT ?1 WHERE (SELECT COUNT(*) FROM pauseam_model_usage WHERE reserved_at > ?2) + ?3 < 950`;
+SELECT ?1 WHERE (SELECT COUNT(*) FROM pauseam_model_usage WHERE reserved_at > ?2) + ?3 < ?4`;
 export const PRUNE_SQL =
   "DELETE FROM pauseam_model_usage WHERE reserved_at <= ?1";
 export type QuotaConfig = { token?: string; db?: D1Database };
@@ -20,13 +20,15 @@ async function authenticated(request: Request, token: string) {
   for (let i = 0; i < a.length; i++) mismatch |= a[i] ^ b[i];
   return mismatch === 0;
 }
-export async function reserveUsage(db: D1Database, now = Date.now()) {
+export async function reserveUsage(db: D1Database, now = Date.now(), ceiling = MODEL_USE_LIMIT) {
+  if (!Number.isInteger(ceiling) || ceiling < 0 || ceiling > MODEL_USE_LIMIT)
+    throw Error("Invalid licence ceiling");
   // Every reservation is an atomic conditional insert on the D1 primary. Batch
   // pruning and insertion together; no read-then-write race or retry on failure.
   const legacy = now < LEGACY_RESERVED_AT + MODEL_USE_WINDOW ? 1 : 0;
   const rows = await db.batch([
     db.prepare(PRUNE_SQL).bind(now - MODEL_USE_WINDOW),
-    db.prepare(RESERVE_SQL).bind(now, now - MODEL_USE_WINDOW, legacy),
+    db.prepare(RESERVE_SQL).bind(now, now - MODEL_USE_WINDOW, legacy, ceiling),
   ]);
   if (rows.length !== 2 || rows.some((row) => !row.success))
     throw Error("quota unavailable");

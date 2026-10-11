@@ -1,5 +1,10 @@
 # PauseAm inference on the existing SecretVM
 
+For a replacement host after compute credits run out, follow
+[FRESH-HOST.md](FRESH-HOST.md). That migration changes the model host, while
+keeping the website and its DNS. The existing-host instructions below apply
+to workload updates on the original VM.
+
 Current target: **English voice and N-ATLaS text on the existing 16 GB RAM,
 8-vCPU, 160 GB VM** at amaranth-nightingale.vm.scrtlabs.com.
 The website stays on Sites at https://pauseam.theblockcapitol.com.
