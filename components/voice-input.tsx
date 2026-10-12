@@ -10,6 +10,7 @@ import { Mic, Square, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/consent-checkbox";
 import { recordingCallbacks } from "@/lib/recording";
 import { toWav } from "@/lib/audio";
+import { requestJson } from "@/lib/browser-request";
 import { wordErrors } from "@/lib/safety";
 import { LANGUAGES, type Language } from "@/lib/models";
 import { saveTrial, type Trial } from "@/lib/evaluation";
@@ -135,6 +136,7 @@ export function VoiceInput({
           () => {
             operation.current++;
             stop();
+            setBusy(false);
             setMessage("Recording failed. Please type instead.");
           },
         ),
@@ -178,10 +180,10 @@ export function VoiceInput({
         bytes.fill(0);
         return;
       }
-      const timeout = setTimeout(() => controller.abort(), 50000);
       let response: Response;
+      let payload: unknown;
       try {
-        response = await fetch("/api/asr", {
+        const result = await requestJson("/api/asr", {
           method: "POST",
           headers: {
             "Content-Type": "audio/wav",
@@ -190,12 +192,13 @@ export function VoiceInput({
           },
           body: bytes as BodyInit,
           signal: controller.signal,
-        });
+        }, 50000, 8192);
+        response = result.response;
+        payload = result.data;
       } finally {
-        clearTimeout(timeout);
         bytes.fill(0);
       }
-      const data = (await response.json()) as {
+      const data = payload as {
         error?: string;
         text: string;
         model: string;
@@ -205,8 +208,9 @@ export function VoiceInput({
         redacted?: boolean;
       };
       if (!response.ok)
-        throw new Error(data.error || "Speech recognition is unavailable.");
+        throw new Error(typeof data?.error === "string" ? data.error : "Speech recognition is unavailable.");
       if (
+        !data ||
         data.language !== language ||
         data.model !== identity.model ||
         data.revision !== identity.revision ||
@@ -229,7 +233,11 @@ export function VoiceInput({
     } catch (e) {
       if (alive.current && operation.current === id)
         setMessage(
-          e instanceof Error
+          e instanceof Error && ["TimeoutError", "AbortError"].includes(e.name)
+            ? "Transcription took too long. Try a shorter recording, or type your question."
+            : e instanceof SyntaxError || (e instanceof Error && e.message === "large")
+              ? "Speech recognition returned an unreadable reply. Try again or type your question."
+              : e instanceof Error
             ? e.message
             : "No transcript was available. Type instead.",
         );

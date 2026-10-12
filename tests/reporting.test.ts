@@ -64,8 +64,10 @@ test("private report retains the amount, date and transaction description verbat
   assert.equal(reportDraft(question + " My PIN is 5000.", "first", now), null);
 });
 test("learning updates are dated, source linked, and withdrawn at review expiry", () => {
-  assert.equal(currentSafetyUpdates(now).length, 3);
-  assert.deepEqual(currentSafetyUpdates(new Date("2026-10-10")), []);
+  const reviewed = new Date("2026-10-12T12:00:00Z");
+  assert.equal(currentSafetyUpdates(reviewed).length, 3);
+  assert.deepEqual(currentSafetyUpdates(new Date("2026-10-20")), []);
+  assert.deepEqual(currentSafetyUpdates(new Date("2026-10-11")), []);
   assert.deepEqual(currentSafetyUpdates(new Date("2026-09-01")), []);
   const first = SAFETY_UPDATES[0];
   for (const source of [
@@ -75,9 +77,9 @@ test("learning updates are dated, source linked, and withdrawn at review expiry"
     "http://cert.gov.ng/",
     "https://token@cert.gov.ng/",
   ])
-    assert.deepEqual(currentSafetyUpdates(now, [{ ...first, source }]), []);
+    assert.deepEqual(currentSafetyUpdates(reviewed, [{ ...first, source }]), []);
   assert.deepEqual(
-    currentSafetyUpdates(now, [{ ...first, published: "2030-01-01" }]),
+    currentSafetyUpdates(reviewed, [{ ...first, published: "2030-01-01" }]),
     [],
   );
 });

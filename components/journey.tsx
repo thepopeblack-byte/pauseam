@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useSyncExternalStore } from "react";
 import { Mic, Keyboard, LockKeyhole, CheckCheck } from "lucide-react";
 import { SpokenReply } from "@/components/spoken-reply";
 import { spokenAnswer } from "@/lib/spoken-answer";
+import { requestJson } from "@/lib/browser-request";
 import { hasContactedBank } from "@/lib/payment-context";
 import type { ComplaintStage } from "@/lib/reporting";
 import { Checkbox } from "@/components/consent-checkbox";
@@ -156,6 +157,10 @@ export function JourneyPanel({
       setError("Tell us what happened, or try one of the examples.");
       return;
     }
+    if (question.length > 600) {
+      setError("Shorten the transcript to 600 characters before sending. Keep the amount, date and main issue.");
+      return;
+    }
     if (containsSensitive(question)) {
       setQuestion("");
       setAsrModel("");
@@ -174,17 +179,15 @@ export function JourneyPanel({
     pending.current?.abort();
     pending.current = controller;
     try {
-      const response = await fetch("/api/answer", {
+      const { data: payload } = await requestJson("/api/answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, journey, language }),
-        signal: AbortSignal.any([
-          controller.signal,
-          AbortSignal.timeout(50000),
-        ]),
+        signal: controller.signal,
       });
-      const data = (await response.json()) as Answer;
+      const data = payload as Answer;
       if (
+        !data ||
         !["ok", "unavailable", "no_match", "sensitive"].includes(data.status) ||
         !Array.isArray(data.cards)
       )
@@ -335,7 +338,7 @@ export function JourneyPanel({
               type="submit"
               className="primary"
               disabled={
-                !ready || busy || voiceActive || (!!asrModel && !confirmed)
+                !ready || busy || voiceActive || question.length > 600 || (!!asrModel && !confirmed)
               }
             >
               {!ready ? "Loading…" : busy ? "Answering…" : "Send question"}
@@ -346,6 +349,7 @@ export function JourneyPanel({
           <LockKeyhole size={15} aria-hidden="true" />
           Include the amount, transaction date and what happened. Leave out account numbers, PINs, OTPs and passwords.
         </p>
+        {question.length > 600 && <p role="alert" className="notice">This transcript has {question.length} characters. Shorten it to 600 before sending; keep the amount, date and main issue.</p>}
         {asrModel && (
           <div className="transcript-review">
             {transcriptRedacted && <p className="microcopy">Some details were hidden for privacy. You can add or correct the amount and transaction date.</p>}
@@ -367,7 +371,7 @@ export function JourneyPanel({
             {topics[journey].map((t, i) => (
               <button
                 type="button"
-                disabled={!ready}
+                disabled={!ready || voiceActive}
                 key={t}
                 onClick={() => {
                   edit(t);

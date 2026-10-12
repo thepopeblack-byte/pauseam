@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { downloadBlob } from "@/lib/browser-download";
+import { COMPLAINT_SOURCE } from "@/lib/reporting";
 const events = [
   "Payment requested",
   "Payment made",
@@ -43,17 +45,16 @@ export function Incident() {
       "",
       ...evidence.map((e) => (checks.includes(e) ? "Done: " : "To do: ") + e),
       "",
-      "Official complaint guide: https://www.cbn.gov.ng/FinInc/FinLit/LodgeComplaint.html",
-      "Source checked: 2026-10-01; independent human review pending.",
+      "Official complaint guide: " + COMPLAINT_SOURCE.url,
+      "Source checked: " + COMPLAINT_SOURCE.checked,
+      "Timeline dates and times use the device's local time.",
     ].join("\n");
-    const u = URL.createObjectURL(
-      new Blob([text], { type: "text/plain;charset=utf-8" }),
-    );
-    const a = document.createElement("a");
-    a.href = u;
-    a.download = "pauseam-incident-summary.txt";
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(u), 1000);
+    try {
+      downloadBlob(new Blob([text], { type: "text/plain;charset=utf-8" }), "pauseam-incident-summary.txt");
+      setError("");
+    } catch {
+      setError("The summary could not download here. Keep the original evidence privately and try your normal browser.");
+    }
   }
   return (
     <section className="content-panel">
@@ -105,7 +106,6 @@ export function Incident() {
         >
           Add event
         </button>
-        {error && <p role="alert">{error}</p>}
         <ol>
           {rows.map((r, i) => (
             <li key={i}>
@@ -128,11 +128,13 @@ export function Incident() {
             setRows([]);
             setChecks([]);
             setAt("");
+            setError("");
           }}
         >
           Clear this page’s notes
         </button>
       </div>
+      {error && <p role="alert">{error}</p>}
       <p className="microcopy">
         The download contains only the selections above. Your browser may retain
         downloaded files.

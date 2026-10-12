@@ -14,10 +14,10 @@ export type SafetyUpdate = {
   explanation: string;
 };
 const review = {
-  checked: "2026-10-02",
-  expires: "2026-10-09",
+  checked: "2026-10-12",
+  expires: "2026-10-19",
   review:
-    "Official search-index content checked; direct source retrieval returned 403. Human review pending.",
+    "Indexed official ngCERT advisory content rechecked on 12 October; direct retrieval returned 403. Independent human review pending.",
 };
 const guidanceSource =
   "https://www.cbn.gov.ng/supervision/cpdfraudandscam.html";
@@ -26,7 +26,7 @@ export const SAFETY_UPDATES: SafetyUpdate[] = [
     id: "business-email-2026",
     title: "A familiar email can still ask for the wrong payment",
     published: "2026-08-27",
-    source: "https://cert.gov.ng/index.php",
+    source: "https://cert.gov.ng/advisories/business-email-compromise-and-social-engineering-attacks-targeting-government-and-critical-institutions",
     guidanceSource,
     summary:
       "ngCERT published an advisory about business email compromise and social engineering targeting government and critical institutions.",
@@ -48,7 +48,7 @@ export const SAFETY_UPDATES: SafetyUpdate[] = [
     id: "fake-installer-2026",
     title: "A fake error message can trick you into installing malware",
     published: "2026-07-13",
-    source: "https://cert.gov.ng/index.php",
+    source: "https://cert.gov.ng/index.php/advisories?page=5",
     guidanceSource,
     summary:
       "ngCERT warned about ClickFix attacks: fake errors or CAPTCHA prompts can persuade users to run commands or install malicious software.",
@@ -70,7 +70,7 @@ export const SAFETY_UPDATES: SafetyUpdate[] = [
     id: "email-password-2026",
     title: "A stolen email password can put other accounts at risk",
     published: "2026-06-15",
-    source: "https://cert.gov.ng/",
+    source: "https://cert.gov.ng/advisories/associated-risks-of-stolen-email-passwords-and-credentials-resulting-from-data-breaches",
     guidanceSource,
     summary:
       "ngCERT warned that stolen email credentials can lead to account takeovers, identity theft and further attacks.",

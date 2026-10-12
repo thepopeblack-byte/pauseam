@@ -54,6 +54,13 @@ test("reporting status comes from an explicit statement, never payment dates or 
   for(const q of ["I already contacted the bank", "I reported it to my bank", "My bank complaint remains unresolved", "I have not received money but I reported it to my bank"]) assert.equal(hasContactedBank(q),true,q);
   for(const q of ["I have not contacted the bank", "I haven't yet reported to my bank", "I want to start my bank complaint", "How can I complain to my bank?", "I paid ₦5000 on 03/10/2026"]) assert.equal(hasContactedBank(q),false,q);
 });
+
+test("reports to another organisation do not erase an explicit bank-contact statement", () => {
+  assert.equal(hasContactedBank("I have not reported to the police. I already contacted my bank."), true);
+  assert.equal(hasContactedBank("I already contacted my bank. I have not reported to the police."), true);
+  assert.equal(hasContactedBank("I have not contacted the bank, but I reported to the police."), false);
+  assert.equal(hasContactedBank("I reported to the police. I have not contacted my bank."), false);
+});
 test("receipt, mistaken-transfer and cybersecurity explanations do not assert fraud or successful recovery", () => {
   assert.match(answer("A buyer sent a receipt as proof of payment").guidance?.summary||"",/cannot establish/);
   assert.match(answer("I transferred money to the wrong recipient").guidance?.summary||"",/does not by itself establish/);

@@ -47,6 +47,15 @@ export const BANKS: Bank[] = [
     phone: fact("0700 909 9099", "https://www.stanbicibtcbank.com/nigeriabank/personal/contact-us/contact-us-details", "Stanbic IBTC · Contact Details"),
     ussd: fact("*909#", "https://www.stanbicibtcbank.com/nigeriabank/personal/ways-to-bank/self-service-banking/ussd-banking", "Stanbic IBTC · USSD Banking") },
 ];
+function matchesAlias(text: string, alias: string): boolean {
+  const pattern = new RegExp("\\b" + alias + "\\b", "gi");
+  for (const match of text.matchAll(pattern)) {
+    // “How do I access my bank?” does not identify Access Bank.
+    if (alias === "access" && /\b(?:to|can|could|cannot|can't|cant|i|we|you|they|me|us|please|do|does|should|must)\s+$/i.test(text.slice(0, match.index))) continue;
+    return true;
+  }
+  return false;
+}
 export function bankIntent(question: string): BankKind | null {
   question = question.replace(/[-‐‑‒–—]/g, " ");
   if (/\b(?:asks?|asked|requests?|requested|wants?)\b.{0,60}\b(?:pin|otp|password|banking code)\b/i.test(question)) return null;
@@ -64,14 +73,14 @@ export function bankIntent(question: string): BankKind | null {
   if (email) return phone ? "contact" : "email";
   if (phone) return "phone";
   if (contact) return "contact";
-  if (/\b(?:contact|reach|call)\b/i.test(question) && (/\b(?:my bank|the bank)\b/i.test(question) || BANKS.some(b => b.aliases.some(a => new RegExp("\\b" + a + "\\b", "i").test(question))))) return "contact";
+  if (/\b(?:contact|reach|call)\b/i.test(question) && (/\b(?:my bank|the bank)\b/i.test(question) || BANKS.some(b => b.aliases.some(a => matchesAlias(question, a))))) return "contact";
   return null;
 }
 export function bankInformation(question: string, now = new Date()) {
   const kind = bankIntent(question);
   if (!kind) return null;
   const text = question.toLowerCase().replace(/[-‐‑‒–—]/g, " ").replace(/[’']s\b/g, "").replace(/[’']/g, "");
-  const matches = BANKS.filter(b => b.aliases.some(a => new RegExp("\\b" + a + "\\b").test(text)));
+  const matches = BANKS.filter(b => b.aliases.some(a => matchesAlias(text, a)));
   const options = matches.length > 1 ? matches : BANKS;
   if (matches.length !== 1) return { kind, information: null, message: matches.length > 1 ? "Which bank do you mean? Choose one bank so we do not mix its details with another." : "Which bank do you mean? We currently have reviewed details for the banks below. If yours is not listed, use its official app or a branch; we cannot supply an unverified contact or code.", options: options.map(b => ({ id: b.id, name: b.name })) };
   const b = matches[0], keys = requestedFacts[kind];
