@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-12T09:44:36.723Z",
+  "release": 28,
+  "sourceCommit": "66cb7c92da0db4857a0467291a2e85fc1727ad54",
+  "website": "https://pauseam.theblockcapitol.com/?release=28",
+  "tests": {
+    "javascript": 89,
+    "python": 32,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "liveHttp": 15
+  },
+  "liveChecks": {
+    "realNatlasText": "passed",
+    "asrPolicy": "payment-context-v2",
+    "realAsrAuthoredAudio": "passed; date redacted, transcript review needed",
+    "combinedBankContacts": "passed",
+    "existingBankReportState": "passed",
+    "learningNotices": 3,
+    "mobileViewport": "360 x 800; no horizontal overflow on tested bank result"
+  },
+  "limitations": [
+    "Authored audio uses en-US device TTS, not a Nigerian human-speaker accuracy test",
+    "One ASR date was hidden and requires correction before confirming",
+    "Physical Android and constrained-network performance were not measured in this review",
+    "ngCERT direct retrieval returned 403; official indexed content was reviewed"
+  ]
+}

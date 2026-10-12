@@ -72,7 +72,7 @@ test("missing, ambiguous, uncovered and expired bank details abstain without inv
 });
 
 test("access as a verb does not select Access Bank or override another named bank", () => {
-  for (const q of ["How do I access my bank customer care?", "How can we access customer care number and email?", "I want to access the bank hotline", "Help me access customer service"]) {
+  for (const q of ["How do I access my bank customer care?", "How can we access customer care number and email?", "I want to access the bank hotline", "Help me access customer service", "I need access to customer care", "I lost access and need my bank customer care number", "Please help with access to my bank email"]) {
     assert.equal(bankInformation(q, now)?.information, null, q);
   }
   assert.equal(bankInformation("How do I access GTBank customer care?", now)?.information?.bank, "GTBank");

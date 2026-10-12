@@ -51,7 +51,10 @@ function matchesAlias(text: string, alias: string): boolean {
   const pattern = new RegExp("\\b" + alias + "\\b", "gi");
   for (const match of text.matchAll(pattern)) {
     // “How do I access my bank?” does not identify Access Bank.
-    if (alias === "access" && /\b(?:to|can|could|cannot|can't|cant|i|we|you|they|me|us|please|do|does|should|must)\s+$/i.test(text.slice(0, match.index))) continue;
+    if (alias === "access" && (
+      /\b(?:to|can|could|cannot|can't|cant|i|we|you|they|me|us|please|do|does|should|must|lost|need|want|have|having|get|getting|gain|gaining|limited|no|without|restricted)\s+$/i.test(text.slice(0, match.index))
+      || /^\s+(?:to|my|your|our|their|the|a|an)\b/i.test(text.slice(match.index! + match[0].length))
+    )) continue;
     return true;
   }
   return false;

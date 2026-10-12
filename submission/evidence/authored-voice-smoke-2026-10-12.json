@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-12T09:38:09.238Z",
+  "audioOrigin": "Authored Microsoft Zira en-US device TTS; not a human tester or Nigerian-accent accuracy study",
+  "recognition": {
+    "httpStatus": 200,
+    "elapsedMs": 12544,
+    "model": "NCAIR1/NigerianAccentedEnglish",
+    "revision": "3c52c6e6c9ec508014a7b9db6a42b503b8930dff",
+    "language": "en",
+    "text": "i paid n25,000 on [number removed] october for an order. the seller stopped replying.",
+    "redacted": true
+  },
+  "guidance": {
+    "httpStatus": 200,
+    "status": "ok",
+    "cards": [
+      "report"
+    ],
+    "model": null
+  }
+}

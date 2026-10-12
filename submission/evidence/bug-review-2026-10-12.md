@@ -47,3 +47,21 @@ the website fixes in this review.
 Engineering checks and authored smoke requests are separate from participant
 validation. No tester results, human speech accuracy, recovery outcome or
 submission eligibility are inferred from these checks.
+
+## Live verification
+
+The published release passed 15 HTTP smoke checks, including one genuine
+N-ATLaS text response. A 7.195-second authored Microsoft Zira en-US audio file
+was submitted through the real website ASR endpoint. It returned HTTP 200 from
+the official English model in 12.544 seconds. The actual transcript retained
+`n25,000` and hid the date as `[number removed]`; it then returned the bank-report
+guidance through the after-payment endpoint. This confirms inference and routing,
+not reliable date recognition or Nigerian human-speaker accuracy. Transcript
+correction remains necessary. The sanitized trace is in
+`authored-voice-smoke-2026-10-12.json`.
+
+Production browser checks confirmed combined GTBank phone/email output, the
+existing-bank-complaint state in a question that also mentioned not reporting to
+police, and all three dated learning notices. Final bank-ambiguity regression
+checks also cover “I need access to customer care” and “I lost access”. Those
+eight affected tests and TypeScript checking passed after the additional change.
